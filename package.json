@@ -1,0 +1,11 @@
+{
+  "name": "boolean",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.7.0",
+    "jasmine": "^3.10.0"
+  }
+}
