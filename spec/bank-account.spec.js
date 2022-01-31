@@ -1,7 +1,6 @@
 const BankAccount = require('../src/bank-account.js')
 const Transaction = require('../src/transaction.js')
 const Statement = require('../src/statement.js')
-const Printer = require('../src/printer.js')
 
 describe('BankAccount', () => {
     let bankAccount
