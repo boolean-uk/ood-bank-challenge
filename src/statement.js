@@ -3,11 +3,11 @@ class Statement {
         this.bankAccount = bankAccount
     }
 
-getStatement() {
+    getStatement() {
     let statement =
-        `${this.bankAccount.getBalance()}.\nThis is a list of your transactions:\nDate | Amount\n`
-        for (let i = 0; i < this.bankAccount.transactionsList.length; i++) {
-            statement += `${this.bankAccount.transactionsList[i].date} | ${this.bankAccount.transactionsList[i].amount}\n`
+        `${this.bankAccount.getBalance()}.\nThis is a list of your transactions:\n   Date    | Amount | Balance\n`
+        for (const transaction of this.bankAccount.transactionsList) {
+            statement += `${transaction.date} | ${transaction.amount} | ${transaction.balance}\n`
         }
         return statement
     }

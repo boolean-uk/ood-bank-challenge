@@ -7,21 +7,26 @@ class BankAccount {
     }
     
     deposit(date, amount) {
-        const transaction = new Transaction(date, amount)
         this.availableBalance += amount
+        const transaction = new Transaction(date, amount, this.availableBalance)
         this.transactionsList.push(transaction)
         return transaction
     }
 
     withdraw(date, amount) {
-        const transaction = new Transaction(date, amount*-1)
+        if (this.availableBalance < amount) { return `You can only withdraw £${this.availableBalance}` }
         this.availableBalance -= amount
+        const transaction = new Transaction(date, amount*-1, this.availableBalance)
         this.transactionsList.push(transaction)
         return transaction
     }
 
     getBalance() {
         return `Your current available balance is £${this.availableBalance}`
+    }
+
+    getTransactions() {
+        return this.transactionsList
     }
 }
 
