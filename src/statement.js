@@ -1,5 +1,3 @@
-const BankAccount = require('./bank-account.js')
-
 class Statement {
     constructor(bankAccount) {
         this.bankAccount = bankAccount
@@ -7,9 +5,9 @@ class Statement {
 
 getStatement() {
     let statement =
-        `Your current available balance is £${this.bankAccount.availableBalance}.\nThis is a list of your transactions:\n`
+        `${this.bankAccount.getBalance()}.\nThis is a list of your transactions:\nDate | Amount\n`
         for (let i = 0; i < this.bankAccount.transactionsList.length; i++) {
-            statement += this.bankAccount.transactionsList[i].date + ', ' + this.bankAccount.transactionsList[i].amount + '\n'
+            statement += `${this.bankAccount.transactionsList[i].date} | ${this.bankAccount.transactionsList[i].amount}\n`
         }
         return statement
     }

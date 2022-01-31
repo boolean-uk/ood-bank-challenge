@@ -21,7 +21,7 @@ class BankAccount {
     }
 
     getBalance() {
-        return `Your available balance is £${this.availableBalance}`
+        return `Your current available balance is £${this.availableBalance}`
     }
 }
 
