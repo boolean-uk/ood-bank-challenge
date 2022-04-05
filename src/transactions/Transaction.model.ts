@@ -5,4 +5,6 @@ export default interface Transaction {
   amount: number;
   from: TransactionSource;
   to: TransactionSource;
+  date: Date;
+  description: string;
 }

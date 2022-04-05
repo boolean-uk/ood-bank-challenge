@@ -1,4 +1,6 @@
+/* eslint-disable no-param-reassign */
 import useBank from '../composables/useBank';
+import Statement from '../statements/Statement';
 import { Source } from '../transactions/Source.enum';
 import StaticSources from '../transactions/StaticSources';
 import Transaction from '../transactions/Transaction.model';
@@ -16,11 +18,11 @@ export default class Account implements IAccount {
 
   source: Source;
 
-  constructor(id: string, name: string, owner: string) {
+  constructor(id: string, name: string, owner: string, transactions: Transaction[] = []) {
     this.id = id;
     this.name = name;
     this.owner = owner;
-    this.transactions = [];
+    this.transactions = transactions;
     this.source = Source.ACCOUNT;
   }
 
@@ -41,38 +43,54 @@ export default class Account implements IAccount {
     return total;
   }
 
-  deposit(amount: number) {
-    this.transactions.push({
-      id: UUID.forTransaction(), amount, from: StaticSources.DEPOSIT, to: this,
-    });
+  get statement() : Statement {
+    return new Statement(this);
   }
 
-  withdraw(amount: number) {
-    this.transactions.push({
-      id: UUID.forTransaction(), amount, from: this, to: StaticSources.WITHDRAWAL,
-    });
-  }
-
-  transfer(amount: number, id: string) {
-    // TODO : CHECK BALANCE
-    const user = useBank.getUser(this.ownerId);
-    const to = useBank.getAccount(id);
-
-    if (user && to) {
-      if (this.balance >= amount) {
-        const transaction = {
-          id: UUID.forTransaction(),
-          amount,
-          from: this,
-          to,
-        };
-        this.transactions.push(transaction);
-        to.transactions.push(transaction);
-      } else {
-        throw new Error('Insufficient funds');
-      }
-    } else {
-      throw new Error('User not found');
+  deposit(amount: number, date?: Date | string, description?: string) : Transaction {
+    if (typeof date === 'string') {
+      description = date;
+      date = new Date();
     }
+
+    if (description === undefined) description = 'External deposit';
+    const t : Transaction = {
+      id: UUID.forTransaction(),
+      amount,
+      from: StaticSources.DEPOSIT,
+      to: this,
+      date: date as Date,
+      description,
+    };
+    this.transactions.push(t);
+    return t;
+  }
+
+  withdraw(amount: number, date: Date = new Date()) : Transaction {
+    if (this.balance < amount) throw new Error('Insufficient funds');
+    const t = {
+      id: UUID.forTransaction(), amount, from: this, to: StaticSources.WITHDRAWAL, date, description: 'Withdrawal at ATM',
+    };
+    this.transactions.push(t);
+    return t;
+  }
+
+  transfer(amount: number, toId: string, description?: string) : Transaction {
+    const user = useBank.getUser(this.ownerId);
+    const to = useBank.getAccount(toId);
+
+    if (!user || !to) throw new Error('User or Account not found');
+    if (this.balance < amount) throw new Error('Insufficient funds');
+    const transaction : Transaction = {
+      id: UUID.forTransaction(),
+      amount,
+      from: this,
+      to,
+      date: new Date(),
+      description: description || `Transfer to ${to.name}`,
+    };
+    this.transactions.push(transaction);
+    to.transactions.push(transaction);
+    return transaction;
   }
 }

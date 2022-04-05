@@ -1,7 +1,7 @@
-import Bank from '../src/Bank';
+import useBank from '../src/composables/useBank';
 
 describe('Account', () => {
-  const bank = Bank.getInstance();
+  const bank = useBank;
 
   beforeEach(() => {
     bank.users = [];
@@ -41,5 +41,20 @@ describe('Account', () => {
     account.deposit(101);
     account.withdraw(99);
     expect(account.balance).toBe(2);
+  });
+
+  it('cannot transfer funds to an account that does not exist', () => {
+    const user = bank.registerUser('John', 'Doe');
+    const account = user.accounts[0];
+    account.deposit(100);
+    expect(() => account.transfer(100, '12345')).toThrow();
+  });
+
+  it('cannot transfer with insufficient funds', () => {
+    const user = bank.registerUser('John', 'Doe');
+    const account = user.accounts[0];
+    const savingsAccount = user.registerAccount('Savings');
+    account.deposit(100);
+    expect(() => account.transfer(101, savingsAccount.id)).toThrow();
   });
 });
