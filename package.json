@@ -1,0 +1,22 @@
+{
+  "name": "ood-bank-challenge",
+  "version": "1.0.0",
+  "description": "This challenge helps you practice your OO design skills.",
+  "main": "dist/index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "tsc && npx jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qruz-hq/ood-bank-challenge.git"
+  },
+  "author": "Gui Rodrigues",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qruz-hq/ood-bank-challenge/issues"
+  },
+  "homepage": "https://github.com/qruz-hq/ood-bank-challenge#readme"
+}
