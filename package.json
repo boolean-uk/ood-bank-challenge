@@ -2,14 +2,16 @@
   "name": "ood-bank-challenge",
   "version": "1.0.0",
   "description": "This challenge helps you practice your OO design skills.",
-  "main": "dist/index.js",
+  "main": "dist/src/index.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
     "test": "tsc && npx jasmine",
     "lint": "eslint . --ext .ts",
-    "flint": "eslint . --ext .ts --fix"
+    "flint": "eslint . --ext .ts --fix",
+    "build": "npm run lint && npm run test && tsc",
+    "start": "npm run build && node dist/src/index.js"
   },
   "repository": {
     "type": "git",
