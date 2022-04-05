@@ -24,4 +24,13 @@ export default class Bank {
     this.users.push(user);
     return user;
   }
+
+  getUser(id: string): User | undefined{
+    return this.users.find(user => user.id === id);
+   }
+  
+  unregisterUser(id: string): void {
+    const user = this.getUser(id);
+    if (user) this.users = this.users.filter(user => user.id !== id);
+   }
 }

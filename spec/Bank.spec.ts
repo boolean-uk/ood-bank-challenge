@@ -23,5 +23,14 @@ describe('Bank', () => {
             const user2 = bank.registerUser('John', 'Dove');
             expect(user1.id).not.toBe(user2.id);
         });
+
+        it('should remove the user from the list after unregistering', () => {
+            const bank = Bank.getInstance();
+            const user = bank.registerUser('John', 'Doe');
+            bank.unregisterUser(user.id);
+            expect(bank.users.length).toBe(0);
+        })
     })
+
+
 })

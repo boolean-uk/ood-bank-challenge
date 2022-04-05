@@ -1,8 +1,11 @@
-export default class User {
+import IUser from "./IUser.model"
+
+export default class User implements IUser{
+
     id: string
     firstName: string
     lastName: string
-    accounts: Array<string>
+    accounts: string[]
 
     constructor(id: string, firstName: string, lastName: string) {
         this.id = id
