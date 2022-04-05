@@ -11,6 +11,3 @@ class TransactionDate {
 }
 
 module.exports = TransactionDate;
-
-const date = new TransactionDate();
-console.log(date.createDate());
