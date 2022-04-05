@@ -10,7 +10,7 @@ describe('Bank', () => {
         expect(() => Bank.getInstance()).toBeDefined();
     });
 
-    describe('registerUser', () => { 
+    describe('User management', () => { 
         it('should register a user', () => {
             const bank = Bank.getInstance();
             bank.registerUser('John', 'Doe');
