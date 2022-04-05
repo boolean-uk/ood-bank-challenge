@@ -1,8 +1,10 @@
 import Ownable from "../ownership/Ownbable.model";
+import Transaction from "../transactions/Transaction.model";
+import TransactionSource from "../transactions/TransactionSource";
 
-export default interface IAccount extends Ownable  { 
+export default interface IAccount extends Ownable, TransactionSource  { 
     id: string;
     name: string;
-    transactions: Array<string>; // TODO : transactions should be an array of Transaction objects
+    transactions: Array<Transaction>;
 
 }

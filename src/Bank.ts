@@ -1,7 +1,9 @@
+import Account from "./accounts/Account";
 import User from "./users/User";
 import UUID from "./utils/UUID";
 
 export default class Bank {
+
   //singleton
   private static instance: Bank;
   users: Array<User> = [];
@@ -33,4 +35,8 @@ export default class Bank {
     const user = this.getUser(id);
     if (user) this.users = this.users.filter(user => user.id !== id);
    }
+
+   getAccount(id: string) : Account | undefined{
+    return this.users.find(user => user.accounts.find(account => account.id === id) !== undefined)?.accounts.find(account => account.id === id);
+}
 }
