@@ -40,7 +40,7 @@ date       || credit  || debit  || balance
 
 ### How to make it work
 - Clone the repo
-- Install dependincies 
+- Install dependencies 
     ```
     npm i
     ```
