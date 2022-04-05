@@ -1,11 +1,14 @@
-import Account from "../accounts/Account";
-import UUID from "../utils/UUID";
-import IUser from "./User.model";
+import Account from '../accounts/Account';
+import UUID from '../utils/UUID';
+import IUser from './User.model';
 
 export default class User implements IUser {
   id: string;
+
   firstName: string;
+
   lastName: string;
+
   accounts: Account[];
 
   constructor(id: string, firstName: string, lastName: string) {
@@ -14,7 +17,7 @@ export default class User implements IUser {
     this.lastName = lastName;
     this.accounts = [];
 
-    this.registerAccount("Main");
+    this.registerAccount('Main');
   }
 
   getAccount(id: string): Account | undefined {

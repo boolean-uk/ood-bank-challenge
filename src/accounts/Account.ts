@@ -1,16 +1,19 @@
-import Bank from "../Bank";
-import { Source } from "../transactions/Source.enum";
-import StaticSources from "../transactions/StaticSources";
-import Transaction from "../transactions/Transaction.model";
-import UUID from "../utils/UUID";
-import IAccount from "./Account.model";
+import useBank from '../composables/useBank';
+import { Source } from '../transactions/Source.enum';
+import StaticSources from '../transactions/StaticSources';
+import Transaction from '../transactions/Transaction.model';
+import UUID from '../utils/UUID';
+import IAccount from './Account.model';
 
 export default class Account implements IAccount {
-
   id: string;
+
   name: string;
+
   transactions: Transaction[];
+
   owner: string;
+
   source: Source;
 
   constructor(id: string, name: string, owner: string) {
@@ -39,23 +42,27 @@ export default class Account implements IAccount {
   }
 
   deposit(amount: number) {
-
-    this.transactions.push({ id: UUID.forTransaction(), amount, from: StaticSources.DEPOSIT, to: this });
+    this.transactions.push({
+      id: UUID.forTransaction(), amount, from: StaticSources.DEPOSIT, to: this,
+    });
   }
 
   withdraw(amount: number) {
-    this.transactions.push({ id: UUID.forTransaction(), amount, from: this, to: StaticSources.WITHDRAWAL });
-}
+    this.transactions.push({
+      id: UUID.forTransaction(), amount, from: this, to: StaticSources.WITHDRAWAL,
+    });
+  }
+
   transfer(amount: number, id: string) {
     // TODO : CHECK BALANCE
-    const user = Bank.getInstance().getUser(this.ownerId);
-    const to = Bank.getInstance().getAccount(id);
+    const user = useBank.getUser(this.ownerId);
+    const to = useBank.getAccount(id);
 
     if (user && to) {
       if (this.balance >= amount) {
         const transaction = {
           id: UUID.forTransaction(),
-          amount: amount,
+          amount,
           from: this,
           to,
         };
@@ -64,8 +71,8 @@ export default class Account implements IAccount {
       } else {
         throw new Error('Insufficient funds');
       }
-    }else {
-      throw new Error("User not found");
+    } else {
+      throw new Error('User not found');
     }
   }
 }

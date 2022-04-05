@@ -1,16 +1,11 @@
 export default class SearchOptions<T> {
-  private _searchOptions: T;
+  searchOptions: T;
 
   constructor(searchOptions: T) {
-    this._searchOptions = searchOptions;
+    this.searchOptions = searchOptions;
   }
 
-  get searchOptions(): T {
-    return this._searchOptions;
+  setSearchOptions(value: T) {
+    this.searchOptions = value;
   }
-
-  set searchOptions(value: T) {
-    this._searchOptions = value;
-  }
-
 }

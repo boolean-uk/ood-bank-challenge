@@ -1,11 +1,11 @@
-import Account from "./accounts/Account";
-import User from "./users/User";
-import UUID from "./utils/UUID";
+import Account from './accounts/Account';
+import User from './users/User';
+import UUID from './utils/UUID';
 
 export default class Bank {
-
-  //singleton
+  // singleton
   private static instance: Bank;
+
   users: Array<User> = [];
 
   static getInstance(): Bank {
@@ -14,11 +14,12 @@ export default class Bank {
   }
 
   private constructor() {
-    //singleton
-    if (Bank.instance)
+    // singleton
+    if (Bank.instance) {
       throw new Error(
-        "Error: Instantiation failed: Use Bank.getInstance() instead of new."
+        'Error: Instantiation failed: Use Bank.getInstance() instead of new.',
       );
+    }
   }
 
   registerUser(firstName: string, lastName: string): User {
@@ -27,16 +28,20 @@ export default class Bank {
     return user;
   }
 
-  getUser(id: string): User | undefined{
-    return this.users.find(user => user.id === id);
-   }
-  
+  getUser(id: string): User | undefined {
+    return this.users.find((user) => user.id === id);
+  }
+
   unregisterUser(id: string): void {
     const user = this.getUser(id);
-    if (user) this.users = this.users.filter(user => user.id !== id);
-   }
+    if (user) this.users = this.users.filter((_user) => _user.id !== id);
+  }
 
-   getAccount(id: string) : Account | undefined{
-    return this.users.find(user => user.accounts.find(account => account.id === id) !== undefined)?.accounts.find(account => account.id === id);
-}
+  getAccount(id: string): Account | undefined {
+    return this.users
+      .find(
+        (user) => user.accounts.find((account) => account.id === id) !== undefined,
+      )
+      ?.accounts.find((account) => account.id === id);
+  }
 }
