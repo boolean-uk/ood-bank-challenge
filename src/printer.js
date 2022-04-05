@@ -7,10 +7,10 @@ class Printer {
 
   printStatement() {
     const rows = [];
-    rows.push(`    Date    || Credit  || Debit  ||  Balance`);
+    rows.push(`    Date   || Credit  || Debit || Balance`);
     for (const row of this.transactions) {
       rows.push(
-        `${row.date}  || ${row.credit}  || ${row.debit}  || ${row.balance}`
+        `${row.date} ||    ${row.credit} ||     ${row.debit} || ${row.balance}`
       );
     }
     return rows.join("\n");
