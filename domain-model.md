@@ -30,11 +30,9 @@ deposit, withdrawal, print
 
 ## Domain Model
 
-| Class | Properties                         | Methods                     | Outputs                           | Memos                                                   |
-| ----- | ---------------------------------- | --------------------------- | --------------------------------- | ------------------------------------------------------- |
-| Bank  | balance @Number                    |                             |                                   |                                                         |
-|       | transactions @Array [@transaction] |                             |                                   |                                                         |
-|       |                                    | deposit (amount @Number)    | No output                         | adds @amount to @balance, push to @transactions[]       |
-|       |                                    | withdrawal (amount @Number) | No output                         | subtract @amount from @balance, push to @transactions[] |
-|       |                                    | date()                      | dd/mm/yyyy @String                | returns the current date                                |
-|       |                                    | print()                     | transactions @Array[@transaction] | loop through and print out the transactions             |
+| Class | Properties                         | Methods                           | Outputs                           | Memos                                                                                  |
+| ----- | ---------------------------------- | --------------------------------- | --------------------------------- | -------------------------------------------------------------------------------------- |
+| Bank  | balance @Number                    |                                   |                                   |                                                                                        |
+|       | transactions @Array [@transaction] |                                   |                                   |                                                                                        |
+|       |                                    | transaction(amount, action, date) | none                              | if action === "deposit" balance -= amount; if action === "withdrawal" balance+= amount |
+|       |                                    | print()                           | transactions @Array[@transaction] | loop through and print out the transactions                                            |
