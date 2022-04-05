@@ -20,10 +20,19 @@ describe("Bank", () => {
     expect(result).toEqual("You have deposited £500");
   });
 
-  //   it("throws an error because of invalid amount", () => {
-  //     // verify
-  //     expect(bank.deposit(0, "14/01/2012")).toThrowError("Amount not valid");
-  //   });
+  it("throws an error because of invalid amount", () => {
+    let result = null;
+    try {
+      result = bank.deposit(0, "14/01/2012");
+    } catch (error) {
+      result = error;
+    }
+    expect(result).toEqual(new Error("Amount not valid"));
+    // verify
+    expect(() => {
+      bank.deposit(0, "14/01/2012");
+    }).toThrowError("Amount not valid");
+  });
 
   it("adds deposit of 500 to balance", () => {
     // setup

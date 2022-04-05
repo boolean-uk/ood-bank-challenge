@@ -37,6 +37,18 @@ class Bank {
 
     return `You have withdrawed £${amount}`;
   }
+
+  print() {
+    let transactionList = `date || credit || debit || balance\n`;
+
+    for (const transaction of this.transactions) {
+      transactionList += `${transaction.date} ||`;
+      transactionList += `${transaction.credit} ||`;
+      transactionList += `${transaction.debit} ||`;
+      transactionList += `${transaction.balance} ||\n`;
+    }
+    return transactionList;
+  }
 }
 
 module.exports = Bank;
