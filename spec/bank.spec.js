@@ -61,4 +61,17 @@ describe("Bank", () => {
     // execute
     expect(bank.balance).toEqual(1800);
   });
+
+  fit("prints out the entire transaction", () => {
+    // setup
+    bank.deposit(500, "14/01/2012");
+    bank.withdrawal(200, "21/01/2012");
+    bank.deposit(1000, "20/01/2012");
+
+    const result = bank.print();
+    // execute
+    expect(result).toEqual(
+      "date || credit || debit || balance\n14/01/2012 ||     || 500 || 2500\n21/01/2012 || 200 ||    || 2300\n20/01/2012 ||     || 1000 || 3300\n"
+    );
+  });
 });

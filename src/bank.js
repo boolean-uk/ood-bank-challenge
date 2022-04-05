@@ -10,7 +10,7 @@ class Bank {
 
     const transaction = {
       date: date,
-      credit: "",
+      credit: "   ",
       debit: amount,
       balance: (this.balance += amount),
     };
@@ -29,7 +29,7 @@ class Bank {
     const transaction = {
       date: date,
       credit: amount,
-      debit: "",
+      debit: "  ",
       balance: (this.balance -= amount),
     };
 
@@ -43,9 +43,9 @@ class Bank {
 
     for (const transaction of this.transactions) {
       transactionList += `${transaction.date} ||`;
-      transactionList += `${transaction.credit} ||`;
-      transactionList += `${transaction.debit} ||`;
-      transactionList += `${transaction.balance} ||\n`;
+      transactionList += ` ${transaction.credit} ||`;
+      transactionList += ` ${transaction.debit} ||`;
+      transactionList += ` ${transaction.balance}\n`;
     }
     return transactionList;
   }
