@@ -5,6 +5,9 @@ class Bank {
   }
 
   deposit(amount, date) {
+    //here i check if the amount is valid
+    if (!amount || amount <= 0) throw new Error("Amount not valid");
+    if (!date) throw new Error("Date not valid");
     //first i update the account balance
     this.accountBalance += amount;
     //then i create the new transaction
@@ -19,6 +22,10 @@ class Bank {
   }
 
   withdraw(amount, date) {
+    //check if the amount is valid, return error if the balance would go below 0.
+    if (this.accountBalance - amount < 0) {
+      return "INSUFFICIENT FUNDS";
+    }
     //first i update the account balance
     this.accountBalance -= amount;
     //then i create the new transaction
@@ -33,12 +40,6 @@ class Bank {
   }
 
   statement() {
-    console.log(
-      "TRANSACTIONS: ",
-      this.transactions,
-      "BALANCE: ",
-      this.accountBalance
-    );
     //printedStatement will bring together all the transactions lines
     let printedStatement = "date  ||  credit  ||  debit  ||  balance";
     //i loop through the array of transactions for each transaction, take the info i need and create the printed statement in a form of a string.
@@ -51,11 +52,19 @@ class Bank {
       printedStatement +=
         "\n" + date + "  ||  " + amount + "  ||  " + type + "  ||  " + balance;
     }
-    console.log("PRINTED STATEMENT: ", printedStatement);
     return printedStatement;
   }
 
-  date() {}
+  // IN THE EXCERCISE I WILL USE HARD CODED DATES
+
+  //   date() {
+  //     let dateStamp = new Date()
+  //     let date = dateStamp.getDate()
+  //     let month = dateStamp.getMonth()
+  //     let year = dateStamp.getFullYear()
+  //     let today = date + "-" + month + "-" + year
+  //     return today
+  //   }
 }
 
 module.exports = Bank;

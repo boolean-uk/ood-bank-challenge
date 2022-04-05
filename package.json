@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/d-username/ood-bank-challenge#readme",
   "devDependencies": {
+    "eslint": "^8.12.0",
+    "eslint-plugin-react": "^7.29.4",
     "jasmine": "^4.0.2"
   }
 }
