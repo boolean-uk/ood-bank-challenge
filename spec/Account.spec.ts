@@ -35,4 +35,12 @@ describe('Account', () => {
         expect(savingsAccount.balance).toBe(100);
         expect(account.balance).toBe(1);
     });
+
+    it('accepts withdraws', () => { 
+        const user = bank.registerUser('John', 'Doe');
+        const account = user.accounts[0];
+        account.deposit(101);
+        account.withdraw(99)
+        expect(account.balance).toBe(2);
+    });
 })

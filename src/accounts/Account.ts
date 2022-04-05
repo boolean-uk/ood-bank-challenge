@@ -6,6 +6,7 @@ import UUID from "../utils/UUID";
 import IAccount from "./Account.model";
 
 export default class Account implements IAccount {
+
   id: string;
   name: string;
   transactions: Transaction[];
@@ -42,6 +43,9 @@ export default class Account implements IAccount {
     this.transactions.push({ id: UUID.forTransaction(), amount, from: StaticSources.DEPOSIT, to: this });
   }
 
+  withdraw(amount: number) {
+    this.transactions.push({ id: UUID.forTransaction(), amount, from: this, to: StaticSources.WITHDRAWAL });
+}
   transfer(amount: number, id: string) {
     // TODO : CHECK BALANCE
     const user = Bank.getInstance().getUser(this.ownerId);
