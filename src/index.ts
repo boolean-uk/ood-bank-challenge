@@ -1,4 +1,5 @@
 import useBank from './composables/useBank';
+import useExport from './composables/useExport';
 
 const bank = useBank;
 
@@ -16,3 +17,4 @@ user.accounts[0].deposit(2000, new Date('01/13/2012'));
 user.accounts[0].withdraw(500, new Date('01/14/2012'));
 
 console.log(user.accounts[0].statement.print);
+useExport(user.accounts[0].statement.data).toCSV();

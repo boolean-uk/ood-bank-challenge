@@ -30,4 +30,20 @@ export default class Statement {
 
     return `${header}\n${line}\n${toPrint}${line}`;
   }
+
+  get data() : (string | number)[][] {
+    const toReturn :(string | number)[][] = [['date', 'credit', 'debit', 'balance', 'description']];
+    let balance = 0;
+    this.transactions.sort((a, b) => a.date.getTime() - b.date.getTime()).forEach((transaction) => {
+      const date = transaction.date.toLocaleDateString();
+      const credit = transaction.to.id === this.account.id ? transaction.amount : 0;
+      const debit = transaction.to.id !== this.account.id ? transaction.amount : 0;
+      const { description } = transaction;
+      balance += transaction.to.id === this.account.id ? transaction.amount : -transaction.amount;
+      const txnLine = [date, credit, debit, balance, description];
+      toReturn.push(txnLine);
+    });
+
+    return toReturn;
+  }
 }
