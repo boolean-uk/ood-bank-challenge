@@ -9,7 +9,7 @@ class Bank {
     if (!date) throw new Error("Date not valid");
 
     const transaction = {
-      date: date,
+      date: date.replace(/-/g, "/"),
       credit: "   ",
       debit: amount,
       balance: (this.balance += amount),
@@ -27,7 +27,7 @@ class Bank {
     if (!date) throw new Error("Date not valid");
 
     const transaction = {
-      date: date,
+      date: date.replace(/-/g, "/"),
       credit: amount,
       debit: "  ",
       balance: (this.balance -= amount),
