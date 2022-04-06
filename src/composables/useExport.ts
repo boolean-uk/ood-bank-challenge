@@ -7,9 +7,9 @@ export class Exportable {
     this.data = data;
   }
 
-  async toCSV() {
+  async toCSV(fileName?: string) {
     if (this.data[0] === undefined) return;
-    fs.writeFileSync('bank-statement.csv', this.data.map((item) => `\n${Object.values(item).join(',')}`).join(''));
+    fs.writeFileSync(`${fileName}.csv`, this.data.map((item) => `${Object.values(item).join(',')}\n`).join(''));
   }
 }
 
