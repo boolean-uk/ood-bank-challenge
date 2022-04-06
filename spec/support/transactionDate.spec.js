@@ -7,7 +7,7 @@ describe("Date", () => {
 
         // execute
 
-        const expected = "05 April 2022";
+        const expected = "06/04/2022";
 
         const result = date.createDate();
 

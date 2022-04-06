@@ -1,4 +1,5 @@
 const TransactionDate = require("./transactionDate.js");
+const Receipt = require("./receipt.js");
 
 class Account {
     constructor() {
@@ -45,53 +46,18 @@ class Account {
         return this.transactions;
     }
 
-    receipt() {
-        let heading = `||     date       ||  credit  || debit  || balance  ||`;
-        let line = `------------------------------------------------------`;
-
-        let statementLinesToPrint = [heading, line];
-        this.transactions.forEach((object) => {
-            let date = object.date;
-            let balance = object.balance;
-            let debitAmount = ``;
-            let creditAmount = ``;
-
-            if (object.type === "credit") {
-                creditAmount = object.amount;
-                debitAmount = ``;
-            }
-
-            if (object.type === "debit") {
-                creditAmount = ``;
-                debitAmount = object.amount;
-            }
-
-            const columnCharLength = 4;
-
-            while (debitAmount.length < columnCharLength) {
-                debitAmount = ` ` + debitAmount;
-            }
-
-            while (creditAmount.length < columnCharLength) {
-                creditAmount = ` ` + creditAmount;
-            }
-
-            const rowInReceipt = `   ${date}  ||  ${creditAmount}    ||  ${debitAmount}  ||  ${balance}    ||`;
-            statementLinesToPrint.push(rowInReceipt);
-        });
-
-        return statementLinesToPrint;
+    printStatement() {
+        const receipt = new Receipt(this.transactions);
+        return receipt.print();
     }
 }
 
 module.exports = Account;
 
-const account = new Account();
-account.credit(3000);
-account.credit(3000);
-account.debit(3000);
-const arrayToPrint = account.receipt();
+// const account = new Account();
+// account.credit(4000);
+// account.credit(3000);
+// account.credit(2000);
+// account.debit(1000);
 
-for (let item of arrayToPrint) {
-    console.log(item);
-}
+// console.log(account.printStatement());

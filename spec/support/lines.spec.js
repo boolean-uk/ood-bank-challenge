@@ -1,8 +1,9 @@
 const Account = require("../../src/account");
 const Receipt = require("../../src/receipt");
 
-describe("Receipt", () => {
-    it("Prints a receipt from the transactions array", () => {
+describe("Lines", () => {
+    it("Return an array of lines", () => {
+        // set up
         const transactions = [
             { date: "06/04/2022", type: "credit", amount: 4000, balance: 4000 },
             { date: "06/04/2022", type: "credit", amount: 3000, balance: 7000 },
@@ -12,9 +13,6 @@ describe("Receipt", () => {
 
         const receipt = new Receipt(transactions);
 
-        // console.log(receipt.print());
-
-        // set up
         // const receipt = new Receipt(account.debit(1000));
 
         const expected = `||     date       ||  credit  || debit  || balance  ||
@@ -26,6 +24,5 @@ describe("Receipt", () => {
         // execute, verify
 
         expect(receipt.print()).toEqual(expected);
-        expect(receipt.print().length).toEqual(expected.length);
     });
 });
