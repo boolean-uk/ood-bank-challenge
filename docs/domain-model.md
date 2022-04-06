@@ -1,3 +1,5 @@
+-=+=-
+
 Bank Challenge
 --------------
 
@@ -53,3 +55,5 @@ Classes, Constructors, and Methods
 - makeDeposit() -> uses the bankAccount depositFunds method;
 - makeWithdrawal() -> uses the bankAccount withdrawFunds method;
 - getStatement() -> uses the bankAccount print method and the printer class to create a bank statement.
+
+-=+=-

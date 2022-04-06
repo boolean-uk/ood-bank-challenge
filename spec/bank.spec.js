@@ -41,8 +41,8 @@ describe("BankAccount", () => {
 
   it("Throws an error if the deposit or withdrawal amount is negative", () => {
     // setup
-    const error = new Error("You can't withdraw a negative amount");
-    const error2 = new Error("You can't deposit a negative amount");
+    const error = new Error("You can't withdraw a negative amount.");
+    const error2 = new Error("You can't deposit a negative amount.");
     // execute
     const errorTest = () => bankAccount.withdrawFunds(-10);
     const errorTest2 = () => bankAccount.depositFunds(-10);
@@ -53,7 +53,7 @@ describe("BankAccount", () => {
 
   it("Throws an error if the withdrawal amount is greater than the balance available", () => {
     // setup
-    const error = new Error("You can't withdraw more than your balance");
+    const error = new Error("You can't withdraw more than your balance.");
     // execute
     const errorTest = () => bankAccount.withdrawFunds(1000);
     // verify
