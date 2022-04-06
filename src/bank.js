@@ -1,7 +1,10 @@
+const Account = require("../src/account.js");
+
 class Bank {
   constructor() {
     this.balance = 2000;
     this.transactions = [];
+    this.account = new Account();
   }
 
   deposit(amount, date) {
@@ -39,15 +42,7 @@ class Bank {
   }
 
   print() {
-    let transactionList = `date || credit || debit || balance\n`;
-
-    for (const transaction of this.transactions) {
-      transactionList += `${transaction.date} ||`;
-      transactionList += ` ${transaction.credit} ||`;
-      transactionList += ` ${transaction.debit} ||`;
-      transactionList += ` ${transaction.balance}\n`;
-    }
-    return transactionList;
+    return this.account.print(this.transactions);
   }
 }
 

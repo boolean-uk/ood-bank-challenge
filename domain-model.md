@@ -64,26 +64,30 @@ BankAccount
     if amount is invalid (<= 0 or not a number) throw new Error('Amount not valid') // return "Amount not valid"
     if date date is invalid, throws new Error('Date not valid')
 
-- oldToNew()
-  returns Array[Transaction] with oldest to newest date order
-  make sure transactions sorted from oldest at the bottom of the statement
+**CLASS**
+Account
+
+**PROPERTIES (constructor)**
+
+no property
+
+**METHODS (function - inputs, error conditions and return values)**
 
 - print()
   returns Array(Strings) one string for each line in the statement
 
 ## Domain Model
 
-| Class | Properties                         | Methods                  | Outputs                           | Memos                                           |
-| ----- | ---------------------------------- | ------------------------ | --------------------------------- | ----------------------------------------------- |
-| Bank  | balance @Number                    |                          |                                   |                                                 |
-|       | transactions @Array [@transaction] |                          |                                   |                                                 |
-|       |                                    | deposit(amount, date)    | none                              | balance += amount                               |
-|       |                                    | withdrawal(amount, date) | none                              | balance -= amount                               |
-|       |                                    | oldToNew()               | transactions @Array[@transaction] | sort the array from oldest to newest date order |
-|       |                                    | print()                  | transactions @Array[@transaction] | loop through and print out the transactions     |
+| Class   | Properties                         | Methods                  | Outputs                           | Memos                                       |
+| ------- | ---------------------------------- | ------------------------ | --------------------------------- | ------------------------------------------- |
+| Bank    | balance @Number                    |                          |                                   |                                             |
+|         | transactions @Array [@transaction] |                          |                                   |                                             |
+|         |                                    | deposit(amount, date)    | none                              | balance += amount                           |
+|         |                                    | withdrawal(amount, date) | none                              | balance -= amount                           |
+|         |                                    |                          |                                   |                                             |
+| Account |                                    | print()                  | transactions @Array[@transaction] | loop through and print out the transactions |
 
 #### MEMO
 
 - properties: things that go into the constructor (add the data type as well)
 - date is oldest to newest
--
