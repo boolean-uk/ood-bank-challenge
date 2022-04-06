@@ -16,9 +16,9 @@ class Card {
     this.transactions.push(deposit);
   }
 
-  _withdraw(amount) {
+  _withdraw(amount, category) {
     this.checkForInvalidNumber(amount);
-    const deposit = new Withdraw(this.balance, amount);
+    const deposit = new Withdraw(this.balance, amount, category);
     this.balance = deposit.balance;
     this.transactions.push(deposit);
   }

@@ -1,5 +1,8 @@
+// Dependencies
+
 const Card = require("./Card.js");
 const PrintStatement = require("./printStatement.js");
+const Transactions = require("./Transactions.js");
 
 class Bank {
   cards = [];
@@ -28,9 +31,9 @@ class Bank {
     currCard._deposit(amount);
     this._updateBalance();
   }
-  withdraw(cardName, amount) {
+  withdraw(cardName, amount, category) {
     const currCard = this.searchCard(cardName);
-    currCard._withdraw(amount);
+    currCard._withdraw(amount, category);
     this._updateBalance();
   }
 

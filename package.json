@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Tibor22/ood-bank-challenge#readme",
   "dependencies": {
+    "cli-pie": "^2.4.2",
     "jasmine": "^4.0.2"
   }
 }
