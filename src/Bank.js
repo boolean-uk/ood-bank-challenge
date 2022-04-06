@@ -2,7 +2,6 @@
 
 const Card = require("./Card.js");
 const PrintStatement = require("./printStatement.js");
-const Transactions = require("./Transactions.js");
 
 class Bank {
   cards = [];
@@ -43,3 +42,10 @@ class Bank {
 }
 
 module.exports = Bank;
+
+const bank = new Bank();
+bank.createCard("Tibor");
+
+bank.deposit("Tibor", 1000);
+
+console.log(bank.printStatement("Tibor"));

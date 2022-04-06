@@ -1,7 +1,7 @@
 var fs = require("fs");
 const Statistic = require("./Statistic.js");
 
-class Transactions {
+class Formatter {
   CSV(card) {
     let csvContent = card.name + "," + "";
 
@@ -25,4 +25,4 @@ class Transactions {
   }
 }
 
-module.exports = Transactions;
+module.exports = Formatter;
