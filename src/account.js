@@ -54,10 +54,10 @@ class Account {
 
 module.exports = Account;
 
-// const account = new Account();
-// account.credit(4000);
-// account.credit(3000);
-// account.credit(2000);
-// account.debit(1000);
+const account = new Account();
+account.credit(4000);
+account.credit(3000);
+account.credit(2000);
+account.debit(1000);
 
-// console.log(account.printStatement());
+console.log(account.printStatement());

@@ -12,7 +12,6 @@ class Receipt {
         lines.unshift(heading);
 
         lines = lines.join("\n");
-        console.log("lines", lines);
         return lines;
     }
 }

@@ -23,9 +23,9 @@ describe("Bank challenge", () => {
         it("Returns value after several deposits", () => {
             const account = new Account();
 
-            account.credit(1000, "10-01-2021");
-            account.credit(1000, "10-01-2021");
-            account.credit(1000, "10-01-2021");
+            account.credit(1000);
+            account.credit(1000);
+            account.credit(1000);
 
             const expected = 3000;
 
@@ -33,6 +33,64 @@ describe("Bank challenge", () => {
                 account.transactions[account.transactions.length - 1].balance;
 
             expect(result).toEqual(expected);
+        });
+    });
+
+    describe("deposit", () => {
+        it("credit throws an error if amount is incorrect", () => {
+            const account = new Account();
+
+            account.credit(1000);
+            account.credit(1000);
+            account.credit(1000);
+
+            expect(() => account.credit().toThrowError(`Enter valid amount`));
+            expect(() => account.credit("string").toThrowError(`Enter valid amount`));
+        });
+    });
+
+    describe("account credit() and debit()", () => {
+        it("Returns value after several deposits and debit", () => {
+            const account = new Account();
+
+            account.credit(1000);
+            account.credit(1000);
+            account.credit(1000);
+            account.debit(1000);
+
+            const expected = 2000;
+
+            const result =
+                account.transactions[account.transactions.length - 1].balance;
+
+            expect(result).toEqual(expected);
+        });
+    });
+
+    describe("account credit() and debit()", () => {
+        it("deposit throws an error if amount is incorrect", () => {
+            const account = new Account();
+
+            account.credit(1000);
+            account.credit(1000);
+            account.credit(1000);
+
+            expect(() => account.debit().toThrowError(`Enter valid amount`));
+            expect(() => account.debit("string").toThrowError(`Enter valid amount`));
+        });
+    });
+
+    describe("account credit() and debit()", () => {
+        it("throws an error if amount debited is more than account balance ", () => {
+            const account = new Account();
+
+            account.credit(1000);
+            account.credit(1000);
+            account.credit(1000);
+
+            expect(() =>
+                account.debit(100000000000000).toThrowError(`Enter valid amount`)
+            );
         });
     });
 });

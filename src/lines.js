@@ -12,15 +12,9 @@ class Lines {
             let debitAmount = ``;
             let creditAmount = ``;
 
-            if (object.type === "credit") {
-                creditAmount = object.amount.toFixed(2);
-                debitAmount = ``;
-            }
-
-            if (object.type === "debit") {
-                creditAmount = ``;
-                debitAmount = object.amount.toFixed(2);
-            }
+            object.type === "debit" ?
+                (debitAmount = object.amount.toFixed(2)) :
+                (creditAmount = object.amount.toFixed(2));
 
             const columnCharLength = 4;
 
@@ -37,7 +31,6 @@ class Lines {
         });
 
         statementLinesToPrint.reverse();
-        console.log("statementLinesToPrint", statementLinesToPrint);
         return statementLinesToPrint;
     }
 }
