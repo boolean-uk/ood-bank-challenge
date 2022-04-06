@@ -1,10 +1,10 @@
-const Account = require("../src/account.js");
+const Statement = require("./statement.js");
 
 class Bank {
   constructor() {
     this.balance = 2000;
     this.transactions = [];
-    this.account = new Account();
+    this.statement = new Statement();
   }
 
   deposit(amount, date) {
@@ -14,13 +14,13 @@ class Bank {
     const transaction = {
       date: date.replace(/-/g, "/"),
       credit: "   ",
-      debit: amount,
-      balance: (this.balance += amount),
+      debit: amount.toFixed(2),
+      balance: (this.balance += amount).toFixed(2),
     };
 
     this.transactions.push(transaction);
 
-    return `You have deposited £${amount}`;
+    return `You have deposited £${amount.toFixed(2)}`;
   }
 
   withdrawal(amount, date) {
@@ -31,18 +31,18 @@ class Bank {
 
     const transaction = {
       date: date.replace(/-/g, "/"),
-      credit: amount,
+      credit: amount.toFixed(2),
       debit: "  ",
-      balance: (this.balance -= amount),
+      balance: (this.balance -= amount).toFixed(2),
     };
 
     this.transactions.push(transaction);
 
-    return `You have withdrawed £${amount}`;
+    return `You have withdrawed £${amount.toFixed(2)}`;
   }
 
   print() {
-    return this.account.print(this.transactions);
+    return this.statement.print(this.transactions);
   }
 }
 

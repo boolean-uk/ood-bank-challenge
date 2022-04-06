@@ -1,4 +1,4 @@
-class Account {
+class Statement {
   print(transactions) {
     let transactionList = `date || credit || debit || balance\n`;
 
@@ -12,4 +12,4 @@ class Account {
   }
 }
 
-module.exports = Account;
+module.exports = Statement;

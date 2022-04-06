@@ -17,7 +17,7 @@ describe("Bank", () => {
     // setup
     const result = bank.deposit(500, "14-01-2012");
     // verify
-    expect(result).toEqual("You have deposited £500");
+    expect(result).toEqual("You have deposited £500.00");
   });
 
   it("throws an error because of invalid amount", () => {
@@ -52,7 +52,7 @@ describe("Bank", () => {
     // setup
     const result = bank.withdrawal(200, "21-01-2012");
     // verify
-    expect(result).toEqual("You have withdrawed £200");
+    expect(result).toEqual("You have withdrawed £200.00");
   });
 
   it("subtracts credit of 200 from balance", () => {
@@ -62,7 +62,7 @@ describe("Bank", () => {
     expect(bank.balance).toEqual(1800);
   });
 
-  it("prints out the entire transaction", () => {
+  it("prints out the entire transaction through Bank class", () => {
     // setup
     bank.deposit(500, "14-01-2012");
     bank.withdrawal(200, "21-01-2012");
@@ -71,7 +71,7 @@ describe("Bank", () => {
     const result = bank.print();
     // execute
     expect(result).toEqual(
-      "date || credit || debit || balance\n14/01/2012 ||     || 500 || 2500\n21/01/2012 || 200 ||    || 2300\n20/01/2012 ||     || 1000 || 3300\n"
+      "date || credit || debit || balance\n14/01/2012 ||     || 500.00 || 2500.00\n21/01/2012 || 200.00 ||    || 2300.00\n20/01/2012 ||     || 1000.00 || 3300.00\n"
     );
   });
 });
