@@ -32,7 +32,7 @@ describe("deposit, withdraw, statement - WHEN NO ERRORS", () => {
     // setup
     const bank = new Bank();
     const printedStatement =
-      "date  ||  credit  ||  debit  ||  balance\n01/04/2022  ||  1000  ||  credit  ||  1000\n02/04/2022  ||  5000  ||  credit  ||  6000\n03/04/2022  ||  2000  ||  debit  ||  4000\n03/04/2022  ||  250  ||  credit  ||  4250\n05/04/2022  ||  35  ||  debit  ||  4215";
+      "date  ||  credit  ||  debit  ||  balance\n01/04/2022  ||  1000  ||  credit  ||  1000\n02/04/2022  ||  5000  ||  credit  ||  6000\n03/04/2022  ||  2000  ||  debit  ||  4000\n03/04/2022  ||  250  ||  credit  ||  4250\n05/04/2022  ||  35  ||  debit  ||  4215\n";
     // execute
     bank.deposit(1000, "01/04/2022");
     bank.deposit(5000, "02/04/2022");
@@ -48,7 +48,7 @@ describe("deposit, withdraw, statement - WHEN NO ERRORS", () => {
 });
 
 //TEST 4
-fit("throws an error because of invalid amount or date", () => {
+it("throws an error because of invalid amount or date", () => {
   const bank = new Bank();
   // verify
   expect(() => {
