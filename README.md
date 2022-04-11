@@ -30,12 +30,26 @@ date       || credit  || debit  || balance
 
 
 #### Standard
-- [ ] Meets the spec
-- [ ] Developed test-first
-- [ ] Passes tests and code is linted
-- [ ] Encapsulates adding and storing Transactions in a class
-- [ ] Encapsulates Statement formatting in a class
-- [ ] Encapsulates Transaction data in a class
+- [x] Meets the spec
+- [x] Developed test-first
+- [x] Passes tests and code is linted
+- [x] Encapsulates adding and storing Transactions in a class
+- [x] Encapsulates Statement formatting in a class
+- [x] Encapsulates Transaction data in a class
+
+
+### How to make it work
+- Clone the repo
+- Install dependencies 
+    ```
+    npm i
+    ```
+- Build and start app
+    ```
+    npm run start
+    ```
+
+
 
 #### Extended
 - [ ] See a teacher!

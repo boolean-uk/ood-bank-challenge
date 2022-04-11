@@ -1,0 +1,38 @@
+{
+  "name": "ood-bank-challenge",
+  "version": "1.0.0",
+  "description": "This challenge helps you practice your OO design skills.",
+  "main": "dist/src/index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "tsc && npx jasmine",
+    "lint": "eslint . --ext .ts",
+    "flint": "eslint . --ext .ts --fix",
+    "build": "npm run lint && npm run test && tsc",
+    "start": "npm run build && node dist/src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qruz-hq/ood-bank-challenge.git"
+  },
+  "author": "Gui Rodrigues",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qruz-hq/ood-bank-challenge/issues"
+  },
+  "homepage": "https://github.com/qruz-hq/ood-bank-challenge#readme",
+  "dependencies": {
+    "@types/uuid": "^8.3.4",
+    "eslint-config-airbnb": "^19.0.4"
+  },
+  "devDependencies": {
+    "@types/jasmine": "^4.0.2",
+    "@types/node": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.18.0",
+    "@typescript-eslint/parser": "^5.18.0",
+    "eslint": "^8.12.0",
+    "eslint-config-airbnb-typescript": "^17.0.0"
+  }
+}
