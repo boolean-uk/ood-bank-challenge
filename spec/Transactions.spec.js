@@ -1,4 +1,4 @@
-const Transactions = require('../src/Transactions.js')
+const Transactions = require("../src/Transactions.js");
 
 /*
 - Creates a Transaction class with list of transactions and balance (default to 0).
@@ -6,24 +6,33 @@ const Transactions = require('../src/Transactions.js')
 - Can print a formatted list of transactions, using an instance of the Statement class.
 */
 
-describe('Transactions Class', () => {
-  let TransactionsManager
+describe("Transactions Class", () => {
+  let TransactionsManager;
   beforeEach(() => {
-    TransactionsManager = new Transactions()
-  })
+    TransactionsManager = new Transactions();
+  });
 
-  it('Creates a Transaction class with list of transactions and balance (default to 0)', () => {
-    expect(TransactionsManager).toBeInstanceOf(Transactions)
-    expect(TransactionsManager.balance).toBe(0)
-  })
+  it("Creates a Transaction class with list of transactions and balance (default to 0)", () => {
+    expect(TransactionsManager).toBeInstanceOf(Transactions);
+    expect(TransactionsManager.balance).toBe(0);
+  });
 
-  it('Can create a new transaction using an instance of the Transaction class, and save it to the list of transactions.', () => {
-    TransactionsManager.newTransaction(1000)
-    expect(TransactionsManager.balance).toBe(1000)
-    expect(TransactionsManager.listOfTransactions.length).toBe(1)
-  })
+  it("Can create a new transaction using an instance of the Transaction class, and save it to the list of transactions.", () => {
+    TransactionsManager.newTransaction(1000);
+    expect(TransactionsManager.balance).toBe(1000);
+    expect(TransactionsManager.listOfTransactions.length).toBe(1);
+  });
 
-
-
-
-})
+  it("Can print a formatted list of transactions, using an instance of the Statement class.", () => {
+    const expectedPrintStatement = 
+    `date       || credit  || debit  || balance
+    14/01/2012 ||         || 500.00 || 2500.00
+    13/01/2012 || 2000.00 ||        || 3000.00
+    10/01/2012 || 1000.00 ||        || 1000.00`
+    TransactionsManager.newTransaction(-500);
+    TransactionsManager.newTransaction(200);
+    expect(TransactionsManager.balance).toBe(700);
+    expect(TransactionsManager.listOfTransactions.length).toBe(3);
+    expect(TransactionsManager.printStatement()).toEqual(expectedPrintStatement);
+  });
+});

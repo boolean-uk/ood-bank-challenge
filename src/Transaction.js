@@ -1,6 +1,7 @@
 class Transaction {
-    constructor(valueOfTransaction) {
+    constructor(valueOfTransaction, currentBalance) {
         this.value = valueOfTransaction
+        this.currentBalance = currentBalance
     }
 
     handleTransaction(){
@@ -25,12 +26,48 @@ class Transaction {
     }
 
     deposit(value) {
-        return value
+        const newBalance = this.currentBalance + value
+        return {
+            date: this.#getCurrentDate(),
+            oldBalance: this.currentBalance,
+            debit: '',
+            credit: value,
+            newBalance: newBalance
+        }
     }
 
     withdraw(value) {
-        return value
+        const newBalance = this.currentBalance + value
+        return {
+            date: this.#getCurrentDate(),
+            oldBalance: this.currentBalance,
+            debit: value,
+            credit: '',
+            newBalance: newBalance
+        }
     }
+
+    #getCurrentDate() {
+        const currentDate = new Date()
+        let date, month, year;
+
+        date = currentDate.getDate();
+        month = currentDate.getMonth() + 1;
+        year = currentDate.getFullYear();
+      
+          date = date
+              .toString()
+              .padStart(2, '0');
+      
+          month = month
+              .toString()
+              .padStart(2, '0');
+      
+        return `${date}-${month}-${year}`;
+      }
 }
+
+const testTransaction = new Transaction(1000, 2000)
+console.log(testTransaction.handleTransaction())
 
 module.exports = Transaction

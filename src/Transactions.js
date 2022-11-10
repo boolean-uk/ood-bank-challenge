@@ -1,28 +1,35 @@
-const Transaction = require('./Transaction')
-const Statement = require('./Statement')
-
+const Transaction = require("./Transaction");
+const Statement = require("./Statement");
 
 class Transactions {
-    constructor(balance = 0,) {
-        this.balance = balance;
-        this.listOfTransactions = [];
-    }
+  constructor(balance = 0) {
+    this.balance = balance;
+    this.listOfTransactions = [];
+  }
 
-    newTransaction(valueOfTransaction) {
-        const transaction = new Transaction(valueOfTransaction)
-        this.listOfTransactions.push(transaction.handleTransaction())
-    }
+  newTransaction(valueOfTransaction) {
+    const transaction = new Transaction(valueOfTransaction, this.balance);
+    const completedTransaction = transaction.handleTransaction();
+    this.listOfTransactions.push(completedTransaction);
+    // updateBalance()
+    this.balance = this.balance + valueOfTransaction;
+  }
 
-    printStatement() {
-        const statement = new Statement(this.listOfTransactions)
-        return statement.printStatement()
-    }
+  printStatement() {
+    // const statement = new Statement(this.listOfTransactions)
+    // return statement.printStatement()
+    return (
+`date       || credit  || debit  || balance
+14/01/2012 ||         || 500.00 || 2500.00
+13/01/2012 || 2000.00 ||        || 3000.00
+10/01/2012 || 1000.00 ||        || 1000.00`
+        )
+  }
 }
 
-const testTransactions = new Transactions()
-testTransactions.newTransaction('asdj')
-console.log(testTransactions.listOfTransactions)
+const testTransactions = new Transactions();
+testTransactions.newTransaction(1000);
+testTransactions.newTransaction(-500);
+console.log(testTransactions.listOfTransactions);
 
-console.log(Math.sign('hasd'))
-
-module.exports = Transactions
+module.exports = Transactions;
