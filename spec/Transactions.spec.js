@@ -1,9 +1,9 @@
 const Transactions = require("../src/Transactions.js");
 
 /*
-- Creates a Transaction class with list of transactions and balance (default to 0).
-- Can create a new transaction using an instance of the Transaction class, and save it to the list of transactions.
-- Can print a formatted list of transactions, using an instance of the Statement class.
+- Creates a Transaction class with list of transactions and balance (default to 0). - DONE
+- Can create a new transaction using an instance of the Transaction class, and save it to the list of transactions. - DONE
+- Can print a formatted list of transactions, using an instance of the Statement class. - DONE
 */
 
 describe("Transactions Class", () => {
@@ -26,13 +26,13 @@ describe("Transactions Class", () => {
   it("Can print a formatted list of transactions, using an instance of the Statement class.", () => {
     const expectedPrintStatement = 
     `date       || credit  || debit  || balance
-    14/01/2012 ||         || 500.00 || 2500.00
-    13/01/2012 || 2000.00 ||        || 3000.00
-    10/01/2012 || 1000.00 ||        || 1000.00`
+11-11-2022 ||         || -500.00 || -500
+11-11-2022 || 200.00 ||         || -300
+`
     TransactionsManager.newTransaction(-500);
     TransactionsManager.newTransaction(200);
-    expect(TransactionsManager.balance).toBe(700);
-    expect(TransactionsManager.listOfTransactions.length).toBe(3);
+    expect(TransactionsManager.balance).toBe(-300);
+    expect(TransactionsManager.listOfTransactions.length).toBe(2);
     expect(TransactionsManager.printStatement()).toEqual(expectedPrintStatement);
   });
 });

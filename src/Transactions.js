@@ -16,20 +16,28 @@ class Transactions {
   }
 
   printStatement() {
-    // const statement = new Statement(this.listOfTransactions)
-    // return statement.printStatement()
-    return (
-`date       || credit  || debit  || balance
-14/01/2012 ||         || 500.00 || 2500.00
-13/01/2012 || 2000.00 ||        || 3000.00
-10/01/2012 || 1000.00 ||        || 1000.00`
-        )
+// date       || credit  || debit  || balance
+// 14/01/2012 ||         || 500.00 || 2500.00
+// 13/01/2012 || 2000.00 ||        || 3000.00
+// 10/01/2012 || 1000.00 ||        || 1000.00
+
+
+    const statement = new Statement(this.listOfTransactions)
+    return statement.printStatement()
+//     return (
+// `date       || credit  || debit  || balance
+// 14/01/2012 ||         || 500.00 || 2500.00
+// 13/01/2012 || 2000.00 ||        || 3000.00
+// 10/01/2012 || 1000.00 ||        || 1000.00`
+//         )
   }
 }
 
 const testTransactions = new Transactions();
-testTransactions.newTransaction(1000);
 testTransactions.newTransaction(-500);
-console.log(testTransactions.listOfTransactions);
+testTransactions.newTransaction(200);
+// testTransactions.newTransaction(2000);
+// testTransactions.newTransaction(-9999);
+testTransactions.printStatement()
 
 module.exports = Transactions;
