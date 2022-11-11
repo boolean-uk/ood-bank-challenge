@@ -12,15 +12,15 @@ class Transaction {
       case -0:
         throw new Error("transaction must be non-zero");
       case 1:
-        return this.deposit(this.value);
+        return this.#deposit(this.value);
       case -1:
-        return this.withdraw(this.value);
+        return this.#withdraw(this.value);
       default:
         throw new Error("must be a number");
     }
   }
 
-  deposit(value) {
+  #deposit(value) {
     const newBalance = this.currentBalance + value;
     return {
       date: this.#getCurrentDate(),
@@ -31,7 +31,7 @@ class Transaction {
     };
   }
 
-  withdraw(value) {
+  #withdraw(value) {
     const newBalance = this.currentBalance + value;
     return {
       date: this.#getCurrentDate(),
