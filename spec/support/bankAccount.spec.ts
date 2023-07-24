@@ -6,8 +6,6 @@ describe("something", () => {
 
     beforeEach(() => {
         bankAccount = new BankAccount()
-        // let now = Date.now()
-        // now = new Date(now)
     })
 
     it("should return true", () => {

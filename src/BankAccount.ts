@@ -3,22 +3,28 @@ import transaction from "./transaction";
 
 class BankAccount {
     private transactions: Transaction[] = []
-    private balance: number = 0
 
     public deposit(amount: number, date: Date): boolean {
         if(amount <= 0) return false
 
-        this.balance += amount
         this.transactions.push({ amount: amount, date: date })
         return true
+    }
+
+    private calculateBalance(): number {
+        let balance: number = 0
+        this.transactions.forEach((transaction: Transaction) => {
+            balance += transaction.amount
+        })
+
+        return balance
     }
 
     public withdraw(amount: number, date: Date): boolean {
         if(amount <= 0) return false
 
-        if(this.balance < amount) return false
-
-        this.balance -= amount
+        if(this.calculateBalance() < amount) return false
+        
         this.transactions.push({ amount: -amount, date: date })
         return true
     }
