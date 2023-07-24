@@ -48,7 +48,7 @@ describe("something", () => {
         expected.push("2/14/2012  || 1000    ||        || 1000\n");
         expected.push("2/13/2012  || 2000    ||        || 3000\n");
         expected.push("2/10/2012  ||         || -500   || 2500\n");
-        
+
         expect(result).toBe(expected.join(""));
     });
 });
