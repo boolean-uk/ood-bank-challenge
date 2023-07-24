@@ -66,6 +66,15 @@ describe("something", () => {
     });
 
     it("when first date is grater than second date should return proper message", () => {
+        bankAccount.deposit(1000, new Date())
+        bankAccount.allowOverDraft()
+
+        let result: boolean = bankAccount.withdraw(1500, new Date())
+
+        expect(result).toBe(true);
+    });
+
+    it("when allow overdraft should be able to borrow money", () => {
         const date1: Date = new Date(2012, 1, 9)
         const date2: Date = new Date(2012, 1, 12)
         let result: string = bankAccount.showAccountHistoryBetweenTwoDates(date2, date1)

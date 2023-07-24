@@ -3,6 +3,7 @@ import transaction from "./transaction";
 
 class BankAccount {
     private transactions: Transaction[] = []
+    private overDraft: number = 0
 
     public deposit(amount: number, date: Date): boolean {
         if(amount <= 0) return false
@@ -20,11 +21,15 @@ class BankAccount {
         return balance
     }
 
+    public allowOverDraft() {
+        this.overDraft = 500
+    }
+
     public withdraw(amount: number, date: Date): boolean {
         if(amount <= 0) return false
 
-        if(this.calculateBalance() < amount) return false
-        
+        if(this.calculateBalance() + this.overDraft < amount) return false
+
         this.transactions.push({ amount: -amount, date: date })
         return true
     }
