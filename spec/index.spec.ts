@@ -44,6 +44,32 @@ describe("Account test", () => {
       expect(account.transactions.length).toEqual(1);
     });
 
+    it("returns message when user want to withdraw more money than he/she got and allow overdraft", () => {
+      const date = new Date();
+      const amountToDeposit = 100;
+      const amountToWithdraw = 600;
+      account.allowOverdraft();
+      account.deposit(amountToDeposit, date);
+      const result = account.withdraw(amountToWithdraw, date);
+
+      expect(result).toEqual("The money has been withdrawn from your account.");
+      expect(account.getBalance()).toEqual(-500);
+      expect(account.transactions.length).toEqual(2);
+    });
+
+    it("returns message when user want to withdraw more money than he/she got and allow overdraft, but exceeds the allowed amount", () => {
+      const date = new Date();
+      const amountToDeposit = 100;
+      const amountToWithdraw = 700;
+      account.allowOverdraft();
+      account.deposit(amountToDeposit, date);
+      const result = account.withdraw(amountToWithdraw, date);
+
+      expect(result).toEqual("You don't have enough money.");
+      expect(account.getBalance()).toEqual(100);
+      expect(account.transactions.length).toEqual(1);
+    });
+
     it("returns message when user want to withdraw valid amount (less than the user has in the account),save transaction with negative amount", () => {
       const date = new Date();
       const amountToDeposit = 100;
