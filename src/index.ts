@@ -63,6 +63,44 @@ export class Account {
 
     return result;
   }
+  generateBankStatementBetween2Dates(date1: Date, date2: Date) {
+    let result = `date       || credit  || debit  || balance`;
+    let rows: string[] = [];
+
+    if (date2 < date1) {
+      let tmp = date1;
+      date1 = date2;
+      date2 = tmp;
+    }
+
+    let balance = 0;
+
+    this._transactions.forEach((transaction) => {
+      balance += transaction.amount;
+      if (!(transaction.date < date1) && !(transaction.date > date2)) {
+        if (transaction.amount > 0) {
+          rows.push(
+            `\n${transaction.date.toLocaleDateString(
+              "en-GB"
+            )} || ${transaction.amount.toFixed(
+              2
+            )} ||        || ${balance.toFixed(2)}`
+          );
+        } else {
+          rows.push(
+            `\n${transaction.date.toLocaleDateString("en-GB")} ||         || ${(
+              -1 * transaction.amount
+            ).toFixed(2)} || ${balance.toFixed(2)}`
+          );
+        }
+      }
+    });
+    rows.reverse().forEach((row) => {
+      result += row;
+    });
+
+    return result;
+  }
 }
 
 export class Transaction {
