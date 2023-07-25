@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {BankStorageService} from "../../services/bank-storage.service";
 import {MatSort, Sort} from "@angular/material/sort";
-import {Transaction} from "../../interfaces/transaction";
+import {Operation, Transaction} from "../../interfaces/transaction";
 import {MatTableDataSource} from "@angular/material/table";
 import {Observable} from "rxjs";
 import {FormControl, FormGroup} from "@angular/forms";
@@ -80,5 +80,18 @@ export class BankComponent {
     this.bankService.getSortedHistory().subscribe((transaction: Transaction[]): void => {
       this.dataSource.data = transaction
     })
+  }
+
+  getOperationTypeColor(type: Operation) {
+    switch (type) {
+      case Operation.deposit:
+        return {color: 'green'}
+      case Operation.withdraw:
+        return {color: 'red'}
+      default:
+        return {}
+    }
+
+
   }
 }

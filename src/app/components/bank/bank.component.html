@@ -1,12 +1,46 @@
 <div class="bank">
-
-  <div class="balance">
-    <h2>Current balance: ${{getBankBalance()}} </h2>
-  </div>
   <div class="manage-balance">
+    <div class="balance">
+      <h2>Balance: {{getBankBalance() | currency:'USD'}} </h2>
+    </div>
+
     <app-deposit></app-deposit>
 
     <app-withdraw></app-withdraw>
+  </div>
+  <div class="history">
+
+    <table (matSortChange)="sortData($event)" [dataSource]="dataSource" mat-table matSort>
+      <ng-container matColumnDef="Date">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> Date</th>
+        <td *matCellDef="let transaction" mat-cell> {{transaction.date | date:'medium'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Type">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> Type</th>
+        <td *matCellDef="let transaction" [ngStyle]="getOperationTypeColor(transaction.type)"
+            mat-cell> {{transaction.type.toString()}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Balance">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> Balance</th>
+        <td *matCellDef="let transaction" mat-cell> {{transaction.balance | currency:'USD'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Balance Before">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> Balance Before</th>
+        <td *matCellDef="let transaction" mat-cell> {{transaction.balanceBefore| currency:'USD'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Balance After">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> Balance After</th>
+        <td *matCellDef="let transaction" mat-cell> {{transaction.balanceAfter| currency:'USD'}} </td>
+      </ng-container>
+
+      <tr *matHeaderRowDef="columns" mat-header-row></tr>
+      <tr *matRowDef="let row; columns: columns;" mat-row></tr>
+
+    </table>
   </div>
   <div class="date-filtering">
     <mat-accordion>
@@ -38,37 +72,5 @@
         <button (click)="clearFilterByDate()" mat-raised-button> Clear filters</button>
       </mat-expansion-panel>
     </mat-accordion>
-  </div>
-  <div class="history">
-    <table (matSortChange)="sortData($event)" [dataSource]="dataSource" mat-table matSort>
-      <ng-container matColumnDef="Date">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header> Date</th>
-        <td *matCellDef="let transaction" mat-cell> {{transaction.date | date:'medium'}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="Type">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header> Type</th>
-        <td *matCellDef="let transaction" mat-cell> {{transaction.type.toString()}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="Balance">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header> Balance</th>
-        <td *matCellDef="let transaction" mat-cell> {{transaction.balance}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="Balance Before">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header> Balance Before</th>
-        <td *matCellDef="let transaction" mat-cell> {{transaction.balanceBefore}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="Balance After">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header> Balance After</th>
-        <td *matCellDef="let transaction" mat-cell> {{transaction.balanceAfter}} </td>
-      </ng-container>
-
-      <tr *matHeaderRowDef="columns" mat-header-row></tr>
-      <tr *matRowDef="let row; columns: columns;" mat-row></tr>
-
-    </table>
   </div>
 </div>
