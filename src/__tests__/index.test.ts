@@ -1,6 +1,7 @@
 import { Account } from "../core/Account";
 import { CurrentAccount } from "../core/CurrentAccount";
 import { Customer } from "../core/Customer";
+import { SavingsAccount } from "../core/SavingsAccount";
 
 describe("AccountTest", () => {
   let customer: Customer;
@@ -31,5 +32,12 @@ describe("AccountTest", () => {
   it("should throw for insufficient balance", () => {
     const current = new CurrentAccount(customer);
     expect(() => current.withdraw(1)).toThrow("Insufficient funds");
+  });
+
+  it("should throw for withdrawing from savigs account", () => {
+    const current = new SavingsAccount(customer);
+    expect(() => current.withdraw(1)).toThrow(
+      "You can't withdraw from a savings account"
+    );
   });
 });
