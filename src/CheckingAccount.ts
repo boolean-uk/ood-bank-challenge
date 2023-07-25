@@ -30,7 +30,6 @@ export class CheckingAccount extends Account {
                     console.log(`You have successfully withdrew ${amount}$.`);
                     return true;
                 }
-                this.isOverdraft = false; //Disabling withdraws
                 console.log(`You don't have enough balance to withdraw ${amount}$.`);
                 return false;
             }

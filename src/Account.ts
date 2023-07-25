@@ -4,8 +4,8 @@ export class Account {
     protected accountNumber: number;
     protected password: string;
     protected static balance: number = 0;
-    protected static transactionHistory: number[] = [];
-    protected static transactionDate: LocalDateTime[] = [];
+    static transactionHistory: number[] = [];
+    static transactionDate: LocalDateTime[] = [];
     protected isOverdraft: boolean;
 
     constructor(accountNumber: number, password: string) {
