@@ -12,7 +12,7 @@ export class Account {
     }
 
     withdrawMoney(amount: number) {
-        if (amount >= 0) {
+        if (amount >= 0 && this.calculateBalance() >= amount) {
             this.transactions.push(new Transaction(-amount))
         }
     }
