@@ -16,7 +16,7 @@ var Account = /** @class */ (function () {
             this.createTransaction(amount, TRANSACTION_TYPE_1.TRANSACTION_TYPE.DEBIT, new Date());
         }
         else {
-            throw new Error("Insufficient funds");
+            throw new Error('Insufficient funds');
         }
     };
     Account.prototype.deposit = function (amount) {
