@@ -38,13 +38,16 @@ export class Account{
     withdraw(amount: number, date : string = this.now){
         let tmp = []
         if(amount > 0){
-            if(!this.debit[date]){
-                tmp.push(amount)
-                this.debit[date] = tmp
-            } else {
-                this.debit[date].push(amount)
+            if(amount <= this.countBalanceTotal()){
+                if(!this.debit[date]){
+                    tmp.push(amount)
+                    this.debit[date] = tmp
+                } else {
+                    this.debit[date].push(amount)
+                }
+                return "Money withdrew"
             }
-            return "Money withdrew"
+            else return "Amount you want to withdraw exceeds the available funds"
         } else return "No money to withdraw from deposit"
     }
 

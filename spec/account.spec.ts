@@ -56,6 +56,7 @@ describe("Account tests ", () => {
 
     //WITHDRAW
     it("should add transaction to debit object", () => {
+        account.deposit(4000)
         let amount = 2000
         let d = new Date('06-07-2023')
         let date = account.formatDate(d)
@@ -65,6 +66,7 @@ describe("Account tests ", () => {
     })
 
     it("should add transaction to debit object with today's date", () => {
+        account.deposit(4000)
         let amount = 2000
 
         expect(account.withdraw(amount)).toEqual("Money withdrew")
@@ -72,6 +74,7 @@ describe("Account tests ", () => {
     })
 
     it("should add 3 transactions to debit object", () => {
+        account.deposit(4000)
         let amount1 = 2000
         let amount2 = 1000
         let amount3 = 500
