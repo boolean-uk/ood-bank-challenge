@@ -81,6 +81,21 @@ describe("Account Manager tests", () => {
         expect(checkingAccount.getBalance()).toEqual(7000);
     })
 
+    it("Should return bank statement", () =>{
+        //given
+        let checkingAccount =  accountManager.createCheckingAccount("1234");
+        let deposit: number = 5000;
+        accountManager.addDeposit(checkingAccount, deposit);
+        accountManager.addDeposit(checkingAccount, 10000);
+        accountManager.withdraw(checkingAccount, 8000)
+        accountManager.withdraw(checkingAccount, 3000)
+
+        let statement : string = accountManager.getBankStatement();
+        
+        expect(statement).toEqual("aaaaaaa"); 
+    })
+
+
 
 
 
