@@ -15,6 +15,6 @@ export class CheckingAccount extends Account {
     }
 
     override withdraw(amountOfMoney: number): void {
-        if (!this.overdraft(amountOfMoney)) super.withdraw(amountOfMoney)
+        if (!this.overdraft(amountOfMoney)) this.transactions.push(new Withdraw(amountOfMoney))
     }
 }
