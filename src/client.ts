@@ -1,6 +1,9 @@
+import { Account } from "./account"
+
 export class Client{
 
     private idNumber: number
+    // private accounts: Account[] = []
 
     constructor(private name: string, private lastName: string, private birthDate: string){
         this.name = name
@@ -17,4 +20,8 @@ export class Client{
     get fullName(): string {
         return this.name + " " + this.lastName
     }
+
+    // get accountList(): Account[] {
+    //     return this.accounts
+    // }
 }

@@ -1,6 +1,7 @@
 export class Account{
-    private credit: { [key: string]: number[] } = {};
-    private debit: { [key: string]: number[] } = {};
+    
+    protected credit: { [key: string]: number[] } = {};
+    protected debit: { [key: string]: number[] } = {};
     todaysDate = new Date()
     now = this.formatDate(this.todaysDate)
 
@@ -35,7 +36,7 @@ export class Account{
         } else return "No money to add to deposit"
     }
 
-    withdraw(amount: number, date : string = this.now){
+    withdraw(amount: number, date : string = this.now): string{
         let tmp = []
         if(amount > 0){
             if(amount <= this.countBalanceTotal() + 500){

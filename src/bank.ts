@@ -1,9 +1,17 @@
+import { Account } from "./account";
+import { CheckingAccount } from "./checkingaccount";
 import { Client } from "./client";
+import { InvestmentAccount } from "./investmentaccount";
+import { PersonalAccount } from "./personalaccunt";
+import { SavingAccount } from "./savingaccount";
 
 export class Bank{
     private clientsOfBank: Client[] = [new Client("John", "Smith", "01-10-1998"), 
                                         new Client("Beata", "Johanson", "18-09-2000"), 
                                         new Client("Fredy", "Mercury", "23-12-1968")]
+    
+    private clientsAccount: { [key: number]: SavingAccount[]|InvestmentAccount[]|CheckingAccount[] } = {}
+
     constructor(){
     }
 
@@ -27,5 +35,30 @@ export class Bank{
             if (this.clientsOfBank[i].id === newId) return this.clientsOfBank[i]
         }
         return undefined
+    }
+
+    getAccountList(newId: number){
+        if(this.ifClientRegistered(newId)){
+            let accountName: string[] = []
+            for (let i = 0; i < this.clientsAccount[newId].length; i++) {
+                let type = this.clientsAccount[newId][i].accountType()
+                accountName.push(type)
+            }
+            return accountName
+        }
+    }
+
+    createAccount(account: SavingAccount|CheckingAccount|InvestmentAccount, id: number) {
+        if(this.ifClientRegistered(id)){
+            let type = account.accountType()
+            let tmp = []
+            if(!this.clientsAccount[id]){
+                tmp.push(account)
+                this.clientsAccount[id] = tmp
+            } else {
+                this.clientsAccount[id].push(account)
+            }
+            return type + ' created for ' + this.getClientByID(id)?.fullName
+        } else return 'To create account You need to register'
     }
 }

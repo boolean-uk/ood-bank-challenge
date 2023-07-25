@@ -1,17 +1,19 @@
 import { Client } from "../src/client"
 import { Bank } from "../src/bank"
 import { Account } from "../src/account"
+import { PersonalAccount } from "../src/personalaccunt"
 
 describe("Account tests ", () => {
 
-    // let registerClient: Client
-    // let newClient: Client
+    let registerClient: Client
+    let newClient: Client
     let bank: Bank
     let account: Account
+    let personalaccunt: PersonalAccount
 
     beforeEach(() => { 
-        // registerClient = new Client("John", "Smith", "01-10-1998")
-        // newClient = new Client("Chris", "Test", "01-12-1990")
+        registerClient = new Client("John", "Smith", "01-10-1998")
+        newClient = new Client("Chris", "Test", "01-12-1990")
         bank = new Bank()
         account = new Account()
     })
