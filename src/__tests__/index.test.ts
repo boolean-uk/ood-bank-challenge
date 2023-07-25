@@ -1,3 +1,4 @@
+import { Account } from "../core/Account";
 import { CurrentAccount } from "../core/CurrentAccount";
 import { Customer } from "../core/Customer";
 
@@ -25,5 +26,10 @@ describe("AccountTest", () => {
     current.withdraw(100);
 
     expect(current.getBalance()).toEqual(900);
+  });
+
+  it("should throw for insufficient balance", () => {
+    const current = new CurrentAccount(customer);
+    expect(() => current.withdraw(1)).toThrow("Insufficient funds");
   });
 });
