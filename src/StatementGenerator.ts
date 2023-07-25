@@ -56,7 +56,7 @@ function padToLeftSpaces(input: string, numSpaces: number): string {
     return spaces + input
 }
 
-export function padToMiddleSpaces(input: string, numSpaces: number): string {
+function padToMiddleSpaces(input: string, numSpaces: number): string {
     if (numSpaces <= input.length)
         return input
     const leftCount = Math.floor((numSpaces - input.length) / 2)
@@ -64,7 +64,7 @@ export function padToMiddleSpaces(input: string, numSpaces: number): string {
     return `${' '.repeat(leftCount)}${input}${' '.repeat(rightCount)}`
 }
 
-function formatDate(date: Date): string {
+export function formatDate(date: Date): string {
     const day = date.getDate().toString().padStart(2, '0')
     const month = (date.getMonth() + 1).toString().padStart(2, '0')
     const year = date.getFullYear()

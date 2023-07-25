@@ -1,5 +1,7 @@
-import { StatementGenerator } from "./StatementGenerator"
+import { StatementGenerator, formatDate } from "./StatementGenerator"
 import { Transaction } from "./Transaction"
+import { createWriteStream } from "fs"
+const PDFDocument = require("pdfkit")
 
 
 export abstract class BankAccount {
@@ -47,5 +49,18 @@ export abstract class BankAccount {
     // extension no. 1
     public generateStatementBetweenDates(dateFrom: Date, dateTo: Date = new Date()): String {
         return StatementGenerator.generateStatementBetweenDates(this.transactions, dateFrom, dateTo)
+    }
+
+    public generatePDF(): void {
+        const doc = new PDFDocument
+        const writeStream = createWriteStream("statement.pdf")
+
+        let date = new Date()
+        doc.pipe(writeStream);
+        doc.font("Courier", 24).text("This is your bank statement", { align: "center" })
+        doc.fontSize(18).text(formatDate(new Date()), { align: "center" })
+        doc.fontSize(18).text('\n')
+        doc.fontSize(12).text(this.generateStatement())
+        doc.end();
     }
 }
