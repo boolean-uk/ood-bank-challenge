@@ -1,6 +1,6 @@
 // src/Account.tsx
 
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import Statement from './Statement';
 
 type TransactionType = 'deposit' | 'withdrawal';
@@ -17,13 +17,18 @@ const Account: React.FC = () => {
   const [depositValue, setDepositValue] = useState("")
   const [withdrawValue, setWithdrawValue] = useState("")
 
+  useEffect(() => {
+    const currentBalance = transactions.map(transaction => transaction.type === 'deposit' ? transaction.amount : -transaction.amount).reduce((x,y)=>x+y,0)
+    setBalance(currentBalance)
+  },[transactions])
 
   const deposit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const amount = parseFloat(depositValue)
     const date = new Date().toLocaleDateString();
-    setBalance((prevBalance) => prevBalance + amount);
     setTransactions([...transactions, { date, amount, type: 'deposit' }]);
+
+
     setDepositValue("");
   };
 
@@ -32,7 +37,6 @@ const Account: React.FC = () => {
     const amount = parseFloat(withdrawValue)
     const date = new Date().toLocaleDateString();
     if (balance >= amount) {
-      setBalance((prevBalance) => prevBalance - amount);
       setTransactions([...transactions, { date, amount, type: 'withdrawal' }]);
     } else {
       alert('Insufficient funds.');
