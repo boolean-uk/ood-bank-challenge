@@ -91,17 +91,22 @@ describe('account tests', () => {
         const month = actualDate.getDay() > 9 ? actualDate.getDay() : `0${actualDate.getDay()}`
         const year = actualDate.getFullYear()
 
-        let expectedStatement = `date       || credit  || debit  || balance\n`
-        expectedStatement += `${day}/${month}/${year} ||         || 500.00 || 2500.00\n`
-        expectedStatement += `${day}/${month}/${year} || 2000.00 ||        || 3000.00\n`
-        expectedStatement += `${day}/${month}/${year} || 1000.00 ||        || 1000.00`
+        let expectedStatement1 = `date       || credit  || debit  || balance\n`
+        expectedStatement1 += `${day}/${month}/${year} ||         || 500.00 || 2500.00\n`
+        expectedStatement1 += `${day}/${month}/${year} || 2000.00 ||        || 3000.00\n`
+        expectedStatement1 += `${day}/${month}/${year} || 1000.00 ||        || 1000.00`
+
+        let expectedStatement2 = `date       || credit  || debit  || balance\n`
 
         account.deposit(depositAmount1);
         account.deposit(depositAmount2);
         account.withdraw(withdrawAmount);
 
-        const generatedStatement = account.generateStatementWithDates(actualDate.getMilliseconds() - 86400000, actualDate.getMilliseconds() + 86400000);
+        const generatedStatement1 = account.generateStatementWithDates(actualDate.getMilliseconds() - 86400000, actualDate.getMilliseconds() + 86400000);
 
-        expect(generatedStatement).toEqual(expectedStatement);
+        const generatedStatement2 = account.generateStatementWithDates(actualDate.getMilliseconds() - 86400000 * 2, actualDate.getMilliseconds() - 86400000);
+
+        expect(generatedStatement1).toEqual(expectedStatement1);
+        expect(generatedStatement2).toEqual(expectedStatement2);
     })
 })
