@@ -27,7 +27,9 @@ export class Account {
   }
 
   requestOverdraft(amount: number) {
-    this._overdraftAmount = amount;
+    if (amount <= 500) {
+      this._overdraftAmount = amount;
+    }
   }
 
   getBalance(): number {
