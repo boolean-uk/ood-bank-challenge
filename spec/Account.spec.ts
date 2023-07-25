@@ -9,7 +9,7 @@ describe("Account tests", () => {
 
     it("should create account", () => {
         expect(account.accountNum).toEqual("12345")
-        expect(account.balance).toEqual(0)
+        expect(account.transactions.length).toEqual(0)
     })
 
 })

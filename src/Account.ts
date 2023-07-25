@@ -1,7 +1,7 @@
 
 export class Account {
     private _accountNum: string
-    private _balance = 0
+    private _transactions = []
 
     constructor(accountNum: string){
         this._accountNum = accountNum
@@ -11,8 +11,8 @@ export class Account {
         return this._accountNum
     }
 
-    public get balance() {
-        return this._balance
+    public get transactions() {
+        return this._transactions
     }
     
 }
