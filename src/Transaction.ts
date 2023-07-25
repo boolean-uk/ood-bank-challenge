@@ -6,10 +6,10 @@ export class Transaction {
     constructor(amount: number, type: string);
     constructor(amount: number, type: string, transactionDate: Date)
 
-    constructor(amount: number, type: string) {
-        this.amount = amount
-        this.type = type
-        this.transactionDate = new Date()
+    constructor(amount: number, type: string, transactionDate?: Date) {
+        this.amount = amount;
+        this.type = type;
+        this.transactionDate = transactionDate || new Date();
     }
 
     public getTransactionDate(): string {

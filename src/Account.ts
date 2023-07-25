@@ -1,8 +1,9 @@
 import {Transaction} from "./Transaction";
+import {BankStatementGenerator} from "./BankStatementGenerator";
 
 export class Account {
-    private accountOwner: string
-    private transactionHistory: Transaction[]
+    private readonly accountOwner: string
+    private readonly transactionHistory: Transaction[]
 
     constructor(accountOwner: string) {
         this.accountOwner = accountOwner
@@ -35,6 +36,11 @@ export class Account {
 
     addTransaction(addedTransaction: Transaction) {
         this.transactionHistory.push(addedTransaction)
+    }
+
+    generateBankStatement() {
+        const bankStatementGenerator = new BankStatementGenerator();
+        return bankStatementGenerator.generateBankStatement(this.getTransactionHistory());
     }
 
     getAccountOwner(): string {
