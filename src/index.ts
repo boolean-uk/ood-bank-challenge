@@ -1,4 +1,5 @@
-import { String } from "typescript-string-operations";
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
 
 export class Account {
   private _transactions: Transaction[] = [];
@@ -31,7 +32,9 @@ export class Account {
   }
 
   generateBankStatement() {
-    let result = `date       || credit  || debit  || balance`;
+    let result = `${"date".padEnd(15)}||  ${"credit".padEnd(
+      15
+    )}||  ${"debit".padEnd(15)}||  ${"balance".padEnd(15)}`;
     let rows: string[] = [];
 
     let balance = 0;
@@ -40,17 +43,21 @@ export class Account {
       balance += transaction.amount;
       if (transaction.amount > 0) {
         rows.push(
-          `\n${transaction.date.toLocaleDateString(
-            "en-GB"
-          )} || ${transaction.amount.toFixed(2)} ||        || ${balance.toFixed(
-            2
-          )}`
+          `\n${transaction.date
+            .toLocaleDateString("en-GB")
+            .padEnd(15)}||  ${transaction.amount
+            .toFixed(2)
+            .padEnd(15)}||  ${"".padEnd(15)}||  ${balance
+            .toFixed(2)
+            .padEnd(15)}`
         );
       } else {
         rows.push(
-          `\n${transaction.date.toLocaleDateString("en-GB")} ||         || ${(
-            -1 * transaction.amount
-          ).toFixed(2)} || ${balance.toFixed(2)}`
+          `\n${transaction.date
+            .toLocaleDateString("en-GB")
+            .padEnd(15)}||  ${"".padEnd(15)}||  ${(-1 * transaction.amount)
+            .toFixed(2)
+            .padEnd(15)}||  ${balance.toFixed(2).padEnd(15)}`
         );
       }
     });
@@ -62,7 +69,9 @@ export class Account {
   }
 
   generateBankStatementBetween2Dates(date1: Date, date2: Date) {
-    let result = `date       || credit  || debit  || balance`;
+    let result = `${"date".padEnd(15)}||  ${"credit".padEnd(
+      15
+    )}||  ${"debit".padEnd(15)}||  ${"balance".padEnd(15)}`;
     let rows: string[] = [];
 
     if (date2 < date1) {
@@ -78,17 +87,21 @@ export class Account {
       if (!(transaction.date < date1) && !(transaction.date > date2)) {
         if (transaction.amount > 0) {
           rows.push(
-            `\n${transaction.date.toLocaleDateString(
-              "en-GB"
-            )} || ${transaction.amount.toFixed(
-              2
-            )} ||        || ${balance.toFixed(2)}`
+            `\n${transaction.date
+              .toLocaleDateString("en-GB")
+              .padEnd(15)}||  ${transaction.amount
+              .toFixed(2)
+              .padEnd(15)}||  ${"".padEnd(15)}||  ${balance
+              .toFixed(2)
+              .padEnd(15)}`
           );
         } else {
           rows.push(
-            `\n${transaction.date.toLocaleDateString("en-GB")} ||         || ${(
-              -1 * transaction.amount
-            ).toFixed(2)} || ${balance.toFixed(2)}`
+            `\n${transaction.date
+              .toLocaleDateString("en-GB")
+              .padEnd(15)}||  ${"".padEnd(15)}||  ${(-1 * transaction.amount)
+              .toFixed(2)
+              .padEnd(15)}||  ${balance.toFixed(2).padEnd(15)}`
           );
         }
       }
@@ -110,6 +123,40 @@ export class Account {
 
   allowOverdraft() {
     this._canOverdraft = true;
+  }
+
+  generatePDF() {
+    let rowsForTable: string[][] = [];
+
+    let balance = 0;
+
+    this._transactions.forEach((transaction) => {
+      balance += transaction.amount;
+      if (transaction.amount > 0) {
+        rowsForTable.push([
+          transaction.date.toLocaleDateString("en-GB"),
+          transaction.amount.toFixed(2),
+          "",
+          balance.toFixed(2),
+        ]);
+      } else {
+        rowsForTable.push([
+          transaction.date.toLocaleDateString("en-GB"),
+          "",
+          (-1 * transaction.amount).toFixed(2),
+          balance.toFixed(2),
+        ]);
+      }
+    });
+
+    const doc = new jsPDF();
+
+    autoTable(doc, {
+      head: [["date", "credit", "debit", "balance"]],
+      body: rowsForTable.reverse(),
+    });
+
+    doc.save("bank statement.pdf");
   }
 }
 

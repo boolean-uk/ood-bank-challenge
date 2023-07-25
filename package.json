@@ -20,6 +20,8 @@
   },
   "dependencies": {
     "esbuild": "^0.18.16",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.5.31",
     "typescript-string-operations": "^1.5.0"
   }
 }

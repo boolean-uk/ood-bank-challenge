@@ -122,7 +122,19 @@ describe("Account test", () => {
       account.deposit(amount1, date1);
       account.deposit(amount2, date2);
       account.withdraw(amount3, date3);
-      const expected = `date       || credit  || debit  || balance\n14/01/2012 ||         || 500.00 || 2500.00\n13/01/2012 || 2000.00 ||        || 3000.00\n10/01/2012 || 1000.00 ||        || 1000.00`;
+      const expected = `${"date".padEnd(15)}||  ${"credit".padEnd(
+        15
+      )}||  ${"debit".padEnd(15)}||  ${"balance".padEnd(
+        15
+      )}\n${"14/01/2012".padEnd(15)}||  ${"".padEnd(15)}||  ${"500.00".padEnd(
+        15
+      )}||  ${"2500.00".padEnd(15)}\n${"13/01/2012".padEnd(
+        15
+      )}||  ${"2000.00".padEnd(15)}||  ${"".padEnd(15)}||  ${"3000.00".padEnd(
+        15
+      )}\n${"10/01/2012".padEnd(15)}||  ${"1000.00".padEnd(15)}||  ${"".padEnd(
+        15
+      )}||  ${"1000.00".padEnd(15)}`;
 
       const result = account.generateBankStatement();
       expect(result).toEqual(expected);
@@ -149,7 +161,19 @@ describe("Account test", () => {
 
       const result = account.generateBankStatementBetween2Dates(date1, date3);
 
-      const expected = `date       || credit  || debit  || balance\n13/01/2012 || 2000.00 ||        || 4500.00\n12/01/2012 ||         || 500.00 || 2500.00\n11/01/2012 || 2000.00 ||        || 3000.00`;
+      const expected = `${"date".padEnd(15)}||  ${"credit".padEnd(
+        15
+      )}||  ${"debit".padEnd(15)}||  ${"balance".padEnd(
+        15
+      )}\n${"13/01/2012".padEnd(15)}||  ${"2000.00".padEnd(15)}||  ${"".padEnd(
+        15
+      )}||  ${"4500.00".padEnd(15)}\n${"12/01/2012".padEnd(15)}||  ${"".padEnd(
+        15
+      )}||  ${"500.00".padEnd(15)}||  ${"2500.00".padEnd(
+        15
+      )}\n${"11/01/2012".padEnd(15)}||  ${"2000.00".padEnd(15)}||  ${"".padEnd(
+        15
+      )}||  ${"3000.00".padEnd(15)}`;
 
       expect(result).toEqual(expected);
     });
