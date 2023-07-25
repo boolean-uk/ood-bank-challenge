@@ -17,6 +17,10 @@ export abstract class BankAccount {
         return balance
     }
 
+    public getTransactions(): Transaction[] {
+        return this.transactions
+    }
+
     public withdraw(amount: number): boolean {
         if(this.getBalance() < amount) 
             return false
@@ -32,7 +36,7 @@ export abstract class BankAccount {
         console.log("Cannot add overdraft")
         return false
     }
-    
+
     public generateStatement(): void {
 
     }

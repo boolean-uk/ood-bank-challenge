@@ -1,0 +1,37 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BankAccount = void 0;
+var Transaction_1 = require("./Transaction");
+var BankAccount = /** @class */ (function () {
+    function BankAccount() {
+        this.transactions = [];
+    }
+    BankAccount.prototype.getBalance = function () {
+        var balance = 0;
+        for (var i = 0; i < this.transactions.length; ++i) {
+            var transaction = this.transactions[i];
+            balance += transaction.getAmount() - transaction.getFee();
+        }
+        return balance;
+    };
+    BankAccount.prototype.getTransactions = function () {
+        return this.transactions;
+    };
+    BankAccount.prototype.withdraw = function (amount) {
+        if (this.getBalance() < amount)
+            return false;
+        this.transactions.push(new Transaction_1.Transaction(-amount));
+        return true;
+    };
+    BankAccount.prototype.deposit = function (amount) {
+        this.transactions.push(new Transaction_1.Transaction(amount));
+    };
+    BankAccount.prototype.addOverdraft = function (amount) {
+        console.log("Cannot add overdraft");
+        return false;
+    };
+    BankAccount.prototype.generateStatement = function () {
+    };
+    return BankAccount;
+}());
+exports.BankAccount = BankAccount;
