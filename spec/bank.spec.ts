@@ -1,4 +1,4 @@
-import { subMonths } from "date-fns";
+import { subMonths, subYears } from "date-fns";
 import { Decimal } from "decimal.js";
 import fs from "fs";
 import { Account, CheckingAccount, InvestmentAccount, SavingsAccount } from "../src/account";
@@ -111,5 +111,20 @@ describe("Bank account", () => {
 
     // Test
     expect(accumulatedInterest).toEqual(new Decimal(6));
+  });
+
+  it("should throw expection when SavingsAccount deposit limit exceeds 20,000 per year", () => {
+    // Setup
+    const now = new Date();
+    const sixMonthsAgo = subMonths(now, 6);
+    const twoYearsAgo = subYears(now, 2);
+    account = openAccount(SavingsAccount);
+    account.deposit(new Decimal(11000), twoYearsAgo);
+
+    // Test
+    expect(() => account.deposit(new Decimal(11000), sixMonthsAgo)).not.toThrow(
+      "Deposit limit exceeded"
+    );
+    expect(() => account.deposit(new Decimal(10000), now)).toThrow("Deposit limit exceeded");
   });
 });
