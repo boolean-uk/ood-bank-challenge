@@ -7,7 +7,7 @@ describe("Transfer tests", () => {
         transfer = new Transfer(10000)
     })
 
-    it("should create account", () => {
+    it("should create transfer", () => {
         expect(transfer.amountOfMoney).toEqual(10000)
     })
 

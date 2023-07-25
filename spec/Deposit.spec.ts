@@ -1,12 +1,14 @@
+import { Deposit } from "../src/Deposit"
+
 describe("Deposit tests", () => {
-    let test = true
+    let deposit: Deposit
 
-    // beforeEach(() => {
-        
-    // })
+    beforeEach(() => {
+      deposit = new Deposit(10000)  
+    })
 
-    it("should add enemy to the game", () => {
-        expect(test).toEqual(true)
+    it("should create a deposit", () => {
+        expect(deposit.amountOfMoney).toEqual(10000)
     })
 
 })

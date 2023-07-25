@@ -1,12 +1,14 @@
+import { Withdraw } from "../src/Withdraw"
+
 describe("Withdraw tests", () => {
-    let test = true
+    let withdraw: Withdraw
 
-    // beforeEach(() => {
-        
-    // })
+    beforeEach(() => {
+      withdraw = new Withdraw(10000)  
+    })
 
-    it("should add enemy to the game", () => {
-        expect(test).toEqual(true)
+    it("should create a withdraw", () => {
+        expect(withdraw.amountOfMoney).toEqual(10000)
     })
 
 })
