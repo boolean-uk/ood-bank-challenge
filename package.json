@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,8 @@
   "homepage": "https://github.com/annsperkach/ood-bank-challenge#readme",
   "devDependencies": {
     "@types/jest": "^29.5.3",
-    "jest": "^29.6.1"
+    "jest": "^29.6.1",
+    "ts-jest": "^29.1.1"
   },
   "dependencies": {
     "typescript": "^5.1.6"
