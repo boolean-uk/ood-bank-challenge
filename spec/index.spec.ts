@@ -1,8 +1,11 @@
+import { Account } from "../src"
+
 describe('account tests', () => {
-    let account
+    let account: Account
 
     beforeEach(() => {
-        account = new Account();
+        account = new Account()
+        
     })
 
     it('should return true and update balance after deposit certain amount of money', () => {
