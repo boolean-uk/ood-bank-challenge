@@ -2,12 +2,11 @@
   "name": "ood-bank-challenge",
   "version": "1.0.0",
   "description": "This challenge helps you practice your OO design skills.",
-  "main": "index.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-    "test": "npx jasmine"
+    "test": "tsc && npx jasmine"
   },
   "repository": {
     "type": "git",

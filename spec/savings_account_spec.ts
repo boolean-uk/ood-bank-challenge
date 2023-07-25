@@ -1,11 +1,15 @@
 import {
     SavingsAccount
 } from '../src/savings_account';
+import {
+    Account
+} from '../src/account';
+
 describe('SavingsAccount', function () {
-    const account: Account;
+    let account: Account;
 
     beforeEach(() => {
-        account = new Account();
+        account = new SavingsAccount();
     })
 
     it('deposit adds transaction', function () {
@@ -16,7 +20,7 @@ describe('SavingsAccount', function () {
     })
 
     it('deposit throws exception for negative amount', function () {
-        expect(account.deposit()).toThrow();
+        expect(() => account.deposit(-20)).toThrow();
     })
 
 })
