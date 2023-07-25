@@ -3,18 +3,18 @@ export class Transaction {
     private transactionType: TransactionType,
     private amount: number,
     private balanceAfterTransaction: number, 
-    public date: string
+    private date: Date
   ) {}
 
   getTransactionDescription(): string{
     if (this.transactionType === TransactionType.Credit) {
-        return this.date + " || " + this.amount + "    || " + "        || " + this.balanceAfterTransaction;
+        return this.date.toLocaleDateString() + " || " + this.amount + "    || " + "        || " + this.balanceAfterTransaction;
     } else {
-        return this.date + " || " + "       || " + this.amount + "     || " + this.balanceAfterTransaction;
+        return this.date.toLocaleDateString() + " || " + "       || " + this.amount + "     || " + this.balanceAfterTransaction;
     }
   }
 
-  getDate(): string{
+  getDate(): Date{
     return this.date;
   }
 }

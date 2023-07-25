@@ -71,7 +71,9 @@ describe("Account tests", () => {
       account.depositFunds(200, new Date("2023-07-21"));
       account.withdrawFunds(200, new Date("2023-07-22"));
       account.depositFunds(300, new Date());
-      expect(account.getTransactions()[0].getDate()).toEqual("7/21/2023");
+      expect(account.getTransactions()[0].getDate()).toEqual(
+        new Date("2023-07-21")
+      );
     });
   });
 
@@ -80,7 +82,9 @@ describe("Account tests", () => {
       account.depositFunds(200, new Date("2023-07-21"));
       account.withdrawFunds(200, new Date("2023-07-22"));
       account.depositFunds(300, new Date("2023-07-25"));
-      expect(account.getTransactions()[1].getDate()).toEqual("7/22/2023");
+      expect(account.getTransactions()[1].getDate()).toEqual(
+        new Date("2023-07-22")
+      );
     });
   });
 
@@ -89,7 +93,35 @@ describe("Account tests", () => {
       account.depositFunds(200, new Date("2023-07-21"));
       account.withdrawFunds(200, new Date("2023-07-22"));
       account.depositFunds(300, new Date("2023-07-25"));
-      expect(account.getTransactions()[2].getDate()).toEqual("7/25/2023");
+      expect(account.getTransactions()[2].getDate()).toEqual(
+        new Date("2023-07-25")
+      );
+    });
+  });
+
+  describe("Checking account statement between two dates", () => {
+    it("should be equal to 2", () => {
+      account.depositFunds(200, new Date("2023-07-21"));
+      account.withdrawFunds(200, new Date("2023-07-22"));
+      account.depositFunds(300, new Date("2023-07-25"));
+      let transactions = account.getTransactionsBetweenTwoDates(
+        new Date("2023-07-20"),
+        new Date("2023-07-22")
+      ).length;
+      expect(transactions).toEqual(2);
+    });
+  });
+
+  describe("Checking account statement between two dates", () => {
+    it("should be equal to 3", () => {
+      account.depositFunds(200, new Date("2023-07-21"));
+      account.withdrawFunds(200, new Date("2023-07-22"));
+      account.depositFunds(300, new Date("2023-07-25"));
+      let transactions = account.getTransactionsBetweenTwoDates(
+        new Date("2023-07-20"),
+        new Date("2023-07-26")
+      ).length;
+      expect(transactions).toEqual(3);
     });
   });
 });
