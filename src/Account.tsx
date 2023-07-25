@@ -17,6 +17,8 @@ const Account: React.FC = () => {
   const [depositValue, setDepositValue] = useState("")
   const [withdrawValue, setWithdrawValue] = useState("")
 
+  const OVERDRAFT = 500.00
+
   useEffect(() => {
     const currentBalance = transactions.map(transaction => transaction.type === 'deposit' ? transaction.amount : -transaction.amount).reduce((x,y)=>x+y,0)
     setBalance(currentBalance)
@@ -36,7 +38,7 @@ const Account: React.FC = () => {
     e.preventDefault();
     const amount = parseFloat(withdrawValue)
     const date = new Date().toLocaleDateString();
-    if (balance >= amount) {
+    if (balance + OVERDRAFT >= amount) {
       setTransactions([...transactions, { date, amount, type: 'withdrawal' }]);
     } else {
       alert('Insufficient funds.');
