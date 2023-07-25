@@ -12,4 +12,9 @@ describe('BankAccount', () => {
         expect(bankAccount.balance).toEqual(0);
     });
 
+    it('should have a balance of 100 when depositing 100', () => {
+        bankAccount.deposit(100);
+        expect(bankAccount.balance).toEqual(100);
+    });
+
 });
