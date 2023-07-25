@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { Banking } from './banking.ts';
-import {Transaction} from './transaction.ts';
+import {Transaction, TransactionInterface} from './transaction.ts';
 
 const banking = new Banking();
 const transaction = new Transaction();
@@ -12,7 +12,7 @@ const transaction = new Transaction();
 export const useStore = defineStore('store', {
     state: () => ({
         balance: banking.getBalance(),
-        transactionHistory: transaction.getTransaction(),
+        transactionHistory: [] as TransactionInterface[],
     }),
     actions: {
         withdrawAmount(amount: number) {

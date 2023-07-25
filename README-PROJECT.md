@@ -33,9 +33,9 @@ date       || credit  || debit  || balance
 - [X] Meets the spec
 - [X] Developed test-first (commit your tests before your source code to provide evidence of this)
 - [X] Passes tests
-- [ ] Encapsulates adding and storing Transactions in a class
-- [ ] Encapsulates Statement formatting in a class
-- [ ] Encapsulates Transaction data in a class
+- [X] Encapsulates adding and storing Transactions in a class
+- [X] Encapsulates Statement formatting in a class
+- [X] Encapsulates Transaction data in a class
 
 #### Extensions
 - [ ] Generate ordered bank statements between 2 dates
@@ -43,5 +43,5 @@ date       || credit  || debit  || balance
 - [ ] Allow adding a 500 overdraft to the account
 - [ ] Different account types (Savings, Investment, Checking). Savings & Investment accounts cant have overdrafts, Checking accounts can. Investment accounts accumulate 2% interest every month.
 - [ ] Deposit limits of 20,000 per year on Savings accounts
-- [ ] A front-end online banking app
+- [X] A front-end online banking app
 - [ ] Generate PDFs of bank statements
