@@ -1,5 +1,6 @@
 import BankAccount from "../src/BankAccount"
 import Transaction from "../src/Transaction"
+import os from "os";
 
 describe('Transaction', () => {
     let transaction: Transaction;
@@ -119,5 +120,18 @@ describe('BankAccount', () => {
         ];
 
         expect(bankAccount.transactions).toEqual(transactions);
+    });
+
+    it('should produce a statement', () => {
+        bankAccount.deposit(1000, new Date(2012, 0, 10));
+        bankAccount.deposit(2000, new Date(2012, 0, 13));
+        bankAccount.withdraw(500, new Date(2012, 0, 14));
+
+        const statement = "date       || credit  || debit  || balance" + os.EOL +
+        "14/01/2012 ||         || 500.00 || 2500.00" + os.EOL +
+        "13/01/2012 || 2000.00 ||        || 3000.00" + os.EOL +
+        "10/01/2012 || 1000.00 ||        || 1000.00" + os.EOL;
+
+        expect(bankAccount.generateStatement()).toEqual(statement);
     });
 });
