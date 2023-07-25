@@ -8,6 +8,10 @@ class bankaccount {
   deposit(amount: number) {
     if (amount > 0) this._balance += amount;
   }
+
+  withdraw(amount: number) {
+    this._balance -= amount;
+  }
 }
 
 export default bankaccount;
