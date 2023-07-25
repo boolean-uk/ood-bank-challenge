@@ -1,11 +1,8 @@
 import Statement from "./Statement";
 import Transaction from "./Transaction";
 
-class bankaccount {
-  constructor(
-    private _balance: number = 0,
-    private _transactions: Transaction[] = []
-  ) {}
+class BankAccount {
+  constructor(protected _transactions: Transaction[] = []) {}
 
   get balance(): number {
     let balance: number = 0;
@@ -25,14 +22,21 @@ class bankaccount {
   }
 
   withdraw(amount: number, date: Date) {
-    const transaction = new Transaction(date, -amount, "debit");
-    this._transactions.push(transaction);
+    if (amount <= this.balance) {
+      const transaction = new Transaction(date, -amount, "debit");
+      this._transactions.push(transaction);
+    }
   }
 
   generateStatement() {
     let statement: Statement = new Statement(this);
     statement.print();
   }
+  generateOrderedStatement(from: Date, to: Date) {
+    let statement: Statement = new Statement(this);
+    statement.print();
+  }
+  addInterest() {}
 }
 
-export default bankaccount;
+export default BankAccount;

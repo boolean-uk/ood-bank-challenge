@@ -1,15 +1,15 @@
-import Bankaccount from "./Bankaccount";
+import BankAccount from "./BankAccount";
 import LineItem from "./LineItem";
 import Transaction from "./Transaction";
 
 class Statement {
-  constructor(private _bankaccount: Bankaccount) {}
+  constructor(private _bankaccount: BankAccount) {}
 
   print() {
     let transactions: Transaction[] = this._bankaccount.transactions;
     const lineItem: LineItem = new LineItem();
     console.log(
-      `${"date".padEnd(11)}|| ${"credit".padEnd(9)}|| ${"debit".padEnd(
+      `${"date".padEnd(11)}|| ${"credit".padEnd(10)}|| ${"debit".padEnd(
         9
       )}|| balance`
     );

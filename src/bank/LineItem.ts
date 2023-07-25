@@ -15,7 +15,7 @@ class LineItem {
     const credit = type === "credit" ? this.formatCurrency(amount) : "";
     const debit = type === "debit" ? this.formatCurrency(amount * -1) : "";
 
-    return `${dateStr} || ${credit.padEnd(8)} || ${debit.padEnd(8)}`;
+    return `${dateStr} || ${credit.padEnd(9)} || ${debit.padEnd(9)}`;
   }
 }
 
