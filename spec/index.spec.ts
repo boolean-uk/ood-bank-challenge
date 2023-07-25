@@ -67,10 +67,10 @@ describe('account tests', () => {
         const month = actualDate.getDay() > 9 ? actualDate.getDay() : `0${actualDate.getDay()}`
         const year = actualDate.getFullYear()
 
-        const expectedStatement = `date       || credit  || debit  || balance
-        ${day}/${month}/${year} ||         || 500.00 || 2500.00
-        ${day}/${month}/${year} || 2000.00 ||        || 3000.00
-        ${day}/${month}/${year} || 1000.00 ||        || 1000.00`
+        let expectedStatement = `date       || credit  || debit  || balance\n`
+        expectedStatement += `${day}/${month}/${year} ||         || 500.00 || 2500.00\n`
+        expectedStatement += `${day}/${month}/${year} || 2000.00 ||        || 3000.00\n`
+        expectedStatement += `${day}/${month}/${year} || 1000.00 ||        || 1000.00`
 
         account.deposit(depositAmount1);
         account.deposit(depositAmount2);
