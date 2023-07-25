@@ -28,11 +28,13 @@ export class NormalAccount {
  }
 
  export class Transaction {
-    date:Date
+    date:number
     amount:number
-    constructor(date:Date,amount:number)
+    transactionType:boolean
+    constructor(amount:number,transactionType:boolean)
     {
-        this.date=date
+        this.date=Date.now()
         this.amount =amount
+        this.transactionType=transactionType
     }
  }

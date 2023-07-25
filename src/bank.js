@@ -22,9 +22,10 @@ class NormalAccount {
 }
 exports.NormalAccount = NormalAccount;
 class Transaction {
-    constructor(date, amount) {
-        this.date = date;
+    constructor(amount, transactionType) {
+        this.date = Date.now();
         this.amount = amount;
+        this.transactionType = transactionType;
     }
 }
 exports.Transaction = Transaction;
