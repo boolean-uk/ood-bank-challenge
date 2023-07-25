@@ -35,6 +35,7 @@ describe("Bank tests", () => {
         const fundsToAdd = 100
         const fundsToGet = 50
         bank.addFunds(fundsToAdd);
-        expect(bank.getFunds(fundsToGet)).toBe(fundsToAdd - fundsToGet);
+        bank.getFunds(fundsToGet);
+        expect(bank.getBalance()).toBe(fundsToAdd - fundsToGet);
     })
 })
