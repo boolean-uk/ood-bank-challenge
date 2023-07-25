@@ -1,5 +1,14 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+import { useStore } from '../../api/store.ts';
 
+const store = useStore();
+const amount = ref(0);
+
+const handleDeposit = () => {
+    store.depositAmount(amount.value);
+    amount.value = 0;
+};
 </script>
 
 <template>
@@ -9,8 +18,13 @@
             <p>...and here you deposit it. Don't waste it!</p>
             <div class="card-actions justify-end">
                 <div class="join">
-                    <input class="input input-bordered join-item" placeholder="Amount"/>
-                    <button class="btn btn-primary join-item">Subscribe</button>
+                    <input
+                        class="input input-bordered join-item"
+                        v-model="amount"
+                        type="number"
+                        placeholder="Amount"
+                    />
+                    <button class="btn btn-primary join-item" @click="handleDeposit">Submit</button>
                 </div>
             </div>
         </div>

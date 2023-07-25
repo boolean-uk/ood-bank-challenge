@@ -7,6 +7,7 @@ const amount = ref(0);
 
 const handleWithdraw = () => {
     store.withdrawAmount(amount.value);
+    amount.value = 0;
 };
 </script>
 

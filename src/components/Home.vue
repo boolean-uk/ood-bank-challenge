@@ -3,7 +3,6 @@ import WithdrawCard from "./cards/WithdrawCard.vue";
 import DepositCard from "./cards/DepositCard.vue";
 import BalanceCard from "./cards/BalanceCard.vue";
 import DashboardCard from "./cards/DashboardCard.vue";
-import PrintCard from "./cards/PrintCard.vue";
 
 </script>
 
@@ -16,7 +15,6 @@ import PrintCard from "./cards/PrintCard.vue";
             <div class="col-span-2">
                 <DashboardCard></DashboardCard>
             </div>
-            <PrintCard></PrintCard>
         </div>
     </div>
 </template>

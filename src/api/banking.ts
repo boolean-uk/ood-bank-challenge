@@ -5,10 +5,6 @@ export class Banking {
         return this.balance;
     }
 
-    setBalance(): void {
-        this.balance += 5;
-    }
-
     withdraw(amount: number): boolean {
         if (amount > 0 && amount <= this.balance) {
             this.balance -= amount;
