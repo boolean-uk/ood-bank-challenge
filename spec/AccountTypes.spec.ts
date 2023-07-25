@@ -1,4 +1,4 @@
-import { Account } from "../src/Account"
+import { SavingAccount } from "../src/accountTypes/SavingAccount";
 
 describe("Account Types tests", () => {
     let savingAccount: SavingAccount;
