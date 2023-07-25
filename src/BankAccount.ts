@@ -2,11 +2,14 @@ import Transaction from "./Transaction";
 import * as os from 'os';
 
 class BankAccount {
-    private _balance: number = 0;
     private _transactions: Transaction[] = [];
 
     public get balance(): number {
-        return this._balance;
+        let balance: number = 0;
+        this._transactions.forEach(transaction => {
+            balance += transaction.amount;
+        });
+        return balance;
     }
 
     public get transactions(): Transaction[] {
@@ -17,10 +20,9 @@ class BankAccount {
         if (amount < 0) {
             throw new Error('You cannot deposit a negative amount');
         }
-        this._balance += amount;
         const hour_minute = date.getHours() + ":" + date.getMinutes();
 
-        const transaction = new Transaction(amount, this.balance, 
+        const transaction = new Transaction(amount, this.balance + amount, 
             date.toLocaleDateString('en-GB'), hour_minute);
         this._transactions.push(transaction);
     }
@@ -33,9 +35,8 @@ class BankAccount {
             throw new Error('You cannot withdraw more than your balance');
         }
 
-        this._balance -= amount;
         const hour_minute = date.getHours() + ":" + date.getMinutes();
-        const transaction = new Transaction(-amount, this.balance, 
+        const transaction = new Transaction(-amount, this.balance - amount, 
             date.toLocaleDateString('en-GB'), hour_minute);
         this._transactions.push(transaction);
     }
