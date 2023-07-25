@@ -19,44 +19,43 @@ class Transaction implements ITransaction {
     public getType(): TransactionType {}
 }
 
-interface BankAccountI {
+interface IBankAccount {
     deposit(amount: number): boolean
     withdraw(amount: number): boolean
     getTransactions(): ITransaction[]
-    calculateCurrentBallance(): number
 }
 
-class AbstractBankAccount implements BankAccountI {
+abstract class AbstractBankAccount implements IBankAccount {
     private transactions: ITransaction[]
 
-    public deposit(amount: number): boolean {}
-    public withdraw(amount: number): boolean {}
+    public deposit(amount: number, date: Date): boolean {}
+    public withdraw(amount: number, date: Date): boolean {}
     public getTransactions(): ITransaction[] {}
     private calculateCurrentBallance(): number {}
 }
 
-class SavingsBanckAccount extends AbstractBankAccount {
+class SavingsBankAccount extends AbstractBankAccount {
     private depositLimitPerYear: number
 
-    public override deposit(amount: number): boolean {}
+    public override deposit(amount: number, date: Date): boolean {}
 }
 
-class InvestmentBanckAccount extends AbstractBankAccount {
-    public accumulateInterest(percent: number): boolean {}
+class InvestmentBankAccount extends AbstractBankAccount {
+    public accumulateInterest(interestRate: number, date: Date): boolean {}
 }
 
-class CheckingBanckAccount extends AbstractBankAccount {
+class CheckingBankAccount extends AbstractBankAccount {
     private overdraftLimit: number
 
-    public override withdraw(amount: number): boolean {}
+    public override withdraw(amount: number, date: Date): boolean {}
 }
 
-interface BankStatementGeneratorI {
+interface IBankStatementGenerator {
     public generateBankStatement(transactions: ITransaction[]): string
     public generateBankStatementBetweenTwoDates(transactions: ITransaction[], earlierDate: Date, laterDate: Date): string
 }
 
-class BankStatementGenerator implements BankStatementGeneratorI {
+class BankStatementGenerator implements IBankStatementGenerator {
     public generateBankStatement(transactions: ITransaction[]): string {}
     public generateBankStatementBetweenTwoDates(transactions: ITransaction[], earlierDate: Date, laterDate: Date): string {}
 }
