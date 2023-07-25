@@ -5,22 +5,29 @@ import { Transaction } from "./Transaction";
 export class Account {
   private _customer: Customer;
   private _transactions: Transaction[];
+  private _overdraftAmount: number;
 
   constructor(customer: Customer) {
     this._customer = customer;
     this._transactions = [];
+    this._overdraftAmount = 0;
   }
 
   withdraw(amount: number) {
-    if (this.getBalance() >= amount) {
+    const availableBalance = this.getBalance() + this._overdraftAmount;
+    if (availableBalance >= amount) {
       this.createTransaction(amount, TRANSACTION_TYPE.DEBIT, new Date());
     } else {
       throw new Error("Insufficient funds");
     }
   }
 
-  deposit(amount: number) {
+  deposit(amount: number): void {
     this.createTransaction(amount, TRANSACTION_TYPE.CREDIT, new Date());
+  }
+
+  requestOverdraft(amount: number) {
+    this._overdraftAmount = amount;
   }
 
   getBalance(): number {
@@ -102,7 +109,7 @@ export class Account {
       : balance - transaction.getAmount();
   }
 
-  private printHeading() {
+  printHeading() {
     console.log(
       `${"date".padEnd(10)} || ${"credit".padEnd(10)} || ${"debit".padEnd(
         10

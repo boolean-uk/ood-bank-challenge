@@ -7,9 +7,11 @@ var Account = /** @class */ (function () {
     function Account(customer) {
         this._customer = customer;
         this._transactions = [];
+        this._overdraftAmount = 0;
     }
     Account.prototype.withdraw = function (amount) {
-        if (this.getBalance() >= amount) {
+        var availableBalance = this.getBalance() + this._overdraftAmount;
+        if (availableBalance >= amount) {
             this.createTransaction(amount, TRANSACTION_TYPE_1.TRANSACTION_TYPE.DEBIT, new Date());
         }
         else {
@@ -18,6 +20,9 @@ var Account = /** @class */ (function () {
     };
     Account.prototype.deposit = function (amount) {
         this.createTransaction(amount, TRANSACTION_TYPE_1.TRANSACTION_TYPE.CREDIT, new Date());
+    };
+    Account.prototype.requestOverdraft = function (amount) {
+        this._overdraftAmount = amount;
     };
     Account.prototype.getBalance = function () {
         var balance = 0;
