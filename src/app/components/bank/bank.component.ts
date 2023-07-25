@@ -3,6 +3,7 @@ import {BankStorageService} from "../../services/bank-storage.service";
 import {MatSort, Sort} from "@angular/material/sort";
 import {Transaction} from "../../interfaces/transaction";
 import {MatTableDataSource} from "@angular/material/table";
+import {Observable} from "rxjs";
 
 
 @Component({
@@ -21,12 +22,13 @@ export class BankComponent {
     })
   }
 
-  getBankBalance() {
+  getBankBalance():number {
     return this.bankService.balance
   }
 
-  getBankHistory() {
+  getBankHistory():Observable<Transaction[]> {
     return this.bankService.history
+
   }
 
   sortData(sort: Sort) {

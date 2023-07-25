@@ -1,0 +1,22 @@
+.bank{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.balance {
+}
+
+.history {
+  width: 70%;
+  max-height: 60vh;
+  overflow: auto;
+}
+
+.manage-balance{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

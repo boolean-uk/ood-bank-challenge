@@ -11,24 +11,13 @@ import {DepositComponent} from './components/deposit/deposit.component';
 import {WithdrawComponent} from './components/withdraw/withdraw.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    BankComponent,
-    DepositComponent,
-    WithdrawComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    MatSortModule,
-  ],
+  declarations: [AppComponent, BankComponent, DepositComponent, WithdrawComponent,],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatButtonModule, FormsModule, ReactiveFormsModule, MatTableModule, MatSortModule, MatFormFieldModule, MatInputModule],
   providers: [],
   bootstrap: [AppComponent]
 })
