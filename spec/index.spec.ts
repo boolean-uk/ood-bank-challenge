@@ -17,4 +17,16 @@ describe('account tests', () => {
         expect(depositResult).toEqual(true);
         expect(balanceResult).toEqual(depositAmount);
     })
+
+    it('should return false and not update balance after deposit invalid amount of money', () => {
+        const depositAmount1 = 1000;
+        const depositAmount2 = -500;
+
+        account.deposit(depositAmount1);
+        const depositResult = account.deposit(depositAmount2);
+        const balanceResult = account.getBalance();
+
+        expect(depositResult).toEqual(false);
+        expect(balanceResult).toEqual(depositAmount1);
+    })
 })
