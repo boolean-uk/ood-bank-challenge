@@ -14,11 +14,11 @@ describe('BankAccount', () => {
 
     it('should have a balance of 100 when depositing 100', () => {
         bankAccount.deposit(100);
-        const date = new Date();
-        const transaction = new Transaction(100, date);
+        const hour_minute = new Date().getHours() + ":" + new Date().getMinutes();
+        const transaction = new Transaction(100, new Date().toLocaleDateString(), hour_minute);
         console.log(transaction);
         expect(bankAccount.balance).toEqual(100);
-        expect(bankAccount.transactions).toContain(transaction);
+        expect(bankAccount.transactions).toContainEqual(transaction);
     });
 
 
