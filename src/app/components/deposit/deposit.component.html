@@ -1,0 +1,6 @@
+<form (ngSubmit)="deposit()">
+  <label> Deposit </label>
+  <input type="number" id="amount" [formControl]="amount" min="0" required/>
+  <button mat-raised-button type="submit">Deposit</button>
+</form>
+
