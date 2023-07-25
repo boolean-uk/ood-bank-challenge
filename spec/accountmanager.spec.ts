@@ -67,6 +67,23 @@ describe("Account Manager tests", () => {
         expect(checkingAccount.getBalance()).toEqual(15000);
     })
 
+    
+    it("Should withdraw amount of money from the account", () =>{
+        //given
+        let checkingAccount =  accountManager.createCheckingAccount("1234");
+        let deposit: number = 5000;
+        accountManager.addDeposit(checkingAccount, deposit);
+        accountManager.addDeposit(checkingAccount, 10000);
+        //when
+        accountManager.withdraw(checkingAccount, 8000)
+
+        //then
+        expect(checkingAccount.getBalance()).toEqual(7000);
+    })
+
+
+
+
 })
 
     
