@@ -21,6 +21,9 @@ describe('SavingsAccount', function () {
         expect(account.getBalance()).toEqual(19.99);
     });
     it('withdraw throws exception when balance is insufficient', function () {
-        expect(() => account.withdraw(19.99)).toThrow();
+        expect(() => { account.withdraw(19.99); }).toThrow();
+    });
+    it('withdraw throws exception for negative amount', function () {
+        expect(() => { account.withdraw(-10); }).toThrow();
     });
 });

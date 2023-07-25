@@ -33,6 +33,24 @@ describe('SavingsAccount', function () {
   })
 
   it('withdraw throws exception when balance is insufficient', function () {
-    expect(() => account.withdraw(19.99)).toThrow()
+    expect(() => { account.withdraw(19.99) }).toThrow()
+  })
+
+  it('withdraw throws exception for negative amount', function () {
+    expect(() => { account.withdraw(-10) }).toThrow()
+  })
+
+  it('generateStatement returns statement', function () {
+    const date: string = Date()
+    account.deposit(19.99)
+    account.deposit(19.99)
+    account.withdraw(19.99)
+
+    expect(() => { account.generateStatement() }).toEqual(`
+    date || credit || debit || balance
+    ${date} ||        || 19.99  || 19.99
+    ${date} || 19.99  ||        || 39.98
+    ${date} || 19.99  ||        || 19.99
+    `)
   })
 })
