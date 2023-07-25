@@ -12,4 +12,9 @@ describe("Account tests", () => {
         expect(account.transactions.length).toEqual(0)
     })
 
+    it("should make a deposit", () => {
+        account.deposit(10000)
+        expect(account.transactions.length).toEqual(1)
+    })
+
 })
