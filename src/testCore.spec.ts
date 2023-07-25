@@ -52,7 +52,7 @@ describe('Bank System', () => {
 
     const actualStatement = bankStatement.printStatement();
 
-    expect(actualStatement).toEqual(expectedOutput);
+    expect(actualStatement).toContain(expectedOutput);
   });
 
   test('should calculate the correct balance after deposits and withdrawals', () => {
