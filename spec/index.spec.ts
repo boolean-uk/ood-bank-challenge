@@ -99,7 +99,32 @@ describe("Account test", () => {
       const expected = `date       || credit  || debit  || balance\n14/01/2012 ||         || 500.00 || 2500.00\n13/01/2012 || 2000.00 ||        || 3000.00\n10/01/2012 || 1000.00 ||        || 1000.00`;
 
       const result = account.generateBankStatement();
-      console.log(result);
+      expect(result).toEqual(expected);
+    });
+  });
+
+  describe("#generateBankStatementBetween2Dates()", () => {
+    it("returns bank statement", () => {
+      const date0 = new Date(2012, 0, 10);
+      const date1 = new Date(2012, 0, 11);
+      const date2 = new Date(2012, 0, 12);
+      const date3 = new Date(2012, 0, 13);
+      const date4 = new Date(2012, 0, 14);
+      const amount0 = 1000.0;
+      const amount1 = 2000.0;
+      const amount2 = 500.0;
+      const amount3 = 2000.0;
+      const amount4 = 100.0;
+      account.deposit(amount0, date0);
+      account.deposit(amount1, date1);
+      account.withdraw(amount2, date2);
+      account.deposit(amount3, date3);
+      account.withdraw(amount4, date4);
+
+      const result = account.generateBankStatementBetween2Dates(date1, date3);
+
+      const expected = `date       || credit  || debit  || balance\n13/01/2012 || 2000.00 ||        || 4500.00\n12/01/2012 ||         || 500.00 || 2500.00\n11/01/2012 || 2000.00 ||        || 3000.00`;
+
       expect(result).toEqual(expected);
     });
   });
