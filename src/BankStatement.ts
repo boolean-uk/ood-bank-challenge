@@ -48,6 +48,12 @@ export class Transaction {
     }
   
     withdraw(date: string, amount: number) {
+      const availableFunds = this.getAvailableFunds();
+  
+      if (amount > availableFunds) {
+        throw new Error('Insufficient funds for withdrawal.');
+      }
+  
       this.transactions.push(new Transaction(date, amount, 'debit'));
     }
   
@@ -55,7 +61,7 @@ export class Transaction {
       const sortedTransactions = this.transactions.slice().sort((a, b) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
-        return dateB.getTime() - dateA.getTime(); 
+        return dateB.getTime() - dateA.getTime();
       });
   
       let balance = 0;
@@ -78,6 +84,19 @@ export class Transaction {
   
       return statement.trim();
     }
+    private getAvailableFunds(): number {
+        let balance = 0;
+    
+        for (const transaction of this.transactions) {
+          if (transaction.type === 'credit') {
+            balance += transaction.amount;
+          } else {
+            balance -= transaction.amount;
+          }
+        }
+    
+        return balance;
+      }
   }
   
   

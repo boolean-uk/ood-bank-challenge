@@ -20,4 +20,13 @@ describe('BankAccount', () => {
 
     expect(bankAccount.printStatement()).toEqual(expectedStatement);
   });
+
+  
+  it('should throw an error for an invalid withdrawal', () => {
+    bankAccount.deposit('10/01/2012', 1000);
+
+    expect(() => {
+      bankAccount.withdraw('14/01/2012', 1500);
+    }).toThrow('Insufficient funds for withdrawal.');
+  });
 });
