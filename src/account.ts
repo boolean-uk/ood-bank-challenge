@@ -1,4 +1,5 @@
 import { Transaction } from './transaction'
+import { StatementFormatter } from './StatementFormatter'
 
 export abstract class Account {
   transactions: Transaction[] = []
@@ -24,16 +25,8 @@ export abstract class Account {
   }
 
   generateStatement(): string {
-    let balance = 0
-    let statement = ''
-    for (const transaction of this.transactions) {
-      balance += transaction.amount
-      const newLine = transaction.dateToString() + ' || ' + (transaction.amount >= 0 ? transaction.amount + ' || || ' : '|| ' + Math.abs(transaction.amount) + ' || ') + balance
-      statement = newLine + '\n' + statement
-    }
-
-    statement = 'date || credit || debit || balance\n' + statement
-    return statement.trim()
+    const statementFormatter = new StatementFormatter(this);
+    return statementFormatter.generateFormattedStatement();
   }
 
   getBalance(now: Date = new Date()): number {

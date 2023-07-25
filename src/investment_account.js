@@ -9,17 +9,9 @@ class InvestmentAccount extends account_1.Account {
         this.creationDate = creationDate;
     }
     getBalance(now = new Date()) {
-        // Get the balance from the base class (Account)
         let baseBalance = super.getBalance();
-        console.log(`base balance: ${baseBalance}`);
-        console.log();
         let monthsSinceCreationDate = this.monthDifference(this.creationDate, now);
-        console.log(`months since:  ${monthsSinceCreationDate}`);
-        console.log(`creation date: ${this.creationDate}`);
-        // Calculate the interest accumulated for each full month
         let interest = baseBalance * InvestmentAccount.INTEREST_PER_MONTH * monthsSinceCreationDate;
-        console.log(`interest: ${interest}`);
-        // Add the interest to the base balance
         return baseBalance + interest;
     }
     monthDifference(dateFrom, dateTo) {

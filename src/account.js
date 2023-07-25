@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Account = void 0;
 const transaction_1 = require("./transaction");
+const StatementFormatter_1 = require("./StatementFormatter");
 class Account {
     constructor() {
         this.transactions = [];
@@ -22,15 +23,8 @@ class Account {
         this.transactions.push(new transaction_1.Transaction(amount * -1));
     }
     generateStatement() {
-        let balance = 0;
-        let statement = '';
-        for (const transaction of this.transactions) {
-            balance += transaction.amount;
-            const newLine = transaction.dateToString() + ' || ' + (transaction.amount >= 0 ? transaction.amount + ' || || ' : '|| ' + Math.abs(transaction.amount) + ' || ') + balance;
-            statement = newLine + '\n' + statement;
-        }
-        statement = 'date || credit || debit || balance\n' + statement;
-        return statement.trim();
+        const statementFormatter = new StatementFormatter_1.StatementFormatter(this);
+        return statementFormatter.generateFormattedStatement();
     }
     getBalance(now = new Date()) {
         return this.transactions.reduce((accumulator, transaction) => accumulator + transaction.amount, 0);
