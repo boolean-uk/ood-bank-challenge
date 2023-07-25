@@ -2,6 +2,16 @@ import Transaction from "./transaction"
 
 class StatementGenerator {
 
+    generateStatementWithDates (transactions: Transaction[], date1: Date, date2: Date): string {
+        let datedTransactions: Transaction[] = []
+        transactions.forEach((transaction) => {
+            if(transaction.date >= date1 && transaction.date <= date2) {
+                datedTransactions.push(transaction)
+            }
+        })
+        return this.generateStatement(datedTransactions)
+    }
+
     generateStatement(transactions: Transaction[]): string {
         let balance: number = 0
         let statement: string = "date      || credit  || debit  || balance \n"

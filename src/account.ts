@@ -29,4 +29,8 @@ export class Account {
     getStatement(): string {
         return this.statementGenerator.generateStatement(this.transactions)
     }
+
+    getStatementBetweenDates(date1: Date, date2: Date): string {
+        return this.statementGenerator.generateStatementWithDates(this.transactions, date1, date2)
+    }
 }
