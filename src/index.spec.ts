@@ -71,5 +71,12 @@ describe("Extension BankAccount tests", () => {
         expect(investmentAccount.generateInterestIncome()).toEqual(400)
     })
 
-    
+    it("Extension no. 5 savings account deposit limits test", () => {
+        let savingsAccount = new SavingsAccount()
+        expect(savingsAccount.deposit(10000)).toEqual(true)
+        expect(savingsAccount.deposit(8000)).toEqual(true)
+        expect(savingsAccount.deposit(5000)).toEqual(false)
+        expect(savingsAccount.deposit(1000)).toEqual(true)
+        expect(savingsAccount.deposit(5000, new Date("1970-01-01"))).toEqual(true)
+    })
 })

@@ -30,8 +30,9 @@ export abstract class BankAccount {
         return true;
     }
 
-    public deposit(amount: number, date: Date = new Date()): void {
+    public deposit(amount: number, date: Date = new Date()): boolean {
         this.transactions.push(new Transaction(amount, 0, date))
+        return true
     }
 
     public addOverdraft(amount: number): boolean {
