@@ -58,7 +58,7 @@ export class Account{
         });
     }
 
-    getaccountTransactionList() {
+    getAccountTransactionList() {
         const formattedTransaction = this.formatTransactions(this.accountTransactionList);
         console.table(formattedTransaction);
     }
