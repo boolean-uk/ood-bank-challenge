@@ -1,7 +1,7 @@
 export abstract class Account {
     protected transactions: Transaction[] = []
     
-    constructor(private number: string) {}
+    constructor(private number: string, private type: string) {}
 
     deposit(amount: number, date: Date) {
         this.transactions.push({amount, date})
@@ -30,6 +30,14 @@ export abstract class Account {
     canWithdraw(amount: number): boolean {
         return this.getBalance() >= amount
     }
+
+    getNumber(): string {
+        return this.number
+    }
+
+    getType(): string {
+        return this.type;
+    }
 }
 
 export abstract class OverdraftAccount extends Account {
@@ -45,6 +53,10 @@ export abstract class OverdraftAccount extends Account {
 }
 
 export class SavingAccount extends OverdraftAccount {
+    constructor(name: string) {
+        super(name, "Saving Account")
+    }
+
     override deposit(amount: number, date: Date): void {
         if(!this.canDeposit(amount))
             throw "Your deposit would exceed your limit of 20,000 per year."
@@ -71,7 +83,7 @@ export class SavingAccount extends OverdraftAccount {
 
 export class InvestmentAccount extends OverdraftAccount {
     constructor(number: string, private interestRate: number) {
-        super(number)
+        super(number, "Investment Account")
     }
 
     calculateInterests(): number {
@@ -81,7 +93,11 @@ export class InvestmentAccount extends OverdraftAccount {
     }
 }
 
-export class CheckingAccount extends Account {}
+export class CheckingAccount extends Account {
+    constructor(name: string) {
+        super(name, "Checking Account")
+    }
+}
 
 export interface Transaction {
     amount: number,

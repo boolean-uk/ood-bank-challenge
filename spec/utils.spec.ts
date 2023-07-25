@@ -1,4 +1,4 @@
-import { formatDate, formatMoney } from "../src/utils"
+import { formatDate, formatMoney } from "../src/domain/utils"
 
 describe("Date format", () => {
     it("should return date in format DD/MM/YYYY", () => {

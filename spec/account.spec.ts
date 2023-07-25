@@ -1,4 +1,4 @@
-import { Account, CheckingAccount, InvestmentAccount, OverdraftAccount, SavingAccount } from "../src/account"
+import { Account, CheckingAccount, InvestmentAccount, OverdraftAccount, SavingAccount } from "../src/domain/account"
 
 describe("Basic account operations", () => {
 

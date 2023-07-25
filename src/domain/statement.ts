@@ -36,7 +36,7 @@ export class TextStatement extends BankStatement {
 
         let result = ""
 
-        for(let i = 0; i < columns.date.length; i++)
+        for(let i = 0; i < columns["date"].length; i++)
             result += this.printRow(columns, i)
 
         return result
@@ -46,14 +46,14 @@ export class TextStatement extends BankStatement {
         let currentBalance = this.account.getBalanceOn(this.toDate)
         
         transactions.forEach(transaction => {
-            columns.date.push(formatDate(transaction.date))
-            columns.balance.push(formatMoney(currentBalance))
+            columns["date"].push(formatDate(transaction.date))
+            columns["balance"].push(formatMoney(currentBalance))
             if(transaction.amount > 0) {
-                columns.credit.push(formatMoney(transaction.amount))
-                columns.debit.push("")
+                columns["credit"].push(formatMoney(transaction.amount))
+                columns["debit"].push("")
             } else {
-                columns.debit.push(formatMoney(-transaction.amount))
-                columns.credit.push("")
+                columns["debit"].push(formatMoney(-transaction.amount))
+                columns["credit"].push("")
             }
             currentBalance -= transaction.amount
         })
@@ -68,10 +68,10 @@ export class TextStatement extends BankStatement {
 
     private printRow(columns: {[key: string]: string[]}, rowIndex: number): string {
         return [
-            columns.date[rowIndex],
-            columns.credit[rowIndex],
-            columns.debit[rowIndex],
-            columns.balance[rowIndex]
+            columns["date"][rowIndex],
+            columns["credit"][rowIndex],
+            columns["debit"][rowIndex],
+            columns["balance"][rowIndex]
         ].join(" || ") + "\n"
     }
 }

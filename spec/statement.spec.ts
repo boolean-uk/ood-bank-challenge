@@ -1,6 +1,6 @@
 import { existsSync } from "fs"
-import { Account, CheckingAccount } from "../src/account"
-import { PDFStatement, TextStatement } from "../src/statement"
+import { Account, CheckingAccount } from "../src/domain/account"
+import { PDFStatement, TextStatement } from "../src/domain/statement"
 
 
 describe("Generating bank statements", () => {
