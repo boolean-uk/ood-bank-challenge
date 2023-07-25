@@ -1,4 +1,5 @@
 import { Account } from './Account';
+import {Transaction} from "./Transaction";
 
 describe('Account tests', () => {
     let account: Account;
@@ -58,5 +59,20 @@ describe('Account tests', () => {
         const balance = account.calculateBalance();
 
         expect(balance).toBe(4700);
+    });
+
+    it("should return account history", () => {
+        account.addTransaction(new Transaction(1000, 'deposit', new Date('2012-02-10')))
+        account.addTransaction(new Transaction(2000, 'deposit', new Date('2012-02-12')))
+        account.addTransaction(new Transaction(500, 'withdrawal', new Date('2012-02-13')))
+
+        let result: string = account.generateBankStatement()
+        const expected: string[] = []
+        expected.push("date       || credit  || debit  || balance\n");
+        expected.push("10/2/2022  || 1000    ||        || 1000\n");
+        expected.push("12/2/2012  || 2000    ||        || 3000\n");
+        expected.push("13/2/2012  ||         || 500    || 2500\n");
+
+        expect(result).toBe(expected.join(""));
     });
 });
