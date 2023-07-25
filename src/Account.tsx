@@ -48,6 +48,7 @@ const Account: React.FC = () => {
       <div className="container">
         <form className="input-group" onSubmit={deposit}>
           <input
+            data-testid="deposit"
             type="text"
             className="form-control"
             value={depositValue}
@@ -60,6 +61,7 @@ const Account: React.FC = () => {
       <div className="container mt-5">
         <form className="input-group" onSubmit={withdraw}>
           <input
+            data-testid="withdraw"
             type="text"
             className="form-control"
             value={withdrawValue}
