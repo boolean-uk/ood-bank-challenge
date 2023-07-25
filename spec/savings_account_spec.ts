@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import {
   SavingsAccount
 } from '../src/savings_account'
@@ -41,16 +42,17 @@ describe('SavingsAccount', function () {
   })
 
   it('generateStatement returns statement', function () {
-    const date: string = Date()
+    const date: Date = new Date()
+    const formattedDate: string = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
+
     account.deposit(19.99)
     account.deposit(19.99)
     account.withdraw(19.99)
 
-    expect(() => { account.generateStatement() }).toEqual(`
-    date || credit || debit || balance
-    ${date} ||        || 19.99  || 19.99
-    ${date} || 19.99  ||        || 39.98
-    ${date} || 19.99  ||        || 19.99
-    `)
+    expect(account.generateStatement()).toEqual('date || credit || debit || balance\n' +
+      `${formattedDate} || || 19.99 || 19.99\n` +
+      `${formattedDate} || 19.99 || || 39.98\n` +
+      `${formattedDate} || 19.99 || || 19.99\n`
+        .trim())
   })
 })

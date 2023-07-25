@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 const savings_account_1 = require("../src/savings_account");
 describe('SavingsAccount', function () {
     let account;
@@ -25,5 +26,17 @@ describe('SavingsAccount', function () {
     });
     it('withdraw throws exception for negative amount', function () {
         expect(() => { account.withdraw(-10); }).toThrow();
+    });
+    it('generateStatement returns statement', function () {
+        const date = new Date();
+        const formattedDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
+        account.deposit(19.99);
+        account.deposit(19.99);
+        account.withdraw(19.99);
+        expect(account.generateStatement()).toEqual('date || credit || debit || balance\n' +
+            `${formattedDate} || || 19.99 || 19.99\n` +
+            `${formattedDate} || 19.99 || || 39.98\n` +
+            `${formattedDate} || 19.99 || || 19.99\n`
+                .trim());
     });
 });

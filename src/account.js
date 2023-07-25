@@ -21,6 +21,17 @@ class Account {
         }
         this.transactions.push(new transaction_1.Transaction(amount * -1));
     }
+    generateStatement() {
+        let balance = 0;
+        let statement = '';
+        for (const transaction of this.transactions) {
+            balance += transaction.amount;
+            const newLine = transaction.date + ' || ' + (transaction.amount >= 0 ? transaction.amount + ' || || ' : '|| ' + Math.abs(transaction.amount) + ' || ') + balance;
+            statement = newLine + '\n' + statement;
+        }
+        statement = 'date || credit || debit || balance\n' + statement;
+        return statement.trim();
+    }
     getBalance() {
         return this.transactions.reduce((accumulator, transaction) => accumulator + transaction.amount, 0);
     }

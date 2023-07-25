@@ -9,5 +9,12 @@
         "sourceType": "module",
         "project": "./tsconfig.json"
     },
-    "rules": {}
+    "rules": {},
+    "overrides": [
+        {
+            "rules": {
+                "restrict-plus-operands": "off"
+            }
+        }
+    ]
 }
