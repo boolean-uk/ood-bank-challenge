@@ -84,4 +84,23 @@ describe("Account test", () => {
       expect(account.transactions.length).toEqual(1);
     });
   });
+
+  describe("#generateBankStatement()", () => {
+    it("returns bank statement", () => {
+      const date1 = new Date(2012, 0, 10);
+      const date2 = new Date(2012, 0, 13);
+      const date3 = new Date(2012, 0, 14);
+      const amount1 = 1000.0;
+      const amount2 = 2000.0;
+      const amount3 = 500.0;
+      account.deposit(amount1, date1);
+      account.deposit(amount2, date2);
+      account.withdraw(amount3, date3);
+      const expected = `date       || credit  || debit  || balance\n14/01/2012 ||         || 500.00 || 2500.00\n13/01/2012 || 2000.00 ||        || 3000.00\n10/01/2012 || 1000.00 ||        || 1000.00`;
+
+      const result = account.generateBankStatement();
+      console.log(result);
+      expect(result).toEqual(expected);
+    });
+  });
 });
