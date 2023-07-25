@@ -111,15 +111,3 @@ function formatDate(timestamp) {
     const year = dateObj.getFullYear();
     return `${day}/${month}/${year}`;
 }
-let normalAccount = new NormalAccount();
-normalAccount.deposit(100);
-normalAccount.deposit(100);
-normalAccount.deposit(100);
-normalAccount.deposit(100);
-normalAccount.deposit(21500);
-var yesterdaydate = new Date();
-var tomorrowdate = new Date();
-yesterdaydate.setDate(yesterdaydate.getDate() - 1);
-tomorrowdate.setDate(tomorrowdate.getDate() + 1);
-console.log(normalAccount.createStatement(yesterdaydate, tomorrowdate));
-normalAccount.printStatementToPDF(yesterdaydate, tomorrowdate, "Example.pdf");
