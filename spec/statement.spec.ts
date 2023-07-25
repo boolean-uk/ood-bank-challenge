@@ -1,10 +1,10 @@
-import { Account } from "../src/account"
+import { CheckingAccount } from "../src/account"
 import { BankStatement } from "../src/statement"
 
 describe("Generating bank statements", () => {
 
     it("should print bank statement", () => {
-        const account = new Account("1234")
+        const account = new CheckingAccount("1234")
         account.deposit(100000, new Date(2012, 0, 10))
         account.deposit(200000, new Date(2012, 0, 13))
         account.withdraw(50000, new Date(2012, 0, 14))
@@ -19,7 +19,7 @@ describe("Generating bank statements", () => {
 
     
     it("should print bank statement only for 13 and 14 of Januar 2012", () => {
-        const account = new Account("1234")
+        const account = new CheckingAccount("1234")
         account.deposit(100000, new Date(2012, 0, 10))
         account.deposit(200000, new Date(2012, 0, 13))
         account.withdraw(50000, new Date(2012, 0, 14))
@@ -32,7 +32,7 @@ describe("Generating bank statements", () => {
     })
 
     it("should print bank statement only for 10 and 13 of Januar 2012", () => {
-        const account = new Account("1234")
+        const account = new CheckingAccount("1234")
         account.deposit(100000, new Date(2012, 0, 10))
         account.deposit(200000, new Date(2012, 0, 13))
         account.withdraw(50000, new Date(2012, 0, 14))
