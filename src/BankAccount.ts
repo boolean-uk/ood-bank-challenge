@@ -62,6 +62,18 @@ class BankAccount {
     public showAccountHistory(): string {
         return this.returnAccountHistory(this.transactions)
     }
+
+    public showAccountHistoryBetweenTwoDates(date1: Date, date2: Date): string {
+        if(date1 > date2) return "Wrong dates"
+        const transactionBetweenTwoDates: Transaction[] = []
+
+        this.transactions.forEach((transaction: Transaction) => {
+            if(transaction.date > date1 && transaction.date < date2)
+                transactionBetweenTwoDates.push(transaction)
+        })
+
+        return this.returnAccountHistory(transactionBetweenTwoDates)
+    }
 }
 
 export default BankAccount;

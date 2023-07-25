@@ -49,4 +49,36 @@ describe("Testing", () => {
 
         expect(result).toBe(expected.join(""));
     });
+
+    it("should return account history between two dates", () => {
+        bankAccount.deposit(1000, new Date(2012, 1, 14))
+        bankAccount.deposit(2000, new Date(2012, 1, 13))
+        bankAccount.withdraw(500, new Date(2012, 1, 10))
+
+        const date1: Date = new Date(2012, 1, 9)
+        const date2: Date = new Date(2012, 1, 12)
+        let result: string = bankAccount.showAccountHistoryBetweenTwoDates(date1, date2)
+        const expected: string[] = []
+        expected.push("date       || credit  || debit  || balance\n");
+        expected.push("2/10/2012  ||         || -500   || 2500\n");
+
+        expect(result).toBe(expected.join(""));
+    });
+
+    it("when first date is grater than second date should return proper message", () => {
+        bankAccount.deposit(1000, new Date())
+        bankAccount.allowOverDraft()
+
+        let result: boolean = bankAccount.withdraw(1500, new Date())
+
+        expect(result).toBe(true);
+    });
+
+    it("when allow overdraft should be able to borrow money", () => {
+        const date1: Date = new Date(2012, 1, 9)
+        const date2: Date = new Date(2012, 1, 12)
+        let result: string = bankAccount.showAccountHistoryBetweenTwoDates(date2, date1)
+
+        expect(result).toBe("Wrong dates");
+    });
 });
