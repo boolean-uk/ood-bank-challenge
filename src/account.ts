@@ -1,5 +1,6 @@
 export class Account {
     private transactions: Transaction[] = []
+    private overdraft?: Overdraft;
     
     constructor(private number: string) {}
 
@@ -8,7 +9,7 @@ export class Account {
     }
 
     withdraw(amount: number, date: Date) {
-        if(this.getBalance() - amount < 0)
+        if(!this.canWithdraw(amount))
             throw "You don't have that much money."
         this.transactions.push({amount: -amount, date})
     }
@@ -26,9 +27,21 @@ export class Account {
     getTransactions(): Transaction[] {
         return structuredClone(this.transactions)
     }
+
+    setOverdraft(overdraft: Overdraft) {
+        this.overdraft = overdraft
+    }
+
+    private canWithdraw(amount: number): boolean {
+        return this.getBalance() + (this.overdraft?.amount ?? 0) >= amount
+    }
 }
 
 export interface Transaction {
     amount: number,
     date: Date
+}
+
+interface Overdraft {
+    amount: number
 }
