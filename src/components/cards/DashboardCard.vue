@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { useStore } from '../../api/store.ts';
+import {computed} from 'vue';
+import {useStore} from '../../api/store.ts';
 
 const store = useStore();
 
-const transactionHistory = computed(() => store.transactionHistory);
-const reversedTransactionHistory = computed(() => [...transactionHistory.value].reverse());
+const reversedTransactionHistory = computed(() => store.transactionHistory.reverse());
 
 const formatDate = (date: Date): string => {
     return date.toLocaleString();
 };
 
 const formatCurrency = (value: number): string => {
-    return value.toLocaleString('en-GB', { style: 'currency', currency: 'GBP' });
+    return value.toLocaleString('en-GB', {style: 'currency', currency: 'GBP'});
 };
 </script>
 
@@ -20,7 +19,7 @@ const formatCurrency = (value: number): string => {
     <div class="card bg-white w-full">
         <div class="card-body items-center text-center">
             <h2 class="card-title">Dashboard</h2>
-            <div v-if="transactionHistory.length === 0">
+            <div v-if="reversedTransactionHistory.length === 0">
                 <p>Nothing here... yet!</p>
                 <p class="m-2">As soon as you make a transaction, your history will be shown here.</p>
             </div>
@@ -30,18 +29,15 @@ const formatCurrency = (value: number): string => {
                     <tr>
                         <th>Date</th>
                         <th>Type</th>
-                        <th>Credit</th>
-                        <th>Debit</th>
+                        <th>Amount</th>
                         <th>Balance</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <!-- Loop through the transaction history and display each entry in the table -->
                     <tr v-for="transaction in reversedTransactionHistory" :key="transaction.date">
                         <td>{{ formatDate(transaction.date) }}</td>
                         <td>{{ (transaction.type) }}</td>
-                        <td>{{ formatCurrency(transaction.credit) }}</td>
-                        <td>{{ formatCurrency(transaction.debit) }}</td>
+                        <td>{{ formatCurrency(transaction.amount) }}</td>
                         <td>{{ formatCurrency(transaction.balance) }}</td>
                     </tr>
                     </tbody>

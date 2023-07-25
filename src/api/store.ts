@@ -1,33 +1,21 @@
 import { defineStore } from 'pinia';
 import { Banking } from './banking.ts';
+import {Transaction} from './transaction.ts';
 
 const banking = new Banking();
-
-interface Transaction {
-    date: Date;
-    type: String,
-    credit: number;
-    debit: number;
-    balance: number;
-}
+const transaction = new Transaction();
 
 export const useStore = defineStore('store', {
     state: () => ({
         balance: banking.getBalance(),
-        transactionHistory: [] as Transaction[],
+        transactionHistory: transaction.getTransaction(),
     }),
     actions: {
         withdrawAmount(amount: number) {
             if (amount > 0) {
                 if (banking.withdraw(amount)) {
                     this.balance = banking.getBalance();
-                    this.addTransaction({
-                        date: new Date(),
-                        type: "Withdraw",
-                        credit: 0,
-                        debit: amount,
-                        balance: this.balance,
-                    });
+                    this.transactionHistory.push(transaction.addTransaction('Withdraw', amount, this.balance))
                 } else {
                     console.error("Failed to withdraw in store")
                 }
@@ -37,18 +25,11 @@ export const useStore = defineStore('store', {
             if (amount > 0) {
                 if (banking.deposit(amount)) {
                     this.balance = banking.getBalance();
-                    this.addTransaction({
-                        date: new Date(),
-                        type: "Deposit",
-                        credit: amount,
-                        debit: 0,
-                        balance: this.balance,
-                    });
+                    this.transactionHistory.push(transaction.addTransaction('Deposit', amount, this.balance))
+                } else {
+                    console.error("Failed to withdraw in store")
                 }
             }
-        },
-        addTransaction(transaction: Transaction) {
-            this.transactionHistory.push(transaction);
         },
     },
 });
