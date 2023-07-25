@@ -46,4 +46,54 @@ describe('BankAccount', () => {
             bankAccount.deposit(-100);
         }).toThrowError('You cannot deposit a negative amount');
     });
+
+    it('should have a balance of 50 when depositing 100 and withdrawing 50', () => {
+        bankAccount.deposit(100);
+        bankAccount.withdraw(50);
+
+        expect(bankAccount.balance).toEqual(50);
+    });
+
+    it('should not allow a negative withdrawal', () => {
+        expect(() => {
+            bankAccount.withdraw(-100);
+        }).toThrowError('You cannot withdraw a negative amount');
+    });
+
+    it('should not allow a withdrawal greater than the balance', () => {
+        expect(() => {
+            bankAccount.withdraw(100);
+        }).toThrowError('You cannot withdraw more than your balance');
+    });
+
+    it('should have a balance of 0 when depositing 100 and withdrawing 100', () => {
+        bankAccount.deposit(100);
+        bankAccount.withdraw(100);
+
+        expect(bankAccount.balance).toEqual(0);
+    });
+
+    it('should keep track of all transactions', () => {
+        // Mock Date.now() to always return the same time
+        const mockDate = new Date(2022, 7, 25);
+        jest.spyOn(global, 'Date').mockImplementation(() => mockDate as any);
+
+        const hour_minute = new Date().getHours() + ":" + new Date().getMinutes();
+
+        bankAccount.deposit(100);
+        bankAccount.withdraw(50);
+        bankAccount.deposit(200);
+        bankAccount.withdraw(100);
+        bankAccount.deposit(300);
+
+        const transactions = [
+            new Transaction(100, 100, new Date().toLocaleDateString(), hour_minute),
+            new Transaction(-50, 50, new Date().toLocaleDateString(), hour_minute),
+            new Transaction(200, 250, new Date().toLocaleDateString(), hour_minute),
+            new Transaction(-100, 150, new Date().toLocaleDateString(), hour_minute),
+            new Transaction(300, 450, new Date().toLocaleDateString(), hour_minute)
+        ];
+
+        expect(bankAccount.transactions).toEqual(transactions);
+    });
 });
