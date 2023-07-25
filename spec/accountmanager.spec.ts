@@ -170,7 +170,23 @@ describe("Account Manager tests", () => {
         let deposit: number = 5000;
         accountManager.addDeposit(investmentAccount, deposit);
     
-        
+
+    })
+
+    
+    it("Should not allow to deposit more money on saving account ", () =>{
+        //given
+        let savingAccount =  accountManager.createSavingAccount("1234");
+        let deposit: number = 5000;
+        accountManager.addDeposit(savingAccount, deposit);
+
+        //then
+        accountManager.addDeposit(savingAccount, 15001);
+
+
+    
+        //then
+        expect(savingAccount.getBalance()).toEqual(5000);
     })
 
 
