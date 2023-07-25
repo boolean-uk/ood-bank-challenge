@@ -28,4 +28,13 @@ describe("Account tests", () => {
         expect(result).toEqual(10-5)
     })
 
+    it("should not decrease balance when asked to withdraw more than current account balance", () => {
+        account.depositMoney(10)
+
+        account.withdrawMoney(20)
+
+        const result = account.calculateBalance()
+        expect(result).toEqual(10)
+    })
+
 })
