@@ -12,6 +12,15 @@ class Account {
         }
         this.transactions.push(new transaction_1.Transaction(amount));
     }
+    withdraw(amount) {
+        if (amount < 0) {
+            throw new Error('Amount must be a positive number');
+        }
+        if (this.getBalance() < amount) {
+            throw new Error('Amount must not exceed the balance');
+        }
+        this.transactions.push(new transaction_1.Transaction(amount * -1));
+    }
     getBalance() {
         return this.transactions.reduce((accumulator, transaction) => accumulator + transaction.amount, 0);
     }

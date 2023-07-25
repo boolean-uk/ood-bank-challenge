@@ -20,4 +20,7 @@ describe('SavingsAccount', function () {
         account.withdraw(19.99);
         expect(account.getBalance()).toEqual(19.99);
     });
+    it('withdraw throws exception when balance is insufficient', function () {
+        expect(() => account.withdraw(19.99)).toThrow();
+    });
 });
