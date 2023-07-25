@@ -11,7 +11,7 @@ export class Customer {
     this.accounts.push(account);
   }
 
-  getAccountsLength() {
+  getAccountsLength(): number {
     return this.accounts.length;
   }
 }

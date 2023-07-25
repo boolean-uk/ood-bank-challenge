@@ -1,4 +1,5 @@
 import { Customer } from "../../src/Customer";
+import jasmine from "jasmine";
 
 describe("Customer tests", () => {
   let customer: Customer;
@@ -8,14 +9,14 @@ describe("Customer tests", () => {
 
   describe("Checking length of accounts array for customer without any account", () => {
     it("accounts length should be 0", () => {
-      expect(customer.accounts.length).toEqual(0);
+      expect(customer.getAccountsLength()).toEqual(0);
     });
   });
 
   describe("Creating one account", () => {
     it("accounts length should be 1", () => {
       customer.createAccount();
-      expect(customer.accounts.length).toEqual(1);
+      expect(customer.getAccountsLength()).toEqual(1);
     });
   });
 
@@ -23,7 +24,8 @@ describe("Customer tests", () => {
     it("accounts length should be 2", () => {
       customer.createAccount();
       customer.createAccount();
-      expect(customer.accounts.length).toEqual(2);
+      expect(customer.getAccountsLength()).toEqual(2);
     });
   });
+
 });
