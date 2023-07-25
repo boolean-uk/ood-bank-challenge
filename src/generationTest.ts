@@ -1,6 +1,6 @@
 import { InvestmentAccount } from "./InvestmentAccount"
 
-// to run execute command `tsc ./src/index.ts` and then `node ./src/index.js`
+// to run execute command `tsc ./src/generationTest.ts` and then `node ./src/generationTest.js`
 
 let bankAccount = new InvestmentAccount()
 bankAccount.deposit(1000, new Date("2012-01-10"))

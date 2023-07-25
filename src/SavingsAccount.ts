@@ -5,7 +5,7 @@ export class SavingsAccount extends BankAccount {
     private defaultFee = 5
     
     public override withdraw(amount: number, date: Date = new Date()): boolean {
-        if(this.getBalance() < amount + this.defaultFee) 
+        if(this.getBalance() < amount + this.defaultFee)
             return false
         this.transactions.push(new Transaction(-amount, this.defaultFee, date));
         return true;

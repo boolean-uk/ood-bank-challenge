@@ -26,7 +26,7 @@ export abstract class BankAccount {
 
     // includes extension 2.
     public withdraw(amount: number, date: Date = new Date()): boolean {
-        if(this.getBalance() < amount) 
+        if(this.getBalance() < amount)
             return false
         this.transactions.push(new Transaction(-amount, 0, date));
         return true;
@@ -43,18 +43,21 @@ export abstract class BankAccount {
     }
 
     public generateStatement(): String {
-        return StatementGenerator.generateStatement(this.transactions)
+        let statement = StatementGenerator.generateStatement(this.transactions)
+        console.log(statement)
+        return statement
     }
 
     // extension no. 1
     public generateStatementBetweenDates(dateFrom: Date, dateTo: Date = new Date()): String {
-        return StatementGenerator.generateStatementBetweenDates(this.transactions, dateFrom, dateTo)
+        let statement = StatementGenerator.generateStatementBetweenDates(this.transactions, dateFrom, dateTo)
+        console.log(statement)
+        return statement
     }
 
     public generatePDF(): void {
         const doc = new PDFDocument
         const writeStream = createWriteStream("statement.pdf")
-
         let date = new Date()
         doc.pipe(writeStream);
         doc.font("Courier", 24).text("This is your bank statement", { align: "center" })
@@ -62,5 +65,6 @@ export abstract class BankAccount {
         doc.fontSize(18).text('\n')
         doc.fontSize(12).text(this.generateStatement())
         doc.end();
+        console.log("Successfully created pdf")
     }
 }

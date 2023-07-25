@@ -10,13 +10,17 @@ export class CheckingAccount extends BankAccount {
     }
 
     public override addOverdraft(amount: number): boolean {
-        if(amount < 0 || this.overdraft + amount > this.maxOverdraft)
+        if(amount < 0 || this.overdraft + amount > this.maxOverdraft) {
+            console.log(`Failed to add overdraft`)
             return false
+        }
         this.overdraft += amount
+        console.log(`Successfully added overdraft`)
         return true
     }
 
     public getOverdraft(): number {
+        console.log(`Current overdraft is ${this.overdraft}`)
         return this.overdraft
     }
 }
