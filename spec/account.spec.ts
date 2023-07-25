@@ -30,3 +30,28 @@ describe("Basic account operations", () => {
     })
 
 })
+
+describe("Bank operations with overdraft", () => {
+    let account: Account
+
+    beforeEach(() => {
+        account = new Account("1234")
+    })
+
+    it("should throw an error when withdrawing from empty account without overdraft", () => {
+        expect(() => account.withdraw(10000, new Date())).toThrow("You don't have that much money.")
+    })
+
+    it("should return negative balance", () => {
+        account.setOverdraft({ amount: 50000 })
+        account.withdraw(10000, new Date())
+        expect(account.getBalance()).toEqual(-10000)
+    })
+
+    it("should throw when withdrawing more than overdraft allows", () => {
+        account.setOverdraft({ amount: 50000 })
+        expect(() => account.withdraw(50001, new Date())).toThrow("You don't have that much money.")
+    })
+
+
+})
