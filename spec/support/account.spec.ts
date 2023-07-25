@@ -47,4 +47,16 @@ describe("something", () => {
 
         expect(actualResult).toBe(expectedResult.join(""));
     });
+
+    it("should allow overdraft", () => {
+        account.setOverdraft(500)
+        let result = account.withdraw(500 , new Date())
+        expect(result).toBe(true);
+    });
+
+    it("should not allow overdraft", () => {
+        account.setOverdraft(0)
+        let result = account.withdraw(500 , new Date())
+        expect(result).toBe(false);
+    });
 });
