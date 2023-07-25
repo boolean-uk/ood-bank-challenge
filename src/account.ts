@@ -1,3 +1,4 @@
+import { differenceInMonths, isAfter } from "date-fns";
 import { Decimal } from "decimal.js";
 import fs from "fs";
 import { ACCOUNTS_PATH, getAccounts, getLastAccountNo } from "./bank";
@@ -86,5 +87,42 @@ export class Account {
     return account.transactions.map((transaction: { date: string; amount: string }) =>
       Transaction.fromJSON(transaction)
     );
+  }
+}
+
+export class SavingsAccount extends Account {
+  constructor(id: string) {
+    super(id, false);
+  }
+}
+
+export class InvestmentAccount extends Account {
+  private INTEREST_RATE: Decimal = new Decimal(0.02);
+
+  constructor(id: string) {
+    super(id, false);
+  }
+
+  calculateInterest(date: Date): Decimal {
+    const transactions = this.loadTransactions();
+    let totalInterest = new Decimal(0);
+
+    transactions.forEach((transaction: Transaction) => {
+      if (isAfter(date, transaction.date)) {
+        const monthsSinceTransaction = differenceInMonths(date, transaction.date);
+        const interest = new Decimal(transaction.amount)
+          .times(this.INTEREST_RATE)
+          .times(monthsSinceTransaction);
+        totalInterest = totalInterest.plus(interest);
+      }
+    });
+
+    return totalInterest;
+  }
+}
+
+export class CheckingAccount extends Account {
+  constructor(id: string) {
+    super(id, true);
   }
 }

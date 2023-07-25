@@ -13,6 +13,7 @@ export class Statement {
     for (const row of this.generateTransactionRows()) {
       printout += row;
     }
+
     return printout;
   }
 

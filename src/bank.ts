@@ -4,12 +4,12 @@ import { Account } from "./account";
 export const ACCOUNTS_PATH = "accounts.json";
 const ACCOUNT_ID_LENGTH = 6;
 
-export function openAccount() {
+export function openAccount(accountType: new (id: string) => Account = Account) {
   let lastAccountNo = getLastAccountNo();
   const accountNo = (++lastAccountNo).toString();
   const id = "0".repeat(ACCOUNT_ID_LENGTH - accountNo.length) + accountNo;
   const accounts = getAccounts();
-  const account = new Account(id);
+  const account = new accountType(id);
   accounts.push(account.toJsonObject());
   fs.writeFileSync(ACCOUNTS_PATH, JSON.stringify({ lastAccountNo, accounts }, null, 2));
   return account;
