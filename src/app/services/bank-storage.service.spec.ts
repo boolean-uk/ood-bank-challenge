@@ -31,13 +31,15 @@ describe('BankStorageService', () => {
   it('should throw error when trying withdraw more than current balance', () => {
     service.deposit(1000)
 
-    expect(()=>{service.withdraw(10000)}).toThrowError("Not enough money!")
+    expect(() => {
+      service.withdraw(10000)
+    }).toThrowError("Not enough money!")
   })
 
   it('should add deposit to history', () => {
     service.deposit(1000)
 
-    service.history.subscribe( history => {
+    service.history.subscribe(history => {
       expect(history.length === 1)
       expect(history[0].balance).toEqual(1000)
       expect(history[0].balanceBefore).toEqual(0)
@@ -51,7 +53,7 @@ describe('BankStorageService', () => {
     service.deposit(1000)
     service.withdraw(100)
 
-    service.history.subscribe( history => {
+    service.history.subscribe(history => {
       expect(history.length === 2)
       expect(history[1].balance).toEqual(100)
       expect(history[1].balanceBefore).toEqual(1000)
@@ -61,6 +63,18 @@ describe('BankStorageService', () => {
     })
   })
 
+  it('should dynamic calculate balance', () => {
+    service.deposit(1000)
+    service.withdraw(800)
+    service.deposit(400)
+    service.deposit(8000)
+    service.deposit(1000)
+    service.withdraw(3000)
+
+    expect(service.getCalculateBalance()).toEqual(6600);
+
+
+  })
 
 
 });
