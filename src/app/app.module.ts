@@ -10,6 +10,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DepositComponent} from './components/deposit/deposit.component';
 import {WithdrawComponent} from './components/withdraw/withdraw.component';
 import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {MatTableModule} from "@angular/material/table";
     FormsModule,
     ReactiveFormsModule,
     MatTableModule,
+    MatSortModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
