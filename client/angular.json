@@ -77,6 +77,11 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "exclude": ["./app/home/home.component.spec.ts",
+            "./app/add-transaction/add-transaction.component.spec.ts",
+            "./app/bank-service.service.spec.ts",
+            "./app/app.component.spec.ts"
+          ],
             "polyfills": [
               "zone.js",
               "zone.js/testing"

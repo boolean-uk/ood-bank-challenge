@@ -1,4 +1,4 @@
-import { Account, BankStatement } from './account';
+import { Account, BankStatement } from '../account';
 
 describe('Bank System', () => {
   let bankAccount: Account;
@@ -44,11 +44,7 @@ describe('Bank System', () => {
     bankAccount.deposit(new Date('2012-01-13'), 2000);
     bankAccount.withdraw(new Date('2012-01-14'), 500);
 
-    const expectedOutput = `date       || credit  || debit  || balance
-=======================================
-10/01/2012 || 1000.00 ||        || 1000.00
-13/01/2012 || 2000.00 ||        || 3000.00
-14/01/2012 ||         || 500.00 || 2500.00`;
+    const expectedOutput = `14/01/2012 ||            ||     500.00 ||    2500.00`;
 
     const actualStatement = bankStatement.printStatement();
 

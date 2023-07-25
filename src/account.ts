@@ -5,18 +5,20 @@ export class Account{
     private maxOverdraft: number = 0;
 
     deposit(date:Date, amount:number): void{
+        if (amount > 0){
         const transaction = new Transaction(date, amount, true, true);
         this.transactions.push(transaction);
-        this.sortTransactionsByDate();
+        this.sortTransactionsByDate();}
     }
 
     withdraw(date:Date, amount:number): void{
+        if (amount>0){
         const transaction = new Transaction(date, amount, false, false);
         if (this.getBalance() - transaction.getAmount() >= this.maxOverdraft){
             transaction.accepted = true
         }
         this.transactions.push(transaction);
-        this.sortTransactionsByDate();
+        this.sortTransactionsByDate();}
     }
 
     getBalance(): number {
@@ -57,30 +59,31 @@ export class BankStatement{
       }
 
     printStatement(): string{
-        let statement = 'date       || credit  || debit  || balance\n';
+        let statement = 'date       ||  credit    ||   debit    ||    balance\n';
         statement += '=======================================\n';
         let balance = 0;
 
         for (const transaction of this.account.getTransactions()) {
-        if (transaction.isDepositTransaction()) {
-            balance += transaction.getAmount();
-        } else {
-            balance -= transaction.getAmount();
-        }
+            if (transaction.accepted){
+                if (transaction.isDepositTransaction() ) {
+                    balance += transaction.getAmount();
+                } else {
+                    balance -= transaction.getAmount();}
+                }
 
         const date = this.formatDate(transaction.getDate());
         const credit = transaction.isDepositTransaction() ? transaction.getAmount().toFixed(2) : '';
         const debit = !transaction.isDepositTransaction() ? transaction.getAmount().toFixed(2) : '';
         const formattedBalance = balance.toFixed(2);
 
-        statement += `${date} || ${credit.padStart(7)} || ${debit.padStart(6)} || ${formattedBalance}\n`;
+        statement += `${date} || ${credit.padStart(10)} || ${debit.padStart(10)} || ${formattedBalance.padStart(10)}\n`;
         }
 
         return statement;
         }
 
     generateStatement(startDate: Date, endDate:Date): string{
-        let statement = 'date       || credit  || debit  || balance\n';
+        let statement = 'date       ||  credit    ||   debit    ||    balance\n';
         statement += '=======================================\n';
         const previousDay = new Date(startDate);
         previousDay.setDate(startDate.getDate() - 1);
@@ -90,18 +93,19 @@ export class BankStatement{
 
 
         for (const transaction of transactionList) {
-        if (transaction.isDepositTransaction()) {
-            balance += transaction.getAmount();
-        } else {
-            balance -= transaction.getAmount();
-        }
+            if (transaction.accepted){
+                if (transaction.isDepositTransaction() ) {
+                    balance += transaction.getAmount();
+                } else {
+                    balance -= transaction.getAmount();}
+                }
 
         const date = this.formatDate(transaction.getDate());
         const credit = transaction.isDepositTransaction() ? transaction.getAmount().toFixed(2) : '';
         const debit = !transaction.isDepositTransaction() ? transaction.getAmount().toFixed(2) : '';
         const formattedBalance = balance.toFixed(2);
 
-        statement += `${date} || ${credit.padStart(7)} || ${debit.padStart(6)} || ${formattedBalance}\n`;
+        statement += `${date} || ${credit.padStart(10)} || ${debit.padStart(10)} || ${formattedBalance.padStart(10)}\n`;
         }
 
         return statement;
