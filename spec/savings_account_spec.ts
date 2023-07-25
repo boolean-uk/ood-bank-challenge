@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import {
   SavingsAccount
 } from '../src/savings_account'

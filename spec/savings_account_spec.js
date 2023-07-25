@@ -15,6 +15,10 @@ describe('SavingsAccount', function () {
     it('deposit throws exception for negative amount', function () {
         expect(() => { account.deposit(-20); }).toThrow();
     });
+    it('deposit does not allow to deposit more than 20,000 per year', function () {
+        account.deposit(20000);
+        expect(() => account.deposit(1)).toThrow();
+    });
     it('withdraw adds transaction', function () {
         account.deposit(19.99);
         account.deposit(19.99);
