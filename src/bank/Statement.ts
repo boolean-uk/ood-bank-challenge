@@ -19,24 +19,22 @@ class Statement {
       balance += transaction.amount;
       if (from !== undefined && to !== undefined) {
         if (transaction.date >= from && transaction.date <= to) {
-          console.log(
-            lineItem.formatLineItem(
-              transaction.date,
-              transaction.amount,
-              transaction.type
-            ) + `|| ${balance.toFixed(2).padEnd(7)}`
-          );
+          this.printLineItem(transaction, balance);
         }
       } else {
-        console.log(
-          lineItem.formatLineItem(
-            transaction.date,
-            transaction.amount,
-            transaction.type
-          ) + `|| ${balance.toFixed(2).padEnd(7)}`
-        );
+        this.printLineItem(transaction, balance);
       }
     }
+  }
+  private printLineItem(transaction: Transaction, balance: number) {
+    const lineItem: LineItem = new LineItem();
+    console.log(
+      lineItem.formatLineItem(
+        transaction.date,
+        transaction.amount,
+        transaction.type
+      ) + `|| ${balance.toFixed(2).padEnd(7)}`
+    );
   }
 }
 
