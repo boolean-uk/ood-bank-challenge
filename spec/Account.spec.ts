@@ -33,4 +33,11 @@ describe("Account tests", () => {
         expect(account.calculateBalance()).toEqual(10000)
     })
 
+    it("should calculate total balance in account, different combination", () => {
+        account.deposit(10000)
+        account.deposit(11000)
+        account.withdraw(9000)
+        expect(account.calculateBalance()).toEqual(12000)
+    })
+
 })

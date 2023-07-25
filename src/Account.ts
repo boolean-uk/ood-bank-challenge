@@ -27,5 +27,17 @@ export class Account {
         this._transactions.push(new Withdraw(amountOfMoney))
     }
 
+    calculateBalance(): number {
+        let balance = 0
+
+        for (let i = 0; i < this._transactions.length; i ++) {
+            if (this._transactions[i] instanceof Withdraw) {
+                balance -= this._transactions[i].amountOfMoney
+            }
+            else balance += this._transactions[i].amountOfMoney
+        }
+
+        return balance
+    }
     
 }
