@@ -1,6 +1,10 @@
-<form (ngSubmit)="withdraw()">
+<form [formGroup]="withdrawForm" (ngSubmit)="withdraw()">
   <label> Withdraw </label>
-  <input type="number" id="amount" [formControl]="amount" min="0" required/>
+  <input type="number"
+         formControlName="amount"
+         min="0"
+         required
+  />
   <button mat-raised-button type="submit">Withdraw</button>
 </form>
 

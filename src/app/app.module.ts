@@ -11,10 +11,6 @@ import {DepositComponent} from './components/deposit/deposit.component';
 import {WithdrawComponent} from './components/withdraw/withdraw.component';
 
 @NgModule({
-  exports: [
-    DepositComponent,
-    WithdrawComponent
-  ],
   declarations: [
     AppComponent,
     BankComponent,
@@ -27,7 +23,7 @@ import {WithdrawComponent} from './components/withdraw/withdraw.component';
     BrowserAnimationsModule,
     MatButtonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

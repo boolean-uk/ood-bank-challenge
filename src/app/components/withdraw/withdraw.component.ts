@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {BankStorageService} from "../../services/bank-storage.service";
-import {FormControl} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-withdraw',
@@ -9,11 +9,14 @@ import {FormControl} from "@angular/forms";
 })
 export class WithdrawComponent {
 
-  amount: FormControl = new FormControl;
-  constructor(private bankService: BankStorageService) {
+  withdrawForm: FormGroup = this.fb.group({
+    amount: [0, [Validators.required, Validators.min(0)]]
+  });
+
+  constructor(private bankService: BankStorageService, private fb: FormBuilder) {
   }
 
   withdraw() {
-    this.bankService.withdraw(this.amount.value)
+    this.bankService.deposit(this.withdrawForm.controls['amount'].value)
   }
 }
