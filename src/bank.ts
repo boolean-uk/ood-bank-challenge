@@ -1,23 +1,50 @@
-import { Decimal } from "decimal.js";
+import fs from "fs";
+import { Account } from "./account";
 
-export class Account {
-  private _transactions: { date: Date; amount: Decimal }[] = [];
+export const ACCOUNTS_PATH = "accounts.json";
+const ACCOUNT_ID_LENGTH = 6;
 
-  get transactions() {
-    return this._transactions;
-  }
+export function openAccount() {
+  let lastAccountNo = getLastAccountNo();
+  const accountNo = (++lastAccountNo).toString();
+  const id = "0".repeat(ACCOUNT_ID_LENGTH - accountNo.length) + accountNo;
+  const accounts = getAccounts();
+  const account = new Account(id);
+  accounts.push(account.toJsonObject());
+  fs.writeFileSync(ACCOUNTS_PATH, JSON.stringify({ lastAccountNo, accounts }, null, 2));
+  return account;
+}
 
-  get balance() {
-    return this._transactions.reduce(
-      (acc: Decimal, transaction: { date: Date; amount: Decimal }) => acc.plus(transaction.amount),
-      new Decimal(0)
-    );
-  }
+export function getAccount(id: string): Account {
+  const accounts = getAccounts();
+  const accountData = accounts.find(
+    (account: { id: string; transactions: [] }) => account.id === id
+  );
 
-  deposit(amount: Decimal, date: Date = new Date()) {
-    this._transactions.push({ date, amount });
+  if (accountData) {
+    const account = new Account(accountData.id);
+    return account;
+  } else {
+    throw "Incorrect account id.";
   }
-  withdraw(amount: Decimal, date: Date = new Date()) {
-    this._transactions.push({ date, amount: amount.times(-1) });
+}
+
+export function getAccounts() {
+  createAccountsIfNonexistent();
+  return JSON.parse(fs.readFileSync(ACCOUNTS_PATH, "utf-8")).accounts;
+}
+
+export function getLastAccountNo() {
+  createAccountsIfNonexistent();
+  return JSON.parse(fs.readFileSync(ACCOUNTS_PATH, "utf-8")).lastAccountNo;
+}
+
+function createAccountsIfNonexistent() {
+  if (!fs.existsSync(ACCOUNTS_PATH)) {
+    fs.writeFileSync(ACCOUNTS_PATH, JSON.stringify({ lastAccountNo: 0, accounts: [] }, null, 2));
   }
+}
+
+export function clearAccounts() {
+  fs.writeFileSync(ACCOUNTS_PATH, JSON.stringify({ lastAccountNo: 0, accounts: [] }, null, 2));
 }
