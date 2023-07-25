@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import {
     CurrentAccount
 } from '../src/current_account'
@@ -14,14 +13,15 @@ describe('CurrentAccount', function () {
     })
 
     it('withdraw allows to withdraw overdraft when allowed', function () {
-        account.approveOverdraft()
+        if (account instanceof CurrentAccount)
+            account.approveOverdraft()
 
-        account.withdraw(OVERDRAFT)
+        account.withdraw(CurrentAccount.OVERDRAFT)
 
-        expect(account.getBalance()).toEqual(OVERDRAFT * -1)
+        expect(account.getBalance()).toEqual(CurrentAccount.OVERDRAFT * -1)
     })
 
     it('withdraw does not allow to withdraw overdraft when not allowed', function () {
-        expect(() => account.withdraw(OVERDRAFT)).toThrow()
+        expect(() => account.withdraw(CurrentAccount.OVERDRAFT)).toThrow()
     })
 })
