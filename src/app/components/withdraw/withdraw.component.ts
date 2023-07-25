@@ -15,7 +15,6 @@ export class WithdrawComponent {
   constructor(private bankService: BankStorageService, private fb: FormBuilder) {
   }
 
-
   withdraw(): void {
     this.bankService.withdraw(this.withdrawForm.controls['amount'].value)
   }

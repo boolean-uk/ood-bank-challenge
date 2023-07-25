@@ -28,7 +28,7 @@ export class BankComponent {
   }
 
   getBankBalance(): number {
-    return this.bankService.balance
+    return this.bankService.getCalculateBalance()
   }
 
   getBankHistory(): Observable<Transaction[]> {
@@ -91,7 +91,5 @@ export class BankComponent {
       default:
         return {}
     }
-
-
   }
 }

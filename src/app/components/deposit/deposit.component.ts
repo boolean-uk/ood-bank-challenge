@@ -11,12 +11,13 @@ export class DepositComponent {
     amount: [this.minDeposit, [Validators.required, Validators.min(this.minDeposit)]]
   });
 
-  constructor(private bankService: BankStorageService, private fb: FormBuilder) {
+  constructor(
+    private bankService: BankStorageService,
+    private fb: FormBuilder,
+  ) {
   }
 
   deposit(): void {
     this.bankService.deposit(this.depositForm.controls['amount'].value)
   }
-
-
 }
