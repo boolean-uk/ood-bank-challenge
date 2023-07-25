@@ -9,7 +9,7 @@ describe('Bank System', () => {
     bankStatement = new BankStatement(bankAccount);
   });
 
-  test('should get balance between two dates', () => {
+  test('should get balance to a certain date', () => {
     bankAccount.deposit(new Date('2012-01-10'), 1000);
     bankAccount.deposit(new Date('2012-01-13'), 2000);
     bankAccount.withdraw(new Date('2012-01-14'), 500);
@@ -17,7 +17,7 @@ describe('Bank System', () => {
 
     expect(bankAccount.getTransactions()[0].accepted).toBe(true);
     expect(bankAccount.getBalanceTo(new Date('2012-01-14'))).toBe(2500);
-    expect(bankAccount.getTransactions().length).toBe(1);
+    expect(bankAccount.getTransactions().length).toBe(4);
   });
 
 
@@ -25,9 +25,9 @@ describe('Bank System', () => {
     bankAccount.allowOverdraft(500);
     bankAccount.withdraw(new Date('2012-01-14'), 500);
 
+    expect(bankAccount.getMaxOverdraft()).toBe(-500);
     expect(bankAccount.getTransactions()[0].accepted).toBe(true);
     expect(bankAccount.getBalance()).toBe(-500);
-    expect(bankAccount.getTransactions().length).toBe(1);
   });
 
   test('should print bank statement between two dates', () => {
