@@ -55,7 +55,7 @@ describe('BankAccount', () => {
 
     it('should have a balance of 100 when depositing 100', () => {
         const hour_minute = date.getHours() + ":" + date.getMinutes();
-        const transaction = new Transaction(100, 100, date.toLocaleDateString(), hour_minute);
+        const transaction = new Transaction(100, 100, date.toLocaleDateString('en-GB'), hour_minute);
 
         bankAccount.deposit(100, date);
 
@@ -112,11 +112,11 @@ describe('BankAccount', () => {
         bankAccount.deposit(300, date);
 
         const transactions = [
-            new Transaction(100, 100, date.toLocaleDateString(), hour_minute),
-            new Transaction(-50, 50, date.toLocaleDateString(), hour_minute),
-            new Transaction(200, 250, date.toLocaleDateString(), hour_minute),
-            new Transaction(-100, 150, date.toLocaleDateString(), hour_minute),
-            new Transaction(300, 450, date.toLocaleDateString(), hour_minute)
+            new Transaction(100, 100, date.toLocaleDateString('en-GB'), hour_minute),
+            new Transaction(-50, 50, date.toLocaleDateString('en-GB'), hour_minute),
+            new Transaction(200, 250, date.toLocaleDateString('en-GB'), hour_minute),
+            new Transaction(-100, 150, date.toLocaleDateString('en-GB'), hour_minute),
+            new Transaction(300, 450, date.toLocaleDateString('en-GB'), hour_minute)
         ];
 
         expect(bankAccount.transactions).toEqual(transactions);
@@ -132,6 +132,8 @@ describe('BankAccount', () => {
         "13/01/2012 || 2000.00 ||        || 3000.00" + os.EOL +
         "10/01/2012 || 1000.00 ||        || 1000.00" + os.EOL;
 
-        expect(bankAccount.generateStatement()).toEqual(statement);
+        expect(bankAccount.generateWholeStatement()).toEqual(statement);
+        const stmt = bankAccount.generateStatementFromTo(new Date(2012, 0, 10), new Date(2012, 0, 14));
+        expect(stmt).toEqual(statement);
     });
 });
