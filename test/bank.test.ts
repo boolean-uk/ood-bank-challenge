@@ -57,6 +57,29 @@ it("should not withdraw from account and deposit - wrong data provided", () =>{
 
 })
 
+it("should add transaction to Transaction list after proper deposit",()=>
+{
+  normalAccount.deposit(200)
+  expect(normalAccount.transactions.length).toEqual(1)
+})
+it("should add transaction to Transaction list after proper withdraw",()=>
+{
+  normalAccount.deposit(200)
+  normalAccount.deposit(100)
+  expect(normalAccount.transactions.length).toEqual(2)
+})
+it("should add plenty transaction to Transaction list after proper withdraw",()=>
+{
+  normalAccount.deposit(200)
+  normalAccount.deposit(100)
+  normalAccount.deposit(100)
+  normalAccount.deposit(100)
+  normalAccount.deposit(100)
+  normalAccount.deposit(100)
+  expect(normalAccount.transactions.length).toEqual(6)
+})
+  
+
 })
 
 describe("Transaction tests", () =>{
