@@ -1,14 +1,14 @@
 import { BankAccount } from "./BankAccount";
+import { Transaction } from "./Transaction";
 
 
 export class StatementGenerator {
     
-    public static generateStatement(account: BankAccount): String {
+    public static generateStatement(transactions: Transaction[]): String {
         let maxCreditLength = 6
         let maxDebitLength = 5
         let maxBalanceLength = 7
         let currentBalance = 0
-        let transactions = account.getTransactions()
         let statement = ""
         for(let i = 0; i < transactions.length; ++i) {
             let currentAmount = transactions[i].getAmount() - transactions[i].getFee()
@@ -34,6 +34,11 @@ export class StatementGenerator {
             statement += transactionInfo
         }
         return statement
+    }
+    
+    public static generateStatementBetweenDates(transactions: Transaction[], dateFrom: Date, dateTo: Date) {
+        let selectedTransactions = transactions.filter(t => (t.getDate() >= dateFrom && t.getDate() <= dateTo))
+        return this.generateStatement(selectedTransactions)
     }
 }
 

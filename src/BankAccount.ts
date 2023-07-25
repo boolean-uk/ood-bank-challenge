@@ -22,6 +22,7 @@ export abstract class BankAccount {
         return this.transactions
     }
 
+    // includes extension 2.
     public withdraw(amount: number, date: Date = new Date()): boolean {
         if(this.getBalance() < amount) 
             return false
@@ -39,6 +40,11 @@ export abstract class BankAccount {
     }
 
     public generateStatement(): String {
-        return StatementGenerator.generateStatement(this)
+        return StatementGenerator.generateStatement(this.transactions)
+    }
+
+    // extension no. 1
+    public generateStatementBetweenDates(dateFrom: Date, dateTo: Date = new Date()): String {
+        return StatementGenerator.generateStatementBetweenDates(this.transactions, dateFrom, dateTo)
     }
 }

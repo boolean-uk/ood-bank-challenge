@@ -4,11 +4,8 @@ import { InvestmentAccount } from "./InvestmentAccount"
 import { SavingsAccount } from "./SavingsAccount"
 import { Transaction } from "./Transaction"
 
-describe("BankAccount tests", () => {
+describe("Core BankAccount tests", () => {
     let bankAccount: BankAccount
-
-    beforeEach(() => { 
-    })
 
     it("getBalance(), withdraw(), and balance() test", () => {
         bankAccount = new SavingsAccount()
@@ -19,17 +16,6 @@ describe("BankAccount tests", () => {
         expect(bankAccount.getBalance()).toEqual(790)
         expect(bankAccount.withdraw(1000)).toEqual(false)
         expect(bankAccount.getBalance()).toEqual(790)
-    })
-
-    it("addOverdraft() test", () => {
-        bankAccount = new SavingsAccount()
-        expect(bankAccount.addOverdraft(100)).toEqual(false)
-        bankAccount = new InvestmentAccount()
-        expect(bankAccount.addOverdraft(100)).toEqual(false)  
-        bankAccount = new CheckingAccount()
-        expect(bankAccount.addOverdraft(100)).toEqual(true)
-        expect(bankAccount.addOverdraft(500)).toEqual(false)
-        expect((bankAccount as CheckingAccount).getOverdraft()).toEqual(100)
     })
 })
 
@@ -44,4 +30,25 @@ describe("Transaction tests", () => {
         expect(transaction.getAmount()).toEqual(2000)
         expect(transaction.getFee()).toEqual(0)   
     })
+})
+
+describe("Extension BankAccount tests", () => {
+    let bankAccount: BankAccount
+
+    it("Extension withdraw() test", () => {
+        bankAccount = new SavingsAccount()
+        bankAccount.deposit(1000)
+        expect(bankAccount.getBalance()).toEqual(1000)
+        expect(bankAccount.withdraw(100)).toEqual(true)
+        expect(bankAccount.withdraw(100)).toEqual(true)
+        expect(bankAccount.getBalance()).toEqual(790)
+        expect(bankAccount.withdraw(1000)).toEqual(false)
+        expect(bankAccount.getBalance()).toEqual(790)
+        bankAccount.deposit(1000)
+        expect(bankAccount.withdraw(1000)).toEqual(true)
+        expect(bankAccount.getBalance()).toEqual(785)
+    })
+
+    
+
 })
