@@ -1,6 +1,6 @@
 import "jasmine";
 import Account from "../../src/account"
-describe("something", () => {
+describe("account", () => {
     let account: Account
 
     beforeEach(() => {

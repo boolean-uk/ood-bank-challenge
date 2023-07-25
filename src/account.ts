@@ -1,6 +1,7 @@
 import Transaction from "./transaction"
 
 class Account {
+    public overdraft: number = 0
     private transactions: Transaction[] = []
 
     public deposit(amount: number, date: Date): boolean {
@@ -10,7 +11,7 @@ class Account {
     }
 
     public withdraw(amount: number, date: Date): boolean {
-        if(amount <= 0 || this.getBalance() < amount) 
+        if(amount <= 0 || this.getBalance() + this.overdraft < amount) 
         return false
         this.transactions.push({ amount: -amount, date: date })
         return true
@@ -47,6 +48,12 @@ class Account {
             }
         })
         return stringStatement.join("")
+    }
+
+    public setOverdraft(amount: number) {
+        if (amount <= 500 ){
+            this.overdraft = amount
+        }
     }
 }
 export default Account
