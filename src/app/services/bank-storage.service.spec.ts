@@ -40,4 +40,18 @@ describe('BankStorageService', () => {
       expect(history[0].type).toEqual(Operation.deposit)
     })
   })
+
+  it('should add withdraw to history', () => {
+    service.deposit(1000)
+    service.withdraw(100)
+
+    service.history.subscribe( history => {
+      expect(history.length === 2)
+      expect(history[1].balance).toEqual(100)
+      expect(history[1].balanceBefore).toEqual(1000)
+      expect(history[1].balanceAfter).toEqual(900)
+      expect(history[1].date).toBeInstanceOf(Date)
+      expect(history[1].type).toEqual(Operation.withdraw)
+    })
+  })
 });
