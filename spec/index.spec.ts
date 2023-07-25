@@ -14,7 +14,7 @@ describe("Account test", () => {
       const result = account.deposit(amount, date);
 
       expect(result).toEqual("The money has been added to your account.");
-      expect(account.balance).toEqual(amount);
+      expect(account.getBalance()).toEqual(amount);
       expect(account.transactions.length).toEqual(1);
       expect(account.transactions[0].amount).toEqual(amount);
       expect(account.transactions[0].date).toEqual(date);
@@ -26,7 +26,7 @@ describe("Account test", () => {
       const result = account.deposit(amount, date);
 
       expect("Given amount is invalid.").toEqual(result);
-      expect(account.balance).toEqual(0);
+      expect(account.getBalance()).toEqual(0);
       expect(account.transactions.length).toEqual(0);
     });
   });
@@ -40,7 +40,7 @@ describe("Account test", () => {
       const result = account.withdraw(amountToWithdraw, date);
 
       expect(result).toEqual("You don't have enough money.");
-      expect(account.balance).toEqual(amountToDeposit);
+      expect(account.getBalance()).toEqual(amountToDeposit);
       expect(account.transactions.length).toEqual(1);
     });
 
@@ -52,7 +52,7 @@ describe("Account test", () => {
       const result = account.withdraw(amountToWithdraw, date);
 
       expect(result).toEqual("The money has been withdrawn from your account.");
-      expect(account.balance).toEqual(amountToDeposit - amountToWithdraw);
+      expect(account.getBalance()).toEqual(amountToDeposit - amountToWithdraw);
       expect(account.transactions.length).toEqual(2);
       expect(account.transactions[1].amount).toEqual(-1 * amountToWithdraw);
       expect(account.transactions[1].date).toEqual(date);
@@ -66,7 +66,7 @@ describe("Account test", () => {
       const result = account.withdraw(amountToWithdraw, date);
 
       expect(result).toEqual("The money has been withdrawn from your account.");
-      expect(account.balance).toEqual(amountToDeposit - amountToWithdraw);
+      expect(account.getBalance()).toEqual(amountToDeposit - amountToWithdraw);
       expect(account.transactions.length).toEqual(2);
       expect(account.transactions[1].amount).toEqual(-100);
       expect(account.transactions[1].date).toEqual(date);
@@ -80,7 +80,7 @@ describe("Account test", () => {
       const result = account.withdraw(amountToWithdraw, date);
 
       expect("Given amount is invalid.").toEqual(result);
-      expect(account.balance).toEqual(100);
+      expect(account.getBalance()).toEqual(100);
       expect(account.transactions.length).toEqual(1);
     });
   });

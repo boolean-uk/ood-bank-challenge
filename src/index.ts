@@ -1,12 +1,7 @@
 import { String } from "typescript-string-operations";
 
 export class Account {
-  private _balance: number = 0;
   private _transactions: Transaction[] = [];
-
-  get balance(): number {
-    return this._balance;
-  }
 
   get transactions(): Transaction[] {
     return this._transactions;
@@ -14,7 +9,6 @@ export class Account {
 
   deposit(amount: number, date: Date) {
     if (amount > 0) {
-      this._balance += amount;
       this.transactions.push(new Transaction(amount, date));
       return "The money has been added to your account.";
     }
@@ -23,8 +17,7 @@ export class Account {
 
   withdraw(amount: number, date: Date) {
     if (amount > 0) {
-      if (amount <= this._balance) {
-        this._balance -= amount;
+      if (amount <= this.getBalance()) {
         this.transactions.push(new Transaction(-1 * amount, date));
         return "The money has been withdrawn from your account.";
       }
@@ -63,6 +56,7 @@ export class Account {
 
     return result;
   }
+
   generateBankStatementBetween2Dates(date1: Date, date2: Date) {
     let result = `date       || credit  || debit  || balance`;
     let rows: string[] = [];
@@ -100,6 +94,14 @@ export class Account {
     });
 
     return result;
+  }
+
+  getBalance(): number {
+    let balance = 0;
+    this._transactions.forEach((transaction) => {
+      balance += transaction.amount;
+    });
+    return balance;
   }
 }
 
