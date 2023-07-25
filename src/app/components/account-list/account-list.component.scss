@@ -1,0 +1,25 @@
+.account-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.account {
+    padding: 1rem 1.5rem;
+    border: 1px solid #dfb35d;
+    border-radius: 4px;
+    transition: 0.25s;
+
+    .account-type {
+        font-size: 1.25rem;
+    }
+
+    .account-number {
+        font-size: 0.9rem;
+    }
+
+    &:hover {
+        cursor: pointer;
+        background-color: #dfb35d;
+    }
+}

@@ -1,0 +1,42 @@
+<div class="bank-header">
+    <h1>Bob's Bank</h1>
+    <h2>Bagel Branch</h2>
+</div>
+
+<section>
+    <h3>Your accounts:</h3>
+    <div class="account-list" *ngIf="accounts?.length ?? 0 > 0; else noAccounts">    
+        <div [routerLink]="['account', i]" *ngFor="let account of accounts; let i = index" class="account">
+            <div class="account-type">
+                {{ account.getType() }}
+            </div>
+            <div class="account-number">
+                {{ account.getNumber() }}
+            </div>
+        </div>
+    </div>
+    <ng-template #noAccounts>
+        <div>You have no accounts</div>
+    </ng-template>
+</section>
+<section>
+    <h3>Create new account:</h3>
+    
+    <div class="account-list">
+        <div class="account" (click)="createAccount('checking')">
+            <div class="account-type">
+                Checking Account
+            </div>
+        </div>
+        <div class="account" (click)="createAccount('saving')">
+            <div class="account-type">
+                Saving Account
+            </div>
+        </div>
+        <div class="account" (click)="createAccount('investment')">
+            <div class="account-type">
+                Investment Account
+            </div>
+        </div>
+    </div>
+</section>
