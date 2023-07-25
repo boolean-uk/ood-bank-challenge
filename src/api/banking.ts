@@ -1,8 +1,12 @@
-class Banking {
-    private balance: number = 0;
+export class Banking {
+    private balance: number = 100;
 
     getBalance(): number {
         return this.balance;
+    }
+
+    setBalance(): void {
+        this.balance += 5;
     }
 
     withdraw(amount: number): boolean {
@@ -21,5 +25,3 @@ class Banking {
         return false;
     }
 }
-
-export const bankingInstance = new Banking();

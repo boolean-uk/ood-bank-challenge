@@ -1,5 +1,13 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+import { useStore } from '../../api/store';
 
+const store = useStore();
+const amount = ref(0);
+
+const handleWithdraw = () => {
+    store.withdrawAmount(amount.value);
+};
 </script>
 
 <template>
@@ -9,8 +17,13 @@
             <p>Here, you withdraw your hard earned money...</p>
             <div class="card-actions justify-end">
                 <div class="join">
-                    <input class="input input-bordered join-item" placeholder="Amount"/>
-                    <button class="btn btn-primary join-item">Subscribe</button>
+                    <input
+                        class="input input-bordered join-item"
+                        v-model="amount"
+                        type="number"
+                        placeholder="Amount"
+                    />
+                    <button class="btn btn-primary join-item" @click="handleWithdraw">Submit</button>
                 </div>
             </div>
         </div>
