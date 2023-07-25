@@ -67,7 +67,7 @@ describe("Testing", () => {
     
     it("should allow withdrawal that exceeds balance with overdraft", () => {
         bankAccount.deposit(500, new Date())
-        bankAccount.allowOverDraft()
+        bankAccount.enableOverDraft()
         let result: boolean = bankAccount.withdraw(1000, new Date())
         expect(result).toBe(true)
     })
@@ -104,7 +104,7 @@ describe("Testing", () => {
 
     it("when first date is grater than second date should return proper message", () => {
         bankAccount.deposit(1000, new Date())
-        bankAccount.allowOverDraft()
+        bankAccount.enableOverDraft()
 
         let result: boolean = bankAccount.withdraw(1500, new Date())
 

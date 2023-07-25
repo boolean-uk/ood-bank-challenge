@@ -2,34 +2,42 @@ import Transaction from "../src/Transaction";
 
 class BankAccount {
     private transactions: Transaction[] = []
-    private overDraft: number = 0
+    private overDraftLimit: number = 0
+    private static DEFAULT_OVERDRAFT_LIMIT = 500;
 
-    public deposit(amount: number, date: Date): boolean {
-        if(amount <= 0) return false;
-        if(isNaN(date.getTime())) date = new Date();
+    private isValidTransaction(amount: number, date: Date): boolean {
+        return amount > 0 && !isNaN(date.getTime())
+    }
 
+    public deposit(amount: number, date: Date = new Date()): boolean {
+        if (!this.isValidTransaction(amount, date)) {
+            return false;
+        }
         this.transactions.push({ amount: amount, date: date })
         return true
     }
 
-    private calculateBalance(): number {
-        return this.transactions.reduce((balance: number, transaction: Transaction) => {
-            return balance + transaction.amount;
-        }, 0);
-    }
-    
-    public allowOverDraft() {
-        this.overDraft = 500
-    }
-
-    public withdraw(amount: number, date: Date): boolean {
-        if(amount <= 0) return false
-        if(isNaN(date.getTime())) date = new Date();
-        
-        if(this.calculateBalance() + this.overDraft < amount) return false
-
+    public withdraw(amount: number, date: Date = new Date()): boolean {
+        if (!this.isValidTransaction(amount, date) || this.calculateBalance() + this.overDraftLimit < amount) {
+            return false;
+        }
         this.transactions.push({ amount: -amount, date: date })
         return true
+    }
+
+    public enableOverDraft(): void {
+        this.overDraftLimit = BankAccount.DEFAULT_OVERDRAFT_LIMIT;
+    }
+
+    private calculateBalance(): number {
+        return this.transactions.reduce((balance: number, transaction: Transaction) => balance + transaction.amount, 0);
+    }
+
+    private formatTransaction(transaction: Transaction, currentBalance: number): string {
+        const date = (transaction.date.getMonth() + 1) + '/' + transaction.date.getDate() + '/' +  transaction.date.getFullYear();
+        const amount = transaction.amount > 0 ? transaction.amount.toString().padEnd(8) : ' '.repeat(9);
+        const debit = transaction.amount < 0 ? transaction.amount.toString().padEnd(7) : ' '.repeat(8);
+        return `${date.padEnd(11)}|| ${amount}|| ${debit}|| ${currentBalance}\n`;
     }
 
     public returnAccountHistory(transactions: Transaction[]): string {
@@ -74,5 +82,4 @@ class BankAccount {
         return this.returnAccountHistory(transactionBetweenTwoDates)
     }
 }
-
 export default BankAccount;
