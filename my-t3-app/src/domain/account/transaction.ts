@@ -22,7 +22,7 @@ export class Transaction {
     return this.amount;
   }
 
-  getType(): string {
+  getType(): TransactionType {
     return this.type;
   }
 

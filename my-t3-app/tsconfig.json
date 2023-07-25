@@ -9,18 +9,18 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "ES6",
+    "module": "esnext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
-    "baseUrl": "",
+    "baseUrl": "./src",
     "paths": {
-      "@UI/*": ["./src/UI/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@domain/*": ["./src/domain/*"],
-      "@infrastucture/*": ["./src/infrastucture/*"]
+      "@UI/*": ["UI/*"],
+      "@utils/*": ["utils/*"],
+      "@domain/*": ["domain/*"],
+      "@infrastucture/*": ["infrastucture/*"]
     },
     "incremental": true
   },
@@ -30,6 +30,6 @@
     "**/*.ts",
     "**/*.tsx",
     "src/spec/**/*",
-    "jest.config.mjs"
+    "src/UI/TileDeposittsx"
   ]
 }

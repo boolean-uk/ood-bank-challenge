@@ -1,25 +1,13 @@
-import { type Account } from "@domain/account/account";
 import { Header } from "@UI/layout/Header/Header";
-import Tile from "@UI/Tile";
-import Tile2 from "@UI/Tile2";
-
-import { initializeAccount } from "infrastructure/Accounts/data";
+import AccountBalance from "@UI/AccountBalance";
+import TileDeposit from "@UI/TileDeposit";
+import TileStatement from "@UI/TileStatement";
+import TileWithdraw from "@UI/TileWithdraw";
 import Head from "next/head";
-
-import { useEffect, useState } from "react";
+import { useAccount } from "@utils/accountUtils";
 
 export default function Home() {
-  const [account, setAccount] = useState<Account>(initializeAccount());
-  const [balance, setBalance] = useState(0);
-
-  const [amount, setAmount] = useState(0);
-
-  const balance2 = account.getBalance();
-
-  useEffect(() => {
-    setBalance(balance2);
-    setAccount(initializeAccount());
-  }, [balance2]);
+  const { account, deposit, getStatement, withdraw } = useAccount();
 
   return (
     <>
@@ -30,68 +18,14 @@ export default function Home() {
       </Head>
       <Header />
       <main className="bg-base-200">
-        <div>
-          <h2 className=" text-center text-xl"></h2>
-          <p></p>
-        </div>
+        <AccountBalance account={account} />
 
-        <div className="hero bg-base-200 pb-24 pt-12">
-          <div className="hero-content text-center">
-            <div className="max-w-md text-xl">
-              <label tabIndex={0} className="avatar   w-32">
-                <div className=" w-32 rounded-full">
-                  <img src="https://cataas.com/cat" />
-                </div>
-              </label>
-              <h1 className="text-4xl font-bold">
-                Welcome back, we missed you.
-              </h1>
-              <p className="pt-4">
-                Your current balance is: <br />
-                <span className="font-semibold">${balance}</span>
-              </p>
-
-              <p className="pt-2">What would you like to do?</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="mx-auto flex  justify-around py-8 sm:px-6 sm:py-12 lg:px-8">
-          <Tile
-            title="Deposit"
-            description="How much would you like to deposit"
-            actionButton={(amount) => {
-              if (amount <= 0 || isNaN(amount) || amount === null) {
-                alert("Please enter a positive number");
-                return;
-              }
-
-              setAmount(amount);
-              const date = new Date();
-              account.deposit(date, amount);
-              console.log("Deposit" + amount);
-            }}
-          />
-
-          <Tile2
-            title="Statement"
-            description="Click below to show the current statement"
-            actionButton={() => {
-              console.log("Statement");
-              alert(account.getStatement());
-            }}
-            buttonTitle="Show Statement"
-          />
-          <Tile
-            title="Withdraw"
-            description="How much would you like to withdraw"
-            actionButton={(amount) => {
-              if (account.getBalance() < amount) {
-                alert("Insufficient funds");
-                return;
-              }
-              setAmount(amount);
-            }}
+        <div className="mx-auto flex justify-around py-8 sm:px-6 sm:py-12 lg:px-8">
+          <TileDeposit onDeposit={(amount) => deposit(new Date(), amount)} />
+          <TileStatement onShowStatement={() => console.log(getStatement())} />
+          <TileWithdraw
+            account={account}
+            onWithdraw={(amount) => withdraw(new Date(), amount)}
           />
         </div>
       </main>

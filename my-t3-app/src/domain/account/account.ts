@@ -40,25 +40,39 @@ export class Account {
       throw Error("Insufficient funds for withdrawal.");
     }
   }
-
   getStatement() {
     let statement = "date       || credit  || debit  || balance\n";
     let currentBalance = 0;
+    const myBalance = [];
 
-    for (const transaction of this.transactionHistory.reverse()) {
-      if (transaction.getType() === "deposit") {
-        currentBalance += transaction.getAmount();
-        statement += `${this.formatDate(transaction.getDate())} || ${transaction
-          .getAmount()
-          .toFixed(2)} ||        || ${currentBalance.toFixed(2)}\n`;
+    for (const transaction of this.transactionHistory) {
+      const transactionAmount = transaction.getAmount();
+
+      if (transaction.getType() === TransactionType.DEPOSIT) {
+        currentBalance += transactionAmount;
+        myBalance.push(transactionAmount);
       } else {
-        currentBalance -= transaction.getAmount();
+        currentBalance -= transactionAmount;
+        myBalance.push(-transactionAmount);
+      }
+    }
+
+    for (let i = this.transactionHistory.length - 1; i >= 0; i--) {
+      const transaction = this.transactionHistory[i];
+
+      if (myBalance[i] > 0) {
+        statement += `${this.formatDate(transaction.getDate())} || ${myBalance[
+          i
+        ].toFixed(2)} ||        || ${currentBalance.toFixed(2)}\n`;
+      } else {
         statement += `${this.formatDate(
           transaction.getDate()
-        )} ||         || ${transaction
-          .getAmount()
-          .toFixed(2)} || ${currentBalance.toFixed(2)}\n`;
+        )} ||         || ${(-myBalance[i]).toFixed(
+          2
+        )} || ${currentBalance.toFixed(2)}\n`;
       }
+
+      currentBalance -= myBalance[i]; // Update the current balance
     }
 
     return statement;
