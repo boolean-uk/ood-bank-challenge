@@ -1,4 +1,4 @@
-import { differenceInMonths, isAfter } from "date-fns";
+import { differenceInMonths, isAfter, subYears } from "date-fns";
 import { Decimal } from "decimal.js";
 import fs from "fs";
 import { ACCOUNTS_PATH, getAccounts, getLastAccountNo } from "./bank";
@@ -91,13 +91,30 @@ export class Account {
 }
 
 export class SavingsAccount extends Account {
+  private SAVINGS_DEPOSIT_LIMIT = new Decimal(20000);
+
   constructor(id: string) {
     super(id, false);
+  }
+
+  deposit(amount: Decimal, date: Date = new Date()) {
+    const oneYearAgo = subYears(date, 1);
+    const totalDepositsLastYear = this.transactions
+      .filter((transaction) => isAfter(transaction.date, oneYearAgo))
+      .reduce((total, transaction) => total.plus(transaction.amount), new Decimal(0));
+
+    if (totalDepositsLastYear.plus(amount).greaterThan(new Decimal(20000))) {
+      throw "Deposit limit exceeded";
+    }
+
+    const transactions = this.transactions;
+    transactions.push(new Transaction(date, amount));
+    this.saveTransactions(transactions);
   }
 }
 
 export class InvestmentAccount extends Account {
-  private INTEREST_RATE: Decimal = new Decimal(0.02);
+  private INTEREST_RATE = new Decimal(0.02);
 
   constructor(id: string) {
     super(id, false);
