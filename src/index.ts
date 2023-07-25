@@ -22,3 +22,13 @@ console.log(accountManager.getBankStatement(savingAccount));
 accountManager.withdraw(checkingAccount,50000);
 
 
+accountManager.addDepositWithDate(investmentAccount,1000, new Date(2012,1,10));
+accountManager.addDepositWithDate(investmentAccount,2000, new Date(2012,1,13));
+accountManager.addDepositWithDate(investmentAccount,1000, new Date(2012,1,10));
+accountManager.addDepositWithDate(investmentAccount,2000, new Date(2012,1,13));
+accountManager.addDepositWithDate(investmentAccount,1000, new Date(2012,1,10));
+accountManager.addDepositWithDate(investmentAccount,2000, new Date(2012,1,13));
+accountManager.addDepositWithDate(investmentAccount,1000, new Date(2012,1,10));
+accountManager.addDepositWithDate(investmentAccount,2000, new Date(2012,1,13));
+
+console.log(accountManager.getBankStatementforDates(investmentAccount,new Date(2012,1,10),new Date(2012,1,10)));
