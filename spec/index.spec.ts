@@ -109,4 +109,27 @@ describe('account tests', () => {
         expect(generatedStatement1).toEqual(expectedStatement1);
         expect(generatedStatement2).toEqual(expectedStatement2);
     })
+
+    it('should allow 500 overdraft after requesting it', () => {
+        const depositAmount1 = 1000;
+        const depositAmount2 = 2000;
+        const withdrawAmount = 3500;
+        const expectedResult1 = depositAmount1 + depositAmount2
+        const expectedResult2 = depositAmount1 + depositAmount2 - withdrawAmount
+
+        account.deposit(depositAmount1);
+        account.deposit(depositAmount2);
+        const withdrawResult1 = account.withdraw(withdrawAmount);
+        const balanceResult1 = account.getBalance()
+
+        account.requestOverdraft()
+        const withdrawResult2 = account.withdraw(withdrawAmount);
+        const balanceResult2 = account.getBalance()
+
+        expect(withdrawResult1).toEqual(false);
+        expect(balanceResult1).toEqual(expectedResult1);
+
+        expect(withdrawResult2).toEqual(true);
+        expect(balanceResult2).toEqual(expectedResult2);
+    })
 })
