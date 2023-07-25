@@ -13,6 +13,7 @@ describe("bank account tests", () => {
     account.addInterest();
     expect(account.balance).toEqual(510);
   });
+
   it("shouldnt let overdraft", () => {
     account.deposit(500, new Date());
     account.withdraw(1000, new Date());

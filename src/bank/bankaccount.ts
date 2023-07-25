@@ -34,7 +34,7 @@ class BankAccount {
   }
   generateOrderedStatement(from: Date, to: Date) {
     let statement: Statement = new Statement(this);
-    statement.print();
+    statement.print(from, to);
   }
   addInterest() {}
 }

@@ -5,7 +5,7 @@ import Transaction from "./Transaction";
 class Statement {
   constructor(private _bankaccount: BankAccount) {}
 
-  print() {
+  print(from?: Date, to?: Date) {
     let transactions: Transaction[] = this._bankaccount.transactions;
     const lineItem: LineItem = new LineItem();
     console.log(
@@ -17,13 +17,25 @@ class Statement {
     let balance = 0;
     for (const transaction of transactions) {
       balance += transaction.amount;
-      console.log(
-        lineItem.formatLineItem(
-          transaction.date,
-          transaction.amount,
-          transaction.type
-        ) + `|| ${balance.toFixed(2).padEnd(7)}`
-      );
+      if (from !== undefined && to !== undefined) {
+        if (transaction.date >= from && transaction.date <= to) {
+          console.log(
+            lineItem.formatLineItem(
+              transaction.date,
+              transaction.amount,
+              transaction.type
+            ) + `|| ${balance.toFixed(2).padEnd(7)}`
+          );
+        }
+      } else {
+        console.log(
+          lineItem.formatLineItem(
+            transaction.date,
+            transaction.amount,
+            transaction.type
+          ) + `|| ${balance.toFixed(2).padEnd(7)}`
+        );
+      }
     }
   }
 }
