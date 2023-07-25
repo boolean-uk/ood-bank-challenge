@@ -29,8 +29,8 @@ export class Account {
     );
   }
 
-  get statement() {
-    return new Statement(this);
+  getStatement(startDate?: Date, endDate?: Date) {
+    return new Statement(this, startDate, endDate);
   }
 
   deposit(amount: Decimal, date: Date = new Date()) {

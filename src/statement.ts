@@ -2,7 +2,7 @@ import { Decimal } from "decimal.js";
 import { Account } from "./account";
 
 export class Statement {
-  constructor(private account: Account) {}
+  constructor(private account: Account, private startDate?: Date, private endDate?: Date) {}
 
   get printout() {
     let printout = "date       || credit || debit || balance\n";
@@ -47,6 +47,13 @@ export class Statement {
       credit = credit.padStart(7, " ");
       debit = debit.padStart(7, " ");
       const balanceString = balance.toFixed(2).padStart(7, " ");
+
+      if (
+        (this.startDate && transaction.date < this.startDate) ||
+        (this.endDate && transaction.date > this.endDate)
+      ) {
+        continue;
+      }
 
       rows.unshift(`${date} || ${credit} || ${debit} || ${balanceString}\n`);
     }

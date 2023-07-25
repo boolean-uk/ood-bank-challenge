@@ -6,3 +6,4 @@ README.md
 *.js
 *.pdf
 accounts.json
+index.ts
