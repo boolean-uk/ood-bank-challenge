@@ -68,10 +68,10 @@ describe('Account tests', () => {
 
         let result: string = account.generateBankStatement()
         const expected: string[] = []
-        expected.push("date       || credit  ||  debit  || balance\n");
-        expected.push("10/2/2022  || 1000    ||         || 1000\n");
-        expected.push("12/2/2022  || 2000    ||         || 3000\n");
-        expected.push("13/2/2022  ||         || 500     || 2500\n");
+        expected.push("date       ||  credit   ||   debit   || balance\n");
+        expected.push("10/2/2022  || 1000.00   ||           || 1000.00\n");
+        expected.push("12/2/2022  || 2000.00   ||           || 3000.00\n");
+        expected.push("13/2/2022  ||           || 500.00    || 2500.00\n");
 
         expect(result).toBe(expected.join(""));
     });
