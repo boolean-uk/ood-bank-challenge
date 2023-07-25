@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface TransactionProps {
-  date: string;
+  date: Date;
   amount: number;
   type: 'deposit' | 'withdrawal';
 }
@@ -9,7 +9,7 @@ interface TransactionProps {
 const Transaction: React.FC<TransactionProps> = ({ date, amount, type }) => {
   return (
     <tr>
-      <td>{date}</td>
+      <td>{date.toLocaleDateString()}</td>
       {type === 'deposit' ? <td>{amount.toFixed(2)}</td> : <td></td>}
       {type === 'withdrawal' ? <td>{amount.toFixed(2)}</td> : <td></td>}
     </tr>

@@ -5,7 +5,7 @@ import PDFStatement from './PDFStatement';
 import { PDFViewer } from '@react-pdf/renderer';
 
 interface TransactionProps {
-  date: string;
+  date: Date;
   amount: number;
   type: 'deposit' | 'withdrawal';
 }

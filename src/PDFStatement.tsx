@@ -3,7 +3,7 @@
 import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 
 interface TransactionProps {
-  date: string;
+  date: Date;
   amount: number;
   type: 'deposit' | 'withdrawal';
 }
@@ -65,7 +65,7 @@ const PDFStatement: React.FC<StatementProps> = ({ transactions }) => {
 
             return (
               <View key={index} style={styles.row}>
-                <Text style={styles.cell}>{transaction.date}</Text>
+                <Text style={styles.cell}>{transaction.date.toLocaleDateString()}</Text>
                 <Text style={styles.cell}>{transaction.type === 'deposit' ? transaction.amount.toFixed(2) : ''}</Text>
                 <Text style={styles.cell}>{transaction.type === 'withdrawal' ? transaction.amount.toFixed(2) : ''}</Text>
                 <Text style={styles.cell}>{balance.toFixed(2)}</Text>

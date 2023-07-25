@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "jest.config.ts"],
+  "include": ["src", "jest.config.ts", "src/__mocks__"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

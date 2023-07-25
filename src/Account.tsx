@@ -6,17 +6,24 @@ import Statement from './Statement';
 type TransactionType = 'deposit' | 'withdrawal';
 
 interface TransactionProps {
-  date: string;
+  date: Date;
   amount: number;
   type: TransactionType;
 }
 
 const Account: React.FC = () => {
+  const currentDate = new Date();
+  const oneYearAgo = new Date();
+  oneYearAgo.setFullYear(currentDate.getFullYear() - 1);
+
   const [balance, setBalance] = useState(0.00);
   const [transactions, setTransactions] = useState<TransactionProps[]>([]);
+  const [transactionForStatement , setTransactionForStatement] = useState<TransactionProps[]>([]);
   const [depositValue, setDepositValue] = useState("")
   const [withdrawValue, setWithdrawValue] = useState("")
   const [overdraftActive, setOverdraftActive] = useState(false)
+  const [startDate,setStartDate] = useState(oneYearAgo)
+  const [endDate,setEndDate] = useState(currentDate)
 
   const OVERDRAFT = 500.00
 
@@ -28,17 +35,15 @@ const Account: React.FC = () => {
   const deposit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const amount = parseFloat(depositValue)
-    const date = new Date().toLocaleDateString();
+    const date = new Date();
     setTransactions([...transactions, { date, amount, type: 'deposit' }]);
-
-
     setDepositValue("");
   };
 
   const withdraw = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const amount = parseFloat(withdrawValue)
-    const date = new Date().toLocaleDateString();
+    const date = new Date();
     const available = overdraftActive ? balance + OVERDRAFT : balance
     if (available >= amount) {
       setTransactions([...transactions, { date, amount, type: 'withdrawal' }]);
@@ -47,6 +52,20 @@ const Account: React.FC = () => {
     }
     setWithdrawValue("")
   };
+
+  const submitStatement = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const endDateFullDay = new Date(endDate)
+    endDateFullDay.setDate(endDateFullDay.getDate() + 1)
+
+    const filteredTransactions = transactions.filter((transaction) => {
+      const transactionDate = new Date(transaction.date).getTime();
+      const startDateTimestamp = new Date(startDate).getTime();
+      const endDateTimestamp = endDateFullDay.getTime();
+      return transactionDate >= startDateTimestamp && transactionDate <= endDateTimestamp;
+    });
+    setTransactionForStatement(filteredTransactions)
+  }
 
 
   return (
@@ -79,10 +98,32 @@ const Account: React.FC = () => {
           <button className="btn btn-primary" type='submit'>Withdraw</button>
         </form>
       </div>
+      <div className="container mt-3">
+        <form className="input-group" onSubmit={submitStatement}>
+          <div className='container d-flex'>
+            <input
+              data-testid="start-date"
+              type="date"
+              className="form-control"
+              value={startDate.toISOString().slice(0, 10)}
+              onChange={(e) => setStartDate(new Date(e.target.value))}
+            />
+            <input
+              data-testid="end-date"
+              type="date"
+              className="form-control"
+              value={endDate.toISOString().slice(0, 10)}
+              onChange={(e) => setEndDate(new Date(e.target.value))}
+            />
+          </div>
 
-      <button className='btn btn-primary mt-5' data-bs-toggle="modal" data-bs-target="#statementModal">Generate Statement</button>
+         <button className='btn btn-primary mt-5' data-bs-toggle="modal" data-bs-target="#statementModal">Generate Statement</button>
+
+        </form>
+      </div>
+
       <div className="modal fade" id='statementModal' tabIndex={-1} aria-labelledby='statementModalLabel' aria-hidden="true">
-        <Statement transactions={transactions} />
+        <Statement transactions={transactionForStatement} />
       </div>
       <div>
       <button className="btn btn-primary mt-5" onClick={() => setOverdraftActive((prev)=>!prev)}>{overdraftActive ? "Disable Overdraft" : "Allow overdraft(500$)"}</button>

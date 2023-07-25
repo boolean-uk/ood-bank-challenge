@@ -1,13 +1,14 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Account from './Account';
 
+
+jest.mock('./Statement');
 describe('Account', () => {
 
   let depositField: HTMLElement;
   let withdrawField: HTMLElement;
   beforeEach(() => {
     render(<Account />);
-    
     depositField =screen.getByTestId("deposit")
     withdrawField =screen.getByTestId("withdraw")
   });
@@ -74,9 +75,6 @@ describe('Account', () => {
     fireEvent.click(withdrawButton);
     expect(mockAlert).toHaveBeenCalledWith('Insufficient funds.');
   });
-
-
-
 
 
 });
