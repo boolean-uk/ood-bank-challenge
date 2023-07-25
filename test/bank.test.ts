@@ -1,5 +1,7 @@
-import { NormalAccount} from "../src/NormalAccount";
-import { Transaction} from "../src/Transaction";
+import { NormalAccount } from "../src/NormalAccount";
+import { Transaction } from "../src/Transaction";
+import { SavingsAccount } from "../src/SavingsAccount";
+import { InvestmentAccount } from "../src/InvestmentAccount";
 describe("Normal account tests", () => {
   let normalAccount: NormalAccount;
   var yesterdaydate = new Date();
@@ -170,5 +172,52 @@ describe("Transaction tests", () => {
 
   it("should create transaction with balance = 100", () => {
     expect(transaction.balance).toEqual(100);
+  });
+});
+
+describe("Savings Account Tests", () => {
+  let savingsAccount: SavingsAccount;
+  beforeEach(() => {
+    savingsAccount = new SavingsAccount();
+  });
+
+  it("should create savings account with yearly deposit limit 20000", () => {
+    expect(savingsAccount.deposityearlimit).toEqual(20000);
+  });
+
+  it("should create savings account with  debit limit 0", () => {
+    expect(savingsAccount.debit).toEqual(0);
+  });
+
+  it("should not be able to deposit more than 20000", () => {
+    savingsAccount.deposit(10000);
+    savingsAccount.deposit(5000);
+    expect(savingsAccount.deposit(6000)).toEqual(
+      "Transaction has been declined!\n Wrong data provided or year limit exceeded!"
+    );
+  });
+});
+
+describe("InvestmentAccountTests", () => {
+  let investmentAccount: InvestmentAccount;
+  beforeEach(() => {
+    investmentAccount = new InvestmentAccount();
+  });
+  it("should create investment account with debit limit 0", () => {
+    expect(investmentAccount.debit).toEqual(0);
+  });
+  it("should create investment account with actual  intertestStartDate", () => {
+    expect(investmentAccount.interestStartDate).toEqual(new Date());
+  });
+  it("should calculate yearly interest properly", () => {
+    const currentDate = new Date();
+    const oneYearFromNow = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() - 1,
+      currentDate.getDate()
+    );
+    investmentAccount.interestStartDate = oneYearFromNow;
+    investmentAccount.deposit(100);
+    expect(investmentAccount.checkInterest()).toEqual(2);
   });
 });
