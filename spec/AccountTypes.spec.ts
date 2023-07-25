@@ -37,4 +37,12 @@ describe("Account Types tests", () => {
         expect(() => checkingAccount.withdraw(100000)).toThrow(new Error("Overdraft!"))
     })
 
+    it("should not allow to withdraw money from checking account", () => {
+        expect(() => savingAccount.withdraw(10000)).toThrow(new Error("Not enough money!"))
+    })
+
+    it("should not allow to withdraw money from checking account", () => {
+        expect(() => investmentAccount.withdraw(10000)).toThrow(new Error("Not enough money!"))
+    })
+
 })
