@@ -30,7 +30,3 @@ const handleDeposit = () => {
         </div>
     </div>
 </template>
-
-<style scoped>
-
-</style>

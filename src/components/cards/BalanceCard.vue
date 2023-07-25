@@ -24,7 +24,3 @@ const formattedBalance = computed(() => formatCurrency(store.balance));
         </div>
     </div>
 </template>
-
-<style scoped>
-
-</style>

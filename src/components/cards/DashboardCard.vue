@@ -17,10 +17,14 @@ const formatCurrency = (value: number): string => {
 </script>
 
 <template>
-    <div class="card bg-white">
+    <div class="card bg-white w-full">
         <div class="card-body items-center text-center">
             <h2 class="card-title">Dashboard</h2>
-            <div>
+            <div v-if="transactionHistory.length === 0">
+                <p>Nothing here... yet!</p>
+                <p class="m-2">As soon as you make a transaction, your history will be shown here.</p>
+            </div>
+            <div v-else>
                 <table class="table">
                     <thead>
                     <tr>
@@ -60,7 +64,3 @@ const formatCurrency = (value: number): string => {
         </form>
     </dialog>
 </template>
-
-<style scoped>
-
-</style>

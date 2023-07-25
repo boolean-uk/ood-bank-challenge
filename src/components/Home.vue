@@ -18,7 +18,3 @@ import DashboardCard from "./cards/DashboardCard.vue";
         </div>
     </div>
 </template>
-
-<style scoped>
-
-</style>
