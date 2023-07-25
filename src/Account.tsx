@@ -39,7 +39,8 @@ const Account: React.FC = () => {
     e.preventDefault();
     const amount = parseFloat(withdrawValue)
     const date = new Date().toLocaleDateString();
-    if (balance + OVERDRAFT >= amount) {
+    const available = overdraftActive ? balance + OVERDRAFT : balance
+    if (available >= amount) {
       setTransactions([...transactions, { date, amount, type: 'withdrawal' }]);
     } else {
       alert('Insufficient funds.');

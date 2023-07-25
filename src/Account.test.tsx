@@ -54,7 +54,7 @@ describe('Account', () => {
     const depositButton = screen.getByText('Deposit');
     fireEvent.change(depositField,{target: { value: 1000}})
     fireEvent.click(depositButton);
-    const overdraftButton = screen.getByText("Allow")
+    const overdraftButton = screen.getByText("Allow overdraft(500$)")
     fireEvent.click(overdraftButton)
     const withdrawButton = screen.getByText('Withdraw');
     fireEvent.change(withdrawField,{target: { value: 1200}})
@@ -63,7 +63,7 @@ describe('Account', () => {
     expect(balanceText).toBeInTheDocument();
   });
 
-  it('shouldnot withdraw money correctly if overdraft limit not exceeded but overdraft disabled', () => {
+  it('should not withdraw money correctly if overdraft limit not exceeded but overdraft disabled', () => {
     const mockAlert = jest.spyOn(window, 'alert');
     mockAlert.mockImplementation(() => {});
     const depositButton = screen.getByText('Deposit');
