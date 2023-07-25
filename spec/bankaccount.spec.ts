@@ -1,12 +1,10 @@
-import bankaccount from "@bank/Bankaccount";
-import Bankaccount from "@bank/Bankaccount";
-import Statement from "@bank/Statement";
+import BankAccount from "@bank/BankAccount";
 
 describe("bank account tests", () => {
-  let account: Bankaccount;
+  let account: BankAccount;
 
   beforeEach(() => {
-    account = new Bankaccount();
+    account = new BankAccount();
   });
 
   it("should deposit correctly", () => {
