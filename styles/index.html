@@ -1,31 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Online Banking App</title>
-  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: "Impact", sans-serif;
+      margin: 20px;
+      background-image: url('images/bank_app_2.jpg'); 
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #bankStatements {
+      margin: 20px 0;
+      border: 1px solid #f2f2f2d3; 
+      padding: 10px;
+      background-color: #f2f2f2d3; 
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    label {
+      margin-right: 10px;
+    }
+
+    #appContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .actionContainer {
+      border: 1px solid #ffffff;
+      padding: 20px;
+      background-color: #f2f2f2d3;
+      margin: 20px;
+      border-radius: 5px;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Welcome to Online Banking</h1>
+  <div id="appContainer">
+    <h1>Online Banking App</h1>
 
-  <!-- Display Bank Statements -->
-  <div id="bankStatements"></div>
+    <div class="actionContainer">
+      <h2>Savings Account</h2>
 
-  <!-- Deposit Form -->
-  <form id="depositForm">
-    <label for="depositAmount">Deposit Amount:</label>
-    <input type="number" id="depositAmount" step="0.01" required>
-    <button type="submit">Deposit</button>
-  </form>
+      <form id="depositForm">
+        <label for="depositAmount">Deposit:</label>
+        <input type="number" id="depositAmount" step="0.01" required>
+        <button type="submit">Submit</button>
+      </form>
 
-  <!-- Withdraw Form -->
-  <form id="withdrawForm">
-    <label for="withdrawAmount">Withdraw Amount:</label>
-    <input type="number" id="withdrawAmount" step="0.01" required>
-    <button type="submit">Withdraw</button>
-  </form>
+      <form id="withdrawForm">
+        <label for="withdrawAmount">Withdraw:</label>
+        <input type="number" id="withdrawAmount" step="0.01" required>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
+
 </html>
