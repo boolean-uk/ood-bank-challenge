@@ -80,4 +80,28 @@ describe('account tests', () => {
 
         expect(generatedStatement).toEqual(expectedStatement);
     })
+
+    it('should return generated statement for given dates', () => {
+        const depositAmount1 = 1000;
+        const depositAmount2 = 2000;
+        const withdrawAmount = 500;
+
+        const actualDate = new Date();
+        const day = actualDate.getDay() > 9 ? actualDate.getDay() : `0${actualDate.getDay()}`
+        const month = actualDate.getDay() > 9 ? actualDate.getDay() : `0${actualDate.getDay()}`
+        const year = actualDate.getFullYear()
+
+        let expectedStatement = `date       || credit  || debit  || balance\n`
+        expectedStatement += `${day}/${month}/${year} ||         || 500.00 || 2500.00\n`
+        expectedStatement += `${day}/${month}/${year} || 2000.00 ||        || 3000.00\n`
+        expectedStatement += `${day}/${month}/${year} || 1000.00 ||        || 1000.00`
+
+        account.deposit(depositAmount1);
+        account.deposit(depositAmount2);
+        account.withdraw(withdrawAmount);
+
+        const generatedStatement = account.generateStatement(actualDate.getMilliseconds() - 86400000, actualDate.getMilliseconds() + 86400000);
+
+        expect(generatedStatement).toEqual(expectedStatement);
+    })
 })
