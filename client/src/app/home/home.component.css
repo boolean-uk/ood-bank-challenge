@@ -1,0 +1,34 @@
+
+:root {
+    --main-color: #007bff; 
+    --secondary-color: #a52a2a; 
+    --accent-color: #ff0000; 
+  }
+  
+  .container {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h1 {
+    color: var(--main-color); 
+  }
+  
+  p {
+    color: var(--secondary-color);
+    font-size: 18px;
+  }
+  
+  .error-message {
+    color: var(--accent-color);
+  }
+  
+  
+  
+  
+  
+  
+  
