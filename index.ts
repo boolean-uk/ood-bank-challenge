@@ -1,5 +1,5 @@
-import { Customer } from "./src/core/Customer";
-import { CurrentAccount } from "./src/core/CurrentAccount";
+import { Customer } from "./src/extension/Customer";
+import { CurrentAccount } from "./src/extension/CurrentAccount";
 import { TRANSACTION_TYPE } from "./src/enums/TRANSACTION_TYPE";
 
 // printing bank statement
@@ -19,3 +19,10 @@ current.createTransaction(
 current.createTransaction(500, TRANSACTION_TYPE.DEBIT, new Date("2020-01-14"));
 
 current.printBankStatement();
+
+console.log("-------------------------------------------------");
+// printing bank statement between 2 given dates
+current.printBankStatementBetween(
+  new Date("2020-01-10"),
+  new Date("2020-01-13")
+);

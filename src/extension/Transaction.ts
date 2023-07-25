@@ -1,5 +1,5 @@
+import { TRANSACTION_TYPE } from "../enums/TRANSACTION_TYPE";
 import { Account } from "./Account";
-import { TRANSACTION_TYPE } from "./enums/TRANSACTION_TYPE";
 
 export class Transaction {
   private readonly type: TRANSACTION_TYPE;
