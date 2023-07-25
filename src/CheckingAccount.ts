@@ -1,19 +1,19 @@
 import {BankAccount} from "./BankAccount"
 
-export class CheckingAccount implements BankAccount {
-    getBalance(): number {
+export class CheckingAccount extends BankAccount {
+    public override  getBalance(): number {
         return 0
     }
-    withdraw(): boolean {
+    public override  withdraw(): boolean {
         return false
     }
-    deposit(): void {
+    public override  deposit(amount: number): void {
 
     }
-    getOverdraft(): boolean {
+    public override  addOverdraft(): boolean {
         return false
     }
-    generateStatement(): void {
+    public override  generateStatement(): void {
         
     }
 }

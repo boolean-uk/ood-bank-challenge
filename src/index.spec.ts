@@ -8,13 +8,19 @@ describe("BankAccount tests", () => {
     beforeEach(() => { 
     })
 
-    it("getBalance() test", () => {
+    it("getBalance(), withdraw(), and balance() test", () => {
         bankAccount = new SavingsAccount()
-        expect(bankAccount.getBalance()).toEqual(0)
+        bankAccount.deposit(1000)
+        expect(bankAccount.getBalance()).toEqual(1000)
+        expect(bankAccount.withdraw(100)).toEqual(true)
+        expect(bankAccount.withdraw(100)).toEqual(true)
+        expect(bankAccount.getBalance()).toEqual(790)
+        expect(bankAccount.withdraw(1000)).toEqual(false)
+        expect(bankAccount.getBalance()).toEqual(790)
     })
 })
 
-describe("BankAccount tests", () => {
+describe("Transaction tests", () => {
     let transaction: Transaction
 
     it("gettters test", () => {
@@ -24,6 +30,6 @@ describe("BankAccount tests", () => {
         let date = new Date()
         transaction = new Transaction(2000, 0, date)
         expect(transaction.getAmount()).toEqual(2000)
-        expect(transaction.getFee()).toEqual(0)
+        expect(transaction.getFee()).toEqual(0)   
     })
 })
