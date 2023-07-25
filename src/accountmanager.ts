@@ -29,19 +29,26 @@ export class AccountManager{
    
     addDeposit(account: Account, deposit: number) {
         if(deposit > 0){
-        account.addTransaction(new Transaction(deposit, account.getBalance()+ deposit));
+
+            if(this.isNotSavingAccount(account,deposit) !== true){
+                account.addTransaction(new Transaction(deposit, account.getBalance()+ deposit));
+            }
         }else console.log("You can not deposit amount of money below zero!")
+
     }
 
     withdraw(account: Account, withdraw: number) {
         if(withdraw >  0){
+            
             if(withdraw <= account.getBalance() || (withdraw <= (account.getBalance() +500) &&  account.getIsOverdraftPossible()  === true)){
             withdraw = withdraw*(-1);
             account.addTransaction(new Transaction(withdraw, account.getBalance()+ withdraw));
-            }else{
-                console.log("You do not have that amount of money! or Wrong type of account");
-            }
+            }else console.log("You do not have that amount of money! or Wrong type of account");
         }else console.log("You can not withdraw amount of money below zero!");
+    }
+
+    isNotSavingAccount(account : Account,deposit : number) : boolean{
+       return ( account.getAccountType() === "saving" && (account.getBalance() + deposit) >= 20000) ;
     }
 
 

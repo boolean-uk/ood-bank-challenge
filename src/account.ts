@@ -4,6 +4,7 @@ export class Account {
     private accountNumber : string;
     private isOverdraftPossible: boolean = false;
     private transactions: Array<Transaction> = []
+    private accountType : string  = "not specified"; 
     constructor(accountnumber:string){
         this.accountNumber = accountnumber;
     }
@@ -38,6 +39,14 @@ export class Account {
         return this.isOverdraftPossible;
     }
 
+    
+    getAccountType(): string {
+        return this.accountType;
+     }
+
+    setAccountType(accountType : string){
+        this.accountType = accountType;
+    }
 
 }
 
@@ -46,36 +55,28 @@ export class Account {
 export class SavingAccount extends Account{
     
     
-    private accountType : string;
+    
 
     constructor(accountnumber:string){
         super(accountnumber);
         this.setIsOverdraftPossible(false);
-        this.accountType = "saving";
+        this.setAccountType("saving");
     }
 
 
-    getAccountType(): string {
-       return this.accountType;
-    }
 }
 
 
 export class InvestmentAccount extends Account{
     
     
-    private accountType : string;
 
     constructor(accountnumber:string){
         super(accountnumber);
         this.setIsOverdraftPossible(false);
-        this.accountType = "investment";
+        this.setAccountType("investment");
     }
 
-
-    getAccountType(): string {
-       return this.accountType;
-    }
 
 
     accumulate(){
@@ -87,18 +88,16 @@ export class InvestmentAccount extends Account{
 export class CheckingAccount extends Account{
     
     
-    private accountType : string;
+  
 
     constructor(accountnumber:string){
         super(accountnumber);
         this.setIsOverdraftPossible(true);
-        this.accountType = "checking";
+        this.setAccountType("checking");
     }
 
 
-    getAccountType(): string {
-       return this.accountType;
-    }
+  
 }
 
 export class Transaction{
