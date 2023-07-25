@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Bank = exports.TransactionType = void 0;
+var fs = require("fs");
+var PDFDocument = require('pdfkit');
 var TransactionType;
 (function (TransactionType) {
     TransactionType["DEPOSIT"] = "DEPOSIT";
@@ -107,6 +109,30 @@ var Bank = /** @class */ (function () {
         }
         return result;
     };
+    Bank.prototype.generatePDFStatement = function (filePath) {
+        var doc = new PDFDocument();
+        var stream = fs.createWriteStream(filename);
+        doc.pipe(stream);
+        // Header
+        doc
+            .fontSize(12)
+            .text('Bank Statement', { align: 'center' })
+            .moveDown();
+        // Account history
+        var accountHistory = this.showAccountHistory();
+        doc
+            .fontSize(10)
+            .text(accountHistory)
+            .moveDown();
+        doc.end();
+    };
     return Bank;
 }());
 exports.Bank = Bank;
+var bankAccount = new Bank();
+bankAccount.deposit(1000, new Date('2023-07-24'));
+bankAccount.deposit(2000, new Date('2023-07-25'));
+bankAccount.withdraw(500, new Date('2023-07-26'));
+var filename = 'bank_statement.pdf';
+bankAccount.generatePDFStatement(filename);
+console.log(bankAccount.showAccountHistory());

@@ -1,3 +1,6 @@
+import * as fs from 'fs';
+const PDFDocument = require('pdfkit');
+
 export enum TransactionType {
   DEPOSIT = "DEPOSIT",
   WITHDRAWAL = "WITHDRAWAL",
@@ -117,4 +120,32 @@ private returnAccountHistory(transactions: Transaction[], initialBalance: number
   return result;
 }
 
+public generatePDFStatement(filePath: string): void {
+  const doc = new PDFDocument();
+  const stream = fs.createWriteStream(filename);
+
+  doc.pipe(stream);
+
+  // Header
+  doc
+    .fontSize(12)
+    .text('Bank Statement', { align: 'center' })
+    .moveDown();
+
+  // Account history
+  const accountHistory = this.showAccountHistory();
+  doc
+    .fontSize(10)
+    .text(accountHistory)
+    .moveDown();
+  doc.end();
 }
+}
+
+const bankAccount = new Bank();
+bankAccount.deposit(1000, new Date('2023-07-24'));
+bankAccount.deposit(2000, new Date('2023-07-25'));
+bankAccount.withdraw(500, new Date('2023-07-26'));
+const filename = 'bank_statement.pdf';
+bankAccount.generatePDFStatement(filename);
+console.log(bankAccount.showAccountHistory())
