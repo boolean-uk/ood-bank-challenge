@@ -59,4 +59,16 @@ describe("account", () => {
         let result = account.withdraw(500 , new Date())
         expect(result).toBe(false);
     });
+
+    it("should print statement between two dates", () => {
+        account.deposit(1000, new Date("2023-7-23"))
+        account.deposit(2000, new Date("2023-7-25"))
+
+        let actualResult: string = account.printStatementByDate(new Date("2023-7-24"), new Date("2023-7-25"))
+        const expectedResult: string[] = []
+        expectedResult.push("date       || credit  || debit  || balance\n");
+        expectedResult.push("7/25/2023  ||         || 2000   || 3000\n");
+
+        expect(actualResult).toBe(expectedResult.join(""));
+    });
 });

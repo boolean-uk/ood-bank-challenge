@@ -9,7 +9,7 @@
   "scripts": {
     "test": "ts-node node_modules/jasmine/bin/jasmine"
   },
-  "author": "",
+  "author": "Bartlomiej Walczak",
   "license": "ISC",
   "devDependencies": {
     "@types/jasmine": "^4.3.5",
