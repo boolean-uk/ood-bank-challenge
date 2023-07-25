@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface TransactionProps {
   date: string;
   amount: number;
