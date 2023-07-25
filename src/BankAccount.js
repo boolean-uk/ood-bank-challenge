@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BankAccount = void 0;
+var StatementGenerator_1 = require("./StatementGenerator");
 var Transaction_1 = require("./Transaction");
 var BankAccount = /** @class */ (function () {
     function BankAccount() {
@@ -31,6 +32,7 @@ var BankAccount = /** @class */ (function () {
         return false;
     };
     BankAccount.prototype.generateStatement = function () {
+        return StatementGenerator_1.StatementGenerator.generateStatement(this);
     };
     return BankAccount;
 }());

@@ -1,3 +1,4 @@
+import { StatementGenerator } from "./StatementGenerator"
 import { Transaction } from "./Transaction"
 
 
@@ -37,7 +38,7 @@ export abstract class BankAccount {
         return false
     }
 
-    public generateStatement(): void {
-
+    public generateStatement(): String {
+        return StatementGenerator.generateStatement(this)
     }
 }

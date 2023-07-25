@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var CheckingAccount_1 = require("./CheckingAccount");
-var StatementGenerator_1 = require("./StatementGenerator");
 var bankAccount = new CheckingAccount_1.CheckingAccount();
 bankAccount.deposit(100000.40);
 bankAccount.withdraw(100.12);
@@ -11,4 +10,4 @@ bankAccount.withdraw(59.26);
 bankAccount.withdraw(5.35);
 bankAccount.deposit(589.79);
 bankAccount.deposit(323.84);
-StatementGenerator_1.StatementGenerator.generateStatement(bankAccount);
+console.log(bankAccount.generateStatement());

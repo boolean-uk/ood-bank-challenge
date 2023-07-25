@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.StatementGenerator = void 0;
+exports.padToMiddleSpaces = exports.StatementGenerator = void 0;
 var StatementGenerator = /** @class */ (function () {
     function StatementGenerator() {
     }
@@ -10,6 +10,7 @@ var StatementGenerator = /** @class */ (function () {
         var maxBalanceLength = 7;
         var currentBalance = 0;
         var transactions = account.getTransactions();
+        var statement = "";
         for (var i = 0; i < transactions.length; ++i) {
             var currentAmount = transactions[i].getAmount() - transactions[i].getFee();
             currentBalance += currentAmount;
@@ -19,21 +20,21 @@ var StatementGenerator = /** @class */ (function () {
             else
                 maxDebitLength = Math.max(maxDebitLength, String(currentAmount.toFixed(2)).length);
         }
-        console.log("date".concat(' '.repeat(6), " || ").concat(padToRightSpaces("credit", maxCreditLength), " || ").concat(padToRightSpaces("debit", maxDebitLength), " || balance"));
+        statement += "".concat(padToMiddleSpaces("date", 10), " || ").concat(padToMiddleSpaces("credit", maxCreditLength), " || ").concat(padToMiddleSpaces("debit", maxDebitLength), " || ").concat(padToMiddleSpaces("balance", maxBalanceLength), "\n");
         currentBalance = 0;
         for (var i = 0; i < transactions.length; ++i) {
-            var toPrint = "";
+            var transactionInfo = "";
             var transaction = transactions[i];
             var currentAmount = transactions[i].getAmount() - transactions[i].getFee();
             currentBalance += currentAmount;
-            toPrint += "".concat(formatDate(transaction.getDate()), " || ");
+            transactionInfo += "".concat(formatDate(transaction.getDate()), " || ");
             if (currentAmount >= 0)
-                toPrint += "".concat(padToLeftSpaces(String(currentAmount.toFixed(2)), maxCreditLength), " || ").concat(' '.repeat(maxDebitLength), " || ").concat(padToLeftSpaces(String(currentBalance.toFixed(2)), maxBalanceLength));
+                transactionInfo += "".concat(padToLeftSpaces(String(currentAmount.toFixed(2)), maxCreditLength), " || ").concat(' '.repeat(maxDebitLength), " || ").concat(padToLeftSpaces(String(currentBalance.toFixed(2)), maxBalanceLength), "\n");
             else
-                toPrint += "".concat(' '.repeat(maxCreditLength), " || ").concat(padToLeftSpaces(String(currentAmount.toFixed(2)), maxDebitLength), " || ").concat(padToLeftSpaces(String(currentBalance.toFixed(2)), maxBalanceLength));
-            console.log(toPrint);
+                transactionInfo += "".concat(' '.repeat(maxCreditLength), " || ").concat(padToLeftSpaces(String(currentAmount.toFixed(2)), maxDebitLength), " || ").concat(padToLeftSpaces(String(currentBalance.toFixed(2)), maxBalanceLength), "\n");
+            statement += transactionInfo;
         }
-        return "";
+        return statement;
     };
     return StatementGenerator;
 }());
@@ -50,6 +51,14 @@ function padToLeftSpaces(input, numSpaces) {
     var spaces = ' '.repeat(numSpaces - input.length);
     return spaces + input;
 }
+function padToMiddleSpaces(input, numSpaces) {
+    if (numSpaces <= input.length)
+        return input;
+    var leftCount = Math.floor((numSpaces - input.length) / 2);
+    var rightCount = Math.ceil((numSpaces - input.length) / 2);
+    return "".concat(' '.repeat(leftCount)).concat(input).concat(' '.repeat(rightCount));
+}
+exports.padToMiddleSpaces = padToMiddleSpaces;
 function formatDate(date) {
     var day = date.getDate().toString().padStart(2, '0');
     var month = (date.getMonth() + 1).toString().padStart(2, '0');

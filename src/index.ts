@@ -1,6 +1,6 @@
 import { CheckingAccount } from "./CheckingAccount"
 import { SavingsAccount } from "./SavingsAccount"
-import { StatementGenerator } from "./StatementGenerator"
+import { StatementGenerator, padToMiddleSpaces } from "./StatementGenerator"
 
 
 let bankAccount = new CheckingAccount()
@@ -13,5 +13,4 @@ bankAccount.withdraw(5.35)
 bankAccount.deposit(589.79)
 bankAccount.deposit(323.84)
 
-
-StatementGenerator.generateStatement(bankAccount)
+console.log(bankAccount.generateStatement())

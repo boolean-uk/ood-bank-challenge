@@ -9,6 +9,7 @@ export class StatementGenerator {
         let maxBalanceLength = 7
         let currentBalance = 0
         let transactions = account.getTransactions()
+        let statement = ""
         for(let i = 0; i < transactions.length; ++i) {
             let currentAmount = transactions[i].getAmount() - transactions[i].getFee()
             currentBalance += currentAmount
@@ -18,37 +19,44 @@ export class StatementGenerator {
             else
                 maxDebitLength = Math.max(maxDebitLength, String(currentAmount.toFixed(2)).length)
         }
-        console.log(`date${' '.repeat(6)} || ${padToRightSpaces("credit", maxCreditLength)} || ${padToRightSpaces("debit", maxDebitLength)} || balance`)
+        statement += `${padToMiddleSpaces("date", 10)} || ${padToMiddleSpaces("credit", maxCreditLength)} || ${padToMiddleSpaces("debit", maxDebitLength)} || ${padToMiddleSpaces("balance", maxBalanceLength)}\n`
         currentBalance = 0
         for(let i = 0; i < transactions.length; ++i) {
-            let toPrint = ""
+            let transactionInfo = ""
             const transaction = transactions[i]
             let currentAmount = transactions[i].getAmount() - transactions[i].getFee()
             currentBalance += currentAmount
-            toPrint += `${formatDate(transaction.getDate())} || `
+            transactionInfo += `${formatDate(transaction.getDate())} || `
             if (currentAmount >= 0)
-                toPrint += `${padToLeftSpaces(String(currentAmount.toFixed(2)), maxCreditLength)} || ${' '.repeat(maxDebitLength)} || ${padToLeftSpaces(String(currentBalance.toFixed(2)), maxBalanceLength)}`
+                transactionInfo += `${padToLeftSpaces(String(currentAmount.toFixed(2)), maxCreditLength)} || ${' '.repeat(maxDebitLength)} || ${padToLeftSpaces(String(currentBalance.toFixed(2)), maxBalanceLength)}\n`
             else 
-                toPrint += `${' '.repeat(maxCreditLength)} || ${padToLeftSpaces(String(currentAmount.toFixed(2)), maxDebitLength)} || ${padToLeftSpaces(String(currentBalance.toFixed(2)), maxBalanceLength)}`
-            console.log(toPrint)
+                transactionInfo += `${' '.repeat(maxCreditLength)} || ${padToLeftSpaces(String(currentAmount.toFixed(2)), maxDebitLength)} || ${padToLeftSpaces(String(currentBalance.toFixed(2)), maxBalanceLength)}\n`
+            statement += transactionInfo
         }
-        return ""
+        return statement
     }
-
 }
 
 function padToRightSpaces(input: string, numSpaces: number): string {
     if (numSpaces <= input.length)
-      return input
+        return input
     const spaces = ' '.repeat(numSpaces - input.length)
-    return input + spaces;
+    return input + spaces
 }
 
 function padToLeftSpaces(input: string, numSpaces: number): string {
     if (numSpaces <= input.length)
-      return input
+        return input
     const spaces = ' '.repeat(numSpaces - input.length)
-    return spaces + input;
+    return spaces + input
+}
+
+export function padToMiddleSpaces(input: string, numSpaces: number): string {
+    if (numSpaces <= input.length)
+        return input
+    const leftCount = Math.floor((numSpaces - input.length) / 2)
+    const rightCount = Math.ceil((numSpaces - input.length) / 2)
+    return `${' '.repeat(leftCount)}${input}${' '.repeat(rightCount)}`
 }
 
 function formatDate(date: Date): string {
