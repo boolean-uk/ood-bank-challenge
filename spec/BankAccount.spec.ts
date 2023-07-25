@@ -133,7 +133,21 @@ describe('BankAccount', () => {
         "10/01/2012 || 1000.00 ||        || 1000.00" + os.EOL;
 
         expect(bankAccount.generateWholeStatement()).toEqual(statement);
-        const stmt = bankAccount.generateStatementFromTo(new Date(2012, 0, 10), new Date(2012, 0, 14));
-        expect(stmt).toEqual(statement);
+    });
+
+    it('should produce a statement with transcation between 01/01/2022 and 31/01/2022', () => {
+        bankAccount.deposit(1000, new Date(2022, 0, 10));
+        bankAccount.deposit(2000, new Date(2022, 0, 13));
+        bankAccount.withdraw(500, new Date(2022, 0, 14));
+        bankAccount.deposit(1000, new Date(2022, 1, 10));
+
+        const statement = "date       || credit  || debit  || balance" + os.EOL +
+        "14/01/2022 ||         || 500.00 || 2500.00" + os.EOL +
+        "13/01/2022 || 2000.00 ||        || 3000.00" + os.EOL +
+        "10/01/2022 || 1000.00 ||        || 1000.00" + os.EOL;
+
+        expect(bankAccount.generateStatementFromTo(new Date(2022, 0, 1), 
+                            new Date(2022, 0, 31))).toEqual(statement);
+
     });
 });
