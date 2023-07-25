@@ -14,18 +14,18 @@ export class Account {
     return Math.floor(Math.random() * (999999999 - 100000000 + 1) + 100000000);
   }
 
-  depositFunds(amount: number): void{
+  depositFunds(amount: number, date: Date): void{
     this.balance += amount;
-    const transaction: Transaction = new Transaction(TransactionType.Credit, amount, this.balance, new Date().toLocaleDateString());
+    const transaction: Transaction = new Transaction(TransactionType.Credit, amount, this.balance, date.toLocaleDateString());
     this.transactions.push(transaction);
   }
 
-  withdrawFunds(amount: number): void{
+  withdrawFunds(amount: number, date: Date): void{
     if(amount > this.balance){
         throw new Error("You don't have enough money to make this withdrawal");
     }
     this.balance -= amount;
-    const transaction: Transaction = new Transaction(TransactionType.Credit, amount, this.balance, new Date().toLocaleDateString());
+    const transaction: Transaction = new Transaction(TransactionType.Debit, amount, this.balance, date.toLocaleDateString());
     this.transactions.push(transaction);
   }
 
@@ -36,4 +36,16 @@ export class Account {
   getTransactions(): Transaction[]{
     return this.transactions;
   }
+
+  getAccountStatement(): string{
+    let statement = "date      || credit || debit   || balance\n"; 
+    this.transactions.sort((a, b) => a.date.localeCompare(b.date));
+    this.transactions.forEach(element => {
+        statement += element.getTransactionDescription();
+        statement += "\n";
+    });
+
+    return statement;
+  }
+
 }
