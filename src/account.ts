@@ -40,6 +40,10 @@ export class Account {
   }
 
   withdraw(amount: Decimal, date: Date = new Date()) {
+    if (amount.greaterThan(this.balance)) {
+      throw "Insufficient funds!";
+    }
+
     const transactions = this.transactions;
     transactions.push(new Transaction(date, amount.times(-1)));
     this.saveTransactions(transactions);
