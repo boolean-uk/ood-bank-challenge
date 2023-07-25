@@ -1,19 +1,15 @@
 # Domain model for Bank Challenge
 
 ```ts
-enum TransactionType {
-    Deposit,
-    Withdraw,
-    Intrests
-}
+enum TransactionType {}
 
-interface TransactionI {
+interface ITransaction {
     getDate(): Date
     getAmount(): number
     getType(): TransactionType
 }
 
-class Transaction implements TransactionI {
+class Transaction implements ITransaction {
     private date: Date
     private amount: number
     private type: TransactionTyp
@@ -26,16 +22,16 @@ class Transaction implements TransactionI {
 interface BankAccountI {
     deposit(amount: number): boolean
     withdraw(amount: number): boolean
-    getTransactions(): TransactionI[]
+    getTransactions(): ITransaction[]
     calculateCurrentBallance(): number
 }
 
 class AbstractBankAccount implements BankAccountI {
-    private transactions: TransactionI[]
+    private transactions: ITransaction[]
 
     public deposit(amount: number): boolean {}
     public withdraw(amount: number): boolean {}
-    public getTransactions(): TransactionI[] {}
+    public getTransactions(): ITransaction[] {}
     private calculateCurrentBallance(): number {}
 }
 
@@ -56,12 +52,12 @@ class CheckingBanckAccount extends AbstractBankAccount {
 }
 
 interface BankStatementGeneratorI {
-    public generateBankStatement(transactions: TransactionI[]): string
-    public generateBankStatementBetweenTwoDates(transactions: TransactionI[], earlierDate: Date, laterDate: Date): string
+    public generateBankStatement(transactions: ITransaction[]): string
+    public generateBankStatementBetweenTwoDates(transactions: ITransaction[], earlierDate: Date, laterDate: Date): string
 }
 
 class BankStatementGenerator implements BankStatementGeneratorI {
-    public generateBankStatement(transactions: TransactionI[]): string {}
-    public generateBankStatementBetweenTwoDates(transactions: TransactionI[], earlierDate: Date, laterDate: Date): string {}
+    public generateBankStatement(transactions: ITransaction[]): string {}
+    public generateBankStatementBetweenTwoDates(transactions: ITransaction[], earlierDate: Date, laterDate: Date): string {}
 }
 ```
