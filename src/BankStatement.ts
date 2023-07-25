@@ -3,9 +3,11 @@ import { Account } from './Account';
 import { LocalDateTime, DateTimeFormatter } from 'js-joda';
 
 export class BankStatement {
-    public static printStatement(): boolean {
-        console.log("date       || credit || debit  || balance");
-        console.log("------------------------------------------");
+    static StatementPrint: string[] = [];
+    public static printStatement(): string {
+        this.StatementPrint = [];
+        this.StatementPrint.push("date       || credit || debit  || balance \n");
+        console.log("------------------------------------------\n");
         let balance: number = 0;
 
         for (let i = 0; i < Account.transactionHistory.length; i++) {
@@ -13,16 +15,14 @@ export class BankStatement {
             const transactionDate: LocalDateTime = Account.transactionDate[i];
 
             if (transactionAmount > 0) {
-                console.log(
-                    `${transactionDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))} || ${transactionAmount}   ||        || ${balance += transactionAmount}`
-                );
+                this.StatementPrint.push(
+                    `${transactionDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))} || ${transactionAmount}   ||        || ${balance += transactionAmount}\n`);
             } else {
-                console.log(
-                    `${transactionDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))} ||        ||  ${transactionAmount}  || ${balance += transactionAmount}`
-                );
+                this.StatementPrint.push(
+                    `${transactionDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))} ||        ||  ${transactionAmount}  || ${balance += transactionAmount}\n`);
             }
         }
-        console.log("------------------------------------------");
-        return true;
+        this.StatementPrint.push("------------------------------------------\n");
+        return this.StatementPrint.toString();
     }
 }

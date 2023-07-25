@@ -4,7 +4,7 @@
   <title>Bank Viewer</title>
 </head>
 <body>
-  <h1>Welcome to the Bank Statement Viewer</h1>
+  <h1>Welcome to the Super Bank</h1>
   <button onclick="printStatement()">Print Bank Statement</button>
   <br><br>
   <label for="depositAmount">Deposit Amount:</label>
@@ -15,7 +15,11 @@
   <input type="number" id="withdrawAmount">
   <button onclick="handleWithdraw()">Withdraw</button>
   <br><br>
+  <button onclick="setOverdraft()">Set Overdraft to 'true'</button>
+  <br><br>
+
   <pre id="output"></pre>
+  
 
   <script src="script.js"></script>
 </body>
