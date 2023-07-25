@@ -11,7 +11,6 @@ interface Transaction {
 
 export class Bank {
   private transactions: Transaction[] = [];
-  private balance: number = 0;
 
   public deposit(amount: number, date: Date): boolean {
     if (amount <= 0) return false;
@@ -21,20 +20,33 @@ export class Bank {
         amount,
         date,
       };
-      this.balance += amount;
+
       this.transactions.push(transaction);
       return true;
   }
 
   public withdraw(amount: number, date: Date): boolean {
-    if (amount <= 0 || this.balance < amount) return false;
+    if (amount <= 0) return false;
+
+    // Calculate the available funds by considering all transactions
+  let availableFunds = 0;
+  for (const transaction of this.transactions) {
+    if (transaction.type === TransactionType.DEPOSIT) {
+      availableFunds += transaction.amount;
+    } else {
+      availableFunds -= transaction.amount;
+    }
+  }
+
+  if (amount > availableFunds) return false;
+
 
     const transaction: Transaction = {
         type: TransactionType.WITHDRAWAL,
         amount,
         date,
       };
-      this.balance -= amount;
+
       this.transactions.push(transaction);
       return true;
   }

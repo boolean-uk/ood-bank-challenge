@@ -9,7 +9,6 @@ var TransactionType;
 var Bank = /** @class */ (function () {
     function Bank() {
         this.transactions = [];
-        this.balance = 0;
     }
     Bank.prototype.deposit = function (amount, date) {
         if (amount <= 0)
@@ -19,19 +18,30 @@ var Bank = /** @class */ (function () {
             amount: amount,
             date: date,
         };
-        this.balance += amount;
         this.transactions.push(transaction);
         return true;
     };
     Bank.prototype.withdraw = function (amount, date) {
-        if (amount <= 0 || this.balance < amount)
+        if (amount <= 0)
+            return false;
+        // Calculate the available funds by considering all transactions
+        var availableFunds = 0;
+        for (var _i = 0, _a = this.transactions; _i < _a.length; _i++) {
+            var transaction_1 = _a[_i];
+            if (transaction_1.type === TransactionType.DEPOSIT) {
+                availableFunds += transaction_1.amount;
+            }
+            else {
+                availableFunds -= transaction_1.amount;
+            }
+        }
+        if (amount > availableFunds)
             return false;
         var transaction = {
             type: TransactionType.WITHDRAWAL,
             amount: amount,
             date: date,
         };
-        this.balance -= amount;
         this.transactions.push(transaction);
         return true;
     };
@@ -77,7 +87,6 @@ var Bank = /** @class */ (function () {
             }
         }
         return this.returnAccountHistory(transactionsBetweenTwoDates, balance);
-        //return this.returnAccountHistory(transactionsBetweenTwoDates);
     };
     Bank.prototype.returnAccountHistory = function (transactions, initialBalance) {
         var result = "date        || credit    || debit     || balance\n";
@@ -98,37 +107,6 @@ var Bank = /** @class */ (function () {
         }
         return result;
     };
-    Bank.prototype.returnAccountHistory1 = function (transactions) {
-        var result = "date        || credit    || debit     || balance\n";
-        var balance = 0;
-        for (var _i = 0, transactions_2 = transactions; _i < transactions_2.length; _i++) {
-            var transaction = transactions_2[_i];
-            var date = transaction.date, amount = transaction.amount, type = transaction.type;
-            var formattedDate = date.toLocaleDateString().padEnd(12);
-            var formattedAmount = amount.toFixed(2).padStart(8);
-            if (type === TransactionType.DEPOSIT) {
-                balance += amount;
-                result += "".concat(formattedDate, "|| ").concat(formattedAmount, "  ||           || ").concat(balance.toFixed(2), "\n");
-            }
-            else {
-                balance -= amount;
-                result += "".concat(formattedDate, "||           || ").concat(formattedAmount, "  || ").concat(balance.toFixed(2), "\n");
-            }
-        }
-        return result;
-    };
     return Bank;
 }());
 exports.Bank = Bank;
-var bankAccount = new Bank();
-bankAccount.deposit(1000, new Date('2023-07-24'));
-bankAccount.deposit(2000, new Date('2023-07-25'));
-bankAccount.deposit(1500, new Date('2023-07-27'));
-// Withdrawal transactions
-bankAccount.withdraw(500, new Date('2023-07-26'));
-bankAccount.withdraw(1000, new Date('2023-07-28'));
-// Get account history between two dates
-var startDate = new Date('2023-07-25');
-var endDate = new Date('2023-07-27');
-var accountHistory = bankAccount.showAccountHistoryBetweenTwoDates(startDate, endDate);
-console.log(accountHistory);
