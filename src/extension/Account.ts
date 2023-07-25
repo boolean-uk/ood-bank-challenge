@@ -75,6 +75,8 @@ export class Account {
     }
   }
 
+  printBankStatementBetween(startDate: Date, endDate: Date): void {}
+
   calcBalance(transaction: Transaction, currentBalance: number): number {
     return transaction.getType() === TRANSACTION_TYPE.CREDIT
       ? currentBalance + transaction.getAmount()
