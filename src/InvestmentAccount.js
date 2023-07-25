@@ -13,14 +13,13 @@ class InvestmentAccount extends NormalAccount_1.NormalAccount {
     checkInterest() {
         let interest = 0;
         let monthsPassedBy = getMonthsBetweenDates(this.interestStartDate, new Date());
-        console.log(this.interestStartDate);
-        console.log(new Date());
-        console.log(monthsPassedBy);
         for (let i = 0; i < monthsPassedBy; i++) {
             interest += (this.balance + interest) * this.interestrate;
-            console.log(interest);
         }
         return interest;
+    }
+    getBalanceWithInterest() {
+        return this.balance + this.checkInterest();
     }
 }
 exports.InvestmentAccount = InvestmentAccount;

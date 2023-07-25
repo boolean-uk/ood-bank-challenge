@@ -23,7 +23,16 @@ export class InvestmentAccount extends NormalAccount {
     }
     return interest;
   }
+  getBalanceWithInterest():number{
+    return this.balance+this.checkInterest()
+  }
+
 }
+
+
+
+
+
 function getMonthsBetweenDates(dateFrom: Date, dateTo: Date): number {
   const yearDiff = dateTo.getFullYear() - dateFrom.getFullYear();
   const monthDiff = dateTo.getMonth() - dateFrom.getMonth();
