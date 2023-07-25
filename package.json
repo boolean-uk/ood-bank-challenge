@@ -1,0 +1,31 @@
+{
+  "name": "ood-bank-challenge",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "host": "vite --host",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "pdfmake": "^0.2.7",
+    "pinia": "^2.1.4",
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.3",
+    "@types/pdfmake": "^0.2.2",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "autoprefixer": "^10.4.14",
+    "daisyui": "^3.4.0",
+    "jest": "^29.6.1",
+    "postcss": "^8.4.27",
+    "tailwindcss": "^3.3.3",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vue-tsc": "^1.8.5"
+  }
+}
