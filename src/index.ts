@@ -2,6 +2,7 @@ import {Customer} from "./customer";
 import {BankAccount} from "./bankAccount";
 import {Transaction} from "./transaction";
 import {StatementFormatter} from "./statementFormatter";
+import {PdfGenerator} from "./pdfGenerator";
 
 let account: BankAccount = new BankAccount('11111')
 let customer: Customer = new Customer('Alex', account)
@@ -21,3 +22,4 @@ customer.addTransaction(deposit2)
 customer.addTransaction(withdrawal2)
 
 formatter.generateStatement()
+PdfGenerator.generatePDFFromText(formatter.generateStatement(), 'BankStatement.pdf')

@@ -6,7 +6,6 @@ class BankAccount {
         this._number = _number;
         this._transactions = [];
         this._number = _number;
-        this._balance = 0;
     }
     get transactions() {
         return this._transactions;
@@ -15,10 +14,10 @@ class BankAccount {
         return this._number;
     }
     get balance() {
-        return this._balance;
-    }
-    set balance(value) {
-        this._balance = value;
+        let balance = 0;
+        for (let t of this.transactions)
+            balance += t.amount;
+        return balance;
     }
 }
 exports.BankAccount = BankAccount;
