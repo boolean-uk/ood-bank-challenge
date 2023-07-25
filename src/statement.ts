@@ -1,13 +1,26 @@
+import jsPDF, { CellConfig } from "jspdf";
 import { Account, Transaction } from "./account";
 import { formatDate, formatMoney } from "./utils";
+import { tmpdir } from "os";
+import { join } from "path";
 
-export class BankStatement {
+export abstract class BankStatement {
     constructor(
-        private account: Account,
-        private fromDate: Date = new Date(1970, 0, 1),
-        private toDate: Date = new Date()
+        protected account: Account,
+        protected fromDate: Date = new Date(1970, 0, 1),
+        protected toDate: Date = new Date()
     ) {}
 
+    abstract print(): string
+
+    protected getTransactions(): Transaction[] {
+        return this.account.getTransactions()
+            .filter(t => t.date >= this.fromDate && t.date <= this.toDate)
+            .sort((t1, t2) => t2.date.getTime() - t1.date.getTime())
+    }
+}
+
+export class TextStatement extends BankStatement {
     print(): string {
         const columns: {[key: string]: string[]} = {
             date: ["date"],
@@ -16,9 +29,7 @@ export class BankStatement {
             balance: ["balance"]
         }
 
-        const transactions = this.account.getTransactions()
-            .filter(t => t.date >= this.fromDate && t.date <= this.toDate)
-            .sort((t1, t2) => t2.date.getTime() - t1.date.getTime())
+        const transactions = this.getTransactions()
         
         this.fillColumns(columns, transactions)
         this.alignColumns(columns)
@@ -62,6 +73,37 @@ export class BankStatement {
             columns.debit[rowIndex],
             columns.balance[rowIndex]
         ].join(" || ") + "\n"
+    }
+}
+
+export class PDFStatement extends BankStatement {
+    print(): string {
+        const outputPath = join(tmpdir(), `pdf_statement_${Date.now()}.pdf`)
+        const doc = new jsPDF()
+        
+        doc.setFontSize(14)
+        doc.text(`Bank Statement for ${formatDate(this.fromDate)}-${formatDate(this.toDate)} period`, 20, 20)
+        doc.table(20, 25, this.generateData(), ["date", "credit", "debit", "balance"], { autoSize: true })
+
+        doc.save(outputPath)
+        return outputPath
+    }
+
+    private generateData(): { [key: string]: string }[] {
+        const data: { [key: string]: string }[] = []
+
+        let currentBalance = this.account.getBalanceOn(this.toDate)
+        this.getTransactions().forEach(t => {
+            data.push({
+                    date: formatDate(t.date),
+                    credit: t.amount > 0 ? formatMoney(t.amount) : " ",
+                    debit: t.amount < 0 ? formatMoney(-t.amount) : " ",
+                    balance: formatMoney(currentBalance)
+            })
+            currentBalance -= t.amount
+        })
+
+        return data
     }
 
 }
