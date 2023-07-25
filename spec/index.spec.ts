@@ -54,7 +54,7 @@ describe("Account test", () => {
       expect(result).toEqual("The money has been withdrawn from your account.");
       expect(account.balance).toEqual(amountToDeposit - amountToWithdraw);
       expect(account.transactions.length).toEqual(2);
-      expect(account.transactions[1].amount).toEqual(-100);
+      expect(account.transactions[1].amount).toEqual(-1 * amountToWithdraw);
       expect(account.transactions[1].date).toEqual(date);
     });
 
