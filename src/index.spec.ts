@@ -109,4 +109,22 @@ describe("Bank App", () => {
         account.deposit(1000)
         expect(() => account.withdraw(2000)).toThrow("Insufficient funds.")
       })
+
+      it("should get all transactions after a specific date", () => {
+        const date1 = new Date("2012-01-10")
+        const date2 = new Date("2012-01-14")
+        const date3 = new Date("2012-01-20")
+    
+        const transaction1 = new Transaction("1", date1, 1000.0)
+        const transaction2 = new Transaction("2", date2, 2000.0)
+        const transaction3 = new Transaction("3", date3, -500.0)
+    
+        const statement = new BankStatement("1", "SAV123")
+        statement.addTransaction(transaction1)
+        statement.addTransaction(transaction2)
+        statement.addTransaction(transaction3)
+
+        const transactionsAfterDate = statement.getTransactionsAfterDate(date2)
+        expect(transactionsAfterDate).toEqual([transaction2, transaction3])
+      })
 })
