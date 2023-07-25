@@ -30,4 +30,5 @@ let investmentAccount = new InvestmentAccount()
     console.log(investmentAccount.deposit(100))
     investmentAccount.interestStartDate=oneYearFromNow
     console.log("account balance + interest = " + investmentAccount.getBalanceWithInterest())
+    console.log(investmentAccount.withdraw(100))
     
