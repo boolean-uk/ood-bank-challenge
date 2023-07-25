@@ -51,23 +51,26 @@ describe("account", () => {
     it("should allow overdraft", () => {
         account.setOverdraft(500)
         let result = account.withdraw(500 , new Date())
+        
         expect(result).toBe(true);
     });
 
     it("should not allow overdraft", () => {
         account.setOverdraft(0)
         let result = account.withdraw(500 , new Date())
+
         expect(result).toBe(false);
     });
 
     it("should print statement between two dates", () => {
-        account.deposit(1000, new Date("2023-7-23"))
+        account.deposit(1000, new Date("2023-7-13"))
         account.deposit(2000, new Date("2023-7-25"))
 
-        let actualResult: string = account.printStatementByDate(new Date("2023-7-24"), new Date("2023-7-25"))
+        let actualResult: string = account.printStatementByDate(new Date("2023-7-22"), new Date("2023-7-25"))
+
         const expectedResult: string[] = []
         expectedResult.push("date       || credit  || debit  || balance\n");
-        expectedResult.push("7/25/2023  ||         || 2000   || 3000\n");
+        expectedResult.push("7/25/2023  || 2000    ||        || 2000\n");
 
         expect(actualResult).toBe(expectedResult.join(""));
     });

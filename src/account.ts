@@ -25,14 +25,14 @@ class Account {
         return balance 
     }
 
-    public printStatement(): string {
+    private getStatement(transactions: Transaction[]): string {
         let currentBalance = 0
         const stringStatement: string[] = []
         stringStatement.push("date       || credit  || debit  || balance\n");
 
-        this.transactions.forEach((transaction: Transaction) => {
+        transactions.forEach((transaction: Transaction) => {
             currentBalance += transaction.amount
-            if(this.transactions.includes(transaction)) {
+            if(transactions.includes(transaction)) {
                 stringStatement.push(transaction.date.toLocaleDateString().padEnd(11) + "||")
                 //Debit
                 if (transaction.amount < 0) {
@@ -50,11 +50,30 @@ class Account {
         return stringStatement.join("")
     }
 
+    public printStatementByDate(date1: Date, date2: Date): string {
+        const olderDate = date1 < date2 ? date1 : date2
+        const newerDate = date1 < date2 ? date2 : date1
+
+        const transactionsByDate: Transaction[] = []
+        this.transactions.forEach((transaction: Transaction) => {
+            if(transaction.date >= olderDate && transaction.date <= newerDate)
+                transactionsByDate.push(transaction)
+        })
+
+        return this.getStatement(transactionsByDate)
+    }
+
+    public printStatement(){
+        return this.getStatement(this.transactions)
+    }
+
     public setOverdraft(amount: number) {
         if (amount <= 500 ){
             this.overdraft = amount
         }
     }
 }
+
+    
 export default Account
 
