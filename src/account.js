@@ -8,7 +8,7 @@ class Account {
     }
     deposit(amount) {
         if (amount < 0) {
-            throw new Error("Amount must be a positive number");
+            throw new Error('Amount must be a positive number');
         }
         this.transactions.push(new transaction_1.Transaction(amount));
     }

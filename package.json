@@ -20,7 +20,15 @@
   "homepage": "https://github.com/whiteeagle44/ood-bank-challenge#readme",
   "devDependencies": {
     "@types/jest": "^29.5.3",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^6.2.0",
+    "eslint": "^8.45.0",
+    "eslint-config-standard-with-typescript": "^37.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^16.0.1",
+    "eslint-plugin-promise": "^6.1.1",
     "jasmine": "^5.1.0",
+    "prettier": "^3.0.0",
     "typescript": "^5.1.6"
   }
 }

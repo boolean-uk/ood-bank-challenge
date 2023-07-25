@@ -12,6 +12,12 @@ describe('SavingsAccount', function () {
         expect(account.getBalance()).toEqual(39.98);
     });
     it('deposit throws exception for negative amount', function () {
-        expect(() => account.deposit(-20)).toThrow();
+        expect(() => { account.deposit(-20); }).toThrow();
+    });
+    it('withdraw adds transaction', function () {
+        account.deposit(19.99);
+        account.deposit(19.99);
+        account.withdraw(19.99);
+        expect(account.getBalance()).toEqual(19.99);
     });
 });
