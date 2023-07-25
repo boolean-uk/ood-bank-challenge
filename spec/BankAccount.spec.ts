@@ -1,5 +1,5 @@
-import BankAccount from "../../src/BankAccount"
-import Transaction from "../../src/Transaction"
+import BankAccount from "../src/BankAccount"
+import Transaction from "../src/Transaction"
 
 describe('BankAccount', () => {
     let bankAccount: BankAccount;
