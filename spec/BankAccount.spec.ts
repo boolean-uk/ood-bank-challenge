@@ -92,7 +92,7 @@ describe('BankAccount', () => {
     it('should not allow a withdrawal greater than the balance', () => {
         expect(() => {
             bankAccount.withdraw(100, date);
-        }).toThrowError('You cannot withdraw more than your balance');
+        }).toThrowError('You cannot withdraw more than your balance + overdraft limit');
     });
 
     it('should have a balance of 0 when depositing 100 and withdrawing 100', () => {
@@ -150,4 +150,18 @@ describe('BankAccount', () => {
                             new Date(2022, 0, 31))).toEqual(statement);
 
     });
+
+    it('should allow overdraft', () => {
+        bankAccount.enableOverdraft();
+        bankAccount.withdraw(100, date);
+
+        expect(bankAccount.calculateBalance()).toEqual(-100);
+    });
+
+    it('should not allow overdraft', () => {
+        expect(() => {
+            bankAccount.withdraw(100, date);
+        }).toThrowError('You cannot withdraw more than your balance + overdraft limit');
+    });
+
 });
