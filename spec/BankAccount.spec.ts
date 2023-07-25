@@ -46,7 +46,7 @@ describe('BankAccount', () => {
     });
 
     it('should have a balance of 0', () => {
-        expect(bankAccount.balance).toEqual(0);
+        expect(bankAccount.calculateBalance()).toEqual(0);
     });
 
     it('should have an empty transactions array', () => {
@@ -59,7 +59,7 @@ describe('BankAccount', () => {
 
         bankAccount.deposit(100, date);
 
-        expect(bankAccount.balance).toEqual(100);
+        expect(bankAccount.calculateBalance()).toEqual(100);
         expect(bankAccount.transactions).toContainEqual(transaction);
     });
 
@@ -67,7 +67,7 @@ describe('BankAccount', () => {
         bankAccount.deposit(100, date);
         bankAccount.deposit(200, date);
 
-        expect(bankAccount.balance).toEqual(300);
+        expect(bankAccount.calculateBalance()).toEqual(300);
     });
 
     it('should not allow a negative deposit', () => {
@@ -80,7 +80,7 @@ describe('BankAccount', () => {
         bankAccount.deposit(100, date);
         bankAccount.withdraw(50, date);
 
-        expect(bankAccount.balance).toEqual(50);
+        expect(bankAccount.calculateBalance()).toEqual(50);
     });
 
     it('should not allow a negative withdrawal', () => {
@@ -99,7 +99,7 @@ describe('BankAccount', () => {
         bankAccount.deposit(100, date);
         bankAccount.withdraw(100, date);
 
-        expect(bankAccount.balance).toEqual(0);
+        expect(bankAccount.calculateBalance()).toEqual(0);
     });
 
     it('should keep track of all transactions', () => {

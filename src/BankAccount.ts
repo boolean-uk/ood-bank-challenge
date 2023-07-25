@@ -4,7 +4,7 @@ import * as os from 'os';
 class BankAccount {
     private _transactions: Transaction[] = [];
 
-    public get balance(): number {
+    public calculateBalance(): number {
         let balance: number = 0;
         this._transactions.forEach(transaction => {
             balance += transaction.amount;
@@ -22,7 +22,7 @@ class BankAccount {
         }
         const hour_minute = date.getHours() + ":" + date.getMinutes();
 
-        const transaction = new Transaction(amount, this.balance + amount, 
+        const transaction = new Transaction(amount, this.calculateBalance() + amount, 
             date.toLocaleDateString('en-GB'), hour_minute);
         this._transactions.push(transaction);
     }
@@ -31,12 +31,12 @@ class BankAccount {
         if (amount < 0) {
             throw new Error('You cannot withdraw a negative amount');
         }
-        if (amount > this.balance) {
+        if (amount > this.calculateBalance()) {
             throw new Error('You cannot withdraw more than your balance');
         }
 
         const hour_minute = date.getHours() + ":" + date.getMinutes();
-        const transaction = new Transaction(-amount, this.balance - amount, 
+        const transaction = new Transaction(-amount, this.calculateBalance() - amount, 
             date.toLocaleDateString('en-GB'), hour_minute);
         this._transactions.push(transaction);
     }
