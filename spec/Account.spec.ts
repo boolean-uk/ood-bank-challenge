@@ -1,12 +1,15 @@
+import { Account } from "../src/Account"
+
 describe("Account tests", () => {
-    let account: Account
+    let account: Account;
 
-    // beforeEach(() => {
-        
-    // })
+    beforeEach(() => {
+        account = new Account("12345")
+    })
 
-    it("should add enemy to the game", () => {
+    it("should create account", () => {
         expect(account.accountNum).toEqual("12345")
+        expect(account.balance).toEqual(0)
     })
 
 })
