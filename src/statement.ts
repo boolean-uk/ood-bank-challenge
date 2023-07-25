@@ -2,7 +2,11 @@ import { Account, Transaction } from "./account";
 import { formatDate, formatMoney } from "./utils";
 
 export class BankStatement {
-    constructor(private account: Account) {}
+    constructor(
+        private account: Account,
+        private fromDate: Date = new Date(1970, 0, 1),
+        private toDate: Date = new Date()
+    ) {}
 
     print(): string {
         const columns: {[key: string]: string[]} = {
@@ -12,7 +16,9 @@ export class BankStatement {
             balance: ["balance"]
         }
 
-        const transactions = this.account.getTransactions().sort((t1, t2) => t2.date.getTime() - t1.date.getTime())
+        const transactions = this.account.getTransactions()
+            .filter(t => t.date >= this.fromDate && t.date <= this.toDate)
+            .sort((t1, t2) => t2.date.getTime() - t1.date.getTime())
         
         this.fillColumns(columns, transactions)
         this.alignColumns(columns)
@@ -26,7 +32,7 @@ export class BankStatement {
     }
 
     private fillColumns(columns: {[key: string]: string[]}, transactions: Transaction[]) {
-        let currentBalance = this.account.getBalance()
+        let currentBalance = this.account.getBalanceOn(this.toDate)
         
         transactions.forEach(transaction => {
             columns.date.push(formatDate(transaction.date))

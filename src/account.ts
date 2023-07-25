@@ -17,6 +17,12 @@ export class Account {
         return this.transactions.reduce((acc, t) => acc + t.amount, 0)
     }
 
+    getBalanceOn(date: Date) {
+        return this.transactions
+            .filter(t => t.date <= date)
+            .reduce((acc, t) => acc + t.amount, 0)
+    }
+
     getTransactions(): Transaction[] {
         return structuredClone(this.transactions)
     }
