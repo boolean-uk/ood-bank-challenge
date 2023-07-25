@@ -1,3 +1,28 @@
+# Quick description
+
+In this challenge I've used Express (so it should be installed for this to work).
+
+I've made very simple UI - using JS and HTML. It can be accessed by typing "node ./src/app.js" in the terminal. It will create a page, running on 'http://localhost:3000'.
+
+There, withdrawal, deposits and bank statements can be accessed and used. Option for requesting Overdraft is also available.
+
+**Overall, there should be working (fully or partially):**
+
+- [ ] Core requirements
+- [ ] Generate ordered bank statements between 2 dates (EXT)
+- [ ] Disable withdraws if the withdraw amount exceeds the available funds. Available funds must be calculated based on a complete transaction history, not a variable that gets updated (EXT)
+- [ ] Allow adding a 500 overdraft to the account (here, only for CheckingAccount) (EXT)
+- [ ] A front-end online banking app (EXT)
+
+
+Plans for future (?):
+
+- [ ] Edit the SavingsAccount (wip) and add InvestmentAccount;
+- [ ] Make the UI better and clearer; also prettier
+
+
+
+
 # Bank
 
 This challenge helps you practice your OO design skills.
