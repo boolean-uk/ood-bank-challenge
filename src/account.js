@@ -32,7 +32,7 @@ class Account {
         statement = 'date || credit || debit || balance\n' + statement;
         return statement.trim();
     }
-    getBalance() {
+    getBalance(now = new Date()) {
         return this.transactions.reduce((accumulator, transaction) => accumulator + transaction.amount, 0);
     }
 }

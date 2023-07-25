@@ -36,7 +36,7 @@ export abstract class Account {
     return statement.trim()
   }
 
-  getBalance(): number {
+  getBalance(now: Date = new Date()): number {
     return this.transactions.reduce((accumulator, transaction) => accumulator + transaction.amount, 0)
   }
 }
