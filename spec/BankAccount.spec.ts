@@ -14,7 +14,13 @@ describe('BankAccount', () => {
 
     it('should have a balance of 100 when depositing 100', () => {
         bankAccount.deposit(100);
+        const date = new Date();
+        const transaction = new Transaction(100, date);
+        console.log(transaction);
         expect(bankAccount.balance).toEqual(100);
+        expect(bankAccount.transactions).toContain(transaction);
     });
+
+
 
 });
