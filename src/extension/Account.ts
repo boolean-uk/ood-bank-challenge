@@ -1,6 +1,6 @@
+import { TRANSACTION_TYPE } from "../enums/TRANSACTION_TYPE";
 import { Customer } from "./Customer";
 import { Transaction } from "./Transaction";
-import { TRANSACTION_TYPE } from "../enums/TRANSACTION_TYPE";
 
 export class Account {
   private _balance: number;
@@ -20,6 +20,7 @@ export class Account {
   withdraw(amount: number) {
     if (this._balance >= amount) {
       this._balance -= amount;
+      this.createTransaction(amount, TRANSACTION_TYPE.DEBIT, new Date());
     } else {
       throw new Error("Insufficient funds");
     }
@@ -27,6 +28,7 @@ export class Account {
 
   deposit(amount: number) {
     this._balance += amount;
+    this.createTransaction(amount, TRANSACTION_TYPE.CREDIT, new Date());
   }
 
   createTransaction(
