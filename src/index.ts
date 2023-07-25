@@ -21,33 +21,36 @@ export class Transaction {
 }
 
 export class Account {
-    private balance: number
     private transactions: Transaction []
 
     constructor(){
-        this.balance = 0
         this.transactions = []
     }
 
     deposit(amount: number): boolean {
         if(amount < 0) return false
 
-        this.balance += amount
-        this.transactions.push(new Transaction(new Date(), amount, 0, this.balance))
+        this.transactions.push(new Transaction(new Date(), amount, 0, this.getBalance() + amount))
         return true
     }
 
     withdraw(amount: number): boolean {
         if(amount < 0) return false
-        if(amount > this.balance) return false
+        if(amount > this.getBalance()) return false
 
-        this.balance -= amount
-        this.transactions.push(new Transaction(new Date(), 0, amount, this.balance))
+        this.transactions.push(new Transaction(new Date(), 0, amount, this.getBalance() - amount))
         return true
     }
 
     getBalance(): number {
-        return this.balance
+        let balance: number = 0
+
+        this.transactions.forEach(transaction => {
+            if(transaction.getCredit() > 0) balance += transaction.getCredit()
+            else if(transaction.getDebit() > 0) balance -= transaction.getDebit()
+        })
+
+        return balance
     }
 
     generateStatement() {
