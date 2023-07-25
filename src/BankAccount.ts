@@ -32,6 +32,35 @@ class BankAccount {
         this.transactions.push({ amount: -amount, date: date })
         return true
     }
+    public returnAccountHistory(transactions: Transaction[]): string {
+        const result: string[] = []
+        let balance: number = 0
+        result.push("date       || credit  || debit  || balance\n");
+    
+        this.transactions.forEach((transaction: Transaction) => {
+            balance += transaction.amount
+            if(transactions.includes(transaction)) {
+                let date = (transaction.date.getMonth()+1) + '/' + transaction.date.getDate() + '/' +  transaction.date.getFullYear();
+                result.push(date.padEnd(11) + "||")
+    
+                if (transaction.amount > 0) {
+                    result.push(" " + String(transaction.amount).padEnd(8))
+                    result.push("||" + " ".repeat(8))
+                } else {
+                    result.push(" ".repeat(9) + "||")
+                    result.push(" " + String(transaction.amount).padEnd(7))
+                }
+                result.push("|| " + String(balance))
+                result.push("\n")
+            }
+        })
+    
+        return result.join("")
+    }
+        
+    public showAccountHistory(): string {
+        return this.returnAccountHistory(this.transactions)
+    }
 }
 
 export default BankAccount;
