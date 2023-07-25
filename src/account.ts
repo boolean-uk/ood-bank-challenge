@@ -30,6 +30,10 @@ export class Account {
         this.transactions.push(deposit);
     }
 
+    getTransactions() : Array<Transaction> {
+        return this.transactions;
+    }
+
 
 
 }
@@ -113,4 +117,20 @@ export class Transaction{
     getAmountOfMoney() : number {
         return this.credit + this.debit;
     }
+
+    getDate() : Date{
+        return this.date;
+    }
+
+    getDebit() : number{
+        return this.debit;
+    }
+    getCredit() : number{
+        return this.credit;
+    }
+    getCurrentBalance() : number {
+        return this.currentBalance;
+    }
+
+
 }

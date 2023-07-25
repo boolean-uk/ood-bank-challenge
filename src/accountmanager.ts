@@ -1,6 +1,7 @@
 import { Account, CheckingAccount, InvestmentAccount, SavingAccount, Transaction } from "./account";
 
 export class AccountManager{
+    
    
   
   
@@ -38,6 +39,26 @@ export class AccountManager{
             account.addTransaction(new Transaction(withdraw, account.getBalance()+ withdraw));
         }else console.log("You can not withdraw amount of money below zero!")
     }
+
+
+    getBankStatement(account : Account) : string {
+        const transactions =  account.getTransactions();
+        let statement : string = "date     || credit  || debit  || balance\n";
+
+
+          
+        for( let index  in transactions){
+            
+
+            statement += transactions[index].getDate().getFullYear()+"/"+transactions[index].getDate().getMonth()+"/"+ transactions[index].getDate().getDay()+
+            " || " +   transactions[index].getCredit()   + 
+            " || " +  transactions[index].getDebit()  + 
+            " || " +  transactions[index].getCurrentBalance() + "\n"  }
+
+        return statement;
+    }
+
+
 
     
 

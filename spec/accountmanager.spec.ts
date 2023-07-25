@@ -90,9 +90,10 @@ describe("Account Manager tests", () => {
         accountManager.withdraw(checkingAccount, 8000)
         accountManager.withdraw(checkingAccount, 3000)
 
-        let statement : string = accountManager.getBankStatement();
-        
-        expect(statement).toEqual("aaaaaaa"); 
+        let statement : string = accountManager.getBankStatement(checkingAccount);
+        let shouldEqual : string = "date     || credit  || debit  || balance\n2023/6/2 || 5000 || 0 || 5000\n2023/6/2 || 10000 || 0 || 15000\n2023/6/2 || 0 || -8000 || 7000\n2023/6/2 || 0 || -3000 || 4000\n"
+        console.log("Should return bank statement: \n"+statement);
+        expect(statement).toEqual(shouldEqual); 
     })
 
 
