@@ -52,6 +52,20 @@ describe("Bank operations with overdraft", () => {
         account.setOverdraft({ amount: 50000 })
         expect(() => account.withdraw(50001, new Date())).toThrow("You don't have that much money.")
     })
+})
 
+describe("Investment account", () => {
+    let account: InvestmentAccount
 
+    beforeEach(() => {
+        account = new InvestmentAccount("1234", 2)
+    })
+
+    it("should return interests and add them to balance as transaction", () => {
+        account.deposit(200000, new Date())
+        const interests = account.calculateInterests()
+        expect(interests).toEqual(4000)
+        expect(account.getBalance()).toEqual(204000)
+        expect(account.getTransactions().length).toEqual(2)
+    })
 })
