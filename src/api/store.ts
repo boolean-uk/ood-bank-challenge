@@ -5,6 +5,10 @@ import {Transaction} from './transaction.ts';
 const banking = new Banking();
 const transaction = new Transaction();
 
+// NOTE: due to the problems of reactivity between
+// transactionHistory array, the array has to be "pushed"
+// from inside this class and not transaction.ts. Otherwise
+// Vue does not notice the changes.
 export const useStore = defineStore('store', {
     state: () => ({
         balance: banking.getBalance(),
