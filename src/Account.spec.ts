@@ -24,12 +24,13 @@ describe('Account tests', () => {
     });
 
     it('should not allow withdrawals exceeding the balance', () => {
-        const initialTransactionHistorySize = account.getTransactionHistory().length;
         const depositAmount = 1000;
 
         account.depositMoney(depositAmount);
+        const initialTransactionHistorySize = account.getTransactionHistory().length;
 
         const result = account.withdrawMoney(2000);
+
 
         expect(result).toBe(false);
         expect(account.getTransactionHistory().length).toBe(initialTransactionHistorySize);
