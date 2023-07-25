@@ -28,35 +28,54 @@ export class Bank{
         }, 0);
     }
 
-    getBankTransactionsList() {
+    formatTransactions(trasactionsToFormat : Array<Bank_Transaction>){
         let balance = 0;
-        const formattedTransactions = this.bankTransactionsList.map((bankTransaction) => {
-          const transactionDate =
+        return trasactionsToFormat.map((bankTransaction) => {
+            const transactionDate =
             bankTransaction.date.getDate() +
             "/" +
             (bankTransaction.date.getMonth() + 1) + 
             "/" +
             bankTransaction.date.getFullYear();
-    
-          let formattedTransaction = {
+
+            let formattedTransaction = {
             date: transactionDate,
             credit: "",
             debit: "",
             balance: "",
-          };
-    
-          if (bankTransaction.transactionType === "credit") {
+            };
+
+            if (bankTransaction.transactionType === "credit") {
             balance += bankTransaction.amount;
             formattedTransaction.credit = bankTransaction.amount.toFixed(2);
-          } else {
+            } else {
             balance -= bankTransaction.amount;
             formattedTransaction.debit = bankTransaction.amount.toFixed(2);
-          }
-    
-          formattedTransaction.balance = balance.toFixed(2);
-          return formattedTransaction;
+            }
+
+            formattedTransaction.balance = balance.toFixed(2);
+            return formattedTransaction;
         });
+    }
+
+    getBankTransactionsList() {
+        const formattedTransaction = this.formatTransactions(this.bankTransactionsList);
+        console.table(formattedTransaction);
+    }
+
+    createTransactionListBetweenTimePeriod(startDate : Date, endDate : Date) {
+        return this.bankTransactionsList.filter((bankTransaction) => {
+            return bankTransaction.date >= startDate && bankTransaction.date <= endDate;
+        });
+    }
+
+    getBankTransactionsListBetweenTimePeriod(startDate : Date, endDate : Date) {
+    let balance = 0;
     
-        console.table(formattedTransactions);
-      }
+    const ListOfTransactionsBetweenTimePeriod = this.createTransactionListBetweenTimePeriod(startDate, endDate);
+
+    const formattedTransaction = this.formatTransactions(ListOfTransactionsBetweenTimePeriod);
+
+    console.table(formattedTransaction);
+    }
 }
