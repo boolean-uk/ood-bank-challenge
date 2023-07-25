@@ -15,6 +15,7 @@ describe("Account test", () => {
 
       expect(result).toEqual("The money has been added to your account.");
       expect(account.balance).toEqual(amount);
+      expect(account.transactions.length).toEqual(1);
     });
 
     it("returns message want to deposit invalid amount (e.g. negative)", () => {
@@ -24,6 +25,7 @@ describe("Account test", () => {
 
       expect("Given amount is invalid.").toEqual(result);
       expect(account.balance).toEqual(0);
+      expect(account.transactions.length).toEqual(0);
     });
   });
 });
