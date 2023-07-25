@@ -11,7 +11,12 @@ export abstract class Account {
       this.balance += amount
     }
 
-    abstract withdraw(amount: number): void
+    withdraw(amount: number): void {
+      if (this.balance - amount < 0) {
+        throw new Error("Insufficient funds.")
+      }
+      this.balance -= amount
+    }
 
     getBalance(): number {
         return this.balance

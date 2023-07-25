@@ -86,21 +86,21 @@ describe("Bank App", () => {
         expect(investmentStatement.generateStatement()).toBe(investmentExpectedOutput);
       })
     
-    // it("should generate ordered bank statements between two dates", () => {
-    //     const date1 = new Date("2012-01-10")
-    //     const date2 = new Date("2012-01-14")
-    //     const date3 = new Date("2012-01-20")
+    it("should generate ordered bank statements between two dates", () => {
+        const date1 = new Date("2012-01-10")
+        const date2 = new Date("2012-01-14")
+        const date3 = new Date("2012-01-20")
     
-    //     const transaction1 = new Transaction("1", date1, 1000.0)
-    //     const transaction2 = new Transaction("2", date2, 2000.0)
-    //     const transaction3 = new Transaction("3", date3, -500.0)
+        const transaction1 = new Transaction("1", date1, 1000.0)
+        const transaction2 = new Transaction("2", date2, 2000.0)
+        const transaction3 = new Transaction("3", date3, -500.0)
     
-    //     const statement = new BankStatement("1", "SAV123")
-    //     statement.addTransaction(transaction1)
-    //     statement.addTransaction(transaction2)
-    //     statement.addTransaction(transaction3)
+        const statement = new BankStatement("1", "SAV123")
+        statement.addTransaction(transaction1)
+        statement.addTransaction(transaction2)
+        statement.addTransaction(transaction3)
     
-    //     const orderedStatements = statement.getOrderedStatements(date1, date3)
-    //     expect(orderedStatements).toEqual([transaction1, transaction2, transaction3])
-    //   })
+        const orderedStatements = statement.getOrderedStatements(date1, date3)
+        expect(orderedStatements).toEqual([transaction1, transaction2, transaction3])
+      })
 })

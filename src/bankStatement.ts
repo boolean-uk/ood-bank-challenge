@@ -44,6 +44,12 @@ export class BankStatement {
         const day = date.getDate().toString().padStart(2, "0");
         return `${year}-${month}-${day}`;
       }
+
+    
+    //Extension: Get ordered transactions between two dates
+    getOrderedStatements(startDate: Date, endDate: Date): Transaction[] {
+    return this.transactions.filter((transaction) => transaction.getDate() >= startDate && transaction.getDate() <= endDate)
+  }
     
     }
     
