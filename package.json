@@ -8,12 +8,13 @@
   },
   "scripts": {
     "test": "jasmine",
-    "build": "bash compile_ts_files.sh && bash move_js_files_to_build_dir.sh"
+    "build": "bash compile_ts_files.sh"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^29.5.3",
     "@types/node": "^20.4.4",
     "jasmine": "^5.1.0",
     "typescript": "^5.1.6"
