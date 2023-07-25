@@ -3,6 +3,8 @@ import * as os from 'os';
 
 class BankAccount {
     private _transactions: Transaction[] = [];
+    private _overDraftLimit: number = 0
+    private static DEFAULT_OVERDRAFT_LIMIT = 500;
 
     public calculateBalance(): number {
         let balance: number = 0;
@@ -14,6 +16,10 @@ class BankAccount {
 
     public get transactions(): Transaction[] {
         return this._transactions;
+    }
+
+    public enableOverdraft(): void {
+        this._overDraftLimit = BankAccount.DEFAULT_OVERDRAFT_LIMIT;
     }
 
     public deposit(amount: number, date: Date): void {
@@ -31,8 +37,8 @@ class BankAccount {
         if (amount < 0) {
             throw new Error('You cannot withdraw a negative amount');
         }
-        if (amount > this.calculateBalance()) {
-            throw new Error('You cannot withdraw more than your balance');
+        if (amount > this.calculateBalance() + this._overDraftLimit) {
+            throw new Error('You cannot withdraw more than your balance + overdraft limit');
         }
 
         const hour_minute = date.getHours() + ":" + date.getMinutes();
