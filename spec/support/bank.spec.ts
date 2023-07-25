@@ -7,16 +7,6 @@ describe("Bank", () => {
     bankAccount = new Bank();
   })
 
-  // it('should deposit money and update the balance', () => {
-  //   const depositAmount = 1000;
-  //   const date = new Date('2023-07-24');
-  //   const result = bankAccount.deposit(depositAmount, date);
-  //   expect(result).toBe(true);
-  //   expect(bankAccount.showAccountHistory()).toContain(`|| ${depositAmount.toFixed(2)}  ||`);
-  //   expect(bankAccount.showAccountHistory()).toContain(`|| ${depositAmount.toFixed(2)}\n`);
-  //   expect(bankAccount.showAccountHistory()).toContain(`|| ${depositAmount.toFixed(2)}  || 1000.00\n`);
-  // });
-
   it('should deposit money and update the balance', () => {
     const depositAmount = 1000;
     const date = new Date('2023-07-24');
@@ -83,29 +73,19 @@ describe("Bank", () => {
   });
 
 
-  it('should not withdraw if withdrawal amount exceeds available funds', () => {
-    // Initial deposit of 1000
+  it('should not withdraw if withdrawal amount exceeds available funds - extension 2', () => {
     bankAccount.deposit(1000, new Date('2023-07-24'));
-    
-    // Withdrawal attempt of 2000, which exceeds the available funds (1000)
     const withdrawalAmount = 2000;
     const date = new Date('2023-07-25');
     const result = bankAccount.withdraw(withdrawalAmount, date);
-
-    // Expect the withdrawal to be disabled and return false
     expect(result).toBe(false);
   });
 
-  it('should allow withdrawal if withdrawal amount is within available funds', () => {
-    // Initial deposit of 1000
+  it('should allow withdrawal if withdrawal amount is within available funds - extension 2', () => {
     bankAccount.deposit(1000, new Date('2023-07-24'));
-    
-    // Withdrawal attempt of 500, which is within the available funds (1000)
     const withdrawalAmount = 500;
     const date = new Date('2023-07-25');
     const result = bankAccount.withdraw(withdrawalAmount, date);
-
-    // Expect the withdrawal to be successful and return true
     expect(result).toBe(true);
   });
 });
