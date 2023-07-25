@@ -89,17 +89,25 @@ while(areYouStillUsingApp === 'y'){
 
         switch (userInput) {
             case '1':
-                const withdrawAmount = prompt('How much money you want to withdraw? ')
-                console.log(account.withdraw(withdrawAmount));
+                console.log('How much money you want to withdraw?')
+                const withdrawAmount = prompt('give an amount:')
+                const datewithdraw = prompt('give date if it was not today)')
+                if(datewithdraw){
+                    console.log(account.withdraw(withdrawAmount, datewithdraw));
+                }else console.log(account.withdraw(withdrawAmount));
                 break;
 
             case '2':
-                const depositAmount = prompt('How much money you want to deposit? ')
-                console.log(account.deposit(depositAmount));
+                console.log('How much money you want to deposit?')
+                const depositAmount = prompt('give an amount:')
+                const datedeposit = prompt('give date if it was not today)')
+                if(datedeposit){
+                    console.log(account.deposit(depositAmount, datedeposit));
+                }else console.log(account.deposit(depositAmount));
                 break;
 
             case '3':
-                console.log(account.generateStatement());
+                account.generateStatement()
                 break;
 
             case '4':

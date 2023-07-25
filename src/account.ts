@@ -23,7 +23,7 @@ export class Account{
         + newDate.getFullYear()
     }
 
-    deposit(amount: number, date : string = this.now){
+    deposit(amount: number, date : string = this.now): string{
         let tmp = []
         if(amount > 0){
             if(!this.credit[date]){
@@ -39,7 +39,7 @@ export class Account{
     withdraw(amount: number, date : string = this.now): string{
         let tmp = []
         if(amount > 0){
-            if(amount <= this.countBalanceTotal() + 500){
+            if(this.countBalanceTotal() + 500 - amount >= 0){
                 if(!this.debit[date]){
                     tmp.push(amount)
                     this.debit[date] = tmp
@@ -52,7 +52,7 @@ export class Account{
         } else return "No money to withdraw from deposit"
     }
 
-    countBalanceTotal(){
+    countBalanceTotal(): number{
         let balance = 0
         let arrCredit = Object.values(this.credit)
         let arrDebit = Object.values(this.debit)
@@ -71,12 +71,41 @@ export class Account{
         return balance;
     }
 
+    countBalanceTotalInYear(year: number) {
+        let balance = 0;
+        const arrCredit = Object.values(this.credit);
+        const arrDebit = Object.values(this.debit);
+    
+        const creditForYear = arrCredit.map((transactions) =>
+            transactions.filter((transactionDate) => new Date(transactionDate).getFullYear() === year)
+        );
+    
+        const debitForYear = arrDebit.map((transactions) =>
+            transactions.filter((transactionDate) => new Date(transactionDate).getFullYear() === year)
+        );
+    
+        for (const transactions of creditForYear) {
+            for (const amount of transactions) {
+                balance += amount;
+            }
+        }
+    
+        for (const transactions of debitForYear) {
+            for (const amount of transactions) {
+                balance -= amount;
+            }
+        }
+    
+        return balance;
+    }
+
     generateStatement(){
         let balance = this.countBalanceTotal()
         let st = []
         let tmpCreditList = structuredClone(this.credit)
         console.log(tmpCreditList)
         let tmpDebitList = structuredClone(this.debit)
+        console.log(tmpDebitList)
         st.push("date      || ")
         st.push("credit  || ")
         st.push("debit  || ")
@@ -100,7 +129,7 @@ export class Account{
                 }
                 delete tmpCreditList.date
             }
-            if(Object.keys(tmpDebitList).includes(date)) { 
+            else if(Object.keys(tmpDebitList).includes(date)) { 
                 for (let d = 0; d < tmpDebitList[date].length; d++) {
                         st.push("        || ")
                         st.push(tmpDebitList[date][d] + "    || ")
@@ -110,7 +139,7 @@ export class Account{
             }
             st.push(previousValue + "\n")
         }
-        // console.log(st.join(""))
+        console.log(st.join(""))
         return st.join("")
     }
 }

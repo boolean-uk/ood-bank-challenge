@@ -10,7 +10,7 @@ export class SavingAccount extends Account implements PersonalAccount{
     withdraw(amount: number, date : string = this.now): string{
         let tmp = []
         if(amount > 0){
-            if(amount <= this.countBalanceTotal()){
+            if(this.countBalanceTotal() - amount >= 0){
                 if(!this.debit[date]){
                     tmp.push(amount)
                     this.debit[date] = tmp
@@ -22,5 +22,5 @@ export class SavingAccount extends Account implements PersonalAccount{
             else return "Overdraft is disabled in saving account"
         } else return "No money to withdraw from deposit"
     }
-
+    
 }
