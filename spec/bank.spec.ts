@@ -64,4 +64,13 @@ describe("Bank account", () => {
     expect(statementLines[1].replace(/\s/g, "")).toMatch(/14\/01\/2012\|\|\|\|500.00\|\|2500.00/);
     expect(statementLines[2].replace(/\s/g, "")).toMatch(/13\/01\/2012\|\|2000.00\|\|\|\|3000.00/);
   });
+
+  it("should disable withdraws if the withdraw amount exceeds the available funds", () => {
+    // Setup
+    account.deposit(new Decimal(1000));
+    account.deposit(new Decimal(2000));
+
+    // Test
+    expect(() => account.withdraw(new Decimal(4000))).toThrow("Insufficient funds!");
+  });
 });
