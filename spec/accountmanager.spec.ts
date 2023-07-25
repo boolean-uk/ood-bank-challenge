@@ -150,6 +150,19 @@ describe("Account Manager tests", () => {
         expect(investmentAccount.getBalance()).toEqual(5000);
     })
 
+    it("Should accumulate 2% interest  for saving account", () =>{
+        //given
+        let investmentAccount =  accountManager.createInvestmentAccount("1234");
+        let deposit: number = 5000;
+        accountManager.addDeposit(investmentAccount, deposit);
+    
+        //when
+        accountManager.accumulate(investmentAccount);
+
+        //then
+        expect(investmentAccount.getBalance()).toEqual(5100);
+    })
+
 
 
 

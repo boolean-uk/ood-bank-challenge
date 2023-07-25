@@ -79,10 +79,11 @@ export class InvestmentAccount extends Account{
 
 
     accumulate(){
-
+        let accumulated : number = this.getBalance() * 0.02;
+        let newBalance : number = this.getBalance() + accumulated;
+        this.addTransaction(new Transaction(accumulated,newBalance));
     }
 }
-
 export class CheckingAccount extends Account{
     
     

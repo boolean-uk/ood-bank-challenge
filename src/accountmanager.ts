@@ -39,7 +39,7 @@ export class AccountManager{
             withdraw = withdraw*(-1);
             account.addTransaction(new Transaction(withdraw, account.getBalance()+ withdraw));
             }else{
-                console.log("You do not have that amount of money!");
+                console.log("You do not have that amount of money! or Wrong type of account");
             }
         }else console.log("You can not withdraw amount of money below zero!");
     }
@@ -60,6 +60,10 @@ export class AccountManager{
             " || " +  transactions[index].getCurrentBalance() + "\n"  }
 
         return statement;
+    }
+
+    accumulate (investmentAccount : InvestmentAccount){
+        investmentAccount.accumulate();
     }
 
 
