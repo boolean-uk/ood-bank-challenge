@@ -68,47 +68,39 @@ describe ("Bank account tests", () => {
       
      describe("testing print statement", () => {
         it("should print correctly", () => {
-            /*
-            const date = new Date('01/10/2012')
-            const date1 = new Date('01/13/2012')
-            const date2 = new Date('01/14/2012')            
+
+            const date = new Date('02/10/2022')
+            const date1 = new Date('02/12/2022')
+            const date2 = new Date('02/13/2022')            
             bankAccount.deposit(1000, date)
-            bankAccount.deposit(2000, date1)
+            bankAccount.deposit(3000, date1)
             bankAccount.withdraw(500, date2)
 
+            let result: string = bankAccount.printStatement()
+            const expected: string[] = []
+            expected.push("date       ||  credit   ||   debit   || balance\n");
+            expected.push("13/02/2022 ||         ||  500.00 || 3500.00\n");
+            expected.push("12/02/2022 || 3000.00 ||         || 4000.00\n");
+            expected.push("10/02/2022 || 1000.00 ||         || 1000.00\n");
 
+            expect(result).toBe(expected.join(""));
 
-            
-            const correctStatement = `14/01/2012 ||         ||  500.00 || 2500.00
-            13/01/2012 || 2000.00 ||         || 3000.00
-            10/01/2012 || 1000.00 ||         || 1000.00`
+        }) 
+        
+        it("should check if there are only 2 transactions between given dates", () => {
+            const date = new Date('02/10/2022')
+            const date1 = new Date('02/12/2022')
+            const date2 = new Date('02/13/2022')            
+            bankAccount.deposit(1000, date)
+            bankAccount.deposit(3000, date1)
+            bankAccount.withdraw(500, date2)
 
-            const statementFromPrintMethod = bankAccount.printStatement()
-            expect(statementFromPrintMethod).toContain(correctStatement)
-*/
-
-
-
-const date = new Date('02/10/2022')
-const date1 = new Date('02/12/2022')
-const date2 = new Date('02/13/2022')            
-bankAccount.deposit(1000, date)
-bankAccount.deposit(3000, date1)
-bankAccount.withdraw(500, date2)
-
-
-let result: string = bankAccount.printStatement()
-const expected: string[] = []
-expected.push("date       ||  credit   ||   debit   || balance\n");
-expected.push("13/02/2022 ||         ||  500.00 || 3500.00\n");
-expected.push("12/02/2022 || 3000.00 ||         || 4000.00\n");
-expected.push("10/02/2022 || 1000.00 ||         || 1000.00\n");
-
-
-
-expect(result).toBe(expected.join(""));
-
-        })
+            let transactions = bankAccount.getTransactionsBetweenTwoDates(
+              new Date('02/05/2022'),
+              new Date('02/12/2022')
+            ).length;
+            expect(transactions).toEqual(2);
+          });
      })
     
 })

@@ -91,7 +91,22 @@ export class BankAccount {
 
     sortTransactionsByDate() {
         this.transactions.sort((a, b) => a.getDate().getTime() - b.getDate().getTime());
-    }
+    }   
+
+    getTransactionsBetweenTwoDates(fromDate: Date, toDate: Date): Transaction[] {
+        let beetweenDatesTransactions = this.transactions
+          .filter((transaction) => {
+            return (
+              transaction.getDate() >= fromDate &&
+              transaction.getDate() <= toDate
+            );
+          });
+          
+          beetweenDatesTransactions.sort((a, b) => a.getDate().getTime() - b.getDate().getTime()).reverse();
+    
+          return beetweenDatesTransactions;
+      }
+
 }
 
 const account = new BankAccount()
