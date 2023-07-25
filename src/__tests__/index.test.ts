@@ -18,4 +18,12 @@ describe("AccountTest", () => {
     current.deposit(1000);
     expect(current.getBalance()).toEqual(1000);
   });
+
+  it("should be able to withdraw 100 from the current account", () => {
+    const current = new CurrentAccount(customer);
+    current.deposit(1000);
+    current.withdraw(100);
+
+    expect(current.getBalance()).toEqual(900);
+  });
 });
