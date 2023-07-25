@@ -7,7 +7,7 @@
         <div class="hero-content text-center">
             <div class="max-w-md">
                 <h1 class="text-5xl font-bold">BooleanUK Banking</h1>
-                <p class="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+                <p class="py-6">Unlocking Opportunities, <br>Securing Your Tomorrow, <br>Your Trusted Partner in Finance.</p>
             </div>
         </div>
     </div>

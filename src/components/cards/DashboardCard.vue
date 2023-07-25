@@ -42,10 +42,23 @@ const formatCurrency = (value: number): string => {
                     </tr>
                     </tbody>
                 </table>
-                <button class="btn btn-primary mt-4">Print</button>
+                <button class="btn btn-primary mt-4" onclick="print_dialog.showModal()">Print</button>
             </div>
         </div>
     </div>
+
+    <dialog id="print_dialog" class="modal">
+        <form method="dialog" class="modal-box">
+            <h3 class="font-bold text-xl text-center mb-4">Statement</h3>
+            <div class="mockup-code">
+                <pre data-prefix="$"><code>This is a placeholder for now</code></pre>
+            </div>
+            <p class="font- text-sm text-center mt-4 opacity-50">Click outside to close the window</p>
+        </form>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+    </dialog>
 </template>
 
 <style scoped>

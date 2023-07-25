@@ -12,7 +12,7 @@ import DashboardCard from "./cards/DashboardCard.vue";
             <WithdrawCard></WithdrawCard>
             <BalanceCard></BalanceCard>
             <DepositCard></DepositCard>
-            <div class="col-span-2">
+            <div class="col-span-3">
                 <DashboardCard></DashboardCard>
             </div>
         </div>
