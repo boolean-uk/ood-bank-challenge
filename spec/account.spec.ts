@@ -221,4 +221,12 @@ describe("Account tests ", () => {
         
         expect(account.generateStatement()).toBe(st.join(""))
     })
+
+    //EXTENSIONS
+    it("should disale withdraw if the amount exceeds the available funds", () =>{
+        let bankState = 2000
+        let amount = 50000
+        account.deposit(bankState)
+        expect(account.withdraw(amount)).toBe('Amount you want to withdraw exceeds the available funds')
+    })
 })
