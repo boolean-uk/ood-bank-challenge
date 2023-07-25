@@ -1,6 +1,7 @@
-import { CheckingAccount, InvestmentAccount, SavingAccount } from "./account";
+import { Account, CheckingAccount, InvestmentAccount, SavingAccount } from "./account";
 
 export class AccountManager{
+  
   
    
     
@@ -24,7 +25,11 @@ export class AccountManager{
         return checkingAccount;
     }
    
-
+    addDeposit(account: Account, deposit: number) {
+        if(deposit > 0){
+        account.addDeposit(deposit);
+        }else console.log("You can not deposit amount of money below zero!")
+    }
 
     
 

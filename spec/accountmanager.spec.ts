@@ -11,7 +11,7 @@ describe("Account Manager tests", () => {
     it("Should create a new saving account", () => {
      
 
-        //given
+        //when
         let savingAccount =  accountManager.createSavingAccount("1234");
         //then
         expect(savingAccount.getAccountType()).toEqual('saving');
@@ -21,7 +21,7 @@ describe("Account Manager tests", () => {
     it("Should create a new Investment account", () => {
      
 
-        //given
+        //when
         let savingAccount =  accountManager.createInvestmentAccount("1234");
         //then
         expect(savingAccount.getAccountType()).toEqual('investment');
@@ -31,7 +31,7 @@ describe("Account Manager tests", () => {
     it("Should create a new Checking account", () => {
      
 
-        //given
+        //when
         let checkingAccount =  accountManager.createCheckingAccount("1234");
         //then
         expect(checkingAccount.getAccountType()).toEqual('checking');
@@ -39,7 +39,14 @@ describe("Account Manager tests", () => {
     })
 
     it("Should add deposit to account", () =>{
+        //given
+        let checkingAccount =  accountManager.createCheckingAccount("1234");
+        let deposit: Number = 5000;
+        //when
+        accountManager.addDeposit(checkingAccount, deposit);
 
+        //then
+        expect(checkingAccount.getBalance()).toEqual(5000);
     })
 })
 
