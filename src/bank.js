@@ -10,12 +10,18 @@ class NormalAccount {
     deposit(amount) {
         if (amount > 0) {
             this.balance += amount;
+            let transaction = new Transaction(amount, true);
+            this.transactions.push(transaction);
+            console.log(this.transactions);
         }
     }
     withdraw(amount) {
         if (amount > 0) {
             if (this.balance - amount >= this.debit) {
                 this.balance -= amount;
+                let transaction = new Transaction(amount, false);
+                this.transactions.push(transaction);
+                console.log(this.transactions);
             }
         }
     }

@@ -89,6 +89,7 @@ describe("Transaction tests", () =>{
   })
 
   it("should create transaction with actual date",()=>{
+    transaction = new Transaction(100,true)
     expect(transaction.date).toEqual(Date.now())
   })
   
