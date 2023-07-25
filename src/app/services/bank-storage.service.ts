@@ -21,15 +21,9 @@ export class BankStorageService {
 
   private _history: BehaviorSubject<Transaction[]> = new BehaviorSubject<Transaction[]>([])
 
-
-  get history(): Observable<Transaction[]> { // Step 3: Provide a method to get the observable stream
+  get history(): Observable<Transaction[]> {
     return this._history.asObservable();
   }
-
-
-  // set history(value: Transaction[]) {
-  //   this._history = value;
-  // }
 
   deposit(amount: number) {
     const transaction: Transaction = {
@@ -46,10 +40,18 @@ export class BankStorageService {
   }
 
   withdraw(amount: number) {
-
     if (this.balance >= amount) {
-      this.balance -= amount
-    }
+      const transaction: Transaction = {
+        type: Operation.withdraw,
+        balance: amount,
+        balanceBefore: this.balance,
+        balanceAfter: this.balance - amount,
+        date: new Date()
+      };
 
+      this._history.next([...(this._history.getValue() || []), transaction]);
+
+      this.balance -= amount;
+    }
   }
 }
