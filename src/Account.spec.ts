@@ -14,31 +14,45 @@ describe('Account tests', () => {
     });
 
     it('should allow valid deposits and update transaction history', () => {
-        const initialTransactionHistorySize = account.getTransactionHistory().length;
+        const initialTransactionHistorySize = account.transactionHistory.length;
         const depositAmount = 500;
 
         const result = account.depositMoney(depositAmount);
 
         expect(result).toBe(true);
-        expect(account.getTransactionHistory().length).toBe(initialTransactionHistorySize + 1);
-        expect(account.getTransactionHistory()[initialTransactionHistorySize].amount).toBe(depositAmount);
+        expect(account.transactionHistory.length).toBe(initialTransactionHistorySize + 1);
+        expect(account.transactionHistory[initialTransactionHistorySize].amount).toBe(depositAmount);
     });
 
     it('should not allow withdrawals exceeding the balance', () => {
         const depositAmount = 1000;
 
         account.depositMoney(depositAmount);
-        const initialTransactionHistorySize = account.getTransactionHistory().length;
+        const initialTransactionHistorySize = account.transactionHistory.length;
 
         const result = account.withdrawMoney(2000);
 
 
         expect(result).toBe(false);
-        expect(account.getTransactionHistory().length).toBe(initialTransactionHistorySize);
+        expect(account.transactionHistory.length).toBe(initialTransactionHistorySize);
+    });
+
+    it('should allow withdrawals exceeding the balance if they are not exceeding allowed overdraft', () => {
+        const depositAmount = 1000;
+
+        account.depositMoney(depositAmount)
+        const initialTransactionHistorySize = account.transactionHistory.length
+        account.allowOverdraft(500)
+
+        const result = account.withdrawMoney(1200);
+
+
+        expect(result).toBe(true)
+        expect(account.transactionHistory.length).toBe(initialTransactionHistorySize + 1);
     });
 
     it('should allow valid withdrawals and update transaction history', () => {
-        const initialTransactionHistorySize = account.getTransactionHistory().length;
+        const initialTransactionHistorySize = account.transactionHistory.length;
         const depositAmount = 1000;
         const withdrawAmount = 300;
 
@@ -47,8 +61,8 @@ describe('Account tests', () => {
         const result = account.withdrawMoney(withdrawAmount);
 
         expect(result).toBe(true);
-        expect(account.getTransactionHistory().length).toBe(initialTransactionHistorySize + 2);
-        expect(account.getTransactionHistory()[initialTransactionHistorySize + 1].amount).toBe(withdrawAmount);
+        expect(account.transactionHistory.length).toBe(initialTransactionHistorySize + 2);
+        expect(account.transactionHistory[initialTransactionHistorySize + 1].amount).toBe(withdrawAmount);
     });
 
     it('should calculate the correct balance after transactions', () => {
