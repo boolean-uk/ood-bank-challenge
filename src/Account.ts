@@ -1,5 +1,6 @@
 import { Deposit } from "./Deposit"
 import { Transfer } from "./Transfer"
+import { Withdraw } from "./Withdraw"
 
 export class Account {
     private _accountNum: string
@@ -21,5 +22,10 @@ export class Account {
     deposit(amountOfMoney: number) {
         this._transactions.push(new Deposit(amountOfMoney))
     }
+
+    withdraw(amountOfMoney: number) {
+        this._transactions.push(new Withdraw(amountOfMoney))
+    }
+
     
 }
