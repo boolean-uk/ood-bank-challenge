@@ -1,7 +1,6 @@
 import Transaction from "./transaction"
 
 class StatementGenerator {
-    private transactions: Transaction[] = []
 
     generateStatement(transactions: Transaction[]): string {
         let balance: number = 0
@@ -11,7 +10,7 @@ class StatementGenerator {
             balance += transaction.amount
             if(transaction.amount >=0){
                 statement += transaction.amount 
-                statement +=  '      ' 
+                statement += '      ' 
                 statement += '||        || '
             } else {
                 statement += '        || '
