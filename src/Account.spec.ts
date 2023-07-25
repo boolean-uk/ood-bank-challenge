@@ -21,7 +21,7 @@ describe('Account tests', () => {
 
         expect(result).toBe(true);
         expect(account.getTransactionHistory().length).toBe(initialTransactionHistorySize + 1);
-        expect(account.getTransactionHistory()[initialTransactionHistorySize].getAmount()).toBe(depositAmount);
+        expect(account.getTransactionHistory()[initialTransactionHistorySize].amount).toBe(depositAmount);
     });
 
     it('should not allow withdrawals exceeding the balance', () => {
@@ -48,7 +48,7 @@ describe('Account tests', () => {
 
         expect(result).toBe(true);
         expect(account.getTransactionHistory().length).toBe(initialTransactionHistorySize + 2);
-        expect(account.getTransactionHistory()[initialTransactionHistorySize + 1].getAmount()).toBe(withdrawAmount);
+        expect(account.getTransactionHistory()[initialTransactionHistorySize + 1].amount).toBe(withdrawAmount);
     });
 
     it('should calculate the correct balance after transactions', () => {
@@ -67,6 +67,42 @@ describe('Account tests', () => {
         account.addTransaction(new Transaction(500, 'withdrawal', new Date('2022-02-13')))
 
         let result: string = account.generateBankStatement()
+        const expected: string[] = []
+        expected.push("date       ||  credit   ||   debit   || balance\n");
+        expected.push("10/2/2022  || 1000.00   ||           || 1000.00\n");
+        expected.push("12/2/2022  || 2000.00   ||           || 3000.00\n");
+        expected.push("13/2/2022  ||           || 500.00    || 2500.00\n");
+
+        expect(result).toBe(expected.join(""));
+    });
+
+    it("should return account history from oldest to newest even if transactions where added in wrong order",
+        () => {
+        account.addTransaction(new Transaction(1000, 'deposit', new Date('2022-02-10')))
+            account.addTransaction(new Transaction(500, 'withdrawal', new Date('2022-02-13')))
+            account.addTransaction(new Transaction(3000, 'deposit', new Date('2022-02-12')))
+
+
+        let result: string = account.generateBankStatement()
+        const expected: string[] = []
+        expected.push("date       ||  credit   ||   debit   || balance\n");
+        expected.push("10/2/2022  || 1000.00   ||           || 1000.00\n");
+        expected.push("12/2/2022  || 3000.00   ||           || 4000.00\n");
+        expected.push("13/2/2022  ||           || 500.00    || 3500.00\n");
+
+        expect(result).toBe(expected.join(""));
+    });
+
+    it("should return account history between given dates", () => {
+        account.addTransaction(new Transaction(500, 'withdrawal', new Date('2021-02-13')))
+        account.addTransaction(new Transaction(500, 'withdrawal', new Date('2021-05-13')))
+        account.addTransaction(new Transaction(1000, 'deposit', new Date('2022-02-10')))
+        account.addTransaction(new Transaction(2000, 'deposit', new Date('2022-02-12')))
+        account.addTransaction(new Transaction(500, 'withdrawal', new Date('2022-02-13')))
+        account.addTransaction(new Transaction(500, 'withdrawal', new Date('2023-02-13')))
+        account.addTransaction(new Transaction(500, 'withdrawal', new Date('2023-07-13')))
+
+        let result: string = account.generateBankStatementBetweenDates(new Date('2022-01-01'), new Date('2022-12-31'))
         const expected: string[] = []
         expected.push("date       ||  credit   ||   debit   || balance\n");
         expected.push("10/2/2022  || 1000.00   ||           || 1000.00\n");
