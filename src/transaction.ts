@@ -1,4 +1,4 @@
-interface Transaction {
+class Transaction {
     date: Date;
     amount: number;
 }
