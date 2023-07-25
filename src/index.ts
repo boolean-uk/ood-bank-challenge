@@ -1,7 +1,9 @@
+
+
 export class BankAccount {
 
-    balance: number;
-    transactions: never[];
+    private balance: number;
+    private transactions: any = [];
 
     constructor() {
         this.balance = 0;
@@ -11,6 +13,22 @@ export class BankAccount {
     getBalance() {
         return this.balance
     }
+
+    deposit(amount: number, date: Date): boolean {
+
+        const transaction = {
+            date: date,
+            operation: "credit",
+            amount: amount,            
+            balance: this.balance,
+        }
+        this.balance += amount;
+        this.transactions.push(transaction)
+        return true;
+    }
 }
+
 const account = new BankAccount()
-console.log(account.balance)
+const date = new Date("14/01/2012")
+account.deposit(200,date)
+console.log(account.getBalance)

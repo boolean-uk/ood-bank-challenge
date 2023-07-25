@@ -10,8 +10,13 @@ describe ("Bank account tests", () => {
 
      describe("different tests for deposit operation on bank account", () =>{
          it("should deposit 200 to accout", () => {
-             bankAccount.deposit(200, "01/01/2022");
-             expect(bankAccount.balance).toEqual(200);
+             bankAccount.deposit(200, new Date());
+             expect(bankAccount.getBalance()).toEqual(200);
+         })
+         it("shouldn't deposit negative or 0", () =>{
+            bankAccount.deposit(200, new Date());
+            bankAccount.deposit(-200, new Date());
+            expect(bankAccount.getBalance()).toEqual(200);
          })
      }) 
 
