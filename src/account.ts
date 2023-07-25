@@ -4,8 +4,10 @@ import { ACCOUNTS_PATH, getAccounts, getLastAccountNo } from "./bank";
 import { Statement } from "./statement";
 import { Transaction } from "./transaction";
 
+const OVERDRAFT_LIMIT_AMOUNT = new Decimal(500);
+
 export class Account {
-  constructor(private _id: string) {}
+  constructor(private _id: string, private _overdraftAllowed: boolean = false) {}
 
   toJsonObject() {
     return {
@@ -16,6 +18,10 @@ export class Account {
 
   get id() {
     return this._id;
+  }
+
+  get overdraftAllowed() {
+    return this._overdraftAllowed;
   }
 
   get transactions(): Transaction[] {
@@ -29,6 +35,10 @@ export class Account {
     );
   }
 
+  allowOverdraft() {
+    this._overdraftAllowed = true;
+  }
+
   getStatement(startDate?: Date, endDate?: Date) {
     return new Statement(this, startDate, endDate);
   }
@@ -40,7 +50,11 @@ export class Account {
   }
 
   withdraw(amount: Decimal, date: Date = new Date()) {
-    if (amount.greaterThan(this.balance)) {
+    if (
+      amount.greaterThan(
+        this.balance.plus(this.overdraftAllowed ? OVERDRAFT_LIMIT_AMOUNT : new Decimal(0))
+      )
+    ) {
       throw "Insufficient funds!";
     }
 
