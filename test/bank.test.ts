@@ -1,4 +1,5 @@
-import { NormalAccount, Transaction } from "../src/bank";
+import { NormalAccount} from "../src/NormalAccount";
+import { Transaction} from "../src/Transaction";
 describe("Normal account tests", () => {
   let normalAccount: NormalAccount;
   var yesterdaydate = new Date();

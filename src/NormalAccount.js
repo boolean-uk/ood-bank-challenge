@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Transaction = exports.NormalAccount = void 0;
+exports.NormalAccount = void 0;
+const Transaction_1 = require("../src/Transaction");
 class NormalAccount {
     constructor() {
         this.balance = 0;
@@ -10,7 +11,7 @@ class NormalAccount {
     deposit(amount) {
         if (amount > 0) {
             this.balance += amount;
-            let transaction = new Transaction(amount, true, this.balance);
+            let transaction = new Transaction_1.Transaction(amount, true, this.balance);
             this.transactions.push(transaction);
             return "Transaction has been done properly";
         }
@@ -20,7 +21,7 @@ class NormalAccount {
         if (amount > 0) {
             if (this.balance - amount >= this.debit) {
                 this.balance -= amount;
-                let transaction = new Transaction(amount, false, this.balance);
+                let transaction = new Transaction_1.Transaction(amount, false, this.balance);
                 this.transactions.push(transaction);
                 return "Transaction has been done properly";
             }
@@ -65,15 +66,6 @@ class NormalAccount {
     }
 }
 exports.NormalAccount = NormalAccount;
-class Transaction {
-    constructor(amount, transactionType, balance) {
-        this.date = Date.now();
-        this.amount = amount;
-        this.transactionType = transactionType;
-        this.balance = balance;
-    }
-}
-exports.Transaction = Transaction;
 function formatDate(timestamp) {
     const dateObj = new Date(timestamp);
     const day = String(dateObj.getDate()).padStart(2, "0");
