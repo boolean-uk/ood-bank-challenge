@@ -28,6 +28,14 @@ describe ("Bank account tests", () => {
             bankAccount.withdraw(200, new Date())
             expect(bankAccount.getBalance()).toEqual(0);
         })
+        it("shouldn't withdraw below 0 from account", () => {
+            bankAccount.deposit(200, new Date())
+            expect(bankAccount.getBalance()).toEqual(200);
+            bankAccount.withdraw(200, new Date())
+            expect(bankAccount.getBalance()).toEqual(0);
+            bankAccount.withdraw(200, new Date())
+            expect(bankAccount.getBalance()).toEqual(0);
+        })
      }) 
 
     

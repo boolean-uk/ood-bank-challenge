@@ -30,6 +30,19 @@ export class BankAccount {
         this.transactions.push(transaction)
         return true;
     }
+
+    withdraw(amount: number, date: Date): boolean {
+
+        const transaction = {
+            date: date,
+            operation: "credit",
+            amount: amount,            
+            balance: this.balance,
+        }
+        this.balance -= amount
+        this.transactions.push(transaction)
+        return true
+    }
 }
 
 const account = new BankAccount()
