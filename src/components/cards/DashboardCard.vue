@@ -1,10 +1,23 @@
 <script setup lang="ts">
 import {computed} from 'vue';
 import {useStore} from '../../api/store.ts';
+import {generatePDF} from "../../api/generator.ts";
 
 const store = useStore();
 
-const reversedTransactionHistory = computed(() => store.transactionHistory.reverse());
+// NOTE: Not very happy with cloning the array (and calling it reversed),
+// but combining those two functions would result in both
+// A. unreadable spaghetti code
+// B. problems with store promises (main reason)
+const transactionHistory = computed(() => store.transactionHistory);
+const reversedTransactionHistory = computed(() => {
+    return transactionHistory.value.map((transaction) => ({
+        ...transaction,
+        date: transaction.date.toLocaleString(),
+        amount: transaction.amount.toLocaleString('en-GB', {style: 'currency', currency: 'GBP'}),
+        balance: transaction.balance.toLocaleString('en-GB', {style: 'currency', currency: 'GBP'}),
+    })).reverse();
+})
 
 const formatDate = (date: Date): string => {
     return date.toLocaleString();
@@ -12,6 +25,10 @@ const formatDate = (date: Date): string => {
 
 const formatCurrency = (value: number): string => {
     return value.toLocaleString('en-GB', {style: 'currency', currency: 'GBP'});
+};
+
+const handlePrintButtonClick = () => {
+    generatePDF(reversedTransactionHistory.value);
 };
 </script>
 
@@ -35,28 +52,15 @@ const formatCurrency = (value: number): string => {
                     </thead>
                     <tbody>
                     <tr v-for="transaction in reversedTransactionHistory" :key="transaction.date">
-                        <td>{{ formatDate(transaction.date) }}</td>
-                        <td>{{ (transaction.type) }}</td>
-                        <td>{{ formatCurrency(transaction.amount) }}</td>
-                        <td>{{ formatCurrency(transaction.balance) }}</td>
+                        <td>{{ transaction.date }}</td>
+                        <td>{{ transaction.type }}</td>
+                        <td>{{ transaction.amount }}</td>
+                        <td>{{ transaction.balance }}</td>
                     </tr>
                     </tbody>
                 </table>
-                <button class="btn btn-primary mt-4" onclick="print_dialog.showModal()">Print</button>
+                <button class="btn btn-primary mt-4" @click="handlePrintButtonClick">Print</button>
             </div>
         </div>
     </div>
-
-    <dialog id="print_dialog" class="modal">
-        <form method="dialog" class="modal-box">
-            <h3 class="font-bold text-xl text-center mb-4">Statement</h3>
-            <div class="mockup-code">
-                <pre data-prefix="$"><code>This is a placeholder for now</code></pre>
-            </div>
-            <p class="font- text-sm text-center mt-4 opacity-50">Click outside to close the window</p>
-        </form>
-        <form method="dialog" class="modal-backdrop">
-            <button>close</button>
-        </form>
-    </dialog>
 </template>

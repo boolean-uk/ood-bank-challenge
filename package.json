@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "pdfmake": "^0.2.7",
     "pinia": "^2.1.4",
     "vue": "^3.3.4"
   },
   "devDependencies": {
     "@types/jest": "^29.5.3",
+    "@types/pdfmake": "^0.2.2",
     "@vitejs/plugin-vue": "^4.2.3",
     "autoprefixer": "^10.4.14",
     "daisyui": "^3.4.0",
