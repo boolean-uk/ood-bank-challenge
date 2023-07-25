@@ -103,4 +103,10 @@ describe("Bank App", () => {
         const orderedStatements = statement.getOrderedStatements(date1, date3)
         expect(orderedStatements).toEqual([transaction1, transaction2, transaction3])
       })
+
+      it("should disable withdraw if the withdraw amount exceeds the available funds", () => {
+        const account = new CheckingAccount("CHK123", 500)
+        account.deposit(1000)
+        expect(() => account.withdraw(2000)).toThrow("Insufficient funds.")
+      })
 })
