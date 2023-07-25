@@ -11,6 +11,7 @@ export abstract class Account {
       this.balance += amount
     }
 
+    // Disable withdraws if the withdraw amount exceeds the available funds
     withdraw(amount: number): void {
       if (this.balance - amount < 0) {
         throw new Error("Insufficient funds.")
