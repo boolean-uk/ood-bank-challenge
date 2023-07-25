@@ -28,6 +28,12 @@ describe('BankStorageService', () => {
     expect(service.balance).toEqual(900)
   })
 
+  it('should throw error when trying withdraw more than current balance', () => {
+    service.deposit(1000)
+
+    expect(()=>{service.withdraw(10000)}).toThrowError("Not enough money!")
+  })
+
   it('should add deposit to history', () => {
     service.deposit(1000)
 
@@ -54,4 +60,7 @@ describe('BankStorageService', () => {
       expect(history[1].type).toEqual(Operation.withdraw)
     })
   })
+
+
+
 });
