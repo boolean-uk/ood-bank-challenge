@@ -22,6 +22,10 @@ export class BankAccount {
             amount: amount,            
             balance: this.balance,
         }
+        if(amount <= 0) {
+            console.log("Amount can't be 0 or negative number")
+            return false;
+        }
         this.balance += amount;
         this.transactions.push(transaction)
         return true;
