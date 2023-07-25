@@ -1,4 +1,4 @@
-describe("Withdraw tests", () => {
+describe("Deposit tests", () => {
     let test = true
 
     // beforeEach(() => {
