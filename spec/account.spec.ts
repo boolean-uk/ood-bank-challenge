@@ -69,3 +69,27 @@ describe("Investment account", () => {
         expect(account.getTransactions().length).toEqual(2)
     })
 })
+
+describe("Saving account", () => {
+    let account: Account
+
+    beforeEach(() => {
+        account = new SavingAccount("1234")
+    })
+
+    it("should throw an error when depositing over yearly limit", () => {
+        const year = new Date().getFullYear()
+
+        account.deposit(500000, new Date(year-1, 0, 1))
+        account.deposit(500000, new Date(year+1, 0, 1))
+
+        account.deposit(1000000, new Date(year, 0, 1))
+        account.deposit(999999, new Date(year, 5, 1))
+        
+        account.withdraw(10000, new Date(year, 7, 1))
+
+        expect(() => account.deposit(10000, new Date(year, 11, 31))).toThrow("Your deposit would exceed your limit of 20,000 per year.")
+        
+        account.deposit(1, new Date(year, 11, 31))
+    })
+})
