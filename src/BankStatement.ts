@@ -1,5 +1,4 @@
 import { Account } from './Account';
-import { CheckingAccount } from './CheckingAccount';
 
 import { LocalDateTime, DateTimeFormatter } from 'js-joda';
 
