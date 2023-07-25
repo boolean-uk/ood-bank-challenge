@@ -15,10 +15,10 @@
         </div>
         <div class="flex-1">
             <a class="btn btn-ghost normal-case text-xl">BooleanUK</a>
-            <a class="btn btn-ghost normal-case text-xl font-normal">Dashboard</a>
-            <a class="btn btn-ghost normal-case text-xl font-normal">Wallet</a>
-            <a class="btn btn-ghost normal-case text-xl font-normal">Transactions</a>
-            <a class="btn btn-ghost normal-case text-xl font-normal">Investments</a>
+            <a class="btn btn-ghost normal-case text-l font-normal">Dashboard</a>
+            <a class="btn btn-ghost normal-case text-l font-normal">Wallet</a>
+            <a class="btn btn-ghost normal-case text-l font-normal">Transactions</a>
+            <a class="btn btn-ghost normal-case text-l font-normal">Investments</a>
         </div>
         <div class="flex-none">
             <button class="btn btn-square btn-ghost">
