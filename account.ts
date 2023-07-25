@@ -20,7 +20,11 @@ export class Account{
     }
 
     getBalance(){
-         return Array.from(this.accountTransactionList).reduce((accumulator, currentValue) => {
+         return this.countBalance(this.accountTransactionList);
+    }
+
+    countBalance(transactions : Array<Account_Transaction>){
+        return Array.from(transactions).reduce((accumulator, currentValue) => {
             if(currentValue.transactionType == "credit")
                 return accumulator + currentValue.amount;
             else
