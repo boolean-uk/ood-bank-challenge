@@ -100,7 +100,7 @@ describe('account tests', () => {
         account.deposit(depositAmount2);
         account.withdraw(withdrawAmount);
 
-        const generatedStatement = account.generateStatement(actualDate.getMilliseconds() - 86400000, actualDate.getMilliseconds() + 86400000);
+        const generatedStatement = account.generateStatementWithDates(actualDate.getMilliseconds() - 86400000, actualDate.getMilliseconds() + 86400000);
 
         expect(generatedStatement).toEqual(expectedStatement);
     })

@@ -71,4 +71,25 @@ export class Account {
 
         return result
     }
+
+    generateStatementWithDates(from: number, to: number) {
+        let result = 'date       || credit  || debit  || balance\n'
+
+        this.transactions.reverse().forEach((transaction, index) => {
+            if(transaction.getDate().getMilliseconds() >= from && transaction.getDate().getMilliseconds() <= to){
+                const day = transaction.getDate().getDay() > 9 ? transaction.getDate().getDay() : `0${transaction.getDate().getDay()}`
+                const month = transaction.getDate().getDay() > 9 ? transaction.getDate().getDay() : `0${transaction.getDate().getDay()}`
+                const year = transaction.getDate().getFullYear()
+
+                const credit = transaction.getCredit() === 0 ? '         ' : ` ${transaction.getCredit().toFixed(2)} `
+                const debit = transaction.getDebit() === 0 ? '        ' : ` ${transaction.getDebit().toFixed(2)} `
+                const balance = ` ${transaction.getBalance().toFixed(2)}`
+
+                if(index == this.transactions.length - 1) result += `${day}/${month}/${year} ||${credit}||${debit}||${balance}`
+                else result += `${day}/${month}/${year} ||${credit}||${debit}||${balance}\n`
+            }
+        })
+
+        return result
+    }
 }
