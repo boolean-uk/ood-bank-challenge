@@ -1,7 +1,6 @@
 // src/Account.tsx
 
-import React, { useState } from 'react';
-import Transaction from './Transaction';
+import React, { FormEvent, useState } from 'react';
 import Statement from './Statement';
 
 type TransactionType = 'deposit' | 'withdrawal';
@@ -13,21 +12,24 @@ interface TransactionProps {
 }
 
 const Account: React.FC = () => {
-  const [balance, setBalance] = useState(0);
+  const [balance, setBalance] = useState(0.00);
   const [transactions, setTransactions] = useState<TransactionProps[]>([]);
-  const [showModal, setShowModal] = useState(false);
+  const [depositValue, setDepositValue] = useState("")
+  const [withdrawValue, setWithdrawValue] = useState("")
 
-  const toggleModal = () => {
-    setShowModal((prevShowModal) => !prevShowModal);
-  };
 
-  const deposit = (amount: number) => {
+  const deposit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const amount = parseFloat(depositValue)
     const date = new Date().toLocaleDateString();
     setBalance((prevBalance) => prevBalance + amount);
     setTransactions([...transactions, { date, amount, type: 'deposit' }]);
+    setDepositValue("");
   };
 
-  const withdraw = (amount: number) => {
+  const withdraw = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const amount = parseFloat(withdrawValue)
     const date = new Date().toLocaleDateString();
     if (balance >= amount) {
       setBalance((prevBalance) => prevBalance - amount);
@@ -35,6 +37,7 @@ const Account: React.FC = () => {
     } else {
       alert('Insufficient funds.');
     }
+    setWithdrawValue("")
   };
 
 
@@ -42,32 +45,36 @@ const Account: React.FC = () => {
     <div>
       <h2>Bank Account</h2>
       <p>Balance: ${balance.toFixed(2)}</p>
-      <button onClick={() => deposit(1000)}>Deposit $1000</button>
-      <button onClick={() => deposit(2000)}>Deposit $2000</button>
-      <button onClick={() => withdraw(1000)}>Withdraw $1000</button>
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Credit</th>
-            <th>Debit</th>
-          </tr>
-        </thead>
-        <tbody>
-          {transactions.map((transaction, index) => (
-            <Transaction
-              key={index}
-              date={transaction.date}
-              amount={transaction.amount}
-              type={transaction.type}
-            />
-          ))}
-        </tbody>
-      </table>
-      <button onClick={toggleModal}>Generate Statement</button>
-      {showModal && (
-        <Statement transactions={transactions} onClose={toggleModal} />
-      )}
+      <div className="container">
+        <form className="input-group" onSubmit={deposit}>
+          <input
+            type="text"
+            className="form-control"
+            value={depositValue}
+            onChange={(e) => setDepositValue(e.target.value)}
+            pattern="^\d+(\.\d{1,2})?$"
+            title="Please enter a valid amount." />
+          <button className="btn btn-primary" type='submit'>Deposit</button>
+        </form>
+      </div>
+      <div className="container mt-5">
+        <form className="input-group" onSubmit={withdraw}>
+          <input
+            type="text"
+            className="form-control"
+            value={withdrawValue}
+            onChange={(e) => setWithdrawValue(e.target.value)}
+            pattern="^\d+(\.\d{1,2})?$"
+            title="Please enter a valid amount." />
+          <button className="btn btn-primary" type='submit'>Withdraw</button>
+        </form>
+      </div>
+
+      <button className='btn btn-primary mt-5' data-bs-toggle="modal" data-bs-target="#statementModal">Generate Statement</button>
+      <div className="modal fade" id='statementModal' tabIndex={-1} aria-labelledby='statementModalLabel' aria-hidden="true">
+        <Statement transactions={transactions} />
+      </div>
+    
     </div>
   );
 };

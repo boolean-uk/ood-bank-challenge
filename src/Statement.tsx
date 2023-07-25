@@ -10,19 +10,16 @@ interface TransactionProps {
 
 interface StatementProps {
   transactions: TransactionProps[];
-  onClose: () => void; // Function to close the modal
 }
 
-const Statement: React.FC<StatementProps> = ({ transactions, onClose }) => {
+const Statement: React.FC<StatementProps> = ({ transactions }) => {
   let balance = 0;
 
   return (
-    <div className="modal">
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title">Bank Statement</h5>
-            <button type="button" className="btn-close" onClick={onClose}></button>
           </div>
           <div className="modal-body">
             <table>
@@ -53,14 +50,8 @@ const Statement: React.FC<StatementProps> = ({ transactions, onClose }) => {
               </tbody>
             </table>
           </div>
-          <div className="modal-footer">
-            <button type="button" className="btn btn-primary" onClick={onClose}>
-              Close
-            </button>
-          </div>
         </div>
       </div>
-    </div>
   );
 };
 
