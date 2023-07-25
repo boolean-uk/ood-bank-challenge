@@ -16,4 +16,17 @@ describe("something", () => {
         let result: boolean = account.deposit(-420, new Date())
         expect(result).toBe(false);
     });
+
+    it("should withdraw money", () => {
+        account.deposit(1000, new Date())
+        let result: boolean = account.withdraw(100, new Date())
+        expect(result).toBe(true);
+    });
+
+
+    it("should not withdraw money when there is not enough money on the account", () => {
+        account.deposit(100, new Date())
+        let result: boolean = account.withdraw(1000, new Date())
+        expect(result).toBe(false);
+    });
 });
