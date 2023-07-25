@@ -36,6 +36,10 @@ class BankAccount {
     let statement: Statement = new Statement(this);
     statement.print(from, to);
   }
+  generatePdf() {
+    let statement: Statement = new Statement(this);
+    statement.generatePDF("bank_statement.pdf");
+  }
   addInterest() {}
 }
 
