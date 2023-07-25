@@ -15,4 +15,10 @@ describe("bank account tests", () => {
     account.deposit(-500);
     expect(account.balance).toEqual(0);
   });
+
+  it("should withdraw correctly", () => {
+    account.deposit(1000);
+    account.withdraw(500);
+    expect(account.balance).toEqual(500);
+  });
 });
