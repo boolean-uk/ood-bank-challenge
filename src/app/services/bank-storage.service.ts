@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Operation, Transaction} from "../interfaces/transaction";
-import {BehaviorSubject, map, Observable, of} from "rxjs";
+import {BehaviorSubject, map, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +23,23 @@ export class BankStorageService {
 
   get history(): Observable<Transaction[]> {
     return this._history.asObservable();
+  }
+
+  getCalculateBalance(): number {
+    let balance: number = 0
+
+
+    this.history.subscribe((transactions: Transaction[]) => {
+      for (const transaction of transactions) {
+        if (transaction.type === Operation.deposit) {
+          balance += transaction.balance
+        }
+        if (transaction.type === Operation.withdraw) {
+          balance -= transaction.balance
+        }
+      }
+    })
+    return balance
   }
 
   getSortedHistory(): Observable<Transaction[]> {

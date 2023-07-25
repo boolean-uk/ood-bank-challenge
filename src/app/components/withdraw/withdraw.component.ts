@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {BankStorageService} from "../../services/bank-storage.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
@@ -21,6 +21,6 @@ export class WithdrawComponent {
   }
 
   isInvalid(): boolean {
-    return this.withdrawForm.invalid || this.withdrawForm.controls['amount'].value > this.bankService.balance;
+    return this.withdrawForm.invalid || this.withdrawForm.controls['amount'].value > this.bankService.getCalculateBalance()
   }
 }
