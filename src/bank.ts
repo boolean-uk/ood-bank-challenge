@@ -60,6 +60,19 @@ export class NormalAccount {
     });
     return statement;
   }
+   getAvailabeFunds():number {
+    let availableFunds: number = 0
+    this.transactions.forEach((transaction) =>{
+        if(transaction.transactionType)
+        {
+            availableFunds+=transaction.amount
+        }
+        else{
+            availableFunds-=transaction.amount
+        }
+    })
+    return availableFunds
+   }
 }
 
 export class Transaction {
