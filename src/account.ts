@@ -54,3 +54,20 @@ export class InvestmentAccount extends Account{
        return this.accountType;
     }
 }
+
+export class CheckingAccount extends Account{
+    
+    
+    private accountType : string;
+
+    constructor(accountnumber:string){
+        super(accountnumber);
+        this.setIsOverdraftPossible(true);
+        this.accountType = "checking";
+    }
+
+
+    getAccountType(): string {
+       return this.accountType;
+    }
+}

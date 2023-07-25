@@ -32,10 +32,10 @@ describe("Account Manager tests", () => {
      
 
         //given
-        let savingAccount =  accountManager.createCheckingAccount("1234");
+        let checkingAccount =  accountManager.createCheckingAccount("1234");
         //then
-        expect(savingAccount.getAccountType()).toEqual('checking');
-        expect(savingAccount.getAccountNumber()).toEqual('1234');
+        expect(checkingAccount.getAccountType()).toEqual('checking');
+        expect(checkingAccount.getAccountNumber()).toEqual('1234');
     })
   
 })

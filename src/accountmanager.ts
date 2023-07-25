@@ -1,6 +1,7 @@
-import { InvestmentAccount, SavingAccount } from "./account";
+import { CheckingAccount, InvestmentAccount, SavingAccount } from "./account";
 
 export class AccountManager{
+  
    
     
     constructor(){
@@ -16,6 +17,11 @@ export class AccountManager{
     createInvestmentAccount(accountNumber: string): InvestmentAccount {
         let investmentAccount : InvestmentAccount = new InvestmentAccount(accountNumber);
         return investmentAccount;
+    }
+
+    createCheckingAccount(accountNumber: string): CheckingAccount {
+        let checkingAccount : CheckingAccount = new CheckingAccount(accountNumber);
+        return checkingAccount;
     }
    
 
