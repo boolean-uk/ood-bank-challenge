@@ -8,8 +8,8 @@ describe("Bank tests ", () => {
     let bank: Bank
 
     beforeEach(() => { 
-        registerClient = new Client()
-        newClient = new Client()
+        registerClient = new Client("John", "Smith", "01-10-1998")
+        newClient = new Client("Chris", "Test", "01-12-1990")
         bank = new Bank()
     })
 
@@ -32,13 +32,11 @@ describe("Bank tests ", () => {
     it("should register new client", () => {
         let name = "Chris";
         let lastName = "Test";
-        let birthDate = "01.12.1990";
+        let birthDate = "01-12-1990";
         bank.register(name, lastName, birthDate)
 
-        expect(bank.clientsOfBank.length).toEqual(4)
-        expect(bank.getClientByID(newClient.id.name)).toEqual(name)
-        expect(bank.getClientByID(newClient.id.lastName)).toEqual(lastName)
-        expect(bank.getClientByID(newClient.id.birthDate)).toEqual(birthDate)
+        expect(bank.listClientsOfBank.length).toEqual(4)
+        expect(bank.getClientByID(newClient.id)?.fullName).toEqual(name + " " + lastName)
     })
 
 })
