@@ -10,7 +10,7 @@ npm run build
 ## Running app
 
 ```sh
-
+node src/index.js
 ```
 
 ## Running tests
