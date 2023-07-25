@@ -10,6 +10,22 @@ class Transaction {
         this._date = date;
         this._hour_minute = hour_minute;
     }
+
+    get amount(): number {
+        return this._amount;
+    }
+
+    get balance(): number {
+        return this._balance;
+    }
+
+    get date(): string {
+        return this._date;
+    }
+
+    get hour_minute(): string {
+        return this._hour_minute;
+    }
 }
 
 export default Transaction;

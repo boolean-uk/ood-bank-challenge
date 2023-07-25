@@ -1,6 +1,30 @@
 import BankAccount from "../src/BankAccount"
 import Transaction from "../src/Transaction"
 
+describe('Transaction', () => {
+    let transaction: Transaction;
+
+    beforeEach(() => {
+        transaction = new Transaction(100, 100, "25/08/2022", "10:00");
+    });
+
+    it('should have an amount of 100', () => {
+        expect(transaction.amount).toEqual(100);
+    });
+
+    it('should have a balance of 100', () => {
+        expect(transaction.balance).toEqual(100);
+    });
+
+    it('should have a date of 25/08/2022', () => {
+        expect(transaction.date).toEqual("25/08/2022");
+    });
+
+    it('should have a hour_minute of 10:00', () => {
+        expect(transaction.hour_minute).toEqual("10:00");
+    });
+});
+
 describe('BankAccount', () => {
     let bankAccount: BankAccount;
     
