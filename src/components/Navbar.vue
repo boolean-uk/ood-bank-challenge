@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div class="navbar">
+    <div class="navbar bg-black text-white">
         <div class="flex-none">
             <button class="btn btn-square btn-ghost">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -15,6 +15,10 @@
         </div>
         <div class="flex-1">
             <a class="btn btn-ghost normal-case text-xl">BooleanUK</a>
+            <a class="btn btn-ghost normal-case text-xl font-normal">Dashboard</a>
+            <a class="btn btn-ghost normal-case text-xl font-normal">Wallet</a>
+            <a class="btn btn-ghost normal-case text-xl font-normal">Transactions</a>
+            <a class="btn btn-ghost normal-case text-xl font-normal">Investments</a>
         </div>
         <div class="flex-none">
             <button class="btn btn-square btn-ghost">
