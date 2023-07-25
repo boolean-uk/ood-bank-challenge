@@ -7,14 +7,15 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ts-node node_modules/jasmine/bin/jasmine"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/jest": "^29.5.3",
+    "@types/jasmine": "^4.3.5",
     "jasmine": "^5.1.0",
+    "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
   }
 }
