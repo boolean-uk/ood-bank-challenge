@@ -12,4 +12,10 @@ describe("AccountTest", () => {
     const current = new CurrentAccount(customer);
     expect(current.getBalance()).toEqual(0);
   });
+
+  it("should open a current account with a balance of 1000", () => {
+    const current = new CurrentAccount(customer);
+    current.deposit(1000);
+    expect(current.getBalance()).toEqual(1000);
+  });
 });
