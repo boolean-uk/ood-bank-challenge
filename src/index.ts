@@ -14,6 +14,7 @@ export class Account {
 
     withdraw(amount: number): boolean {
         if(amount < 0) return false
+        if(amount > this.balance) return false
 
         this.balance -= amount
         return true
