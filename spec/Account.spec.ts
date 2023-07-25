@@ -1,3 +1,4 @@
+import exp from "constants";
 import { Account } from "../src/Account"
 
 describe("Account tests", () => {
@@ -23,6 +24,10 @@ describe("Account tests", () => {
         expect(account.transactions.length).toEqual(2)
     })
 
+    it("should calculate total balance to be 0 at the beginning", () => {
+        expect(account.calculateBalance()).toEqual(0)
+    })
+
     it("should calculate total balance in account", () => {
         account.deposit(10000)
         expect(account.calculateBalance()).toEqual(10000)
@@ -33,6 +38,36 @@ describe("Account tests", () => {
         account.deposit(11000)
         account.withdraw(9000)
         expect(account.calculateBalance()).toEqual(12000)
+    })
+
+    it("should not allow to withdraw", () => {
+        account.deposit(10000)
+        account.deposit(11000)
+        expect(() => account.withdraw(900000)).toThrow(new Error("Not enough money!"))
+    })
+
+    it("should allow to withdraw money to account balance 0", () => {
+        account.deposit(10000)
+        account.deposit(11000)
+        account.withdraw(21000)
+        expect(account.calculateBalance()).toEqual(0)
+    })
+
+    it("should check if has enough money", () => {
+        account.deposit(10000)
+        expect(() => account.checkIfHasEnoughMoney(100000)).toThrow(new Error("Not enough money!"))
+    })
+
+    it("should not allow to withdraw money after multiple transactions", () => {
+        account.deposit(10000)
+        account.deposit(10000)
+        account.withdraw(10000)
+        account.deposit(10000)
+        account.withdraw(20000)
+        account.deposit(10000)
+        account.deposit(10000)
+        
+        expect(() => account.withdraw(900000)).toThrow(new Error("Not enough money!"))
     })
 
 })
