@@ -22,7 +22,7 @@ export class Account {
     }
 }
 
-interface Transaction {
+export interface Transaction {
     amount: number,
     date: Date
 }

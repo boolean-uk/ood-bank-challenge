@@ -1,4 +1,4 @@
-import { Account } from "./account";
+import { Account, Transaction } from "./account";
 import { formatDate, formatMoney } from "./utils";
 
 export class BankStatement {
@@ -12,8 +12,21 @@ export class BankStatement {
             balance: ["balance"]
         }
 
-        let currentBalance = this.account.getBalance()
         const transactions = this.account.getTransactions().sort((t1, t2) => t2.date.getTime() - t1.date.getTime())
+        
+        this.fillColumns(columns, transactions)
+        this.alignColumns(columns)
+
+        let result = ""
+
+        for(let i = 0; i < columns.date.length; i++)
+            result += this.printRow(columns, i)
+
+        return result
+    }
+
+    private fillColumns(columns: {[key: string]: string[]}, transactions: Transaction[]) {
+        let currentBalance = this.account.getBalance()
         
         transactions.forEach(transaction => {
             columns.date.push(formatDate(transaction.date))
@@ -25,18 +38,8 @@ export class BankStatement {
                 columns.debit.push(formatMoney(-transaction.amount))
                 columns.credit.push("")
             }
-            
             currentBalance -= transaction.amount
         })
-
-        this.alignColumns(columns)
-
-        let result = ""
-
-        for(let i = 0; i < columns.date.length; i++)
-            result += this.printRow(columns, i)
-
-        return result
     }
 
     private alignColumns(columns: {[key: string]: string[]}) {
