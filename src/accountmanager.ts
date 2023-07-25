@@ -35,9 +35,13 @@ export class AccountManager{
 
     withdraw(account: Account, withdraw: number) {
         if(withdraw >  0){
+            if(withdraw <= account.getBalance() || (withdraw <= (account.getBalance() +500) &&  account.getIsOverdraftPossible()  === true)){
             withdraw = withdraw*(-1);
             account.addTransaction(new Transaction(withdraw, account.getBalance()+ withdraw));
-        }else console.log("You can not withdraw amount of money below zero!")
+            }else{
+                console.log("You do not have that amount of money!");
+            }
+        }else console.log("You can not withdraw amount of money below zero!");
     }
 
 

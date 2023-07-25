@@ -34,6 +34,9 @@ export class Account {
         return this.transactions;
     }
 
+    getIsOverdraftPossible() :boolean {
+        return this.isOverdraftPossible;
+    }
 
 
 }
@@ -72,6 +75,11 @@ export class InvestmentAccount extends Account{
 
     getAccountType(): string {
        return this.accountType;
+    }
+
+
+    accumulate(){
+
     }
 }
 
@@ -130,6 +138,10 @@ export class Transaction{
     }
     getCurrentBalance() : number {
         return this.currentBalance;
+    }   
+
+    setDate(date : Date){
+        this.date = date;
     }
 
 

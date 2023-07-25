@@ -96,6 +96,63 @@ describe("Account Manager tests", () => {
         expect(statement).toEqual(shouldEqual); 
     })
 
+    it("should allow to overdraw the account max 500  for Checking account", () =>{
+        //given
+        let checkingAccount =  accountManager.createCheckingAccount("1234");
+        let deposit: number = 5000;
+        accountManager.addDeposit(checkingAccount, deposit);
+    
+        //when
+        accountManager.withdraw(checkingAccount, 5500)
+
+        //then
+        expect(checkingAccount.getBalance()).toEqual(-500);
+    })
+
+
+    
+    it("should not allow to overdraw the account for Checking account", () =>{
+        //given
+        let checkingAccount =  accountManager.createCheckingAccount("1234");
+        let deposit: number = 5000;
+        accountManager.addDeposit(checkingAccount, deposit);
+    
+        //when
+        accountManager.withdraw(checkingAccount, 5600)
+
+        //then
+        expect(checkingAccount.getBalance()).toEqual(5000);
+    })
+
+    it("should not allow to overdraw the account for Saving account", () =>{
+        //given
+        let savingAccount =  accountManager.createSavingAccount("1234");
+        let deposit: number = 5000;
+        accountManager.addDeposit(savingAccount, deposit);
+    
+        //when
+        accountManager.withdraw(savingAccount, 5600)
+
+        //then
+        expect(savingAccount.getBalance()).toEqual(5000);
+    })
+
+    it("should not allow to overdraw the account for Investment account", () =>{
+        //given
+        let investmentAccount =  accountManager.createInvestmentAccount("1234");
+        let deposit: number = 5000;
+        accountManager.addDeposit(investmentAccount, deposit);
+    
+        //when
+        accountManager.withdraw(investmentAccount, 5600)
+
+        //then
+        expect(investmentAccount.getBalance()).toEqual(5000);
+    })
+
+
+
+
 
 
 
