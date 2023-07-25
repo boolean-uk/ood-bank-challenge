@@ -1,9 +1,6 @@
-docs
 node_modules
 package-lock.json
 !jest.config.js
-README.md
 *.js
 *.pdf
 accounts.json
-index.ts

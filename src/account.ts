@@ -1,9 +1,9 @@
 import { differenceInMonths, isAfter, subYears } from "date-fns";
 import { Decimal } from "decimal.js";
 import fs from "fs";
-import { ACCOUNTS_PATH, getAccounts, getLastAccountNo } from "./bank";
-import { Statement } from "./statement";
-import { Transaction } from "./transaction";
+import { ACCOUNTS_PATH, getAccounts, getLastAccountNo } from "./bank.js";
+import { Statement } from "./statement.js";
+import { Transaction } from "./transaction.js";
 
 const OVERDRAFT_LIMIT_AMOUNT = new Decimal(500);
 

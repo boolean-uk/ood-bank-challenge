@@ -1,5 +1,5 @@
 import fs from "fs";
-import { Account } from "./account";
+import { Account } from "./account.js";
 
 export const ACCOUNTS_PATH = "accounts.json";
 const ACCOUNT_ID_LENGTH = 6;

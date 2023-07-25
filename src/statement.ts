@@ -1,5 +1,5 @@
 import { Decimal } from "decimal.js";
-import { Account } from "./account";
+import { Account } from "./account.js";
 
 export class Statement {
   constructor(private account: Account, private startDate?: Date, private endDate?: Date) {}

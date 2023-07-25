@@ -1,8 +1,8 @@
 import { subMonths, subYears } from "date-fns";
 import { Decimal } from "decimal.js";
 import fs from "fs";
-import { Account, CheckingAccount, InvestmentAccount, SavingsAccount } from "../src/account";
-import { clearAccounts, openAccount } from "../src/bank";
+import { Account, CheckingAccount, InvestmentAccount, SavingsAccount } from "../src/account.js";
+import { clearAccounts, openAccount } from "../src/bank.js";
 
 describe("Bank account", () => {
   let account: Account;
