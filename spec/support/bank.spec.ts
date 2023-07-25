@@ -53,7 +53,8 @@ describe("Bank", () => {
     bankAccount.deposit(1000, new Date('2023-07-24'));
     bankAccount.deposit(2000, new Date('2023-07-25'));
     bankAccount.withdraw(500, new Date('2023-07-26'));
-    const expectedHistory = `date        || credit    || debit     || balance\n2023-07-24  ||  1000.00  ||           || 1000.00\n2023-07-25  ||  2000.00  ||           || 3000.00\n2023-07-26  ||           ||   500.00  || 2500.00\n`;
+    const expectedHistory = `date        || credit    || debit     || balance\n7/24/2023   ||  1000.00  ||           || 1000.00\n7/25/2023   ||  2000.00  ||           || 3000.00\n7/26/2023   ||           ||   500.00  || 2500.00\n`;
     expect(bankAccount.showAccountHistory()).toBe(expectedHistory);
+
   });
 });
