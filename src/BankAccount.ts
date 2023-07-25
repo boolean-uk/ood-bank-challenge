@@ -22,15 +22,15 @@ export abstract class BankAccount {
         return this.transactions
     }
 
-    public withdraw(amount: number): boolean {
+    public withdraw(amount: number, date: Date = new Date()): boolean {
         if(this.getBalance() < amount) 
             return false
-        this.transactions.push(new Transaction(-amount));
+        this.transactions.push(new Transaction(-amount, 0, date));
         return true;
     }
 
-    public deposit(amount: number): void {
-        this.transactions.push(new Transaction(amount))
+    public deposit(amount: number, date: Date = new Date()): void {
+        this.transactions.push(new Transaction(amount, 0, date))
     }
 
     public addOverdraft(amount: number): boolean {

@@ -4,10 +4,10 @@ import { Transaction } from "./Transaction"
 export class SavingsAccount extends BankAccount {
     private defaultFee = 5
     
-    public override withdraw(amount: number): boolean {
+    public override withdraw(amount: number, date: Date = new Date()): boolean {
         if(this.getBalance() < amount + this.defaultFee) 
             return false
-        this.transactions.push(new Transaction(-amount, this.defaultFee));
+        this.transactions.push(new Transaction(-amount, this.defaultFee, date));
         return true;
     }
 

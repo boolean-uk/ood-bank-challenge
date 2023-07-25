@@ -1,16 +1,10 @@
-import { CheckingAccount } from "./CheckingAccount"
-import { SavingsAccount } from "./SavingsAccount"
-import { StatementGenerator, padToMiddleSpaces } from "./StatementGenerator"
+import { InvestmentAccount } from "./InvestmentAccount"
 
+// to run execute command `tsc ./src/index.ts` and then `node ./src/index.js`
 
-let bankAccount = new CheckingAccount()
-bankAccount.deposit(100000.40)
-bankAccount.withdraw(100.12)
-bankAccount.withdraw(100)
-bankAccount.withdraw(31.41)
-bankAccount.withdraw(59.26)
-bankAccount.withdraw(5.35)
-bankAccount.deposit(589.79)
-bankAccount.deposit(323.84)
+let bankAccount = new InvestmentAccount()
+bankAccount.deposit(1000, new Date("2012-01-10"))
+bankAccount.deposit(2000, new Date("2012-01-13"))
+bankAccount.withdraw(500, new Date("2012-01-14"))
 
 console.log(bankAccount.generateStatement())
