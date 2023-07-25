@@ -164,6 +164,14 @@ describe("Account Manager tests", () => {
     })
 
 
+    it("Should find transactions between two dates ", () =>{
+        //given
+        let investmentAccount =  accountManager.createInvestmentAccount("1234");
+        let deposit: number = 5000;
+        accountManager.addDeposit(investmentAccount, deposit);
+    
+        
+    })
 
 
 
