@@ -5,33 +5,33 @@ class BankAccount {
     private overDraft: number = 0
 
     public deposit(amount: number, date: Date): boolean {
-        if(amount <= 0) return false
+        if(amount <= 0) return false;
+        if(isNaN(date.getTime())) date = new Date();
 
         this.transactions.push({ amount: amount, date: date })
         return true
     }
 
     private calculateBalance(): number {
-        let balance: number = 0
-        this.transactions.forEach((transaction: Transaction) => {
-            balance += transaction.amount
-        })
-
-        return balance
+        return this.transactions.reduce((balance: number, transaction: Transaction) => {
+            return balance + transaction.amount;
+        }, 0);
     }
-
+    
     public allowOverDraft() {
         this.overDraft = 500
     }
 
     public withdraw(amount: number, date: Date): boolean {
         if(amount <= 0) return false
-
+        if(isNaN(date.getTime())) date = new Date();
+        
         if(this.calculateBalance() + this.overDraft < amount) return false
 
         this.transactions.push({ amount: -amount, date: date })
         return true
     }
+
     public returnAccountHistory(transactions: Transaction[]): string {
         const result: string[] = []
         let balance: number = 0
@@ -61,7 +61,7 @@ class BankAccount {
     public showAccountHistory(): string {
         return this.returnAccountHistory(this.transactions)
     }
-    
+
     public showAccountHistoryBetweenTwoDates(date1: Date, date2: Date): string {
         if(date1 > date2) return "Wrong dates"
         const transactionBetweenTwoDates: Transaction[] = []
