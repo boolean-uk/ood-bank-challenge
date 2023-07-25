@@ -9,7 +9,7 @@ describe("something", () => {
 
     it("should deposit money", () => {
         let result: boolean = account.deposit(420, new Date())
-        
+
         expect(result).toBe(true);
     });
 
