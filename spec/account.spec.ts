@@ -226,10 +226,17 @@ describe("Account tests ", () => {
     })
 
     //EXTENSIONS
-    it("should disale withdraw if the amount exceeds the available funds", () =>{
+    it("should disable withdraw if the amount exceeds the available funds", () =>{
         let bankState = 2000
         let amount = 50000
         account.deposit(bankState)
         expect(account.withdraw(amount)).toBe('Amount you want to withdraw exceeds the available funds')
+    })
+
+    it("should allow withdraw if the overdraw is 500", () =>{
+        let bankState = 1000
+        let amount = 1500
+        account.deposit(bankState)
+        expect(account.withdraw(amount)).toBe('Money withdrew')
     })
 })
