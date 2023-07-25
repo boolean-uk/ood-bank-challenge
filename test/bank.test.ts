@@ -220,4 +220,16 @@ describe("InvestmentAccountTests", () => {
     investmentAccount.deposit(100);
     expect(investmentAccount.checkInterest()).toEqual(2);
   });
+
+  it("Should return balance with added interest",()=> {
+    const currentDate = new Date();
+    const oneYearFromNow = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() - 1,
+      currentDate.getDate()
+    );
+    investmentAccount.deposit(100)
+    investmentAccount.interestStartDate = oneYearFromNow;
+    expect(investmentAccount.getBalanceWithInterest()).toEqual(102)
+  })
 });
