@@ -35,7 +35,7 @@ describe("Transaction tests", () => {
 describe("Extension BankAccount tests", () => {
     let bankAccount: BankAccount
 
-    it("Extension withdraw() test", () => {
+    it("Extension no. 2 withdraw() test", () => {
         bankAccount = new SavingsAccount()
         bankAccount.deposit(1000)
         expect(bankAccount.getBalance()).toEqual(1000)
@@ -49,6 +49,17 @@ describe("Extension BankAccount tests", () => {
         expect(bankAccount.getBalance()).toEqual(785)
     })
 
-    
-
+    it("Extension no. 3 overdraft test", () => {
+        bankAccount = new SavingsAccount()
+        expect(bankAccount.addOverdraft(300)).toEqual(false)
+        bankAccount = new InvestmentAccount()
+        expect(bankAccount.addOverdraft(300)).toEqual(false)
+        bankAccount = new CheckingAccount()
+        expect(bankAccount.addOverdraft(300)).toEqual(true)
+        expect(bankAccount.addOverdraft(200)).toEqual(true)
+        expect(bankAccount.addOverdraft(100)).toEqual(false)
+        bankAccount = new CheckingAccount()
+        expect(bankAccount.addOverdraft(600)).toEqual(false)
+        expect(bankAccount.addOverdraft(500)).toEqual(true)
+    })
 })
