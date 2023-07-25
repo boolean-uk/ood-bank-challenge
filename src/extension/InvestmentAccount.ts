@@ -1,3 +1,4 @@
+import { TRANSACTION_TYPE } from "../enums/TRANSACTION_TYPE";
 import { Account } from "./Account";
 
 export class InvestmentAccount extends Account {
@@ -5,6 +6,11 @@ export class InvestmentAccount extends Account {
 
   override requestOverdraft(amount: number): void {
     throw new Error("Investment account cannot request overdraft");
+  }
+
+  accumulateInterest(): void {
+    const interestAmount = this.getBalance() * this._interestRate;
+    this.createTransaction(interestAmount, TRANSACTION_TYPE.CREDIT, new Date());
   }
 
   getInterestRate(): number {

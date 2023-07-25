@@ -1,4 +1,5 @@
 import { TRANSACTION_TYPE } from "../enums/TRANSACTION_TYPE";
+import { BankStatement } from "./BankStatement";
 import { Customer } from "./Customer";
 import { Transaction } from "./Transaction";
 
@@ -56,66 +57,18 @@ export class Account {
     this._transactions.push(transaction);
   }
 
-  printTransactionStatement(transaction: Transaction, balance: number): void {
-    const dtf = new Intl.DateTimeFormat("en-GB", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
-    const date = transaction.getDate();
-    const formattedDate = dtf.format(date);
-    const credit =
-      transaction.getType() === TRANSACTION_TYPE.CREDIT
-        ? transaction.getAmount().toString()
-        : "";
-    const debit =
-      transaction.getType() === TRANSACTION_TYPE.DEBIT
-        ? transaction.getAmount().toString()
-        : "";
-    const statementBalance = balance.toFixed(2);
-
-    console.log(
-      `${formattedDate.padEnd(10)} || ${credit.padEnd(10)} || ${debit.padEnd(
-        10
-      )} || ${statementBalance.padEnd(10)}`
+  printBankStatement(): String {
+    let bankStatement = BankStatement.generateBankStatement(this._transactions);
+    console.log(bankStatement);
+    return bankStatement;
+  }
+  printBankStatementBetween(startDate: Date, endDate: Date): String {
+    let bankStatement = BankStatement.generateBankStatementBetweenDates(
+      this._transactions,
+      startDate,
+      endDate
     );
-  }
-
-  printBankStatement(): void {
-    this.printHeading();
-
-    let balance = 0;
-
-    for (const transaction of this._transactions) {
-      balance = this.calcBalance(transaction, balance);
-      this.printTransactionStatement(transaction, balance);
-    }
-  }
-
-  printBankStatementBetween(startDate: Date, endDate: Date): void {
-    this.printHeading();
-    let balance = 0;
-
-    for (const transaction of this._transactions) {
-      const date = transaction.getDate();
-      if (date >= startDate && date <= endDate) {
-        balance = this.calcBalance(transaction, balance);
-        this.printTransactionStatement(transaction, balance);
-      }
-    }
-  }
-
-  calcBalance(transaction: Transaction, balance: number): number {
-    return transaction.getType() === TRANSACTION_TYPE.CREDIT
-      ? balance + transaction.getAmount()
-      : balance - transaction.getAmount();
-  }
-
-  printHeading() {
-    console.log(
-      `${"date".padEnd(10)} || ${"credit".padEnd(10)} || ${"debit".padEnd(
-        10
-      )} || ${"balance".padEnd(10)}`
-    );
+    console.log(bankStatement);
+    return bankStatement;
   }
 }
