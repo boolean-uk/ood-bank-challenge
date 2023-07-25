@@ -16,6 +16,7 @@ const Account: React.FC = () => {
   const [transactions, setTransactions] = useState<TransactionProps[]>([]);
   const [depositValue, setDepositValue] = useState("")
   const [withdrawValue, setWithdrawValue] = useState("")
+  const [overdraftActive, setOverdraftActive] = useState(false)
 
   const OVERDRAFT = 500.00
 
@@ -82,6 +83,10 @@ const Account: React.FC = () => {
       <div className="modal fade" id='statementModal' tabIndex={-1} aria-labelledby='statementModalLabel' aria-hidden="true">
         <Statement transactions={transactions} />
       </div>
+      <div>
+      <button className="btn btn-primary mt-5" onClick={() => setOverdraftActive((prev)=>!prev)}>{overdraftActive ? "Disable Overdraft" : "Allow overdraft(500$)"}</button>
+      </div>
+
     
     </div>
   );

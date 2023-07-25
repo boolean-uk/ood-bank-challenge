@@ -36,6 +36,7 @@ describe('Account', () => {
     const balanceText = screen.getByText(/Balance: \$0.00/);
     expect(balanceText).toBeInTheDocument();
   });
+
   it('should not withdraw money if balance is insufficient', () => {
     const mockAlert = jest.spyOn(window, 'alert');
     mockAlert.mockImplementation(() => {});
@@ -48,15 +49,30 @@ describe('Account', () => {
     expect(mockAlert).toHaveBeenCalledWith('Insufficient funds.');
 
   });
+
   it('should withdraw money correctly if overdraft limit not exceeded', () => {
+    const depositButton = screen.getByText('Deposit');
+    fireEvent.change(depositField,{target: { value: 1000}})
+    fireEvent.click(depositButton);
+    const overdraftButton = screen.getByText("Allow")
+    fireEvent.click(overdraftButton)
+    const withdrawButton = screen.getByText('Withdraw');
+    fireEvent.change(withdrawField,{target: { value: 1200}})
+    fireEvent.click(withdrawButton);
+    const balanceText = screen.getByText(/Balance: \$-200.00/);
+    expect(balanceText).toBeInTheDocument();
+  });
+
+  it('shouldnot withdraw money correctly if overdraft limit not exceeded but overdraft disabled', () => {
+    const mockAlert = jest.spyOn(window, 'alert');
+    mockAlert.mockImplementation(() => {});
     const depositButton = screen.getByText('Deposit');
     fireEvent.change(depositField,{target: { value: 1000}})
     fireEvent.click(depositButton);
     const withdrawButton = screen.getByText('Withdraw');
     fireEvent.change(withdrawField,{target: { value: 1200}})
     fireEvent.click(withdrawButton);
-    const balanceText = screen.getByText(/Balance: \$-200.00/);
-    expect(balanceText).toBeInTheDocument();
+    expect(mockAlert).toHaveBeenCalledWith('Insufficient funds.');
   });
 
 
