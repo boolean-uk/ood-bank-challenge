@@ -1,6 +1,5 @@
-export class Account {
+export abstract class Account {
     private transactions: Transaction[] = []
-    private overdraft?: Overdraft;
     
     constructor(private number: string) {}
 
@@ -28,14 +27,40 @@ export class Account {
         return structuredClone(this.transactions)
     }
 
+    canWithdraw(amount: number): boolean {
+        return this.getBalance() >= amount
+    }
+}
+
+export abstract class OverdraftAccount extends Account {
+    private overdraft?: Overdraft;
+
     setOverdraft(overdraft: Overdraft) {
         this.overdraft = overdraft
     }
 
-    private canWithdraw(amount: number): boolean {
+    override canWithdraw(amount: number): boolean {
         return this.getBalance() + (this.overdraft?.amount ?? 0) >= amount
     }
 }
+
+export class SavingAccount extends OverdraftAccount {
+
+}
+
+export class InvestmentAccount extends OverdraftAccount {
+    constructor(number: string, private interestRate: number) {
+        super(number)
+    }
+
+    calculateInterests(): number {
+        const interests = this.getBalance() * this.interestRate / 100;
+        this.deposit(interests, new Date())
+        return interests
+    }
+}
+
+export class CheckingAccount extends Account {}
 
 export interface Transaction {
     amount: number,
