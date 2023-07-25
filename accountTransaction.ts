@@ -1,4 +1,4 @@
-export class Bank_Transaction{
+export class Account_Transaction{
     date : Date;
     transactionType : string;
     amount : number;

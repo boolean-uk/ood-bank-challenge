@@ -1,13 +1,13 @@
-import { Bank_Transaction } from "./bankTransaction";
+import { Account_Transaction } from "./accountTransaction";
 
-export class Bank{
-    bankTransactionsList : Array<Bank_Transaction> = [];
+export class Account{
+    accountTransactionList : Array<Account_Transaction> = [];
 
     addFunds(fundsToAdd : number){
         if(fundsToAdd < 0)
             throw new Error("Funds number cannot be negative");
         
-        this.bankTransactionsList.push(new Bank_Transaction(new Date(), "credit", fundsToAdd));
+        this.accountTransactionList.push(new Account_Transaction(new Date(), "credit", fundsToAdd));
     }
 
     getFunds(fundsToGet : number){
@@ -16,11 +16,11 @@ export class Bank{
         if(fundsAfterTransaction < 0)
             throw new Error("Balance after transaction would be negative");
 
-        this.bankTransactionsList.push(new Bank_Transaction(new Date(), "debit", fundsToGet));
+        this.accountTransactionList.push(new Account_Transaction(new Date(), "debit", fundsToGet));
     }
 
     getBalance(){
-         return Array.from(this.bankTransactionsList).reduce((accumulator, currentValue) => {
+         return Array.from(this.accountTransactionList).reduce((accumulator, currentValue) => {
             if(currentValue.transactionType == "credit")
                 return accumulator + currentValue.amount;
             else
@@ -28,15 +28,15 @@ export class Bank{
         }, 0);
     }
 
-    formatTransactions(trasactionsToFormat : Array<Bank_Transaction>){
+    formatTransactions(trasactionsToFormat : Array<Account_Transaction>){
         let balance = 0;
-        return trasactionsToFormat.map((bankTransaction) => {
+        return trasactionsToFormat.map((accountTransaction) => {
             const transactionDate =
-            bankTransaction.date.getDate() +
+            accountTransaction.date.getDate() +
             "/" +
-            (bankTransaction.date.getMonth() + 1) + 
+            (accountTransaction.date.getMonth() + 1) + 
             "/" +
-            bankTransaction.date.getFullYear();
+            accountTransaction.date.getFullYear();
 
             let formattedTransaction = {
             date: transactionDate,
@@ -45,12 +45,12 @@ export class Bank{
             balance: "",
             };
 
-            if (bankTransaction.transactionType === "credit") {
-            balance += bankTransaction.amount;
-            formattedTransaction.credit = bankTransaction.amount.toFixed(2);
+            if (accountTransaction.transactionType === "credit") {
+            balance += accountTransaction.amount;
+            formattedTransaction.credit = accountTransaction.amount.toFixed(2);
             } else {
-            balance -= bankTransaction.amount;
-            formattedTransaction.debit = bankTransaction.amount.toFixed(2);
+            balance -= accountTransaction.amount;
+            formattedTransaction.debit = accountTransaction.amount.toFixed(2);
             }
 
             formattedTransaction.balance = balance.toFixed(2);
@@ -58,18 +58,18 @@ export class Bank{
         });
     }
 
-    getBankTransactionsList() {
-        const formattedTransaction = this.formatTransactions(this.bankTransactionsList);
+    getaccountTransactionList() {
+        const formattedTransaction = this.formatTransactions(this.accountTransactionList);
         console.table(formattedTransaction);
     }
 
     createTransactionListBetweenTimePeriod(startDate : Date, endDate : Date) {
-        return this.bankTransactionsList.filter((bankTransaction) => {
-            return bankTransaction.date >= startDate && bankTransaction.date <= endDate;
+        return this.accountTransactionList.filter((accountTransaction) => {
+            return accountTransaction.date >= startDate && accountTransaction.date <= endDate;
         });
     }
 
-    getBankTransactionsListBetweenTimePeriod(startDate : Date, endDate : Date) {
+    getAccountTransactionListBetweenTimePeriod(startDate : Date, endDate : Date) {
     let balance = 0;
     
     const ListOfTransactionsBetweenTimePeriod = this.createTransactionListBetweenTimePeriod(startDate, endDate);
