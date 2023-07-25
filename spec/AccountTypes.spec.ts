@@ -34,7 +34,7 @@ describe("Account Types tests", () => {
     })
 
     it("should not allow to overdraft from checking account", () => {
-        expect(checkingAccount.withdraw(10000)).toThrow(new Error("Overdraft!"))
+        expect(() => checkingAccount.withdraw(100000)).toThrow(new Error("Overdraft!"))
     })
 
 })
