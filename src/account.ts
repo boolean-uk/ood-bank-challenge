@@ -1,5 +1,5 @@
 export abstract class Account {
-    private transactions: Transaction[] = []
+    protected transactions: Transaction[] = []
     
     constructor(private number: string) {}
 
@@ -45,7 +45,28 @@ export abstract class OverdraftAccount extends Account {
 }
 
 export class SavingAccount extends OverdraftAccount {
+    override deposit(amount: number, date: Date): void {
+        if(!this.canDeposit(amount))
+            throw "Your deposit would exceed your limit of 20,000 per year."
+        super.deposit(amount, date)
+    }
 
+    private canDeposit(amount: number): boolean {
+        const year = new Date().getFullYear()
+        const beginningOfTheYear = new Date(year, 0, 1)
+        const endOfTheYear = new Date(year, 11, 31)
+
+        const transactions = this.transactions
+            .filter(t => t.date >= beginningOfTheYear && t.date <= endOfTheYear)
+            .filter(t => t.amount > 0)
+
+        const depositAmount = transactions.reduce((acc, t) => acc + t.amount, 0)
+        
+        if(depositAmount + amount > 2000000)
+            return false
+
+        return true
+    }
 }
 
 export class InvestmentAccount extends OverdraftAccount {
