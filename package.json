@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "jasmine",
-    "build": "bash compile_ts_files.sh"
+    "build": "bash compile_ts_files.sh && bash move_js_files_to_build_dir.sh"
   },
   "keywords": [],
   "author": "",
