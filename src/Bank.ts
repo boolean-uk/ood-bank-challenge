@@ -58,10 +58,51 @@ export class Bank {
 
     return result;
  }
+
+ public showAccountHistoryBetweenTwoDates(date1: Date, date2: Date): string {
+  if (date1 > date2) return "Wrong dates";
+
+  const sortedTransactions = this.transactions.sort((a, b) => a.date.getTime() - b.date.getTime());
+  const transactionsBetweenTwoDates: Transaction[] = [];
+
+  for (const transaction of sortedTransactions) {
+    if (transaction.date >= date1 && transaction.date <= date2) {
+      transactionsBetweenTwoDates.push(transaction);
+    }
+  }
+
+  let balance = 0;
+  const transactionsBeforeStartDate = sortedTransactions.filter((transaction) => transaction.date < date1);
+  for (const transaction of transactionsBeforeStartDate) {
+    if (transaction.type === TransactionType.DEPOSIT) {
+      balance += transaction.amount;
+    } else {
+      balance -= transaction.amount;
+    }
+  }
+  return this.returnAccountHistory(transactionsBetweenTwoDates, balance);
+
 }
-const bankAccount = new Bank();
-const depositAmount = 1000;
-const date = new Date('2023-07-24');
-const result = bankAccount.deposit(depositAmount, date);
-const accountHistory = bankAccount.showAccountHistory();
-console.log(accountHistory);
+
+private returnAccountHistory(transactions: Transaction[], initialBalance: number): string {
+  let result = "date        || credit    || debit     || balance\n";
+  let balance = initialBalance;
+
+  for (const transaction of transactions) {
+    const { date, amount, type } = transaction;
+    const formattedDate = date.toLocaleDateString().padEnd(12);
+    const formattedAmount = amount.toFixed(2).padStart(8);
+
+    if (type === TransactionType.DEPOSIT) {
+      balance += amount;
+      result += `${formattedDate}|| ${formattedAmount}  ||           || ${balance.toFixed(2)}\n`;
+    } else {
+      balance -= amount;
+      result += `${formattedDate}||           || ${formattedAmount}  || ${balance.toFixed(2)}\n`;
+    }
+  }
+
+  return result;
+}
+
+}
