@@ -1,6 +1,7 @@
+import { subMonths } from "date-fns";
 import { Decimal } from "decimal.js";
 import fs from "fs";
-import { Account } from "../src/account";
+import { Account, CheckingAccount, InvestmentAccount, SavingsAccount } from "../src/account";
 import { clearAccounts, openAccount } from "../src/bank";
 
 describe("Bank account", () => {
@@ -84,5 +85,31 @@ describe("Bank account", () => {
     account.allowOverdraft();
     expect(() => account.withdraw(new Decimal(3200))).not.toThrow("Insufficient funds!");
     expect(() => account.withdraw(new Decimal(400))).toThrow("Insufficient funds!");
+  });
+
+  it("should create savings/investment/checking accounts (only checking with overdrafts)", () => {
+    // Setup
+    const savingsAccount = openAccount(SavingsAccount);
+    const investmentAccount = openAccount(InvestmentAccount);
+    const checkingAccount = openAccount(CheckingAccount);
+
+    // Test
+    expect(() => savingsAccount.withdraw(new Decimal(500))).toThrow("Insufficient funds!");
+    expect(() => investmentAccount.withdraw(new Decimal(500))).toThrow("Insufficient funds!");
+    expect(() => checkingAccount.withdraw(new Decimal(500))).not.toThrow("Insufficient funds!");
+  });
+
+  it("should accumulate interest of 2 % per month on investment account", () => {
+    // Setup
+    const now = new Date();
+    const monthAgo = subMonths(now, 1);
+    const twoMonthsAgo = subMonths(now, 2);
+    account = openAccount(InvestmentAccount);
+    account.deposit(new Decimal(100), twoMonthsAgo);
+    account.deposit(new Decimal(100), monthAgo);
+    const accumulatedInterest = (account as InvestmentAccount).calculateInterest(now);
+
+    // Test
+    expect(accumulatedInterest).toEqual(new Decimal(6));
   });
 });
