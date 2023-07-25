@@ -7,7 +7,8 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "jasmine"
+    "test": "jasmine",
+    "build": "bash compile_ts_files.sh"
   },
   "keywords": [],
   "author": "",
