@@ -1,3 +1,4 @@
+import Statement from "./Statement";
 import Transaction from "./Transaction";
 
 class bankaccount {
@@ -13,7 +14,9 @@ class bankaccount {
     }
     return balance;
   }
-
+  get transactions(): Transaction[] {
+    return this._transactions;
+  }
   deposit(amount: number, date: Date) {
     if (amount > 0) {
       const transaction = new Transaction(date, amount, "credit");
@@ -24,6 +27,11 @@ class bankaccount {
   withdraw(amount: number, date: Date) {
     const transaction = new Transaction(date, -amount, "debit");
     this._transactions.push(transaction);
+  }
+
+  generateStatement() {
+    let statement: Statement = new Statement(this);
+    statement.print();
   }
 }
 
