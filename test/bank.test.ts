@@ -28,32 +28,32 @@ describe("Normal account tests",()=>
   it("should withdraw from account", () =>{
 
     normalAccount.deposit(200)
-    normalAcccount.withdraw(100)
-    expect(normalAccount.balance).toEqual(0)
+    normalAccount.withdraw(100)
+    expect(normalAccount.balance).toEqual(100)
 
 })
 
 it("should not withdraw from account - user wants to withdraw too much", () =>{
 
   normalAccount.deposit(200)
-  normalAcccount.withdraw(1000)
-  expect(normalAccount.balance).toEqual(0)
+  normalAccount.withdraw(1000)
+  expect(normalAccount.balance).toEqual(200)
 
 })
 
 it("should withdraw from account and deposit", () =>{
 
   normalAccount.deposit(200)
-  normalAcccount.withdraw(100)
-  expect(normalAccount.balance).toEqual(0)
+  normalAccount.withdraw(400)
+  expect(normalAccount.balance).toEqual(-200)
 
 })
 
 it("should not withdraw from account and deposit - wrong data provided", () =>{
 
   normalAccount.deposit(200)
-  normalAcccount.withdraw(-100)
-  expect(normalAccount.balance).toEqual(0)
+  normalAccount.withdraw(-100)
+  expect(normalAccount.balance).toEqual(200)
 
 })
 
