@@ -40,11 +40,29 @@ export class Bank{
     getAccountList(newId: number){
         if(this.ifClientRegistered(newId)){
             let accountName: string[] = []
-            for (let i = 0; i < this.clientsAccount[newId].length; i++) {
-                let type = this.clientsAccount[newId][i].accountType()
-                accountName.push(type)
+            if(this.clientsAccount[newId]){
+                for (let i = 0; i < this.clientsAccount[newId].length; i++) {
+                    let type = this.clientsAccount[newId][i].accountType()
+                    accountName.push(type)
+                }
+                return accountName
             }
-            return accountName
+        }
+    }
+
+    getAccountByName(newId: number, type: string){
+        if(this.ifClientRegistered(newId)){
+            if(this.clientsAccount[newId]){
+                for (let i = 0; i < this.clientsAccount[newId].length; i++) {
+                    if(type === this.clientsAccount[newId][i].accountType() ) return this.clientsAccount[newId][i]
+                }
+            }
+        }
+    }
+
+    accountsListById(newId: number){
+        if(this.ifClientRegistered(newId)){
+            return this.clientsAccount[newId]
         }
     }
 

@@ -110,7 +110,7 @@ export class Account{
             }
             st.push(previousValue + "\n")
         }
-        console.log(st.join(""))
+        // console.log(st.join(""))
         return st.join("")
     }
 }
