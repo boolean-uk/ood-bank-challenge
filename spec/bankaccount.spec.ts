@@ -17,6 +17,14 @@ describe("bank account tests", () => {
     expect(account.balance).toEqual(0);
   });
 
+  it("transaction history test", () => {
+    account.deposit(500, new Date());
+    account.deposit(500, new Date());
+    account.deposit(500, new Date());
+    account.deposit(500, new Date());
+    account.withdraw(500, new Date());
+    expect(account.balance).toEqual(1500);
+  });
   it("should withdraw correctly", () => {
     account.deposit(1000, new Date());
     account.withdraw(500, new Date());

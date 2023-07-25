@@ -1,16 +1,29 @@
+import Transaction from "./Transaction";
+
 class bankaccount {
-  constructor(private _balance: number = 0) {}
+  constructor(
+    private _balance: number = 0,
+    private _transactions: Transaction[] = []
+  ) {}
 
   get balance(): number {
-    return this._balance;
+    let balance: number = 0;
+    for (let transaction of this._transactions) {
+      balance += transaction.amount;
+    }
+    return balance;
   }
 
-  deposit(amount: number) {
-    if (amount > 0) this._balance += amount;
+  deposit(amount: number, date: Date) {
+    if (amount > 0) {
+      const transaction = new Transaction(date, amount, "credit");
+      this._transactions.push(transaction);
+    }
   }
 
-  withdraw(amount: number) {
-    this._balance -= amount;
+  withdraw(amount: number, date: Date) {
+    const transaction = new Transaction(date, -amount, "debit");
+    this._transactions.push(transaction);
   }
 }
 
