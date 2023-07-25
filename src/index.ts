@@ -21,10 +21,14 @@ export class Transaction {
 }
 
 export class Account {
+    private allowOverdraft: boolean
+    private overdraftAmount: number
     private transactions: Transaction []
 
     constructor(){
         this.transactions = []
+        this.allowOverdraft = false
+        this.overdraftAmount = 0
     }
 
     deposit(amount: number): boolean {
@@ -36,10 +40,13 @@ export class Account {
 
     withdraw(amount: number): boolean {
         if(amount < 0) return false
-        if(amount > this.getBalance()) return false
+        if(this.allowOverdraft === false && amount > this.getBalance()) return false
+        if(this.allowOverdraft === true && amount > this.getBalance() + this.overdraftAmount) {
+            return false
+        }
 
         this.transactions.push(new Transaction(new Date(), 0, amount, this.getBalance() - amount))
-        return true
+        return true    
     }
 
     getBalance(): number {
@@ -53,7 +60,12 @@ export class Account {
         return balance
     }
 
-    generateStatement() {
+    requestOverdraft(): void {
+        this.allowOverdraft = true
+        this.overdraftAmount = 500
+    }
+
+    generateStatement(): string {
         let result = 'date       || credit  || debit  || balance\n'
 
         this.transactions.reverse().forEach((transaction, index) => {
@@ -72,7 +84,7 @@ export class Account {
         return result
     }
 
-    generateStatementWithDates(from: number, to: number) {
+    generateStatementWithDates(from: number, to: number): string {
         let result = 'date       || credit  || debit  || balance\n'
 
         this.transactions.reverse().forEach((transaction, index) => {
