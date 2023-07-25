@@ -29,7 +29,7 @@ export class Account {
     calculateBalance(): number {
         let balance = 0;
         for (const transaction of this.transactionHistory) {
-            balance += transaction.getType() === 'deposit' ? transaction.getAmount() : -transaction.getAmount()
+            balance += transaction.type === 'deposit' ? transaction.amount : -transaction.amount
         }
         return balance
     }
@@ -39,15 +39,41 @@ export class Account {
     }
 
     generateBankStatement() {
-        const bankStatementGenerator = new BankStatementGenerator();
-        return bankStatementGenerator.generateBankStatement(this.getTransactionHistory());
+        const transactions = this.sortTransactionsOldestToNewest()
+        const bankStatementGenerator = new BankStatementGenerator()
+        return bankStatementGenerator.generateBankStatement(transactions,0)
     }
 
-    getAccountOwner(): string {
-        return this.accountOwner
+    generateBankStatementBetweenDates(startDate: Date, endDate: Date) {
+        this.sortTransactionsOldestToNewest()
+        const transactions = this.filterTransactionsByDate(startDate,endDate)
+        const balance = this.calculateBalanceBeforeTransaction(transactions[0])
+        const bankStatementGenerator = new BankStatementGenerator()
+        return bankStatementGenerator.generateBankStatement(transactions, balance)
     }
 
     getTransactionHistory(): Transaction[] {
         return this.transactionHistory
+    }
+
+    private sortTransactionsOldestToNewest(): Transaction[] {
+        return this.transactionHistory.sort((a, b) => a.transactionDate.getTime() - b.transactionDate.getTime())
+    }
+
+    private filterTransactionsByDate(startDate: Date, endDate: Date): Transaction[] {
+        return this.transactionHistory.filter((transaction) => {
+            const transactionDate = transaction.transactionDate;
+            return transactionDate >= startDate && transactionDate <= endDate;
+        });
+    }
+
+    private calculateBalanceBeforeTransaction(targetTransaction: Transaction): number {
+        const targetTransactionIndex = this.transactionHistory.indexOf(targetTransaction)
+
+        const transactionsBeforeTarget = this.transactionHistory.slice(0, targetTransactionIndex)
+        return transactionsBeforeTarget.reduce((balance, transaction) => {
+            balance += transaction.type === 'deposit' ? transaction.amount : -transaction.amount
+            return balance
+        }, 0)
     }
 }

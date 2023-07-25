@@ -94,8 +94,8 @@ describe('Account tests', () => {
     });
 
     it("should return account history between given dates", () => {
-        account.addTransaction(new Transaction(500, 'withdrawal', new Date('2021-02-13')))
-        account.addTransaction(new Transaction(500, 'withdrawal', new Date('2021-05-13')))
+        account.addTransaction(new Transaction(500, 'deposit', new Date('2021-02-13')))
+        account.addTransaction(new Transaction(500, 'deposit', new Date('2021-05-13')))
         account.addTransaction(new Transaction(1000, 'deposit', new Date('2022-02-10')))
         account.addTransaction(new Transaction(2000, 'deposit', new Date('2022-02-12')))
         account.addTransaction(new Transaction(500, 'withdrawal', new Date('2022-02-13')))
@@ -105,9 +105,9 @@ describe('Account tests', () => {
         let result: string = account.generateBankStatementBetweenDates(new Date('2022-01-01'), new Date('2022-12-31'))
         const expected: string[] = []
         expected.push("date       ||  credit   ||   debit   || balance\n");
-        expected.push("10/2/2022  || 1000.00   ||           || 1000.00\n");
-        expected.push("12/2/2022  || 2000.00   ||           || 3000.00\n");
-        expected.push("13/2/2022  ||           || 500.00    || 2500.00\n");
+        expected.push("10/2/2022  || 1000.00   ||           || 2000.00\n");
+        expected.push("12/2/2022  || 2000.00   ||           || 4000.00\n");
+        expected.push("13/2/2022  ||           || 500.00    || 3500.00\n");
 
         expect(result).toBe(expected.join(""));
     });

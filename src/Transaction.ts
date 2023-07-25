@@ -1,27 +1,31 @@
 export class Transaction {
-    private readonly transactionDate: Date;
-    private readonly amount: number;
-    private readonly type: string;
+    private readonly _transactionDate: Date;
+    private readonly _amount: number;
+    private readonly _type: string;
 
     constructor(amount: number, type: string);
     constructor(amount: number, type: string, transactionDate: Date)
 
     constructor(amount: number, type: string, transactionDate?: Date) {
-        this.amount = amount;
-        this.type = type;
-        this.transactionDate = transactionDate || new Date();
+        this._amount = amount;
+        this._type = type;
+        this._transactionDate = transactionDate || new Date();
     }
 
     public getTransactionDate(): string {
-        return this.formatDate(this.transactionDate)
+        return this.formatDate(this._transactionDate)
     }
 
-    public getAmount(): number {
-        return this.amount
+    get transactionDate(): Date {
+        return this._transactionDate;
     }
 
-    public getType(): string {
-        return this.type
+    get amount(): number {
+        return this._amount;
+    }
+
+    get type(): string {
+        return this._type;
     }
 
     private formatDate(date: Date): string {
