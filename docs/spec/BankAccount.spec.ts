@@ -34,7 +34,4 @@ describe("Testing", () => {
 
         expect(result).toBe(false);
     });
-
-
-
 });
