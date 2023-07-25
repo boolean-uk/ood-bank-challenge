@@ -27,4 +27,36 @@ export class Bank{
                 return accumulator - currentValue.amount;
         }, 0);
     }
+
+    getBankTransactionsList() {
+        let balance = 0;
+        const formattedTransactions = this.bankTransactionsList.map((bankTransaction) => {
+          const transactionDate =
+            bankTransaction.date.getDate() +
+            "/" +
+            (bankTransaction.date.getMonth() + 1) + 
+            "/" +
+            bankTransaction.date.getFullYear();
+    
+          let formattedTransaction = {
+            date: transactionDate,
+            credit: "",
+            debit: "",
+            balance: "",
+          };
+    
+          if (bankTransaction.transactionType === "credit") {
+            balance += bankTransaction.amount;
+            formattedTransaction.credit = bankTransaction.amount.toFixed(2);
+          } else {
+            balance -= bankTransaction.amount;
+            formattedTransaction.debit = bankTransaction.amount.toFixed(2);
+          }
+    
+          formattedTransaction.balance = balance.toFixed(2);
+          return formattedTransaction;
+        });
+    
+        console.table(formattedTransactions);
+      }
 }
