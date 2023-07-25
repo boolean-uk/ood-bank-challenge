@@ -3,7 +3,7 @@ export class Account {
 
     private accountNumber : string;
     private isOverdraftPossible: boolean = false;
-
+    private transactions: Array<Transaction> = []
     constructor(accountnumber:string){
         this.accountNumber = accountnumber;
     }
@@ -18,12 +18,19 @@ export class Account {
     }
 
     getBalance() : number{
-        return 0;
+        let balance : number = 0;
+        for( let index  in this.transactions){
+            balance += this.transactions[index].getAmountOfMoney();
+        }
+
+        return balance;
     }
 
-    addDeposit(deposit: number) {
-        throw new Error("Method not implemented.");
+    addTransaction(deposit: Transaction) {
+        this.transactions.push(deposit);
     }
+
+
 
 }
 
@@ -99,5 +106,11 @@ export class Transaction{
                 this.debit = amuountMoney;
                 this.credit = 0
             }
+    }
+
+
+
+    getAmountOfMoney() : number {
+        return this.credit + this.debit;
     }
 }

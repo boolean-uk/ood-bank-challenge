@@ -41,7 +41,7 @@ describe("Account Manager tests", () => {
     it("Should add deposit to account", () =>{
         //given
         let checkingAccount =  accountManager.createCheckingAccount("1234");
-        let deposit: Number = 5000;
+        let deposit: number = 5000;
         //when
         accountManager.addDeposit(checkingAccount, deposit);
 
