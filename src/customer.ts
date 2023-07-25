@@ -20,7 +20,5 @@ export class Customer {
         if (!transaction.type && transaction.amount * (-1) > this.account.balance)
             return
         this.account.transactions.push(transaction)
-        this.account.balance += transaction.amount //to delete for extension}
-
     }
 }
