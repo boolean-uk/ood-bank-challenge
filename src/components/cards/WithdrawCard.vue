@@ -12,7 +12,7 @@ const handleWithdraw = () => {
 </script>
 
 <template>
-    <div class="card w-96 bg-white">
+    <div class="card w-full bg-white">
         <div class="card-body items-center text-center">
             <h2 class="card-title">Withdraw</h2>
             <p>Here, you withdraw your hard earned money...</p>

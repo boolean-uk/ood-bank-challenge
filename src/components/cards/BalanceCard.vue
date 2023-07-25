@@ -12,7 +12,7 @@ const formattedBalance = computed(() => formatCurrency(store.balance));
 </script>
 
 <template>
-    <div class="card w-96 bg-white">
+    <div class="card w-full bg-white">
         <div class="card-body items-center text-center">
             <h2 class="card-title">Balance</h2>
             <p>Your wallet - summarized</p>

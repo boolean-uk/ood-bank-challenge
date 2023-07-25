@@ -12,7 +12,7 @@ const handleDeposit = () => {
 </script>
 
 <template>
-    <div class="card w-96 bg-white">
+    <div class="card w-full bg-white">
         <div class="card-body items-center text-center">
             <h2 class="card-title">Deposit</h2>
             <p>...and here you deposit it. Don't waste it!</p>
