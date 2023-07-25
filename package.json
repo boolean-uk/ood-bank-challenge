@@ -1,0 +1,23 @@
+{
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "eslint": "^8.45.0",
+    "jasmine": "^5.1.0",
+    "prettier": "^3.0.0"
+  },
+  "name": "ood-bank-challenge",
+  "description": "This challenge helps you practice your OO design skills.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "jasmine"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
