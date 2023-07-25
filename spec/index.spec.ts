@@ -41,4 +41,19 @@ describe('account tests', () => {
         expect(withdrawResult).toEqual(false);
         expect(balanceResult).toEqual(depositAmount);
     })
+
+    it('should return false and not update balance after trying withdraw amount > balance', () => {
+        const depositAmount = 1000;
+        const withdrawAmount1 = 200;
+        const withdrawAmount2 = 801;
+        const expectedBalance = depositAmount - withdrawAmount1
+
+        account.deposit(depositAmount);
+        account.withdraw(withdrawAmount1);
+        const withdrawResult = account.withdraw(withdrawAmount2);
+        const balanceResult = account.getBalance();
+
+        expect(withdrawResult).toEqual(false);
+        expect(balanceResult).toEqual(expectedBalance);
+    })
 })
