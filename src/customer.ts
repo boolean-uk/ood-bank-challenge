@@ -7,7 +7,7 @@ export class Customer {
   }
 
   createAccount() {
-    const account: Account = new Account("12345");
+    const account: Account = new Account();
     this.accounts.push(account);
   }
 
