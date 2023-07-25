@@ -37,7 +37,10 @@ describe("Account Manager tests", () => {
         expect(checkingAccount.getAccountType()).toEqual('checking');
         expect(checkingAccount.getAccountNumber()).toEqual('1234');
     })
-  
+
+    it("Should add deposit to account", () =>{
+
+    })
 })
 
     
