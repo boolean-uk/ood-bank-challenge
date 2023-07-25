@@ -22,4 +22,15 @@ describe("Account tests", () => {
         expect(account.transactions.length).toEqual(1)
     })
 
+    it("should make both a withdraw and a deposit", () => {
+        account.withdraw(10000)
+        account.deposit(11000)
+        expect(account.transactions.length).toEqual(2)
+    })
+
+    it("should calculate total balance in account", () => {
+        account.deposit(10000)
+        expect(account.calculateBalance()).toEqual(10000)
+    })
+
 })
