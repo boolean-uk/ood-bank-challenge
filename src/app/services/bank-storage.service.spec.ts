@@ -3,7 +3,6 @@ import {TestBed} from '@angular/core/testing';
 import {BankStorageService} from './bank-storage.service';
 import {Operation} from "../interfaces/transaction";
 
-
 describe('BankStorageService', () => {
   let service: BankStorageService;
 
@@ -17,15 +16,18 @@ describe('BankStorageService', () => {
   });
 
   it('should deposit balance', () => {
-    expect(service.balance).toEqual(0)
+    let balance: number = service.getCalculateBalance()
+    expect(balance).toEqual(0)
     service.deposit(1000)
-    expect(service.balance).toEqual(1000)
+    balance = service.getCalculateBalance()
+    expect(balance).toEqual(1000)
   })
 
   it('should withdraw balance', () => {
     service.deposit(1000)
     service.withdraw(100)
-    expect(service.balance).toEqual(900)
+    const balance: number = service.getCalculateBalance()
+    expect(balance).toEqual(900)
   })
 
   it('should throw error when trying withdraw more than current balance', () => {
