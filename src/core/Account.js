@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Account = void 0;
 var Transaction_1 = require("./Transaction");
-var TRANSACTION_TYPE_1 = require("./enums/TRANSACTION_TYPE");
+var TRANSACTION_TYPE_1 = require("../enums/TRANSACTION_TYPE");
 var Account = /** @class */ (function () {
     function Account(customer) {
         this._balance = 0;

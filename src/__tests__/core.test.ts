@@ -1,4 +1,3 @@
-import { Account } from "../core/Account";
 import { CurrentAccount } from "../core/CurrentAccount";
 import { Customer } from "../core/Customer";
 import { SavingsAccount } from "../core/SavingsAccount";

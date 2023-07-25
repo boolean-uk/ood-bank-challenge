@@ -1,6 +1,6 @@
 import { Customer } from "./src/core/Customer";
 import { CurrentAccount } from "./src/core/CurrentAccount";
-import { TRANSACTION_TYPE } from "./src/core/enums/TRANSACTION_TYPE";
+import { TRANSACTION_TYPE } from "./src/enums/TRANSACTION_TYPE";
 
 // printing bank statement
 let customer: Customer = new Customer("John", "Doe", new Date("1990-01-01"));
