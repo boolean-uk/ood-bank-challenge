@@ -17,14 +17,9 @@ describe("Account tests", () => {
         expect(account.transactions.length).toEqual(1)
     })
 
-    it("should make a withdraw", () => {
-        account.withdraw(10000)
-        expect(account.transactions.length).toEqual(1)
-    })
-
     it("should make both a withdraw and a deposit", () => {
-        account.withdraw(10000)
         account.deposit(11000)
+        account.withdraw(10000)
         expect(account.transactions.length).toEqual(2)
     })
 

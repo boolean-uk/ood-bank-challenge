@@ -23,7 +23,14 @@ export class Account {
         this._transactions.push(new Deposit(amountOfMoney))
     }
 
+    checkIfHasEnoughMoney(amountOfMoney: number) {
+        if (this.calculateBalance() < amountOfMoney) {
+            throw new Error("Not enough money!")
+        }
+    }
+
     withdraw(amountOfMoney: number) {
+        this.checkIfHasEnoughMoney(amountOfMoney)
         this._transactions.push(new Withdraw(amountOfMoney))
     }
 
