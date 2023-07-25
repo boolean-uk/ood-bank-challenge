@@ -28,7 +28,7 @@ export abstract class Account {
     let statement = ''
     for (const transaction of this.transactions) {
       balance += transaction.amount
-      const newLine = transaction.date + ' || ' + (transaction.amount >= 0 ? transaction.amount + ' || || ' : '|| ' + Math.abs(transaction.amount) + ' || ') + balance
+      const newLine = transaction.dateToString() + ' || ' + (transaction.amount >= 0 ? transaction.amount + ' || || ' : '|| ' + Math.abs(transaction.amount) + ' || ') + balance
       statement = newLine + '\n' + statement
     }
 

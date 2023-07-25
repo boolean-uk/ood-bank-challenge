@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-/* eslint-disable @typescript-eslint/restrict-plus-operands */
 const savings_account_1 = require("../src/savings_account");
 describe('SavingsAccount', function () {
     let account;
@@ -15,15 +14,15 @@ describe('SavingsAccount', function () {
     it('deposit throws exception for negative amount', function () {
         expect(() => { account.deposit(-20); }).toThrow();
     });
-    it('deposit does not allow to deposit more than 20,000 per year', function () {
-        account.deposit(20000);
-        expect(() => account.deposit(1)).toThrow();
-    });
     it('withdraw adds transaction', function () {
         account.deposit(19.99);
         account.deposit(19.99);
         account.withdraw(19.99);
         expect(account.getBalance()).toEqual(19.99);
+    });
+    it('deposit does not allow to deposit more than 20,000 per year', function () {
+        account.deposit(20000);
+        expect(() => account.deposit(1)).toThrow();
     });
     it('withdraw throws exception when balance is insufficient', function () {
         expect(() => { account.withdraw(19.99); }).toThrow();

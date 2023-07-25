@@ -32,6 +32,11 @@ describe('SavingsAccount', function () {
     expect(account.getBalance()).toEqual(19.99)
   })
 
+  it('deposit does not allow to deposit more than 20,000 per year', function () {
+    account.deposit(20000);
+    expect(() => account.deposit(1)).toThrow();
+  });
+
   it('withdraw throws exception when balance is insufficient', function () {
     expect(() => { account.withdraw(19.99) }).toThrow()
   })

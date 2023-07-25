@@ -10,6 +10,9 @@ class Transaction {
         return this._amount;
     }
     get date() {
+        return this._date;
+    }
+    dateToString() {
         return this._date.getDate() + '/' + (this._date.getMonth() + 1) + '/' + this._date.getFullYear();
     }
 }

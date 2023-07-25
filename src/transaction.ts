@@ -9,7 +9,11 @@ export class Transaction {
     return this._amount
   }
 
-  public get date(): string {
+  public get date(): Date {
+    return this._date
+  }
+
+  public dateToString(): string {
     return this._date.getDate() + '/' + (this._date.getMonth() + 1) + '/' + this._date.getFullYear()
   }
 }
