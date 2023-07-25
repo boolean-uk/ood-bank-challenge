@@ -1,4 +1,4 @@
-import { NormalAccount,Transaction } from "../src/bank";
+import { NormalAccount,Transaction, } from "../src/bank";
 describe("Normal account tests",()=>
 {
     let normalAccount:NormalAccount
@@ -57,4 +57,24 @@ it("should not withdraw from account and deposit - wrong data provided", () =>{
 
 })
 
+})
+
+describe("Transaction tests", () =>{
+  let transaction:Transaction
+  beforeEach(()=>{
+  transaction = new Transaction(100,true)
+  })
+
+  it("should create transaction with actual date",()=>{
+    expect(transaction.date).toEqual(Date.now())
+  })
+  
+  it("should create transaction with amount = 100",()=>{
+    expect(transaction.amount).toEqual(100)
+  })
+
+  it("should create transaction with transaction type true",()=>{
+    expect(transaction.transactionType).toEqual(true)
+  })
+  
 })
