@@ -7,8 +7,13 @@ export class Account {
 
     deposit(amount: number): boolean {
         if(amount < 0) return false
-        
+
         this.balance += amount
+        return true
+    }
+
+    withdraw(amount: number): boolean {
+        this.balance -= amount
         return true
     }
 
