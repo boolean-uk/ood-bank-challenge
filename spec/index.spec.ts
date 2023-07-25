@@ -95,12 +95,34 @@ describe ("Bank account tests", () => {
             bankAccount.deposit(3000, date1)
             bankAccount.withdraw(500, date2)
 
-            let transactions = bankAccount.getTransactionsBetweenTwoDates(
+            let result = bankAccount.getTransactionsBetweenTwoDates(
               new Date('02/05/2022'),
               new Date('02/12/2022')
             ).length;
-            expect(transactions).toEqual(2);
+            expect(result).toEqual(2);
           });
+          it("should print correctly", () => {
+
+            const date = new Date('02/10/2022')
+            const date1 = new Date('02/12/2022')
+            const date2 = new Date('02/13/2022')            
+            bankAccount.deposit(1000, date)
+            bankAccount.deposit(3000, date1)
+            bankAccount.withdraw(500, date2)
+
+            let result: string = bankAccount.generateBankStatementBetweenDates(
+                new Date('02/05/2022'),
+                new Date('02/12/2022')
+            )
+            const expected: string[] = []
+            expected.push("date       ||  credit   ||   debit   || balance\n");            
+            expected.push("12/02/2022 || 3000.00 ||         || 4000.00\n");
+            expected.push("10/02/2022 || 1000.00 ||         || 1000.00\n");
+
+            expect(result).toBe(expected.join(""));
+
+        }) 
+
      })
     
 })

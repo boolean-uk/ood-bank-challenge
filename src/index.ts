@@ -107,6 +107,36 @@ export class BankAccount {
           return beetweenDatesTransactions;
       }
 
+    generateBankStatementBetweenDates(fromDate: Date, toDate: Date): string {
+        //this.sortTransactionsOldestToNewest()        
+        const transactions = this.getTransactionsBetweenTwoDates(fromDate, toDate)
+
+        let statement = "date       ||  credit   ||   debit   || balance\n";
+        let balance = 0
+
+        for(const transaction of transactions) {
+            //const date = this.formatDate(transaction.getDate())
+            const date = transaction.getDate().toLocaleDateString()
+            //const date = transaction.getDate()            
+            const amount = transaction.getAmount().toFixed(2)
+            const emptyString = ''
+
+            if(transaction.getOperation() === "credit") {
+                balance += transaction.getAmount()
+                const FormatBalance = balance.toFixed(2)
+                statement += `${date} || ${amount.padStart(7)} || ${emptyString.padStart(7)} || ${transaction.getBalance().toFixed(2)}\n`
+            }else {
+                balance -= transaction.getAmount()
+                const FormatBalance = balance.toFixed(2)
+                statement += `${date} || ${emptyString.padStart(7)} || ${amount.padStart(7)} || ${transaction.getBalance().toFixed(2)}\n`
+            }
+        }       
+        
+        return statement
+    }
+
+
+
 }
 
 const account = new BankAccount()
