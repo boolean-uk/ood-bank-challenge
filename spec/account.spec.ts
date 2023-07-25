@@ -1,11 +1,11 @@
-import { Account } from "../src/account"
+import { Account, CheckingAccount, InvestmentAccount, OverdraftAccount, SavingAccount } from "../src/account"
 
 describe("Basic account operations", () => {
 
     let account: Account
 
     beforeEach(() => {
-        account = new Account("1234")
+        account = new CheckingAccount("1234")
     })
 
     it("should increase transaction count", () => {
@@ -32,10 +32,10 @@ describe("Basic account operations", () => {
 })
 
 describe("Bank operations with overdraft", () => {
-    let account: Account
+    let account: OverdraftAccount
 
     beforeEach(() => {
-        account = new Account("1234")
+        account = new SavingAccount("1234")
     })
 
     it("should throw an error when withdrawing from empty account without overdraft", () => {
