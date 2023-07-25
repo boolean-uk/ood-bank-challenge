@@ -8,13 +8,14 @@ describe("Account Manager tests", () => {
         accountManager = new AccountManager();
     })
     
-    it("Create a new saving account", () => {
+    it("Should create a new saving account", () => {
      
 
         //given
-        let savingAccount =  accountManager.createSavingAccount();
+        let savingAccount =  accountManager.createSavingAccount("1234");
         //then
-        expect(savingAccount.getType()).toEqual('saving');
+        expect(savingAccount.getAccountType()).toEqual('saving');
+        expect(savingAccount.getAccountNumber()).toEqual('1234');
     })
   
 })
