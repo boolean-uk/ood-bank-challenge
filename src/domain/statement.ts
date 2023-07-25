@@ -1,8 +1,6 @@
-import jsPDF, { CellConfig } from "jspdf";
+import jsPDF from "jspdf";
 import { Account, Transaction } from "./account";
 import { formatDate, formatMoney } from "./utils";
-import { tmpdir } from "os";
-import { join } from "path";
 
 export abstract class BankStatement {
     constructor(
@@ -76,20 +74,12 @@ export class TextStatement extends BankStatement {
     }
 }
 
-export class PDFStatement extends BankStatement {
-    print(): string {
-        const outputPath = join(tmpdir(), `pdf_statement_${Date.now()}.pdf`)
-        const doc = new jsPDF()
-        
-        doc.setFontSize(14)
-        doc.text(`Bank Statement for ${formatDate(this.fromDate)}-${formatDate(this.toDate)} period`, 20, 20)
-        doc.table(20, 25, this.generateData(), ["date", "credit", "debit", "balance"], { autoSize: true })
-
-        doc.save(outputPath)
-        return outputPath
+export class JSONStatement extends BankStatement {
+    override print(): string {
+        return JSON.stringify(this.generateData())
     }
 
-    private generateData(): { [key: string]: string }[] {
+    generateData(): { [key: string]: string }[] {
         const data: { [key: string]: string }[] = []
 
         let currentBalance = this.account.getBalanceOn(this.toDate)
@@ -105,5 +95,26 @@ export class PDFStatement extends BankStatement {
 
         return data
     }
+}
 
+export class PDFStatement extends JSONStatement {
+    constructor(
+        account: Account,
+        private outputPath: string,
+        fromDate: Date = new Date(1970, 0, 1),
+        toDate: Date = new Date()
+    ) {
+        super(account, fromDate, toDate)
+    }
+
+    override print(): string {
+        const doc = new jsPDF()
+        
+        doc.setFontSize(14)
+        doc.text(`Bank Statement for ${formatDate(this.fromDate)}-${formatDate(this.toDate)} period`, 20, 20)
+        doc.table(20, 25, this.generateData(), ["date", "credit", "debit", "balance"], { autoSize: true })
+
+        doc.save(this.outputPath)
+        return this.outputPath
+    }
 }

@@ -1,0 +1,53 @@
+<div class="bank-header">
+    <h1>{{ account?.getType() }}</h1>
+    <h2>{{ account?.getNumber() }}</h2>
+</div>
+
+<div class="account-details">
+    <section class="transaction-table">
+        <h3>Transaction history</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Credit</th>
+                    <th>Debit</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let transaction of getTransactions(account)">
+                    <td>{{ transaction["date"] }}</td>
+                    <td>{{ transaction["credit"] }}</td>
+                    <td>{{ transaction["debit"] }}</td>
+                    <td>{{ transaction["balance"] }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section class="account-boxes">
+        <h3>&nbsp;</h3>
+        <div class="box">
+            <div class="box-header">Your Balance</div>
+            <div class="box-content">{{ account?.getBalance() | formatMoney }}</div>
+        </div>
+
+        <div class="box">
+            <div class="box-header">Deposit</div>
+            <div class="box-content">
+                <div class="error" *ngIf="depositError">{{ depositError }}</div>
+                <input type="number" step="0.01" min="0.01" #depositInput />
+                <button (click)="deposit(depositInput.value)">Deposit</button>
+            </div>
+        </div>
+
+        <div class="box">
+            <div class="box-header">Withdraw</div>
+            <div class="box-content">
+                <div class="error" *ngIf="withdrawError">{{ withdrawError }}</div>
+                <input type="number" step="0.01" min="0.01" #withdrawInput />
+                <button (click)="withdraw(withdrawInput.value)">Withdraw</button>
+            </div>
+        </div>
+    </section>
+</div>

@@ -7,7 +7,14 @@ import { Account, CheckingAccount, InvestmentAccount, SavingAccount } from 'src/
 })
 export class AccountService {
 
-  private accounts: Account[] = [new CheckingAccount("1234")]
+  private accounts: Account[] = []
+
+  constructor() {
+    const account = new CheckingAccount("1234")
+    this.accounts.push(account)
+    account.deposit(10000, new Date())
+    account.withdraw(5000, new Date())
+  }
 
   getAccounts(): Observable<Account[]> {
     return of(this.accounts)

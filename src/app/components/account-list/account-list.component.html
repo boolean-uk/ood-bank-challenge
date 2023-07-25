@@ -5,8 +5,7 @@
 
 <section>
     <h3>Your accounts:</h3>
-    
-    <div class="account-list" *ngIf="accounts">    
+    <div class="account-list" *ngIf="accounts?.length ?? 0 > 0; else noAccounts">    
         <div [routerLink]="['account', i]" *ngFor="let account of accounts; let i = index" class="account">
             <div class="account-type">
                 {{ account.getType() }}
@@ -16,6 +15,9 @@
             </div>
         </div>
     </div>
+    <ng-template #noAccounts>
+        <div>You have no accounts</div>
+    </ng-template>
 </section>
 <section>
     <h3>Create new account:</h3>

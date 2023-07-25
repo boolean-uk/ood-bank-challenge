@@ -1,0 +1,69 @@
+.account-details {
+    display: flex;
+}
+
+.transaction-table {
+    flex: 3;
+}
+
+.account-boxes {
+    flex: 1;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+
+    thead {
+        background-color: #dfb35d;
+    }
+
+    th, td {
+        padding: 1rem
+    }
+
+    td {
+        border-bottom: 1px solid #dfb35d;
+    }
+}
+
+.box {
+    text-align: center;
+
+    .box-header {
+        background-color: #dfb35d;
+        padding: 1rem;
+        font-weight: bold;
+    }
+
+    .box-content {
+        font-size: 1.5rem;
+        padding: 1.5rem 0;
+    }
+}
+
+input {
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+}
+
+button {
+    background-color: #dfb35d;
+    border: none;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.1rem;
+    
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.error {
+    font-size: 0.9rem;
+    color: red;
+    margin-bottom: 0.25rem;
+}

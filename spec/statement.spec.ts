@@ -1,6 +1,8 @@
 import { existsSync } from "fs"
 import { Account, CheckingAccount } from "../src/domain/account"
 import { PDFStatement, TextStatement } from "../src/domain/statement"
+import { tmpdir } from "os"
+import { join } from "path"
 
 
 describe("Generating bank statements", () => {
@@ -41,7 +43,7 @@ describe("Generating bank statements", () => {
     })
 
     it("should create pdf statement", () => {
-        const statement = new PDFStatement(account)
+        const statement = new PDFStatement(account, join(tmpdir(), `pdf_statement_${Date.now()}.pdf`))
         const path = statement.print()
         expect(existsSync(path)).toEqual(true)
     })
