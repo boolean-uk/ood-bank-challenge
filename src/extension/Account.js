@@ -22,7 +22,9 @@ var Account = /** @class */ (function () {
         this.createTransaction(amount, TRANSACTION_TYPE_1.TRANSACTION_TYPE.CREDIT, new Date());
     };
     Account.prototype.requestOverdraft = function (amount) {
-        this._overdraftAmount = amount;
+        if (amount <= 500) {
+            this._overdraftAmount = amount;
+        }
     };
     Account.prototype.getBalance = function () {
         var balance = 0;

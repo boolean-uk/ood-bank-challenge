@@ -1,3 +1,4 @@
+import { SavingsAccount } from "../extension/SavingsAccount";
 import { CurrentAccount } from "../extension/CurrentAccount";
 import { Customer } from "../extension/Customer";
 import { InvestmentAccount } from "../extension/InvestmentAccount";
@@ -6,11 +7,13 @@ describe("AccountTest", () => {
   let customer: Customer;
   let current: CurrentAccount;
   let investment: InvestmentAccount;
+  let savings: SavingsAccount;
 
   beforeEach(() => {
     customer = new Customer("John", "Doe", new Date("1990-01-01"));
     current = new CurrentAccount(customer);
     investment = new InvestmentAccount(customer);
+    savings = new SavingsAccount(customer);
   });
 
   it("should open a current account with a balance of 0", () => {
@@ -38,6 +41,13 @@ describe("AccountTest", () => {
     investment.deposit(500);
     expect(() => investment.requestOverdraft(500)).toThrow(
       "Investment account cannot request overdraft"
+    );
+  });
+
+  it("savings account cannot have overdraft", () => {
+    savings.deposit(500);
+    expect(() => savings.requestOverdraft(500)).toThrow(
+      "Savings account cannot request overdraft"
     );
   });
 });
