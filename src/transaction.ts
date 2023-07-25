@@ -3,11 +3,11 @@ export class Transaction {
     private transactionType: TransactionType,
     private amount: number,
     private balanceAfterTransaction: number, 
-    private date: Date
+    private date: string
   ) {}
 }
 
-enum TransactionType {
+export enum TransactionType {
   Credit,
   Debit,
 }

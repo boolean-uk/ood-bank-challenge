@@ -15,7 +15,7 @@ describe("Account tests", () => {
 
   describe("Trying to withdraw money when balance is equal 0", () => {
     it("should throw error", () => {
-      expect(account.witdrawFunds(200)).toThrow(new Error("You don't have enough money to make this withdrawal"));
+      expect(() => account.withdrawFunds(200)).toThrowError();
     });
   });
 
@@ -36,6 +36,8 @@ describe("Account tests", () => {
 
   describe("Checking number of transaction after depositng 500$ and withdrawing 200$ ", () => {
     it("transactions length should be equal to 2", () => {
+      account.depositFunds(500);
+      account.withdrawFunds(200);
       expect(account.getTransactions().length).toEqual(2);
     });
   });
