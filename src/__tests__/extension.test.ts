@@ -45,7 +45,7 @@ describe('AccountTest', () => {
     )
   })
 
-  it('savings account should calculate interest rate', () => {
+  it('investment account should calculate interest rate', () => {
     investment.createTransaction(
       100,
       TRANSACTION_TYPE.CREDIT,

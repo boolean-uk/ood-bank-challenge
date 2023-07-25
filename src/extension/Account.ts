@@ -2,6 +2,8 @@ import { TRANSACTION_TYPE } from '../enums/TRANSACTION_TYPE'
 import { BankStatement } from './BankStatement'
 import { Customer } from './Customer'
 import { Transaction } from './Transaction'
+import { createWriteStream } from 'fs'
+const PDFDocument = require('pdfkit')
 
 export class Account {
   _customer: Customer
@@ -70,5 +72,32 @@ export class Account {
     )
     console.log(bankStatement)
     return bankStatement
+  }
+
+  public generatePDF(): void {
+    const doc = new PDFDocument()
+    const writeStream = createWriteStream('bank-statement.pdf')
+    let date = new Date()
+    doc.pipe(writeStream)
+    doc
+      .font('Courier', 25)
+      .text(
+        'Bank Statement: ' +
+          this._customer.getFirstName() +
+          ' ' +
+          this._customer.getLastName(),
+        { align: 'center' }
+      )
+    doc.fontSize(18).text('\n')
+    doc
+      .fontSize(18)
+      .text(date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear(), {
+        align: 'center',
+      })
+    doc.fontSize(18).text('\n\n')
+
+    doc.fontSize(12).text(this.printBankStatement())
+    doc.end()
+    console.log('PDF generated successfully')
   }
 }

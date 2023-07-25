@@ -10,6 +10,12 @@ var Customer = /** @class */ (function () {
         this.lastName = lastName;
         this.birthDate = birthDate;
     }
+    Customer.prototype.getFirstName = function () {
+        return this.firstName;
+    };
+    Customer.prototype.getLastName = function () {
+        return this.lastName;
+    };
     return Customer;
 }());
 exports.Customer = Customer;

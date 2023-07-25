@@ -45,4 +45,4 @@ date       || credit  || debit  || balance
 - [x] Different account types (Savings, Investment, Checking). Savings & Investment accounts cant have overdrafts, Checking accounts can. Investment accounts accumulate 2% interest every month.
 - [ ] Deposit limits of 20,000 per year on Savings accounts
 - [ ] A front-end online banking app
-- [ ] Generate PDFs of bank statements
+- [x] Generate PDFs of bank statements
