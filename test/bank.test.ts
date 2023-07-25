@@ -145,6 +145,13 @@ describe("Normal account tests", () => {
     normalAccount.withdraw(700);
     expect(normalAccount.getAvailabeFunds()).toEqual(-500);
   });
+
+  it("should create a PDF file with statement", ()=>{
+
+    normalAccount.deposit(200);
+    normalAccount.deposit(300);
+    expect(normalAccount.printStatementToPDF(yesterdaydate,tomorrowdate,"example.pdf")).toEqual("PDF created properly!")
+  })
 });
 
 describe("Transaction tests", () => {

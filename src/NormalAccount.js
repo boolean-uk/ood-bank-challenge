@@ -1,7 +1,12 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NormalAccount = void 0;
 const Transaction_1 = require("../src/Transaction");
+const fs_1 = __importDefault(require("fs"));
+const pdfkit_1 = __importDefault(require("pdfkit"));
 class NormalAccount {
     constructor() {
         this.balance = 0;
@@ -64,6 +69,39 @@ class NormalAccount {
         });
         return availableFunds;
     }
+    printStatementToPDF(dateFrom, dateTo, filePath) {
+        try {
+            const doc = new pdfkit_1.default();
+            const stream = fs_1.default.createWriteStream(filePath);
+            let dateFromCompare = dateFrom.getTime();
+            let dateToCompare = dateTo.getTime();
+            if (this.transactions.length == 0) {
+                return "Transaction list is empty!";
+            }
+            doc.text("   date         ||       credit         ||      debit    ||     balance\n");
+            doc.text("-----------------------------------------------------------------------------\n");
+            this.transactions.forEach((transaction) => {
+                if (dateFromCompare <= transaction.date &&
+                    transaction.date <= dateToCompare) {
+                    const credit = transaction.transactionType
+                        ? transaction.amount.toFixed(2)
+                        : "";
+                    const debit = !transaction.transactionType
+                        ? transaction.amount.toFixed(2)
+                        : "";
+                    doc.text(`${formatDate(transaction.date)} || ${credit.padStart(18)} || ${debit.padStart(15).padEnd(2)} || ${transaction.balance
+                        .toFixed(2)
+                        .padStart(15).padEnd(2)}\n`);
+                }
+            });
+            doc.pipe(stream);
+            doc.end();
+        }
+        catch (e) {
+            return "Something went Wrong!";
+        }
+        return "PDF created properly!";
+    }
 }
 exports.NormalAccount = NormalAccount;
 function formatDate(timestamp) {
@@ -73,3 +111,15 @@ function formatDate(timestamp) {
     const year = dateObj.getFullYear();
     return `${day}/${month}/${year}`;
 }
+let normalAccount = new NormalAccount();
+normalAccount.deposit(100);
+normalAccount.deposit(100);
+normalAccount.deposit(100);
+normalAccount.deposit(100);
+normalAccount.deposit(21500);
+var yesterdaydate = new Date();
+var tomorrowdate = new Date();
+yesterdaydate.setDate(yesterdaydate.getDate() - 1);
+tomorrowdate.setDate(tomorrowdate.getDate() + 1);
+console.log(normalAccount.createStatement(yesterdaydate, tomorrowdate));
+normalAccount.printStatementToPDF(yesterdaydate, tomorrowdate, "Example.pdf");
