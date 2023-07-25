@@ -24,19 +24,19 @@ class Account {
         return balance 
     }
 
-    public printStatement(transactions: Transaction[]): string {
+    public printStatement(): string {
         let currentBalance = 0
         const stringStatement: string[] = []
         stringStatement.push("date       || credit  || debit  || balance\n");
 
         this.transactions.forEach((transaction: Transaction) => {
             currentBalance += transaction.amount
-            if(transactions.includes(transaction)) {
+            if(this.transactions.includes(transaction)) {
                 stringStatement.push(transaction.date.toLocaleDateString().padEnd(11) + "||")
                 //Debit
                 if (transaction.amount < 0) {
                     stringStatement.push(" ".repeat(9) + "||")
-                    stringStatement.push(" " + String(transaction.amount).padEnd(7))    
+                    stringStatement.push(" " + String(Math.abs(transaction.amount)).padEnd(7))    
                 } 
                 //Credit
                 else {
@@ -50,3 +50,4 @@ class Account {
     }
 }
 export default Account
+

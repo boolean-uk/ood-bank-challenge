@@ -35,15 +35,15 @@ describe("something", () => {
     });
 
     it("should print bank statement", () => {
-        account.deposit(400, new Date(2023, 7, 25))
-        account.withdraw(300, new Date(2023, 7, 25))
+        account.deposit(400, new Date("2023-7-25"))
+        account.withdraw(300, new Date("2023-7-25"))
 
         const expectedResult: string[] = []
         let actualResult: string = account.printStatement()
 
         expectedResult.push("date       || credit  || debit  || balance\n");
         expectedResult.push("7/25/2023  || 400     ||        || 400\n");
-        expectedResult.push("2/10/2012  ||         ||  300   || 100\n");
+        expectedResult.push("7/25/2023  ||         || 300    || 100\n");
 
         expect(actualResult).toBe(expectedResult.join(""));
     });
