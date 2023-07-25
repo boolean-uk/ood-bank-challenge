@@ -48,6 +48,18 @@ describe('Account', () => {
     expect(mockAlert).toHaveBeenCalledWith('Insufficient funds.');
 
   });
+  it('should withdraw money correctly if overdraft limit not exceeded', () => {
+    const depositButton = screen.getByText('Deposit');
+    fireEvent.change(depositField,{target: { value: 1000}})
+    fireEvent.click(depositButton);
+    const withdrawButton = screen.getByText('Withdraw');
+    fireEvent.change(withdrawField,{target: { value: 1200}})
+    fireEvent.click(withdrawButton);
+    const balanceText = screen.getByText(/Balance: \$-200.00/);
+    expect(balanceText).toBeInTheDocument();
+  });
+
+
 
 
 
