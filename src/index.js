@@ -21,4 +21,4 @@ customer.addTransaction(withdrawal2);
 customer.addTransaction(deposit2);
 customer.addTransaction(withdrawal2);
 formatter.generateStatement();
-pdfGenerator_1.PdfGenerator.generatePDFFromText(formatter.generateStatement().trim(), 'BankStatement.pdf');
+pdfGenerator_1.PdfGenerator.generatePDFFromText(formatter.generateStatement(), 'BankStatement.pdf');

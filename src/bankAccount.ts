@@ -3,8 +3,19 @@ import {Transaction} from "./transaction";
 export class BankAccount {
 
     private _transactions: Transaction[] = []
+    private _overdraftAmount: number
     constructor(private _number: string) {
         this._number = _number
+        this._overdraftAmount = 0
+    }
+
+
+    get overdraftAmount(): number {
+        return this._overdraftAmount;
+    }
+
+    set overdraftAmount(value: number) {
+        this._overdraftAmount = value;
     }
 
     get transactions(): Transaction[] {

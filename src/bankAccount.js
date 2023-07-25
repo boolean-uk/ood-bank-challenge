@@ -6,6 +6,13 @@ class BankAccount {
         this._number = _number;
         this._transactions = [];
         this._number = _number;
+        this._overdraftAmount = 0;
+    }
+    get overdraftAmount() {
+        return this._overdraftAmount;
+    }
+    set overdraftAmount(value) {
+        this._overdraftAmount = value;
     }
     get transactions() {
         return this._transactions;
