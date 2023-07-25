@@ -3,14 +3,11 @@ describe("Normal account tests", () => {
   let normalAccount: NormalAccount;
   var yesterdaydate = new Date();
   var tomorrowdate = new Date();
-    
-
 
   beforeEach(() => {
     normalAccount = new NormalAccount();
     yesterdaydate.setDate(yesterdaydate.getDate() - 1);
     tomorrowdate.setDate(tomorrowdate.getDate() + 1);
-
   });
 
   it("should create normal account with balance at 0 and empty transactions list", () => {
@@ -97,8 +94,6 @@ describe("Normal account tests", () => {
   });
 
   it("should add plenty transaction to Transaction list after proper withdraw and create statement", () => {
-   
-
     normalAccount.deposit(200);
     normalAccount.deposit(100);
     normalAccount.deposit(100);
@@ -110,7 +105,6 @@ describe("Normal account tests", () => {
   });
 
   it("Should create proper statement", () => {
-  
     let normalAccount = new NormalAccount();
     normalAccount.deposit(100);
     normalAccount.deposit(222500);
@@ -128,11 +122,26 @@ describe("Normal account tests", () => {
     expect(statement).toContain("222500.00");
   });
 
-  it("Should not create statement" ,()=>{
+  it("Should not create statement", () => {
+    expect(normalAccount.createStatement(yesterdaydate, tomorrowdate)).toEqual(
+      "Transaction list is empty!"
+    );
+  });
 
-    expect(normalAccount.createStatement(yesterdaydate,tomorrowdate)).toEqual("Transaction list is empty!")
-  })
-
+  it("Should calculate available funds using transactions list - 700", () => {
+    normalAccount.deposit(200);
+    normalAccount.deposit(100);
+    normalAccount.deposit(100);
+    normalAccount.deposit(100);
+    normalAccount.deposit(100);
+    normalAccount.deposit(100);
+    expect(normalAccount.getAvailabeFunds()).toEqual(700);
+  });
+  it("Should calculate available funds using transactions list - -500", () => {
+    normalAccount.deposit(200);
+    normalAccount.withdraw(700);
+    expect(normalAccount.getAvailabeFunds()).toEqual(-500);
+  });
 });
 
 describe("Transaction tests", () => {
@@ -142,7 +151,6 @@ describe("Transaction tests", () => {
   });
 
   it("should create transaction with actual date", () => {
-   
     expect(transaction.date).toEqual(Date.now());
   });
 
