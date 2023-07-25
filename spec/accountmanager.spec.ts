@@ -168,9 +168,17 @@ describe("Account Manager tests", () => {
         //given
         let investmentAccount =  accountManager.createInvestmentAccount("1234");
         let deposit: number = 5000;
-        accountManager.addDeposit(investmentAccount, deposit);
-    
-
+        accountManager.addDepositWithDate(investmentAccount, deposit, new Date(2021,2,3));
+        accountManager.addDepositWithDate(investmentAccount, deposit, new Date(2021,2,3));
+        accountManager.addDepositWithDate(investmentAccount, deposit, new Date(2021,2,3));
+        accountManager.addDepositWithDate(investmentAccount, deposit, new Date(2021,2,3));
+        accountManager.addDepositWithDate(investmentAccount, deposit, new Date(2021,2,3));
+        accountManager.addDepositWithDate(investmentAccount, deposit, new Date(2021,2,10));
+        
+        let statement : string = accountManager.getBankStatementforDates(investmentAccount,new Date(2021,1,2),new Date(2021,2,9));
+        let statementShouldLook : string = "date     || credit  || debit  || balance\n2021/2/3 || 5000 || 0 || 5000\n2021/2/3 || 5000 || 0 || 10000\n2021/2/3 || 5000 || 0 || 15000\n2021/2/3 || 5000 || 0 || 20000\n2021/2/3 || 5000 || 0 || 25000\n";
+        
+        expect(statement).toEqual(statementShouldLook);
     })
 
     
@@ -179,12 +187,8 @@ describe("Account Manager tests", () => {
         let savingAccount =  accountManager.createSavingAccount("1234");
         let deposit: number = 5000;
         accountManager.addDeposit(savingAccount, deposit);
-
         //then
         accountManager.addDeposit(savingAccount, 15001);
-
-
-    
         //then
         expect(savingAccount.getBalance()).toEqual(5000);
     })

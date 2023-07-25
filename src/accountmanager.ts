@@ -94,8 +94,33 @@ export class AccountManager{
     }
 
 
-    findTransactionsBetweenDates(){
+    findTransactionsBetweenDates(account : Account, startDate: Date, endDate: Date): Transaction[]{
+        let transactions : Transaction[] = account.getTransactions();
+        let filteredTransactions : Transaction[] =[];
 
+        for (const transaction of transactions) {
+            if (transaction.getDate() >= startDate && transaction.getDate() <= endDate) {
+                filteredTransactions.push(transaction);
+            }
+        }
+        return filteredTransactions;
+    }
+
+    getBankStatementforDates(account : Account, startDate: Date, endDate: Date) : string {
+        const transactions = this.findTransactionsBetweenDates(account,startDate,endDate);
+        let statement : string = "date     || credit  || debit  || balance\n";
+
+
+          
+        for( let index  in transactions){
+            
+
+            statement += transactions[index].getDate().getFullYear()+"/"+transactions[index].getDate().getMonth()+"/"+ transactions[index].getDate().getDay()+
+            " || " +   transactions[index].getCredit()   + 
+            " || " +  transactions[index].getDebit()  + 
+            " || " +  transactions[index].getCurrentBalance() + "\n"  }
+
+        return statement;
     }
 
 
