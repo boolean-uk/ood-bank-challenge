@@ -101,7 +101,8 @@ describe ("Bank account tests", () => {
             ).length;
             expect(result).toEqual(2);
           });
-          it("should print correctly", () => {
+
+          it("should print statement between two dates", () => {
 
             const date = new Date('02/10/2022')
             const date1 = new Date('02/12/2022')
@@ -110,7 +111,7 @@ describe ("Bank account tests", () => {
             bankAccount.deposit(3000, date1)
             bankAccount.withdraw(500, date2)
 
-            let result: string = bankAccount.generateBankStatementBetweenDates(
+            let result: string = bankAccount.printBankStatementBetweenDates(
                 new Date('02/05/2022'),
                 new Date('02/12/2022')
             )

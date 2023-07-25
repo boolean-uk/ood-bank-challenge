@@ -107,7 +107,7 @@ export class BankAccount {
           return beetweenDatesTransactions;
       }
 
-    generateBankStatementBetweenDates(fromDate: Date, toDate: Date): string {
+    printBankStatementBetweenDates(fromDate: Date, toDate: Date): string {
         //this.sortTransactionsOldestToNewest()        
         const transactions = this.getTransactionsBetweenTwoDates(fromDate, toDate)
 
@@ -130,8 +130,7 @@ export class BankAccount {
                 const FormatBalance = balance.toFixed(2)
                 statement += `${date} || ${emptyString.padStart(7)} || ${amount.padStart(7)} || ${transaction.getBalance().toFixed(2)}\n`
             }
-        }       
-        
+        }      
         return statement
     }
 
@@ -147,3 +146,7 @@ account.deposit(1000, date)
 account.deposit(3000, date1)
 account.withdraw(500, date2)
 console.log(account.printStatement)
+console.log(account.printBankStatementBetweenDates(
+    new Date('02/05/2022'),
+    new Date('02/12/2022')
+  ))
