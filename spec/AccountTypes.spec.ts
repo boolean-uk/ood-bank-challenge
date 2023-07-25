@@ -28,4 +28,13 @@ describe("Account Types tests", () => {
         expect(checkingAccount.transactions.length).toEqual(0)
     })
 
+    it("should allow to overdraft from checking account", () => {
+        checkingAccount.withdraw(10000)
+        expect(checkingAccount.calculateBalance()).toEqual(-10000)
+    })
+
+    it("should not allow to overdraft from checking account", () => {
+        expect(checkingAccount.withdraw(10000)).toThrow(new Error("Overdraft!"))
+    })
+
 })
