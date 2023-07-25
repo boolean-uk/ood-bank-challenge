@@ -1,10 +1,12 @@
 import { Account } from '../src/Account'
+import { BankStatement } from '../src/BankStatement';
 import { CheckingAccount } from '../src/CheckingAccount'
 import { LocalDateTime } from 'js-joda';
 
 //testing CheckingAccount
 describe('CheckingAccount', () => {
     let account: CheckingAccount;
+    let bankstatement: BankStatement;
 
     test('Should deposit correctly', () => {
         account = new CheckingAccount(123, 'abc123');
@@ -42,5 +44,14 @@ describe('CheckingAccount', () => {
         account.deposit(3000);
         expect(account.getTransactionHour(0)).toBe(LocalDateTime.now().hour());
 
-});
+    });
+    test('Should print Bank Statement', () => {
+        account = new CheckingAccount(123, 'abc123');
+        account.deposit(3000);
+        account.deposit(1000);
+        account.withdraw(1500)
+        expect(BankStatement.printStatement()).toBe(true);
+
+    });
+
 });
