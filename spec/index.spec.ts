@@ -29,4 +29,17 @@ describe('account tests', () => {
         expect(depositResult).toEqual(false);
         expect(balanceResult).toEqual(depositAmount1);
     })
+
+    it('should return true and update balance after withdraw specific amount of money', () => {
+        const depositAmount = 1000;
+        const withdrawAmount = 500;
+        const expectedBalance = depositAmount - withdrawAmount
+
+        account.deposit(depositAmount);
+        const withdrawResult = account.withdraw(withdrawAmount);
+        const balanceResult = account.getBalance();
+
+        expect(withdrawResult).toEqual(true);
+        expect(balanceResult).toEqual(expectedBalance);
+    })
 })
