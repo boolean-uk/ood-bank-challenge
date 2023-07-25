@@ -39,6 +39,12 @@ export class BankAccount {
             amount: amount,            
             balance: this.balance,
         }
+        if(amount <= 0) {
+            return false;
+        }
+        if(this.balance - amount < 0) {
+            return false;
+        }
         this.balance -= amount
         this.transactions.push(transaction)
         return true
