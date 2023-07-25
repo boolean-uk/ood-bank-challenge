@@ -2,6 +2,7 @@ import { String } from "typescript-string-operations";
 
 export class Account {
   private _transactions: Transaction[] = [];
+  private _canOverdraft: boolean = false;
 
   get transactions(): Transaction[] {
     return this._transactions;
@@ -17,7 +18,10 @@ export class Account {
 
   withdraw(amount: number, date: Date) {
     if (amount > 0) {
-      if (amount <= this.getBalance()) {
+      if (
+        amount <= this.getBalance() ||
+        (this._canOverdraft && this.getBalance() - amount >= -500)
+      ) {
         this.transactions.push(new Transaction(-1 * amount, date));
         return "The money has been withdrawn from your account.";
       }
@@ -102,6 +106,10 @@ export class Account {
       balance += transaction.amount;
     });
     return balance;
+  }
+
+  allowOverdraft() {
+    this._canOverdraft = true;
   }
 }
 
