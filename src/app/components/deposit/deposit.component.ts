@@ -5,18 +5,18 @@ import {BankStorageService} from "../../services/bank-storage.service";
 @Component({
   selector: 'app-deposit', templateUrl: './deposit.component.html', styleUrls: ['./deposit.component.scss']
 })
-export class DepositComponent{
+export class DepositComponent {
+  minDeposit: number = 1
   depositForm: FormGroup = this.fb.group({
-    amount: [0, [Validators.required, Validators.min(0)]]
+    amount: [this.minDeposit, [Validators.required, Validators.min(this.minDeposit)]]
   });
 
   constructor(private bankService: BankStorageService, private fb: FormBuilder) {
   }
 
-  deposit() {
+  deposit(): void {
     this.bankService.deposit(this.depositForm.controls['amount'].value)
   }
-
 
 
 }

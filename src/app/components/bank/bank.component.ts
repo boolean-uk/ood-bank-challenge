@@ -22,16 +22,16 @@ export class BankComponent {
     })
   }
 
-  getBankBalance():number {
+  getBankBalance(): number {
     return this.bankService.balance
   }
 
-  getBankHistory():Observable<Transaction[]> {
-    return this.bankService.history
+  getBankHistory(): Observable<Transaction[]> {
+    return this.bankService.getSortedHistory()
 
   }
 
-  sortData(sort: Sort) {
+  sortData(sort: Sort): void {
     const data: Transaction[] = this.dataSource.data.slice();
     if (!sort.active || sort.direction === '') {
       this.dataSource.data = data

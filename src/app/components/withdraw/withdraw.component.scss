@@ -1,7 +1,14 @@
 .withdraw-component {
   margin: 5%;
+
   form {
     display: flex;
     flex-direction: column;
+  }
+}
+
+.tooltip {
+  button {
+    width: 100%;
   }
 }

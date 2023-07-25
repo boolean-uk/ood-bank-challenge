@@ -5,11 +5,13 @@
       <input
         formControlName="amount"
         matInput
-        min="0"
+        min="{{minWithdraw}}"
         required
         type="number"
       />
     </mat-form-field>
-    <button mat-raised-button type="submit">Withdraw</button>
+    <div class="tooltip" [matTooltipDisabled]=!isInvalid() matTooltip="Not enough money!">
+      <button [disabled]="isInvalid()" mat-raised-button type="submit">Withdraw</button>
+    </div>
   </form>
 </div>

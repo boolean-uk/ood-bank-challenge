@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Operation, Transaction} from "../interfaces/transaction";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, map, Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,13 @@ export class BankStorageService {
     return this._history.asObservable();
   }
 
-  deposit(amount: number) {
+  getSortedHistory(): Observable<Transaction[]> {
+    return this._history.pipe(map((transactions: Transaction[]) => {
+      return transactions.slice().sort((a: Transaction, b: Transaction) => b.date.getTime() - a.date.getTime());
+    }));
+  }
+
+  deposit(amount: number): void {
     const transaction: Transaction = {
       type: Operation.deposit,
       balance: amount,
@@ -39,7 +45,11 @@ export class BankStorageService {
     this.balance += amount;
   }
 
-  withdraw(amount: number) {
+  withdraw(amount: number): void {
+    if (amount > this.balance) {
+      throw new Error("Not enough money!")
+    }
+
     if (this.balance >= amount) {
       const transaction: Transaction = {
         type: Operation.withdraw,
@@ -53,5 +63,6 @@ export class BankStorageService {
 
       this.balance -= amount;
     }
+
   }
 }
