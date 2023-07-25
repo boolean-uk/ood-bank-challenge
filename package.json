@@ -1,24 +1,23 @@
 {
-  "devDependencies": {
-    "typescript": "^5.1.6"
-  },
-  "dependencies": {
-    "decimal.js": "^10.4.3",
-    "eslint": "^8.45.0",
-    "jasmine": "^5.1.0",
-    "prettier": "^3.0.0"
-  },
   "name": "ood-bank-challenge",
-  "description": "This challenge helps you practice your OO design skills.",
   "version": "1.0.0",
+  "description": "This challenge helps you practice your OO design skills.",
   "main": "index.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-    "test": "jasmine"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.3",
+    "jest": "^29.6.1",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.1.6"
+  }
 }
