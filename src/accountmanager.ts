@@ -1,4 +1,4 @@
-import { SavingAccount } from "./account";
+import { InvestmentAccount, SavingAccount } from "./account";
 
 export class AccountManager{
    
@@ -12,6 +12,12 @@ export class AccountManager{
         let savingAccount : SavingAccount = new SavingAccount(accountNumber);
         return savingAccount;
     }
+
+    createInvestmentAccount(accountNumber: string): InvestmentAccount {
+        let investmentAccount : InvestmentAccount = new InvestmentAccount(accountNumber);
+        return investmentAccount;
+    }
+   
 
 
     

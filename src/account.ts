@@ -27,8 +27,26 @@ export class SavingAccount extends Account{
 
     constructor(accountnumber:string){
         super(accountnumber);
-        this.setIsOverdraftPossible(true);
+        this.setIsOverdraftPossible(false);
         this.accountType = "saving";
+    }
+
+
+    getAccountType(): string {
+       return this.accountType;
+    }
+}
+
+
+export class InvestmentAccount extends Account{
+    
+    
+    private accountType : string;
+
+    constructor(accountnumber:string){
+        super(accountnumber);
+        this.setIsOverdraftPossible(false);
+        this.accountType = "investment";
     }
 
 
