@@ -6,10 +6,16 @@ export class BankAccount {
 
     private balance: number;
     private transactions: Transaction[] = [];
+    private canBeOverdrafted: boolean
 
     constructor() {
         this.balance = 0;
         this.transactions = []
+        this.canBeOverdrafted = false;
+    }
+
+    setOverdraftToTrue() {
+        this.canBeOverdrafted = true;
     }
 
     getBalance() {
@@ -41,9 +47,13 @@ export class BankAccount {
         if(amount <= 0) {
             return false;
         }
-        if(this.balance - amount < 0) {
+        if(this.balance - amount < 0 && this.canBeOverdrafted === false) {
             return false;
         }
+        if(this.balance - amount < -500 && this.canBeOverdrafted === true) {
+            return false;
+        }
+        
         this.balance -= amount
         const transaction = new Transaction(date, "debit", amount, this.balance)
         this.transactions.push(transaction)
@@ -74,10 +84,7 @@ export class BankAccount {
                 const FormatBalance = balance.toFixed(2)
                 statement += `${date} || ${emptyString.padStart(7)} || ${amount.padStart(7)} || ${transaction.getBalance().toFixed(2)}\n`
             }
-
-        }
-
-        
+        }       
         
         return statement
     }
@@ -85,12 +92,13 @@ export class BankAccount {
     sortTransactionsByDate() {
         this.transactions.sort((a, b) => a.getDate().getTime() - b.getDate().getTime());
     }
-
-
-
 }
 
 const account = new BankAccount()
-const date = new Date("14/01/2012")
-account.deposit(200,date)
-console.log(account.getBalance)
+const date = new Date('02/10/2022')
+const date1 = new Date('02/12/2022')
+const date2 = new Date('02/13/2022')            
+account.deposit(1000, date)
+account.deposit(3000, date1)
+account.withdraw(500, date2)
+console.log(account.printStatement)

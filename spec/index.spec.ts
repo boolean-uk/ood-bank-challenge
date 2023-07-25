@@ -48,6 +48,22 @@ describe ("Bank account tests", () => {
             bankAccount.withdraw(-200, new Date())
             expect(bankAccount.getBalance()).toEqual(200);
         })
+        it("should be able to overdraft to 500 if it is allowed", () => {
+            bankAccount.deposit(200, new Date())
+            bankAccount.withdraw(250, new Date())
+            expect(bankAccount.getBalance()).toEqual(200);
+            bankAccount.setOverdraftToTrue()
+            bankAccount.withdraw(250, new Date())
+            expect(bankAccount.getBalance()).toEqual(-50);
+            bankAccount.withdraw(450, new Date())
+            expect(bankAccount.getBalance()).toEqual(-500);
+            bankAccount.withdraw(1, new Date())
+            expect(bankAccount.getBalance()).toEqual(-500);
+
+        }) 
+
+
+        
      })
       
      describe("testing print statement", () => {
