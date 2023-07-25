@@ -1,9 +1,16 @@
 import { NormalAccount, Transaction } from "../src/bank";
 describe("Normal account tests", () => {
   let normalAccount: NormalAccount;
+  var yesterdaydate = new Date();
+  var tomorrowdate = new Date();
+    
+
 
   beforeEach(() => {
     normalAccount = new NormalAccount();
+    yesterdaydate.setDate(yesterdaydate.getDate() - 1);
+    tomorrowdate.setDate(tomorrowdate.getDate() + 1);
+
   });
 
   it("should create normal account with balance at 0 and empty transactions list", () => {
@@ -90,11 +97,7 @@ describe("Normal account tests", () => {
   });
 
   it("should add plenty transaction to Transaction list after proper withdraw and create statement", () => {
-    var yesterdaydate = new Date();
-    yesterdaydate.setDate(yesterdaydate.getDate() - 1);
-
-    var tomorrowdate = new Date();
-    tomorrowdate.setDate(tomorrowdate.getDate() + 1);
+   
 
     normalAccount.deposit(200);
     normalAccount.deposit(100);
@@ -107,12 +110,7 @@ describe("Normal account tests", () => {
   });
 
   it("Should create proper statement", () => {
-    var yesterdaydate = new Date();
-    yesterdaydate.setDate(yesterdaydate.getDate() - 1);
-
-    var tomorrowdate = new Date();
-    tomorrowdate.setDate(tomorrowdate.getDate() + 1);
-
+  
     let normalAccount = new NormalAccount();
     normalAccount.deposit(100);
     normalAccount.deposit(222500);
@@ -129,6 +127,12 @@ describe("Normal account tests", () => {
     expect(statement).toContain("balance");
     expect(statement).toContain("222500.00");
   });
+
+  it("Should not create statement" ,()=>{
+
+    expect(normalAccount.createStatement(yesterdaydate,tomorrowdate)).toEqual("Transaction list is empty!")
+  })
+
 });
 
 describe("Transaction tests", () => {
@@ -138,7 +142,7 @@ describe("Transaction tests", () => {
   });
 
   it("should create transaction with actual date", () => {
-    transaction = new Transaction(100, true, 100);
+   
     expect(transaction.date).toEqual(Date.now());
   });
 
