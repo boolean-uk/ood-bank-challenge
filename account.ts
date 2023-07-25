@@ -1,4 +1,5 @@
 import { Account_Transaction } from "./accountTransaction";
+import { saveToPDF } from "./saveToPdf";
 
 export class Account{
     accountTransactionList : Array<Account_Transaction> = [];
@@ -81,5 +82,10 @@ export class Account{
     const formattedTransaction = this.formatTransactions(ListOfTransactionsBetweenTimePeriod);
 
     console.table(formattedTransaction);
+    }
+
+    saveTransactionToPdf(){
+        const formattedTransaction = this.formatTransactions(this.accountTransactionList);
+        saveToPDF(formattedTransaction);
     }
 }
