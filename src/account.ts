@@ -38,7 +38,7 @@ export class Account{
     withdraw(amount: number, date : string = this.now){
         let tmp = []
         if(amount > 0){
-            if(amount <= this.countBalanceTotal()){
+            if(amount <= this.countBalanceTotal() + 500){
                 if(!this.debit[date]){
                     tmp.push(amount)
                     this.debit[date] = tmp
