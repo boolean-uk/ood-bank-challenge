@@ -73,4 +73,16 @@ describe("Bank account", () => {
     // Test
     expect(() => account.withdraw(new Decimal(4000))).toThrow("Insufficient funds!");
   });
+
+  it("should allow adding a 500 overdraft to the account", () => {
+    // Setup
+    account.deposit(new Decimal(1000));
+    account.deposit(new Decimal(2000));
+
+    // Test
+    expect(() => account.withdraw(new Decimal(3200))).toThrow("Insufficient funds!");
+    account.allowOverdraft();
+    expect(() => account.withdraw(new Decimal(3200))).not.toThrow("Insufficient funds!");
+    expect(() => account.withdraw(new Decimal(400))).toThrow("Insufficient funds!");
+  });
 });
