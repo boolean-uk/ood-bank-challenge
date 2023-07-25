@@ -17,4 +17,9 @@ describe("Account tests", () => {
         expect(account.transactions.length).toEqual(1)
     })
 
+    it("should make a withdraw", () => {
+        account.withdraw(10000)
+        expect(account.transactions.length).toEqual(1)
+    })
+
 })
