@@ -26,6 +26,12 @@ describe('Bank System', () => {
     expect(bankAccount.getTransactions().length).toBe(3);
   });
 
+  test('0 balance', () => {
+    expect(bankAccount.getTransactions().length).toBe(0);
+    expect(bankAccount.getBalance()).toBe(0);
+
+  });
+
   test('should withdraw correctly', () => {
     bankAccount.withdraw(new Date('2012-01-14'), 500);
 
