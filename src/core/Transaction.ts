@@ -7,11 +7,16 @@ export class Transaction {
   private readonly account: Account;
   private readonly date: Date;
 
-  constructor(type: TRANSACTION_TYPE, amount: number, account: Account) {
+  constructor(
+    type: TRANSACTION_TYPE,
+    amount: number,
+    account: Account,
+    date: Date
+  ) {
     this.type = type;
     this.amount = amount;
     this.account = account;
-    this.date = new Date();
+    this.date = date;
   }
 
   getType(): TRANSACTION_TYPE {

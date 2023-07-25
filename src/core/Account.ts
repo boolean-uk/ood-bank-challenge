@@ -29,8 +29,12 @@ export class Account {
     this._balance += amount;
   }
 
-  createTransaction(amount: number, transactionType: TRANSACTION_TYPE): void {
-    const transaction = new Transaction(transactionType, amount, this);
+  createTransaction(
+    amount: number,
+    transactionType: TRANSACTION_TYPE,
+    date: Date
+  ): void {
+    const transaction = new Transaction(transactionType, amount, this, date);
     this._transactions.push(transaction);
   }
 
