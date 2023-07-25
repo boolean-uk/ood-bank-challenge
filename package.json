@@ -9,7 +9,6 @@
     "type": "git",
     "url": "git+https://github.com/boolean-uk/ood-bank-challenge.git"
   },
-  
   "prettier": "@boolean-uk/boolean-prettier-config",
   "devDependencies": {
     "@boolean-uk/boolean-prettier-config": "^1.0.2",
