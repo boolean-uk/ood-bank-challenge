@@ -22,16 +22,16 @@ export class Account{
     }
 
     getBalance(): number {
-        return this.transactions.filter((t) => t.accepted).reduce((balance, transaction) => {
+        return this.roundUpToTwoDecimalPlaces(this.transactions.filter((t) => t.accepted).reduce((balance, transaction) => {
             return transaction.isDepositTransaction() ? balance + transaction.getAmount() : balance - transaction.getAmount();
-          }, 0);
+          }, 0));
     }
 
     getBalanceTo(endDate: Date): number{
-        return this.transactions.filter((t) => t.accepted && t.getDate().getTime() <= endDate.getTime())
+        return this.roundUpToTwoDecimalPlaces(this.transactions.filter((t) => t.accepted && t.getDate().getTime() <= endDate.getTime())
         .reduce((balance, transaction) => {
             return transaction.isDepositTransaction() ? balance + transaction.getAmount() : balance - transaction.getAmount();
-          }, 0);
+          }, 0));
     }
 
     getTransactions(): Transaction[] {
@@ -49,6 +49,11 @@ export class Account{
     private sortTransactionsByDate(){
         this.transactions.sort((a, b) => a.getDate().getTime() - b.getDate().getTime());
     }
+
+    private roundUpToTwoDecimalPlaces(number: number): number {
+        const roundedNumber = Math.ceil(number * 100) / 100;
+        return roundedNumber;
+      }
 
 }
 
