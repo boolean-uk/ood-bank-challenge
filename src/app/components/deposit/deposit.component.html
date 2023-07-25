@@ -1,0 +1,16 @@
+<div class="deposit-component">
+  <form (ngSubmit)="deposit()" [formGroup]="depositForm">
+    <mat-form-field>
+      <mat-label> Deposit</mat-label>
+      <input
+        formControlName="amount"
+        matInput
+        min="{{minDeposit}}"
+        required
+        type="number"
+      />
+    </mat-form-field>
+    <button mat-raised-button type="submit">Deposit</button>
+  </form>
+
+</div>

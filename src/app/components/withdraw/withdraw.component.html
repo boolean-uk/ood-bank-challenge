@@ -1,0 +1,17 @@
+<div class="withdraw-component">
+  <form (ngSubmit)="withdraw()" [formGroup]="withdrawForm">
+    <mat-form-field>
+      <mat-label> Withdraw</mat-label>
+      <input
+        formControlName="amount"
+        matInput
+        min="{{minWithdraw}}"
+        required
+        type="number"
+      />
+    </mat-form-field>
+    <div class="tooltip" [matTooltipDisabled]=!isInvalid() matTooltip="Not enough money!">
+      <button [disabled]="isInvalid()" mat-raised-button type="submit">Withdraw</button>
+    </div>
+  </form>
+</div>
