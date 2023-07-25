@@ -39,7 +39,7 @@ export class Account {
 
   getAccountStatement(): string{
     let statement = "date      || credit || debit   || balance\n"; 
-    this.transactions.sort((a, b) => a.date.localeCompare(b.date));
+    this.transactions.sort((a, b) => a.date.localeCompare(b.date)).reverse();
     this.transactions.forEach(element => {
         statement += element.getTransactionDescription();
         statement += "\n";
