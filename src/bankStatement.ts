@@ -50,6 +50,11 @@ export class BankStatement {
     getOrderedStatements(startDate: Date, endDate: Date): Transaction[] {
     return this.transactions.filter((transaction) => transaction.getDate() >= startDate && transaction.getDate() <= endDate)
   }
+
+    // Extension 3: Get all transactions after a specific date
+    getTransactionsAfterDate(startDate: Date): Transaction[] {
+    return this.transactions.filter((transaction) => transaction.getDate() >= startDate)
+  }
     
     }
     
