@@ -82,7 +82,7 @@ export class InvestmentAccount extends Account{
     accumulate(){
         let accumulated : number = this.getBalance() * 0.02;
         let newBalance : number = this.getBalance() + accumulated;
-        this.addTransaction(new Transaction(accumulated,newBalance));
+        this.addTransaction(new Transaction(accumulated,newBalance, new Date()));
     }
 }
 export class CheckingAccount extends Account{
@@ -108,8 +108,8 @@ export class Transaction{
 
 
 
-    constructor(amuountMoney : number, currentBalance : number){
-            this.date = new Date();
+    constructor(amuountMoney : number, currentBalance : number, date: Date){
+            this.date = date;
             this.currentBalance = currentBalance;
             if(amuountMoney > 0){
                this.credit = amuountMoney;

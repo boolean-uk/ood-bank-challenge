@@ -31,7 +31,17 @@ export class AccountManager{
         if(deposit > 0){
 
             if(this.isNotSavingAccount(account,deposit) !== true){
-                account.addTransaction(new Transaction(deposit, account.getBalance()+ deposit));
+                account.addTransaction(new Transaction(deposit, account.getBalance()+ deposit, new Date()));
+            }
+        }else console.log("You can not deposit amount of money below zero!")
+
+    }
+
+    addDepositWithDate(account: Account, deposit: number, date:Date) {
+        if(deposit > 0){
+
+            if(this.isNotSavingAccount(account,deposit) !== true){
+                account.addTransaction(new Transaction(deposit, account.getBalance()+ deposit,date));
             }
         }else console.log("You can not deposit amount of money below zero!")
 
@@ -42,7 +52,17 @@ export class AccountManager{
             
             if(withdraw <= account.getBalance() || (withdraw <= (account.getBalance() +500) &&  account.getIsOverdraftPossible()  === true)){
             withdraw = withdraw*(-1);
-            account.addTransaction(new Transaction(withdraw, account.getBalance()+ withdraw));
+            account.addTransaction(new Transaction(withdraw, account.getBalance()+ withdraw,new Date()));
+            }else console.log("You do not have that amount of money! or Wrong type of account");
+        }else console.log("You can not withdraw amount of money below zero!");
+    }
+
+    withdrawWithDate(account: Account, withdraw: number, date:Date) {
+        if(withdraw >  0){
+            
+            if(withdraw <= account.getBalance() || (withdraw <= (account.getBalance() +500) &&  account.getIsOverdraftPossible()  === true)){
+            withdraw = withdraw*(-1);
+            account.addTransaction(new Transaction(withdraw, (account.getBalance()+ withdraw), date));
             }else console.log("You do not have that amount of money! or Wrong type of account");
         }else console.log("You can not withdraw amount of money below zero!");
     }
@@ -71,6 +91,11 @@ export class AccountManager{
 
     accumulate (investmentAccount : InvestmentAccount){
         investmentAccount.accumulate();
+    }
+
+
+    findTransactionsBetweenDates(){
+
     }
 
 
