@@ -48,3 +48,9 @@ function createAccountsIfNonexistent() {
 export function clearAccounts() {
   fs.writeFileSync(ACCOUNTS_PATH, JSON.stringify({ lastAccountNo: 0, accounts: [] }, null, 2));
 }
+
+export function removeAccounts() {
+  if (fs.existsSync(ACCOUNTS_PATH)) {
+    fs.unlinkSync(ACCOUNTS_PATH);
+  }
+}

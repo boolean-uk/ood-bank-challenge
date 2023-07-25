@@ -16,6 +16,25 @@ export class Statement {
     return printout;
   }
 
+  downloadPdf(pdfPath: string = "../statement.pdf"): Promise<string> {
+    const PDFDocument = require("pdfkit");
+    const fs = require("fs");
+    const doc = new PDFDocument();
+    let stream = fs.createWriteStream(pdfPath);
+    doc.pipe(stream);
+    let printout = "date       || credit  || debit   || balance\n";
+    printout += this.generateTransactionRows().join("");
+    doc.font("Courier").text(printout, 10, 10);
+    doc.end();
+
+    return new Promise((resolve, reject) => {
+      stream.on("finish", function () {
+        resolve(pdfPath);
+      });
+      stream.on("error", reject);
+    });
+  }
+
   generateTransactionRows() {
     let balance: Decimal = new Decimal(0);
     let rows: string[] = [];

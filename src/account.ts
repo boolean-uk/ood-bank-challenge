@@ -1,7 +1,7 @@
 import { Decimal } from "decimal.js";
 import fs from "fs";
 import { ACCOUNTS_PATH, getAccounts, getLastAccountNo } from "./bank";
-import { Statement } from "./statements";
+import { Statement } from "./statement";
 import { Transaction } from "./transaction";
 
 export class Account {
@@ -30,7 +30,7 @@ export class Account {
   }
 
   get statement() {
-    return new Statement(this).printout;
+    return new Statement(this);
   }
 
   deposit(amount: Decimal, date: Date = new Date()) {
