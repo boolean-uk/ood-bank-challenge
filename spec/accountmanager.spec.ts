@@ -38,16 +38,35 @@ describe("Account Manager tests", () => {
         expect(checkingAccount.getAccountNumber()).toEqual('1234');
     })
 
+    it("Should return blanace of the account", () =>{
+        //given
+        let checkingAccount =  accountManager.createCheckingAccount("1234");
+        let deposit: number = 5000;
+
+        //when
+        accountManager.addDeposit(checkingAccount, deposit);
+        accountManager.addDeposit(checkingAccount, deposit);
+        accountManager.addDeposit(checkingAccount, deposit);
+        accountManager.addDeposit(checkingAccount, deposit);
+        accountManager.addDeposit(checkingAccount, deposit);
+        accountManager.addDeposit(checkingAccount, deposit);
+
+        //then
+        expect(checkingAccount.getBalance()).toEqual(30000);
+    })
+
     it("Should add deposit to account", () =>{
         //given
         let checkingAccount =  accountManager.createCheckingAccount("1234");
         let deposit: number = 5000;
         //when
         accountManager.addDeposit(checkingAccount, deposit);
+        accountManager.addDeposit(checkingAccount, 10000);
 
         //then
-        expect(checkingAccount.getBalance()).toEqual(5000);
+        expect(checkingAccount.getBalance()).toEqual(15000);
     })
+
 })
 
     
