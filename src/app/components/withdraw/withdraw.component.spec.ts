@@ -4,6 +4,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 describe('WithdrawComponent', () => {
   let component: WithdrawComponent;
@@ -11,7 +12,7 @@ describe('WithdrawComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, FormsModule, MatInputModule, MatFormFieldModule, BrowserAnimationsModule],
+      imports: [ReactiveFormsModule, FormsModule, MatInputModule, MatFormFieldModule, BrowserAnimationsModule, MatTooltipModule],
       declarations: [WithdrawComponent]
     });
     fixture = TestBed.createComponent(WithdrawComponent);

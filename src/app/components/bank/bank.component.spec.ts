@@ -7,6 +7,10 @@ import {MatTableModule} from "@angular/material/table";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatExpansionModule} from "@angular/material/expansion";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 describe('BankComponent', () => {
   let component: BankComponent;
@@ -14,7 +18,7 @@ describe('BankComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, FormsModule, MatTableModule, MatInputModule, MatFormFieldModule, BrowserAnimationsModule],
+      imports: [ReactiveFormsModule, FormsModule, MatTableModule, MatInputModule, MatFormFieldModule, BrowserAnimationsModule, MatTooltipModule, MatExpansionModule, MatDatepickerModule, MatNativeDateModule],
       declarations: [BankComponent, DepositComponent, WithdrawComponent]
     });
     fixture = TestBed.createComponent(BankComponent);
