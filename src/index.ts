@@ -1,9 +1,11 @@
 
 
+import { Transaction } from "./Transaction"
+
 export class BankAccount {
 
     private balance: number;
-    private transactions: any = [];
+    private transactions: Transaction[] = [];
 
     constructor() {
         this.balance = 0;
@@ -16,12 +18,7 @@ export class BankAccount {
 
     deposit(amount: number, date: Date): boolean {
 
-        const transaction = {
-            date: date,
-            operation: "credit",
-            amount: amount,            
-            balance: this.balance,
-        }
+        const transaction = new Transaction(date, "credit", amount)
         if(amount <= 0) {
             console.log("Amount can't be 0 or negative number")
             return false;
@@ -33,12 +30,7 @@ export class BankAccount {
 
     withdraw(amount: number, date: Date): boolean {
 
-        const transaction = {
-            date: date,
-            operation: "credit",
-            amount: amount,            
-            balance: this.balance,
-        }
+        const transaction = new Transaction(date, "debit", amount)
         if(amount <= 0) {
             return false;
         }
@@ -48,6 +40,12 @@ export class BankAccount {
         this.balance -= amount
         this.transactions.push(transaction)
         return true
+    }
+
+    printStatement(): string {
+        let statement = 'date       || credit  || debit  || balance\n'
+        
+        return statement
     }
 }
 
