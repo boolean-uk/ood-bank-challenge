@@ -17,7 +17,7 @@ import {MatSortModule} from "@angular/material/sort";
     AppComponent,
     BankComponent,
     DepositComponent,
-    WithdrawComponent
+    WithdrawComponent,
   ],
   imports: [
     BrowserModule,

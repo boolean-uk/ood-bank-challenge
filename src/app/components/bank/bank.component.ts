@@ -41,8 +41,14 @@ export class BankComponent {
       switch (sort.active) {
         case "Date":
           return compare(a.date, b.date, isAsc)
+        case "Type":
+          return compare(a.type, b.type, isAsc)
         case "Balance":
           return compare(a.balance, b.balance, isAsc)
+        case "Balance Before":
+          return compare(a.balanceBefore, b.balanceBefore, isAsc)
+        case "Balance After":
+          return compare(a.balanceAfter, b.balanceAfter, isAsc)
         default:
           return 0
       }
