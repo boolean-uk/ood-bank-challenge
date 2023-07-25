@@ -6,4 +6,3 @@ export interface BankAccount {
     getOverdraft(): boolean
     generateStatement(): void
 }
-
