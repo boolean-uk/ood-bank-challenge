@@ -18,7 +18,7 @@ describe("Normal account tests",()=>
         expect(normalAccount.balance).toEqual(100)
 
     })
-    it("should not deposit amount to balance", () =>{
+    it("should not deposit amount to balance - wrong data provided", () =>{
 
       normalAccount.deposit(-100)
       expect(normalAccount.balance).toEqual(0)
