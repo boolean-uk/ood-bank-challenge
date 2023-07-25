@@ -12,17 +12,17 @@ class BankAccount {
         return this._transactions;
     }
 
-    deposit(amount: number): void {
+    deposit(amount: number, date: Date): void {
         if (amount < 0) {
             throw new Error('You cannot deposit a negative amount');
         }
         this._balance += amount;
-        const hour_minute = new Date().getHours() + ":" + new Date().getMinutes();
-        const transaction = new Transaction(amount, this.balance, new Date().toLocaleDateString(), hour_minute);
+        const hour_minute = date.getHours() + ":" + date.getMinutes();
+        const transaction = new Transaction(amount, this.balance, date.toLocaleDateString(), hour_minute);
         this._transactions.push(transaction);
     }
 
-    withdraw(amount: number): void {
+    withdraw(amount: number, date: Date): void {
         if (amount < 0) {
             throw new Error('You cannot withdraw a negative amount');
         }
@@ -31,8 +31,8 @@ class BankAccount {
         }
 
         this._balance -= amount;
-        const hour_minute = new Date().getHours() + ":" + new Date().getMinutes();
-        const transaction = new Transaction(-amount, this.balance, new Date().toLocaleDateString(), hour_minute);
+        const hour_minute = date.getHours() + ":" + date.getMinutes();
+        const transaction = new Transaction(-amount, this.balance, date.toLocaleDateString(), hour_minute);
         this._transactions.push(transaction);
     }
 
