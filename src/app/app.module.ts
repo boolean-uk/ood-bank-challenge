@@ -9,6 +9,7 @@ import {BankComponent} from './components/bank/bank.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {DepositComponent} from './components/deposit/deposit.component';
 import {WithdrawComponent} from './components/withdraw/withdraw.component';
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {WithdrawComponent} from './components/withdraw/withdraw.component';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

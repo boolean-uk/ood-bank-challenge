@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Operation, Transaction} from "../interfaces/transaction";
+import {BehaviorSubject, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -18,27 +19,30 @@ export class BankStorageService {
     this._balance = value;
   }
 
-  private _history: Transaction[] = []
+  private _history: BehaviorSubject<Transaction[]> = new BehaviorSubject<Transaction[]>([])
 
-  get history(): Transaction[] {
-    return this._history;
+
+  get history(): Observable<Transaction[]> { // Step 3: Provide a method to get the observable stream
+    return this._history.asObservable();
   }
 
-  set history(value: Transaction[]) {
-    this._history = value;
-  }
+
+  // set history(value: Transaction[]) {
+  //   this._history = value;
+  // }
 
   deposit(amount: number) {
-    this.history.push({
+    const transaction: Transaction = {
       type: Operation.deposit,
       balance: amount,
       balanceBefore: this.balance,
       balanceAfter: this.balance + amount,
       date: new Date()
-    })
+    };
 
-    this.balance += amount
+    this._history.next([...(this._history.getValue() || []), transaction]);
 
+    this.balance += amount;
   }
 
   withdraw(amount: number) {

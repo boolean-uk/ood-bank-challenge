@@ -8,5 +8,5 @@ export interface Transaction {
 
 
 export enum Operation {
-  deposit, withdraw
+  deposit = 'Deposit', withdraw = 'Withdraw'
 }

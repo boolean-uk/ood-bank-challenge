@@ -30,12 +30,14 @@ describe('BankStorageService', () => {
 
   it('should add deposit to history', () => {
     service.deposit(1000)
-    expect(service.history.length === 1)
-    expect(service.history[0].balance).toEqual(1000)
-    expect(service.history[0].balanceBefore).toEqual(0)
-    expect(service.history[0].balanceAfter).toEqual(1000)
-    expect(service.history[0].date).toBeInstanceOf(Date)
-    expect(service.history[0].type).toEqual(Operation.deposit)
 
+    service.history.subscribe( history => {
+      expect(history.length === 1)
+      expect(history[0].balance).toEqual(1000)
+      expect(history[0].balanceBefore).toEqual(0)
+      expect(history[0].balanceAfter).toEqual(1000)
+      expect(history[0].date).toBeInstanceOf(Date)
+      expect(history[0].type).toEqual(Operation.deposit)
+    })
   })
 });

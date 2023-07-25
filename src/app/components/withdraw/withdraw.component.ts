@@ -17,6 +17,6 @@ export class WithdrawComponent {
   }
 
   withdraw() {
-    this.bankService.deposit(this.withdrawForm.controls['amount'].value)
+    this.bankService.withdraw(this.withdrawForm.controls['amount'].value)
   }
 }

@@ -7,11 +7,17 @@ import {BankStorageService} from "../../services/bank-storage.service";
 })
 export class BankComponent {
 
+  columns: string[] = ["Date", "Type", "Balance", "Balance Before", "Balance After"]
+
   constructor(private bankService: BankStorageService) {
   }
 
   getBankBalance() {
     return this.bankService.balance
+  }
+
+  getBankHistory() {
+    return this.bankService.history
   }
 
 }

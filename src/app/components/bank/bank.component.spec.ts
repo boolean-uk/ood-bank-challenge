@@ -3,6 +3,7 @@ import {BankComponent} from './bank.component';
 import {DepositComponent} from "../deposit/deposit.component";
 import {WithdrawComponent} from "../withdraw/withdraw.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatTableModule} from "@angular/material/table";
 
 describe('BankComponent', () => {
   let component: BankComponent;
@@ -10,7 +11,7 @@ describe('BankComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports:[ReactiveFormsModule, FormsModule],
+      imports: [ReactiveFormsModule, FormsModule, MatTableModule],
       declarations: [BankComponent, DepositComponent, WithdrawComponent]
     });
     fixture = TestBed.createComponent(BankComponent);
