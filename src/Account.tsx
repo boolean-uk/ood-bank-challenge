@@ -67,6 +67,11 @@ const Account: React.FC = () => {
     setTransactionForStatement(filteredTransactions)
   }
 
+  const isDisabled = () => {
+    if (overdraftActive) return parseFloat(withdrawValue) > balance + OVERDRAFT;
+    else return parseFloat(withdrawValue) > balance
+  }
+
 
   return (
     <div>
@@ -95,7 +100,7 @@ const Account: React.FC = () => {
             onChange={(e) => setWithdrawValue(e.target.value)}
             pattern="^\d+(\.\d{1,2})?$"
             title="Please enter a valid amount." />
-          <button className="btn btn-primary" type='submit'>Withdraw</button>
+          <button className="btn btn-success" type='submit' disabled={isDisabled()}>Withdraw</button>
         </form>
       </div>
       <div className="container mt-3">
