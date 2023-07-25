@@ -20,6 +20,17 @@ describe("Testing", () => {
         expect(result).toBe(false);
     });
 
+    it("should allow deposit of zero", () => {
+        let result: boolean = bankAccount.deposit(0, new Date())
+        expect(result).toBe(false)
+    })
+
+    it("should allow deposit on current date", () => {
+        let result: boolean = bankAccount.deposit(1000, new Date())
+        expect(result).toBe(true)
+    })
+
+
     it("should return true", () => {
         bankAccount.deposit(1000, new Date())
         let result: boolean = bankAccount.withdraw(1000, new Date())
@@ -34,6 +45,32 @@ describe("Testing", () => {
 
         expect(result).toBe(false);
     });
+
+    
+    it("should allow withdrawal of zero", () => {
+        let result: boolean = bankAccount.withdraw(0, new Date())
+        expect(result).toBe(false)
+    })
+
+    it("should allow withdrawal on current date if balance is enough", () => {
+        bankAccount.deposit(1000, new Date())
+        let result: boolean = bankAccount.withdraw(500, new Date())
+        expect(result).toBe(true)
+    })
+
+    it("should not allow withdrawal that exceeds balance without overdraft", () => {
+        bankAccount.deposit(500, new Date())
+        let result: boolean = bankAccount.withdraw(1000, new Date())
+        expect(result).toBe(false)
+    })
+
+    
+    it("should allow withdrawal that exceeds balance with overdraft", () => {
+        bankAccount.deposit(500, new Date())
+        bankAccount.allowOverDraft()
+        let result: boolean = bankAccount.withdraw(1000, new Date())
+        expect(result).toBe(true)
+    })
 
     it("should return account history", () => {
         bankAccount.deposit(1000, new Date(2012, 1, 14))
