@@ -49,7 +49,7 @@ describe("Extension BankAccount tests", () => {
         expect(bankAccount.getBalance()).toEqual(785)
     })
 
-    it("Extension no. 3 overdraft test", () => {
+    it("Extension no. 3 and no. 4 overdraft test", () => {
         bankAccount = new SavingsAccount()
         expect(bankAccount.addOverdraft(300)).toEqual(false)
         bankAccount = new InvestmentAccount()
@@ -61,5 +61,15 @@ describe("Extension BankAccount tests", () => {
         bankAccount = new CheckingAccount()
         expect(bankAccount.addOverdraft(600)).toEqual(false)
         expect(bankAccount.addOverdraft(500)).toEqual(true)
+        expect((bankAccount as CheckingAccount).getOverdraft()).toEqual(500)
     })
+
+    it("Extension no. 4 interest test", () => {
+        let investmentAccount = new InvestmentAccount()
+        investmentAccount.deposit(20000)
+        expect(investmentAccount.getInterestRate()).toEqual(2)
+        expect(investmentAccount.generateInterestIncome()).toEqual(400)
+    })
+
+    
 })

@@ -15,3 +15,6 @@ bankAccount.deposit(1000);
 console.log(bankAccount.generateStatement());
 console.log();
 console.log(bankAccount.generateStatementBetweenDates(new Date("2015-01-11"), new Date()));
+var investmentAccount = new InvestmentAccount_1.InvestmentAccount();
+investmentAccount.deposit(20000);
+console.log(investmentAccount.generateInterestIncome());

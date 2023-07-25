@@ -18,6 +18,7 @@ var BankAccount = /** @class */ (function () {
     BankAccount.prototype.getTransactions = function () {
         return this.transactions;
     };
+    // includes extension 2.
     BankAccount.prototype.withdraw = function (amount, date) {
         if (date === void 0) { date = new Date(); }
         if (this.getBalance() < amount)
@@ -36,6 +37,7 @@ var BankAccount = /** @class */ (function () {
     BankAccount.prototype.generateStatement = function () {
         return StatementGenerator_1.StatementGenerator.generateStatement(this.transactions);
     };
+    // extension no. 1
     BankAccount.prototype.generateStatementBetweenDates = function (dateFrom, dateTo) {
         if (dateTo === void 0) { dateTo = new Date(); }
         return StatementGenerator_1.StatementGenerator.generateStatementBetweenDates(this.transactions, dateFrom, dateTo);

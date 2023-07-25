@@ -20,11 +20,21 @@ var BankAccount_1 = require("./BankAccount");
 var InvestmentAccount = /** @class */ (function (_super) {
     __extends(InvestmentAccount, _super);
     function InvestmentAccount() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.interestRate = 2;
+        return _this;
     }
     InvestmentAccount.prototype.addOverdraft = function (amount) {
         console.log("Cannot add overdraft to investment account");
         return false;
+    };
+    InvestmentAccount.prototype.generateInterestIncome = function () {
+        var income = this.getBalance() * this.interestRate / 100;
+        this.deposit(income);
+        return income;
+    };
+    InvestmentAccount.prototype.getInterestRate = function () {
+        return this.interestRate;
     };
     return InvestmentAccount;
 }(BankAccount_1.BankAccount));
