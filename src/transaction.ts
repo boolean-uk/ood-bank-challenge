@@ -1,7 +1,10 @@
-import { Decimal } from "decimal.js";
+import { Decimal } from 'decimal.js';
 
 export class Transaction {
-  constructor(private _date: Date, private _amount: Decimal) {}
+  constructor(
+    private _date: Date,
+    private _amount: Decimal,
+  ) {}
 
   toJSON() {
     return {

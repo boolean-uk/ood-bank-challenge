@@ -1,14 +1,17 @@
-import { differenceInMonths, isAfter, subYears } from "date-fns";
-import { Decimal } from "decimal.js";
-import fs from "fs";
-import { ACCOUNTS_PATH, getAccounts, getLastAccountNo } from "./bank.js";
-import { Statement } from "./statement.js";
-import { Transaction } from "./transaction.js";
+import { differenceInMonths, isAfter, subYears } from 'date-fns';
+import { Decimal } from 'decimal.js';
+import fs from 'fs';
+import { ACCOUNTS_PATH, getAccounts, getLastAccountNo } from './bank.js';
+import { Statement } from './statement.js';
+import { Transaction } from './transaction.js';
 
 const OVERDRAFT_LIMIT_AMOUNT = new Decimal(500);
 
 export class Account {
-  constructor(private _id: string, private _overdraftAllowed: boolean = false) {}
+  constructor(
+    private _id: string,
+    private _overdraftAllowed: boolean = false,
+  ) {}
 
   toJsonObject() {
     return {
@@ -32,7 +35,7 @@ export class Account {
   get balance() {
     return this.transactions.reduce(
       (acc: Decimal, transaction: Transaction) => acc.plus(transaction.amount),
-      new Decimal(0)
+      new Decimal(0),
     );
   }
 
@@ -53,10 +56,10 @@ export class Account {
   withdraw(amount: Decimal, date: Date = new Date()) {
     if (
       amount.greaterThan(
-        this.balance.plus(this.overdraftAllowed ? OVERDRAFT_LIMIT_AMOUNT : new Decimal(0))
+        this.balance.plus(this.overdraftAllowed ? OVERDRAFT_LIMIT_AMOUNT : new Decimal(0)),
       )
     ) {
-      throw "Insufficient funds!";
+      throw 'Insufficient funds!';
     }
 
     const transactions = this.transactions;
@@ -67,7 +70,7 @@ export class Account {
   saveTransactions(transactions: Transaction[]) {
     const accounts = getAccounts();
     const accountIndex = accounts.findIndex(
-      (account: { id: string; transactions: [] }) => account.id === this.id
+      (account: { id: string; transactions: [] }) => account.id === this.id,
     );
     if (accountIndex > -1) {
       accounts[accountIndex].transactions = transactions.map((transaction) => transaction.toJSON());
@@ -79,13 +82,13 @@ export class Account {
   loadTransactions(): Transaction[] {
     const accounts = getAccounts();
     const account = accounts.find(
-      (account: { id: string; transactions: [] }) => account.id === this.id
+      (account: { id: string; transactions: [] }) => account.id === this.id,
     );
     if (!account) {
       return [];
     }
     return account.transactions.map((transaction: { date: string; amount: string }) =>
-      Transaction.fromJSON(transaction)
+      Transaction.fromJSON(transaction),
     );
   }
 }
@@ -104,7 +107,7 @@ export class SavingsAccount extends Account {
       .reduce((total, transaction) => total.plus(transaction.amount), new Decimal(0));
 
     if (totalDepositsLastYear.plus(amount).greaterThan(new Decimal(20000))) {
-      throw "Deposit limit exceeded";
+      throw 'Deposit limit exceeded';
     }
 
     const transactions = this.transactions;

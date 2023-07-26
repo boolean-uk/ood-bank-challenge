@@ -1,13 +1,13 @@
-import fs from "fs";
-import { Account } from "./account.js";
+import fs from 'fs';
+import { Account } from './account.js';
 
-export const ACCOUNTS_PATH = "accounts.json";
+export const ACCOUNTS_PATH = 'accounts.json';
 const ACCOUNT_ID_LENGTH = 6;
 
 export function openAccount(accountType: new (id: string) => Account = Account) {
   let lastAccountNo = getLastAccountNo();
   const accountNo = (++lastAccountNo).toString();
-  const id = "0".repeat(ACCOUNT_ID_LENGTH - accountNo.length) + accountNo;
+  const id = '0'.repeat(ACCOUNT_ID_LENGTH - accountNo.length) + accountNo;
   const accounts = getAccounts();
   const account = new accountType(id);
   accounts.push(account.toJsonObject());
@@ -18,25 +18,25 @@ export function openAccount(accountType: new (id: string) => Account = Account) 
 export function getAccount(id: string): Account {
   const accounts = getAccounts();
   const accountData = accounts.find(
-    (account: { id: string; transactions: [] }) => account.id === id
+    (account: { id: string; transactions: [] }) => account.id === id,
   );
 
   if (accountData) {
     const account = new Account(accountData.id);
     return account;
   } else {
-    throw "Incorrect account id.";
+    throw 'Incorrect account id.';
   }
 }
 
 export function getAccounts() {
   createAccountsIfNonexistent();
-  return JSON.parse(fs.readFileSync(ACCOUNTS_PATH, "utf-8")).accounts;
+  return JSON.parse(fs.readFileSync(ACCOUNTS_PATH, 'utf-8')).accounts;
 }
 
 export function getLastAccountNo() {
   createAccountsIfNonexistent();
-  return JSON.parse(fs.readFileSync(ACCOUNTS_PATH, "utf-8")).lastAccountNo;
+  return JSON.parse(fs.readFileSync(ACCOUNTS_PATH, 'utf-8')).lastAccountNo;
 }
 
 function createAccountsIfNonexistent() {
