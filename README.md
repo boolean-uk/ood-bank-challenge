@@ -30,18 +30,18 @@ date       || credit  || debit  || balance
 
 
 #### Standard
-- [ ] Meets the spec
-- [ ] Developed test-first (commit your tests before your source code to provide evidence of this)
-- [ ] Passes tests
-- [ ] Encapsulates adding and storing Transactions in a class
-- [ ] Encapsulates Statement formatting in a class
-- [ ] Encapsulates Transaction data in a class
+- [:white_check_mark:] Meets the spec
+- [:white_check_mark:] Developed test-first (commit your tests before your source code to provide evidence of this)
+- [:white_check_mark:] Passes tests
+- [:white_check_mark:] Encapsulates adding and storing Transactions in a class
+- [:white_check_mark:] Encapsulates Statement formatting in a class
+- [:white_check_mark:] Encapsulates Transaction data in a class
 
 #### Extensions
-- [ ] Generate ordered bank statements between 2 dates
-- [ ] Disable withdraws if the withdraw amount exceeds the available funds. Available funds must be calculated based on a complete transaction history, not a variable that gets updated
-- [ ] Allow adding a 500 overdraft to the account
-- [ ] Different account types (Savings, Investment, Checking). Savings & Investment accounts cant have overdrafts, Checking accounts can. Investment accounts accumulate 2% interest every month.
-- [ ] Deposit limits of 20,000 per year on Savings accounts
-- [ ] A front-end online banking app
-- [ ] Generate PDFs of bank statements
+- [:white_check_mark:] Generate ordered bank statements between 2 dates
+- [:white_check_mark:] Disable withdraws if the withdraw amount exceeds the available funds. Available funds must be calculated based on a complete transaction history, not a variable that gets updated
+- [:white_check_mark:] Allow adding a 500 overdraft to the account
+- [:white_check_mark:] Different account types (Savings, Investment, Checking). Savings & Investment accounts cant have overdrafts, Checking accounts can. Investment accounts accumulate 2% interest every month.
+- [:white_check_mark:] Deposit limits of 20,000 per year on Savings accounts
+- [:x:] A front-end online banking app
+- [:white_check_mark:] Generate PDFs of bank statements
