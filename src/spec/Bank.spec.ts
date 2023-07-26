@@ -82,8 +82,25 @@ describe("Bank tests", () => {
         expect(bank.generateTransactionsSummaryBetweenDates(yesterday,yesterday)).toEqual(bank1.generateTransactionsSummaryBetweenDates(yesterday,yesterday));
         
         expect(bank.getBalance()).toEqual( bank1.getBalance());
-       //  expect(200).toEqual(bank.getCurrentAccount().amount)
+       
      })
-     
+     it("should allow adding a 500 overdraft to the account", () => {
+      
+        expect(bank.currentAccount.overdraftLimit).toEqual(-400);
+        bank.changeOverdraft(-500)
+        expect(bank.currentAccount.overdraftLimit).toEqual(-500);
+      
+     })
+
+     it("should not deposit over limits per year ",()=>{
+        const bank=new Bank()
+        bank.makeNewTransaction(19999,'CREDIT')
+    
+       expect(() => bank.makeNewTransaction(700,'CREDIT')).toThrow("The deposit goes over year limit on savings account!");
+         const currentDate = new Date()
+         bank.transactions[0].dateTime = new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate());
+       
+         expect(bank.makeNewTransaction(700,'CREDIT')).toEqual(bank.generateTransactionsSummary(bank.transactions));
+    })
     
 })
