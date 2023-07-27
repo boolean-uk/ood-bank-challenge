@@ -1,12 +1,11 @@
-import { type Account } from "@domain/account/account";
 import { useEffect, useState } from "react";
 
-export default function AccountBalance({ account }: { account: Account }) {
+export default function AccountBalance({ getBalance }: { getBalance: number }) {
   const [balance, setBalance] = useState(0);
 
   useEffect(() => {
-    setBalance(account.getBalance());
-  }, [account]);
+    setBalance(getBalance);
+  }, [getBalance]);
 
   return (
     <div className="hero bg-base-200 pb-24 pt-12">
@@ -14,6 +13,7 @@ export default function AccountBalance({ account }: { account: Account }) {
         <div className="max-w-md text-xl">
           <label tabIndex={0} className="avatar w-32">
             <div className="w-32 rounded-full">
+              {/* // eslint-disable-next-line @next/next/no-img-element, @next/next/no-img-element */}
               <img src="https://cataas.com/cat" alt="User Avatar" />
             </div>
           </label>

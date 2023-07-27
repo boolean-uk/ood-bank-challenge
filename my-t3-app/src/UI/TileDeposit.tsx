@@ -7,17 +7,6 @@ export default function TileDeposit({
 }) {
   const [amount, setAmount] = useState(0);
 
-  const handleDeposit = () => {
-    if (amount <= 0 || isNaN(amount) || amount === null) {
-      alert("Please enter a positive number");
-      return;
-    }
-
-    setAmount(amount);
-    onDeposit(amount);
-    console.log("Deposit" + amount);
-  };
-
   return (
     <div>
       <h3 className="mb-2 text-lg font-semibold">Deposit</h3>
@@ -29,7 +18,7 @@ export default function TileDeposit({
         className="input input-bordered mb-2 w-full"
         placeholder="Enter amount"
       />
-      <button className="btn btn-primary" onClick={handleDeposit}>
+      <button className="btn btn-primary" onClick={() => onDeposit(amount)}>
         Deposit
       </button>
     </div>

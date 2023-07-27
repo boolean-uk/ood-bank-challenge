@@ -1,3 +1,4 @@
+"use client";
 import { Header } from "@UI/layout/Header/Header";
 import AccountBalance from "@UI/AccountBalance";
 import TileDeposit from "@UI/TileDeposit";
@@ -5,10 +6,19 @@ import TileStatement from "@UI/TileStatement";
 import TileWithdraw from "@UI/TileWithdraw";
 import Head from "next/head";
 import { useAccount } from "@utils/accountUtils";
+import TileStatementDays from "@UI/TileStatementDays";
 
 export default function Home() {
-  const { account, deposit, getStatement, withdraw } = useAccount();
-
+  const {
+    account,
+    deposit,
+    getStatement,
+    withdraw,
+    getBalance,
+    getMaximumDate,
+    getMinimumDate,
+    getStatementsBetweenDates,
+  } = useAccount();
   return (
     <>
       <Head>
@@ -18,11 +28,24 @@ export default function Home() {
       </Head>
       <Header />
       <main className="bg-base-200">
-        <AccountBalance account={account} />
+        <AccountBalance getBalance={getBalance()} />
 
         <div className="mx-auto flex justify-around py-8 sm:px-6 sm:py-12 lg:px-8">
-          <TileDeposit onDeposit={(amount) => deposit(new Date(), amount)} />
-          <TileStatement onShowStatement={() => console.log(getStatement())} />
+          <TileDeposit
+            onDeposit={(amount) => {
+              deposit(new Date(), amount), getBalance();
+            }}
+          />
+          <TileStatement onShowStatement={() => alert(getStatement())} />
+
+          <TileStatementDays
+            MinimumDay={getMinimumDate()}
+            MaximumDay={getMaximumDate()}
+            onEnterDays={(days) => {
+              alert(getStatementsBetweenDates(days[0], days[1]));
+            }}
+          />
+
           <TileWithdraw
             account={account}
             onWithdraw={(amount) => withdraw(new Date(), amount)}
