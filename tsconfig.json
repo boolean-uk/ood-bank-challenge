@@ -1,0 +1,51 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "commonjs",
+    "lib": [
+      "es2017",
+      "es7",
+      "es6",
+      "dom"
+    ],
+    "declaration": true,
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "paths": {
+      "@entrypoint": [
+        "index.ts"
+      ],
+      "@model/*": [
+        "domain/model/*"
+      ],
+      "@service/*": [
+        "domain/service/*"
+      ],
+      "@controller/*": [
+        "infrastructure/controller/*"
+      ],
+      "@dao/*": [
+        "infrastructure/dao/*"
+      ],
+      "@error/*": [
+        "infrastructure/error/*"
+      ],
+      "@middleware/*": [
+        "infrastructure/middleware/*"
+      ],
+      "@router/*": [
+        "infrastructure/router/*"
+      ]
+    }
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
