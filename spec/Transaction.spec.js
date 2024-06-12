@@ -9,4 +9,15 @@ describe('Transaction', () => {
         expect(details.type).toBe('credit')
         expect(details.balance).toBe(100000)
     })
+
+    it('should return correct details', () => {
+        const transaction = new Transaction('13/01/2012', 200000, 'credit', 300000);// 2000 pounds
+        const details = transaction.getDetails()
+        expect(details).toEqual({
+          date: '13/01/2012',
+          amount: 200000,
+          type: 'credit',
+          balance: 300000,
+        })
+      })
 })
