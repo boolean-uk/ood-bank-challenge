@@ -1,22 +1,29 @@
 class Bank {
-    #transactions
+    #accounts
     constructor() {
-        this.#transactions = []
+        this.#accounts = []
     }
 
-    makeTransaction(transaction) {
-        const isObject = typeof transaction === 'object'
-        const isNumbeCredit = typeof transaction.credit === 'number'
-        const isNumberDebit = typeof transaction.debit === 'number' 
+    addAccountInfo(account) {
+        console.log(account)
+        const isObject = typeof account === 'object'
+        const isNumbeCredit = typeof account.credit === 'number'
+        const isNumberDebit = typeof account.debit === 'number' 
         if (
            !isObject ||
            !isNumbeCredit ||
            !isNumberDebit ||
-           transaction.date === undefined) {
+           account.date === undefined) {
             throw 'Invalid entry'
            }
-        this.#transactions.push(transaction.id, transaction)
+        this.#accounts.push(account)
+    }
+
+    get accounts() {
+        return [...this.#accounts]
     }
 }
+const bankInst = new Bank()
+// console.log(bankInst.accounts)
 
 export default Bank
