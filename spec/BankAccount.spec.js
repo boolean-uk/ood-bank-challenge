@@ -63,6 +63,6 @@ describe('BankAccount', () => {
     it('should not allow withdrawal to exceed the funds available', () => {
         expect(() => {
             account.withdraw(150000, '2012-01-14')
-        }).toThrow('Insufficient Funds')
+        }).toThrowError('Insufficient Funds')
     })
 })
