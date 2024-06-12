@@ -42,10 +42,18 @@ describe('Account', () => {
 
 describe('Bank', () => {
     let bank
+    let account
     beforeEach(() => {
         bank = new Bank()
+        account = new Account('Frank', 'Zappa')
     })
     it('should throw an error if it is passed an item that is not an object', () => {
         expect(() => bank.accountTransactions('Frank Zappa')).toThrow('Invalid entry')
+    })
+    it('should add the account transactions into the accounts array', () => {
+        account.deposit(50)
+        bank.accountTransactions(account)
+        expect(bank.accounts.length).toBe(1)
+        expect(bank.accounts[0].credit).toBe(50)
     })
 })
