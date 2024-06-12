@@ -1,3 +1,4 @@
+import exp from "constants"
 import { Account } from "../src/account.js"
 import { Transaction } from "../src/transactions.js"
 
@@ -17,9 +18,16 @@ describe('Account', () => {
         expect(account.credit).toBe(1000)
     })
     it('should generate a transaction object that stores the amount credited or debited', () => {
-        const result = account.deposit(50)
+        account.deposit(50)
         const transaction = new Transaction(1)
         transaction.credit = 50
         expect(transaction).toEqual(account.transactions[0])
+    })
+    it('should allow an account holder to withdraw money from their account', () => {
+        account.deposit(50)
+        account.withdraw(10)
+        expect(account.credit).toBe(50)
+        expect(account.debit).toBe(10)
+        expect(account.transactions.length).toBe(2)
     })
 })
