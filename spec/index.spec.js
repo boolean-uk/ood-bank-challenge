@@ -53,10 +53,11 @@ describe("Bank functionalities", () => {
 		myBank.newDeposit("tester1", 100)
 		myBank.newDeposit("tester1", 111)
 		expect(myBank.getTransactions().length).toBe(2)
-		expect(myBank.getTransactions()[0].name).toBe("tester1")
+		expect(myBank.getTransactions()[0].account).toBe("tester1")
 		expect(myBank.getTransactions()[0].amount).toBe(100)
 		expect(myBank.getTransactions()[1].amount).toBe(111)
 	})
+
 
 	// Check balance
 

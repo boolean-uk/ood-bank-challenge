@@ -1,19 +1,22 @@
-// Account Types: Savings, Investment, Checking
 import { v4 as uuidv4 } from "uuid"
+import Transaction from "./transactions.js"
+import Account from "./account.js"
 
 export default class Bank {
 	#accounts
 	#transactions
 	constructor(idGenerator = uuidv4) {
 		this.idGenerator = uuidv4
+		this.transaction = new Transaction()
+		this.account = new Account()
 		this.#accounts = []
 		this.#transactions = []
 	}
 	getAccounts() {
-		return this.#accounts
+		return [...this.#accounts]
 	}
 	getTransactions() {
-		return this.#transactions
+		return [...this.#transactions]
 	}
 
 	getDate() {
@@ -30,11 +33,18 @@ export default class Bank {
 				"You must provide the owner's name to create a new account"
 			)
 		}
-		const newAccount = {
-			name: owner,
-			id: this.idGenerator(),
-			dateCreated: this.getDate(),
+		const existingAccountName = this.#accounts.find(
+			(acc) => acc.owner === owner
+		)
+		if (existingAccountName) {
+			throw new Error("An account with this name already exists")
 		}
+		// const account = this.account
+		const newAccount = this.account.createAccount(
+			owner,
+			this.idGenerator(),
+			this.getDate()
+		)
 		this.#accounts.push(newAccount)
 	}
 
@@ -45,7 +55,7 @@ export default class Bank {
 			)
 		}
 		const getByName = this.#accounts.find(
-			(acc) => acc.name === account
+			(acc) => acc.owner === account
 		)
 		const getById = this.#accounts.find((acc) => acc.id === account)
 		if (getByName) {
@@ -63,7 +73,7 @@ export default class Bank {
 			(sum, transaction) => {
 				if (
 					transaction.type === "deposit" &&
-					transaction.name === accountToCheck.name
+					transaction.account === accountToCheck.owner
 				) {
 					return sum + transaction.amount
 				}
@@ -75,7 +85,7 @@ export default class Bank {
 			(sum, transaction) => {
 				if (
 					transaction.type === "withdrawal" &&
-					transaction.name === accountToCheck.name
+					transaction.account === accountToCheck.owner
 				) {
 					return sum + transaction.amount
 				}
@@ -92,25 +102,21 @@ export default class Bank {
 
 	newDeposit(acc, amount) {
 		const account = this.findAccount(acc)
-		const transactionDate = this.getDate()
 
 		if (!amount || amount === 0) {
 			throw new Error("You must provide an amount for the deposit")
 		}
-
-		const transaction = {
-			date: transactionDate,
-			name: account.name,
-			type: "deposit",
-			amount: amount,
-			transactionId: this.idGenerator(),
-		}
+		const transaction = this.transaction.deposit(
+			account.owner,
+			amount,
+			this.getDate(),
+            this.idGenerator()
+		)
 		this.#transactions.push(transaction)
 	}
 
 	newWithdrawal(acc, amount) {
 		const account = this.findAccount(acc)
-		const transactionDate = this.getDate()
 
 		if (!amount || amount === 0) {
 			throw new Error("You must provide an amount for the withdrawal")
@@ -127,13 +133,12 @@ export default class Bank {
 			)
 		}
 
-		const transaction = {
-			date: transactionDate,
-			name: account.name,
-			type: "withdrawal",
-			amount: amount,
-			transactionId: this.idGenerator(),
-		}
+		const transaction = this.transaction.withdrawal(
+			account.owner,
+			amount,
+			this.getDate(),
+			this.idGenerator()
+		)
 		this.#transactions.push(transaction)
 		console.log(
 			`€${amount} have been withdrawn from your account\n Your account balance is ${this.checkBalance(
@@ -143,4 +148,30 @@ export default class Bank {
 	}
 }
 
+const nb = new Bank()
+nb.createNewAccount("Perik")
+// nb.createNewAccount("Erik")
+nb.newDeposit("Perik", 10)
+nb.newDeposit("Perik", 10)
+// console.log(nb.getAccounts())
 
+console.log(nb.findAccount("Perik"))
+nb.newDeposit("Perik", 10)
+console.log(nb.checkBalance("Perik"))
+// nb.newWithdrawal("Perik", 11)
+
+// nb.createNewAccount("Erik")
+// nb.createNewAccount("Rick")
+// console.log(nb.checkBalance("Perik"))
+// nb.newDeposit("Erik", 10)
+// nb.newDeposit("Rick", 10)
+// console.log(nb.getAccounts())
+// console.log(nb.checkBalance("Perik"))
+// nb.newWithdrawal("Perik")
+// console.log(nb.getAccounts());
+// console.log(nb.getTransactions())
+// nb.newDeposit(10)
+// console.log(nb.checkBalance("Perik"))
+// console.log(nb.getAccounts())
+
+// // console.log(nb.accounts);
