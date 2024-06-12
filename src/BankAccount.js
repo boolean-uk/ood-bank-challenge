@@ -3,7 +3,7 @@ const Transaction = require('./Transaction');
 class BankAccount {
     constructor() {
         this.transactions = [];
-        this.overdraftLimit = 0; // Default overdraft limit
+        this.overdraftLimit = 0;
     }
 
     deposit(amount, date) {
