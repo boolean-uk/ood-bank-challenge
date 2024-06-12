@@ -13,7 +13,7 @@ public class BankAccountTests
 
         testAccount.AddTransaction("1", new DateTime(2024, 1, 1, 10, 30, 0), 10000, "Credit");
 
-        Assert.AreEqual(jsonExample, testAccount.PrintTransactions());
+        Assert.AreEqual(jsonExample, testAccount.WriteTransactionsJson());
     }
 
     [TestMethod]
@@ -35,6 +35,6 @@ public class BankAccountTests
         testAccount.AddTransaction("5", new DateTime(2024, 1, 5, 12, 0, 0), 25000, "Credit");
 
 
-        Assert.AreEqual(formattedText, testAccount.WriteStatement());
+        Assert.AreEqual(formattedText, testAccount.PrintStatement());
     }
 }
