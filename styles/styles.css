@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  #bankStatements {
+    margin: 20px 0;
+  }
+  
+  form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  label {
+    margin-right: 10px;
+  }
