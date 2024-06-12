@@ -30,4 +30,11 @@ describe('Account', () => {
         expect(account.debit).toBe(10)
         expect(account.transactions.length).toBe(2)
     })
+    it('should get the balance of the account', () => {
+        account.deposit(50)
+        account.withdraw(10)
+        const result = account.getBalance()
+        const expected = 'Frank Zappa your balance is, £40'
+        expect(result).toBe(expected)
+    })
 })
