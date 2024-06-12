@@ -31,7 +31,7 @@ public class BankAccount
         transactionHistory = transactionHistory.OrderBy(e => e.Date).ToList();
     }
 
-    public string PrintTransactions()
+    public string WriteTransactionsJson()
     {
 
         string jsonString = JsonSerializer.Serialize(transactionHistory);
@@ -39,7 +39,33 @@ public class BankAccount
         return jsonString;
     }
 
-    public string WriteStatement()
+    private int CalculateBalance() {
+        int balance = 0;
+        
+        foreach (Transaction element in transactionHistory)
+        {
+
+
+            if (element.Type == "Credit")
+            {
+                balance += element.Value;
+
+
+            }
+            else
+            {
+                balance -= element.Value;
+            }
+        }
+
+        return balance;
+    }
+
+    public string OutputBalance() {
+        return ValueToCurrency(CalculateBalance());
+    }
+
+    public string PrintStatement()
     {
         string formattedUI = "date       || credit  || debit  || balance";
         int balance = 0;

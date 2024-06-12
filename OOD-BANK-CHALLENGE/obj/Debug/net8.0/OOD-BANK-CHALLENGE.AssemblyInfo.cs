@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OOD-BANK-CHALLENGE")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+72c89ff5b7e3af2fe3311cc4798dff3431c04d76")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6f67678e7f0697c09c89dbcddaf3ef74dcaf68ae")]
 [assembly: System.Reflection.AssemblyProductAttribute("OOD-BANK-CHALLENGE")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OOD-BANK-CHALLENGE")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
