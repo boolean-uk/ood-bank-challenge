@@ -12,7 +12,7 @@ describe('Accounts', () => {
         testAccount.credit(10)
 
         expect(testAccount.transactions.length).toEqual(1)
-        expect(testAccount.transactions[0].amount).toEqual(10)
+        expect(Number(testAccount.transactions[0].amount)).toEqual(10)
         expect(testAccount.transactions[0].constructor.name).toEqual('Credit')
     })
 
@@ -20,7 +20,7 @@ describe('Accounts', () => {
         testAccount.debit(10)
 
         expect(testAccount.transactions.length).toEqual(1)
-        expect(testAccount.transactions[0].amount).toEqual(10)
+        expect(Number(testAccount.transactions[0].amount)).toEqual(10)
         expect(testAccount.transactions[0].constructor.name).toEqual('Debit')
     })
 
@@ -38,5 +38,12 @@ describe('Accounts', () => {
         testAccount.debit(3)
 
         expect(testAccount.debits.length).toEqual(2)
+    })
+
+    it('should have a method to return current balance', () => {
+       testAccount.credit(23.32)
+       testAccount.debit(12.01)
+
+       expect(testAccount.balance).toEqual(11.31)
     })
 })
