@@ -6,8 +6,13 @@ class Bank {
 
     accountTransactions(account) {
         const isObject = typeof account === 'object'
+        const hasNoFirstName = undefined
+        const hasNoLastName = undefined
 
-        if (!isObject) {
+        if (!isObject ||
+            hasNoFirstName ||
+            hasNoLastName
+        ) {
             throw 'Invalid entry'
            }
         this.#accounts.push(account)

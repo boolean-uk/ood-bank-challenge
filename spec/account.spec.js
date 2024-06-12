@@ -1,6 +1,7 @@
 import exp from "constants"
 import { Account } from "../src/account.js"
 import { Transaction } from "../src/transactions.js"
+import Bank from "../src/bank.js"
 
 describe('Account', () => {
     let account
@@ -36,5 +37,15 @@ describe('Account', () => {
         const result = account.getBalance()
         const expected = 'Frank Zappa your balance is, £40'
         expect(result).toBe(expected)
+    })
+})
+
+describe('Bank', () => {
+    let bank
+    beforeEach(() => {
+        bank = new Bank()
+    })
+    it('should throw an error if it is passed an item that is not an object', () => {
+        expect(() => bank.accountTransactions('Frank Zappa')).toThrow('Invalid entry')
     })
 })
