@@ -4,6 +4,7 @@
     "jasmine": "^5.1.0"
   },
   "dependencies": {
-    "numeral": "^2.0.6"
+    "numeral": "^2.0.6",
+    "uuid": "^10.0.0"
   }
 }
