@@ -1,12 +1,13 @@
 import { Transaction } from "./transaction.js"
-
 class BankAccount {
   constructor() {
     this.transaction = []
     this.balance = 0
   }
 
+  
   deposit(amount, date) {
+    
     this.balance += amount
     this.transaction.push(new Transaction(amount, date, 'credit', this.balance))
   }

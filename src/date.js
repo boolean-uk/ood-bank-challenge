@@ -1,9 +1,9 @@
+import dayjs from "dayjs"
+
 class DateProvider {
   currentDate() {
-    return new Date().toISOString().slice(0, 10)
+    return dayjs().format('DD/MM/YYYY')
   }
 }
 
 export { DateProvider }
-let date = new DateProvider
-console.log(date.currentDate())

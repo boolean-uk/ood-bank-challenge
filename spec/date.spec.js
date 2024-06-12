@@ -1,3 +1,4 @@
+import dayjs from "dayjs"
 import { DateProvider } from "../src/date.js"
 
 describe('Date', () => {
@@ -7,6 +8,7 @@ describe('Date', () => {
   })
 
   it('should return current day', () => {
-    expect(date.currentDate()).toBe('2024-06-12')
+    const checkDate = new dayjs().format('DD/MM/YYYY')
+    expect(date.currentDate()).toEqual(checkDate)
   })
 })
