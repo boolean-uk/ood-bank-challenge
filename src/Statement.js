@@ -17,7 +17,7 @@ class Statement {
                 return `${date} ||        || ${formattedAmount} || ${formattedBalance}`
             }
         })
-        return formattedTransactions.join('\n') //combine strings
+        return formattedTransactions.join('\n') 
     }
 }
 
