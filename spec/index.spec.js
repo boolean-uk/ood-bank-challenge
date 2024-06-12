@@ -14,12 +14,25 @@ describe('Bank account', () => {
 
     it('should be able to deposit money', () => {
         bankAccount.deposite(1000)
+
         expect(bankAccount.balance).toBe(1000)
     })
 
     it('should be able to withdraw money', () => {
         bankAccount.deposite(1000)
         bankAccount.withdraw(500)
+
         expect(bankAccount.balance).toBe(500)
+    })
+
+    it('should be able to print a statement', () => {
+        const date = new Date()
+        bankAccount.deposite(1000)
+        bankAccount.deposite(2000)
+        bankAccount.withdraw(500)
+
+        const result = bankAccount.getStatement()
+
+        expect(result).toBe(`date || credit || debit || balance\n${date} ||  || 500 || 2500\n${date} || 2000 ||  || 3000\n${date} || 1000 ||  || 1000\n`)
     })
 })
