@@ -1,5 +1,4 @@
 import { BankAccount } from "../src/bank-account.js"
-import { Transaction } from "../src/transaction.js"
 describe('BankAccount', () => {
   let myBankAccount
 

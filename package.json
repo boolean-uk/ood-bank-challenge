@@ -12,5 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "jasmine": "^5.1.0"
+  },
+  "dependencies": {
+    "datejs": "^1.0.0-rc3"
   }
 }
