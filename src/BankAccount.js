@@ -13,6 +13,12 @@ class BankAccount {
         this.#transactions.push(transaction)
     }
 
+    withdraw(amount, date) {
+        const newBalance = this.calculateBalance() + amount
+        const transaction = new Transaction(date, amount, 'debit', newBalance)
+        this.#transactions.push(transaction)
+    }
+
     calculateBalance() {
         return this.#transactions.reduce((balance, transaction) => {
             const { amount, type } = transaction.getDetails()
