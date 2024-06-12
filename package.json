@@ -12,5 +12,8 @@
   "license": "ISC",
   "devDependencies": {
     "jasmine": "^5.1.0"
+  },
+  "dependencies": {
+    "currency.js": "^2.0.4"
   }
 }

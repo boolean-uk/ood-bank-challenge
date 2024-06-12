@@ -1,3 +1,5 @@
+import currency from "currency.js"
+
 class BankAccount {
     #transactions
 
@@ -8,21 +10,23 @@ class BankAccount {
     get balance() {
         let balance = 0
         this.#transactions.forEach((transaction) => {
-            balance += (transaction.credit * 100)
-            balance -= (transaction.debit * 100)
+            balance = currency(balance).add(transaction.credit)
+            balance = currency(balance).subtract(transaction.debit)
         })
 
-        return balance / 100
+        return balance.toString()
     }
 
     deposite(amount) {
+        const depositAmount = currency(amount)
         const date = new Date()
-        this.#transactions.push({date: date, credit: amount, debit: 0})
+        this.#transactions.push({date: date, credit: depositAmount, debit: 0})
     }
 
     withdraw(amount) {
+        const withdrawlAmount = currency(amount)
         const date = new Date()
-        this.#transactions.push({date: date, credit: 0, debit: amount})
+        this.#transactions.push({date: date, credit: 0, debit: withdrawlAmount})
     }
 
     getStatement() {
@@ -41,8 +45,8 @@ class Statement {
     print() {
         let balance = 0
         function getTransaction(transaction) {
-            balance += (transaction.credit * 100)
-            balance -= (transaction.debit * 100)
+            balance = currency(balance).add(transaction.credit)
+            balance = currency(balance).subtract(transaction.debit)
 
             let debit = transaction.debit
             let credit = transaction.credit
@@ -55,12 +59,14 @@ class Statement {
                 credit = ''
             }
 
-            return `${transaction.date} || ${credit} || ${debit} || ${balance / 100}\n`
+            return `${transaction.date} || ${credit} || ${debit} || ${balance}\n`
         }
 
         let allTransactions = this.#transactions.map((transaction) => getTransaction(transaction))
 
         allTransactions = allTransactions.reverse().join('')
+
+        console.log(`date || credit || debit || balance\n${allTransactions}`)
 
         return `date || credit || debit || balance\n${allTransactions}`
     }

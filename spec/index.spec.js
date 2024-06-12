@@ -9,20 +9,20 @@ describe('Bank account', () => {
 
     it('should exist', () => {
         expect(bankAccount).toBeInstanceOf(BankAccount)
-        expect(bankAccount.balance).toBe(0)
+        expect(bankAccount.balance).toBe('0')
     })
 
     it('should be able to deposit money', () => {
         bankAccount.deposite(1000)
 
-        expect(bankAccount.balance).toBe(1000)
+        expect(bankAccount.balance).toBe('1000.00')
     })
 
     it('should be able to withdraw money', () => {
         bankAccount.deposite(1000)
         bankAccount.withdraw(500)
 
-        expect(bankAccount.balance).toBe(500)
+        expect(bankAccount.balance).toBe('500.00')
     })
 
     it('should be able to print a statement', () => {
@@ -33,6 +33,6 @@ describe('Bank account', () => {
 
         const result = bankAccount.getStatement()
 
-        expect(result).toBe(`date || credit || debit || balance\n${date} ||  || 500 || 2500\n${date} || 2000 ||  || 3000\n${date} || 1000 ||  || 1000\n`)
+        expect(result).toBe(`date || credit || debit || balance\n${date} ||  || 500.00 || 2500.00\n${date} || 2000.00 ||  || 3000.00\n${date} || 1000.00 ||  || 1000.00\n`)
     })
 })
