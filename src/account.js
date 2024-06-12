@@ -33,7 +33,11 @@ class Account extends Bank {
 
     getBalance() {
         const balance = this.credit - this.debit
-        return `${this.firstName} ${this.lastName} your balance is, £${balance}`
+        return balance
+    }
+
+    printBankStatement() {
+        this.transactions.map((t) => console.log(t))
     }
 }
 
@@ -42,7 +46,8 @@ export { Account }
 const accountInst = new Account('Frank', 'Reynolds')
 accountInst.deposit(1000)
 accountInst.withdraw(20)
-accountInst.getBalance()
+accountInst.printBankStatement()
+
 
 
 

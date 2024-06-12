@@ -1,4 +1,3 @@
-import exp from "constants"
 import { Account } from "../src/account.js"
 import { Transaction } from "../src/transactions.js"
 import Bank from "../src/bank.js"
