@@ -3,6 +3,7 @@ using System.Data.Common;
 using System.Reflection.PortableExecutable;
 using System.Text.Json;
 
+namespace BankAccountNS;
 public class BankAccount
 {
 
@@ -38,7 +39,7 @@ public class BankAccount
         return jsonString;
     }
 
-    public void WriteStatement()
+    public string WriteStatement()
     {
         string formattedUI = "date       || credit  || debit  || balance";
         int balance = 0;
@@ -61,7 +62,7 @@ public class BankAccount
                 debit = ValueToCurrency(element.Value);
             }
 
-            string date = element.Date.ToString("dd/MM/YYYY");
+            string date = element.Date.ToString("dd/MM/yyyy");
 
             var runningBalance = ValueToCurrency(balance);
 
@@ -70,6 +71,8 @@ public class BankAccount
         }
 
         Console.Write(formattedUI);
+
+        return formattedUI;
     }
 
     private string ValueToCurrency(int value)
