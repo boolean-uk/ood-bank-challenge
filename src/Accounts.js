@@ -42,7 +42,9 @@ class Account {
     if (type === "PDF") {
       return statement.pdf;
     }
-    return statement
+    if(type === "Console") {
+        statement.console
+    }
   }
 
   getTransactions(startDate, endDate) {
@@ -94,12 +96,26 @@ class Statement {
     this.transactions = account.getTransactions();
     this.closingBalance = numeral(account.balance).format("0.00")
   }
+
+  get console() {
+    console.log (
+    `Account Holder: ${this.accountInfo.accountHolder}\nAccount Number: ${this.accountInfo.accountNumber}\n `)
+    
+    this.transactions.forEach((transaction) => {
+        console.log(`${transaction.date} || ${transaction.constructor.name} || Amount: £${transaction.amount} || Balance after transaction: £${transaction.balanceAfterTransaction} `)
+    })
+    console.log(`Closing balance: £${this.closingBalance}`)
+  }
+
+  get json() {
+    return JSON.stringify(this)
+  }
 }
 
 let testAccount = new Account('Will Baxter', '12345678')
 testAccount.credit(23.32)
 testAccount.debit(12.01)
 
-console.log(testAccount.getStatement())
+testAccount.getStatement('Console')
 
 export { Account };
