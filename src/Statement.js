@@ -6,19 +6,28 @@ class Statement {
     }
 
     formatStatement() {
-        const formattedTransactions =
-        this.#transactions.slice().reverse().map(transaction => {
-            let { date, amount, type, balance } = transaction.getDetails()
-            const formattedAmount = (amount / 100).toFixed(2) // convert back to pounds
+        const header = 'date || credit || debit || balance'
+        const formattedTransactions = this.#transactions.slice().reverse().map(transaction => {
+            const { date, amount, type, balance } = transaction.getDetails()
+            
+            // Format date to 'dd/mm/yyyy'
+            const transactionDate = new Date(date)
+            const formattedDate = `${transactionDate.getDate().toString().padStart(2, '0')}/${(transactionDate.getMonth() + 1).toString().padStart(2, '0')}/${transactionDate.getFullYear()}`
+            
+            const formattedAmount = (amount / 100).toFixed(2)
             const formattedBalance = (balance / 100).toFixed(2)
+            
             if (type === 'credit') {
-                return `${date} || ${formattedAmount} ||        || ${formattedBalance}`
+                return `${formattedDate} || ${formattedAmount} ||        || ${formattedBalance}`
             } else {
-                return `${date} ||        || ${formattedAmount} || ${formattedBalance}`
+                return `${formattedDate} ||        || ${formattedAmount} || ${formattedBalance}`
             }
         })
-        return formattedTransactions.join('\n') 
+        
+        return [header, ...formattedTransactions].join('\n')
     }
+    
+    
 }
 
 export { Statement }

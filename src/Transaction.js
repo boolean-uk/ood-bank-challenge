@@ -6,7 +6,7 @@ class Transaction {
 
     constructor(date, amount, type, balance) {
         this.#date = date
-        this.#amount = amount 
+        this.#amount = amount
         this.#type = type
         this.#balance = balance
     }
@@ -21,4 +21,4 @@ class Transaction {
     }
 }
 
-export {Transaction}
+export { Transaction }
