@@ -88,7 +88,8 @@ describe("Bank functionalities", () => {
 	it("should throw errors when trying to do any of the above without providing the relevant information", () => {
 		expect(() => myBank.createNewAccount()).toThrowError(
 			"You must provide the owner's name to create a new account"
-		)
+        )
+        
 		expect(() => myBank.newDeposit(111)).toThrowError(
 			"There is no account with the provided name"
 		)
@@ -98,13 +99,14 @@ describe("Bank functionalities", () => {
 		expect(() => myBank.newDeposit("tester1")).toThrowError(
 			"You must provide an amount for the deposit"
 		)
-		expect(() => myBank.newWithdrawal(111)).toThrowError(
-			"There is no account with the provided name"
-		)
-		expect(() => myBank.newWithdrawal("wrongName")).toThrowError(
+
+		expect(() => myBank.newWithdrawal("wrongName",100)).toThrowError(
 			"There is no account with the provided name"
 		)
 		expect(() => myBank.newWithdrawal("tester1")).toThrowError(
+			"You must provide an amount for the withdrawal"
+		)
+		expect(() => myBank.newWithdrawal("tester1",0)).toThrowError(
 			"You must provide an amount for the withdrawal"
 		)
 		expect(() => myBank.checkBalance("wrongName")).toThrowError(

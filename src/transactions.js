@@ -3,10 +3,8 @@ export default class Transaction {
 	#accounts
 	constructor() {}
 
-
-
-	deposit(account, amount, date, id ) {
-
+	deposit(account, amountInCents, date, id) {
+		const amount = amountInCents / 100
 		const newTransaction = {
 			account,
 			amount,
@@ -17,8 +15,8 @@ export default class Transaction {
 		return newTransaction
 	}
 
-	withdrawal(account, amount, date, id) {
-
+	withdrawal(account, amountInCents, date, id) {
+		const amount = amountInCents / 100
 		const newTransaction = {
 			account,
 			amount,

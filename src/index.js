@@ -33,13 +33,10 @@ export default class Bank {
 				"You must provide the owner's name to create a new account"
 			)
 		}
-		const existingAccountName = this.#accounts.find(
-			(acc) => acc.owner === owner
-		)
-		if (existingAccountName) {
+		if (this.#accounts.find((acc) => acc.owner === owner)) {
 			throw new Error("An account with this name already exists")
 		}
-		// const account = this.account
+
 		const newAccount = this.account.createAccount(
 			owner,
 			this.idGenerator(),
@@ -105,29 +102,26 @@ export default class Bank {
 
 		if (!amount || amount === 0) {
 			throw new Error("You must provide an amount for the deposit")
-		}
+        }
+        const amountInCents = Math.round(amount*100)
 		const transaction = this.transaction.deposit(
 			account.owner,
-			amount,
+			amountInCents,
 			this.getDate(),
-            this.idGenerator()
+			this.idGenerator()
 		)
 		this.#transactions.push(transaction)
 	}
 
 	newWithdrawal(acc, amount) {
-		const account = this.findAccount(acc)
-
 		if (!amount || amount === 0) {
 			throw new Error("You must provide an amount for the withdrawal")
 		}
-
-		const currentBalance = this.checkBalance(acc)
+		const account = this.findAccount(acc)
+        const currentBalance = this.checkBalance(acc)
+        const amountInCents = Math.round(amount * 100)
 
 		if (currentBalance < amount) {
-			console.log(
-				`There are not enough funds in your account for this transaction. The maximum amount that can be removed is €${currentBalance}`
-			)
 			throw new Error(
 				`There are not enough funds in your account for this transaction. The maximum amount that can be removed is €${currentBalance}`
 			)
@@ -135,29 +129,25 @@ export default class Bank {
 
 		const transaction = this.transaction.withdrawal(
 			account.owner,
-			amount,
+			amountInCents,
 			this.getDate(),
 			this.idGenerator()
 		)
 		this.#transactions.push(transaction)
-		console.log(
-			`€${amount} have been withdrawn from your account\n Your account balance is ${this.checkBalance(
-				acc
-			)}€.`
-		)
 	}
 }
 
-const nb = new Bank()
-nb.createNewAccount("Perik")
+// const nb = new Bank()
+// nb.createNewAccount("Perik")
+// nb.createNewAccount("Perik")
 // nb.createNewAccount("Erik")
-nb.newDeposit("Perik", 10)
-nb.newDeposit("Perik", 10)
+// nb.newDeposit("Perik", 10)
+// nb.newDeposit("Perik", 10)
 // console.log(nb.getAccounts())
 
-console.log(nb.findAccount("Perik"))
-nb.newDeposit("Perik", 10)
-console.log(nb.checkBalance("Perik"))
+// console.log(nb.findAccount("Perik"))
+// nb.newDeposit("Perik", 10)
+// console.log(nb.checkBalance("Perik"))
 // nb.newWithdrawal("Perik", 11)
 
 // nb.createNewAccount("Erik")
@@ -167,7 +157,7 @@ console.log(nb.checkBalance("Perik"))
 // nb.newDeposit("Rick", 10)
 // console.log(nb.getAccounts())
 // console.log(nb.checkBalance("Perik"))
-// nb.newWithdrawal("Perik")
+// nb.newWithdrawal("Perik", 15)
 // console.log(nb.getAccounts());
 // console.log(nb.getTransactions())
 // nb.newDeposit(10)
