@@ -23,4 +23,20 @@ describe('Accounts', () => {
         expect(testAccount.transactions[0].amount).toEqual(10)
         expect(testAccount.transactions[0].constructor.name).toEqual('Debit')
     })
+
+    it('should have a method to return all credits to account', () => {
+        testAccount.credit(10)
+        testAccount.debit(5)
+        testAccount.credit(3)
+
+        expect(testAccount.credits.length).toEqual(2)
+    })
+
+    it('should have a method to return all debits to account', () => {
+        testAccount.credit(10)
+        testAccount.debit(5)
+        testAccount.debit(3)
+
+        expect(testAccount.debits.length).toEqual(2)
+    })
 })

@@ -31,14 +31,17 @@ class Account {
     } 
 
     get balance() {
-         
+        
     }
 
     get credits() {
+        const filteredTransactions = this.#transactions.filter((transaction) => transaction.constructor.name === 'Credit')
+        return [ ...filteredTransactions ]
     }
 
     get debits() {
-
+        const filteredTransactions = this.#transactions.filter((transaction) => transaction.constructor.name === 'Debit')
+        return [ ...filteredTransactions ]
     }
 }
 
