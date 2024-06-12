@@ -1,4 +1,5 @@
 import { Transaction } from './Transaction.js'
+import {Statement} from './Statement.js'
 
 class BankAccount {
     #transactions
@@ -17,6 +18,13 @@ class BankAccount {
         const newBalance = this.calculateBalance() + amount
         const transaction = new Transaction(date, amount, 'debit', newBalance)
         this.#transactions.push(transaction)
+    }
+
+    printStatment() {
+        const statement = new Statement(this.#transactions)
+        const formattedStatement = statement.formatStatement()
+        console.log(formattedStatement)
+        return formattedStatement
     }
 
     calculateBalance() {
