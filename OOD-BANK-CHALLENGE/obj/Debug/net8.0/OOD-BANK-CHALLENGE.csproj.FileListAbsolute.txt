@@ -1,0 +1,15 @@
+c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\bin\Debug\net8.0\OOD-BANK-CHALLENGE.exe
+c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\bin\Debug\net8.0\OOD-BANK-CHALLENGE.deps.json
+c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\bin\Debug\net8.0\OOD-BANK-CHALLENGE.runtimeconfig.json
+c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\bin\Debug\net8.0\OOD-BANK-CHALLENGE.dll
+c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\bin\Debug\net8.0\OOD-BANK-CHALLENGE.pdb
+c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\obj\Debug\net8.0\OOD-BANK-CHALLENGE.GeneratedMSBuildEditorConfig.editorconfig
+c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\obj\Debug\net8.0\OOD-BANK-CHALLENGE.AssemblyInfoInputs.cache
+c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\obj\Debug\net8.0\OOD-BANK-CHALLENGE.AssemblyInfo.cs
+c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\obj\Debug\net8.0\OOD-BANK-CHALLENGE.csproj.CoreCompileInputs.cache
+c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\obj\Debug\net8.0\OOD-BANK-CHALLENGE.sourcelink.json
+c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\obj\Debug\net8.0\OOD-BANK-CHALLENGE.dll
+c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\obj\Debug\net8.0\refint\OOD-BANK-CHALLENGE.dll
+c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\obj\Debug\net8.0\OOD-BANK-CHALLENGE.pdb
+c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\obj\Debug\net8.0\OOD-BANK-CHALLENGE.genruntimeconfig.cache
+c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\obj\Debug\net8.0\ref\OOD-BANK-CHALLENGE.dll
