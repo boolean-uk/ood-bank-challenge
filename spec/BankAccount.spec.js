@@ -13,7 +13,7 @@ describe('BankAccount', () => {
         expect(transactions.length).toBe(1)
         expect(transactions[0].amount).toBe(100000)
         expect(transactions[0].type).toBe('credit')
-        expect(transactions[0].date).toBe('11/01/2012')
+        expect(transactions[0].date).toBe('10/01/2012')
     })
 
     it('should calculate balance correctly after deposit', () => {
