@@ -23,6 +23,9 @@ class Account {
   }
 
   debit(amount, testDate) {
+    if ((this.balance - amount) < 0) {
+        throw new Error('Insufficient funds')
+    }
     const newTransaction = new Debit(
       numeral(amount).format("0.00"),
       this.getDate(testDate)
@@ -33,7 +36,6 @@ class Account {
   getDate(testDate) {
     if (testDate) {
       const date = new Date(`2023-9-${testDate}`);
-      mockDate += 1;
       return date;
     }
     const date = new Date(`2023-10-${mockDate}`);

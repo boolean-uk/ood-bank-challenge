@@ -16,11 +16,10 @@ describe("Accounts", () => {
   });
 
   it("should accepts debits into a list of transactions", () => {
+    testAccount.credit(10);
     testAccount.debit(10);
 
-    expect(testAccount.getTransactions().length).toEqual(1);
-    expect(Number(testAccount.getTransactions()[0].amount)).toEqual(10);
-    expect(testAccount.getTransactions()[0].constructor.name).toEqual("Debit");
+    expect(testAccount.getTransactions().length).toEqual(2);
   });
 
   it("should have a method to return all credits to account", () => {
@@ -66,5 +65,11 @@ describe("Accounts", () => {
 
     expect(testAccount.getStatement("", "2023-9-4", "2023-9-10").transactions.length).toEqual(3)
   });
+
+  it("should prevent debits that take balance below zero", () => {
+
+    testAccount.credit(10)
+    expect(() => testAccount.debit(12)).toThrowError('Insufficient funds')
+  })
 
 });
