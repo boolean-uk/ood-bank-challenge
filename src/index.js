@@ -1,17 +1,21 @@
 class Bank {
+    #name
+    #credit
+    #debit
+    #balance
     constructor() {
-        this.name = 'Account Holder'
-        this.credit = 0
-        this.debit = 0
-        this.balance = 0
+        this.#name = 'Account Holder'
+        this.#credit = 0
+        this.#debit = 0
+        this.#balance = 0
     }
 
     depositCash(cash) {
-        this.credit += cash
+        this.#credit += cash
     }
 
     withdrawCash(cash) {
-        this.debit += cash
+        this.#debit += cash
     }
 
 }
@@ -28,6 +32,5 @@ class Account extends Bank {
 }
 
 const bank = new Bank()
-const account = new Account('Frank Reynolds')
-account.depositCash(1000)
-account.checkBalance()
+
+
