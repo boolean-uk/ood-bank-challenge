@@ -18,4 +18,25 @@ describe('BankAccount', () => {
     const balance = myBankAccount.getBalance
     expect(balance).toBe(2500)
   })
+
+  it('balance should not be under 0', () => {
+    const result = myBankAccount.withdraw(1000, '10-01-2012', 'debit')
+    expect(result).toBe('You dont have enough money!')
+  })
+
+  it('balance should be 1000', () => {
+    myBankAccount.deposit(2500, '10-01-2012', 'debit')
+    myBankAccount.withdraw(1500, '10-01-2012', 'debit')
+    expect(myBankAccount.getBalance).toBe(1000)
+  })
+
+  it('should lenght of transactions be 5', () => {
+    myBankAccount.deposit(1000, '10-01-2012', 'debit')
+    myBankAccount.deposit(500, '11-01-2012', 'debit')
+    myBankAccount.deposit(1000, '12-01-2012', 'debit')
+    myBankAccount.deposit(2500, '12-01-2012', 'debit')
+    myBankAccount.withdraw(1500, '13-01-2012', 'debit')
+    const result = myBankAccount.getTransactions
+    expect(result.length).toBe(5)
+  })
 })
