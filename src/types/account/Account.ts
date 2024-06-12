@@ -1,9 +1,9 @@
 //@ts-ignore
 import { Currency, Money } from "ts-money";
-import { Transaction, TransactionType } from "../Transaction.type";
-import AccountTypes from "./AccountTypes";
 import generateUUID from "../../utils/uuid";
+import { Transaction, TransactionType } from "../Transaction.type";
 import UUID from "../utils/UUID";
+import AccountTypes from "./AccountTypes";
 
 class Account {
 	protected _id: UUID;
@@ -18,26 +18,27 @@ class Account {
 		this._type = type;
 	}
 
-	deposit(amount: Money) {
+	deposit(amount: number) {
 		const date = new Date();
 		this._transactions.set(date, {
 			id: generateUUID(),
 			date,
-			amount,
+			amount: new Money(amount, this._currency),
 			type: TransactionType.CREDIT,
 		});
 	}
 
-	withdraw(amount: Money) {
-		if (this.balance.greaterThanOrEqual(amount)) {
+	withdraw(amount: number) {
+		const money = new Money(amount, this._currency);
+		if (this.balance.greaterThanOrEqual(money)) {
 			const date = new Date();
 			this._transactions.set(date, {
 				id: generateUUID(),
 				date,
-				amount,
+				amount: money,
 				type: TransactionType.DEBIT,
 			});
-			return amount;
+			return money;
 		} else throw new Error("Funds Unavailable");
 	}
 
@@ -62,6 +63,11 @@ class Account {
 					: balance.subtract(transaction.amount);
 		});
 		return balance;
+	}
+	get transactionHistory() {
+		const history: Transaction[] = [];
+		this._transactions.forEach((e) => history.push({ ...e }));
+		return history;
 	}
 }
 
