@@ -2,9 +2,7 @@ import Bank from "./bank.js"
 import { Transaction } from "./transactions.js"
 
 class Account extends Bank {
-    // #credit
-    // #debit
-    // #transactions
+
     constructor(firstName, lastName) {
         super()
         this.firstName = firstName
@@ -15,29 +13,37 @@ class Account extends Bank {
         this.id = 1
     }
 
-    deposit(date, cash) {
-        const transaction = new Transaction(date, cash)
-        transaction.id++
+    deposit(cash) {
+        const transaction = new Transaction(this.id)
+        transaction.credit = cash
+        this.id++
         this.credit += cash
         this.transactions.push(transaction)
-        this.addAccountInfo(this)
+        this.accountTransactions(this)
     }
 
-    withdraw(date, cash) {
-        const transaction = new Transaction(date, cash)
-        transaction.id++
+    withdraw(cash) {
+        const transaction = new Transaction(this.id)
+        transaction.debit = cash
+        this.id++
         this.debit += cash
+        this.transactions.push(transaction)
+        this.accountTransactions(this)
     }
 
     getBalance() {
-
+        const balance = this.credit - this.debit
+        return `${this.firstName} ${this.lastName} your balance is, £${balance}`
     }
 }
 
 export { Account }
 
 const accountInst = new Account('Frank', 'Reynolds')
-accountInst.deposit('10/6/24', 1000)
+accountInst.deposit(1000)
+accountInst.withdraw(20)
+accountInst.getBalance()
+
 
 
 

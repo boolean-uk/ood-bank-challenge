@@ -1,8 +1,7 @@
 class Transaction {
-    constructor(date, amount) {
-        this.date = date
-        this.amount = amount
-        this.id = 1
+    constructor(id) {
+        this.date = Date()
+        this.id = id
     }
 }
 
