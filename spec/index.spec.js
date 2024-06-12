@@ -45,4 +45,10 @@ describe('Bank account', () => {
 
         expect(bankAccount.transactions).toEqual(JSON.stringify([{date: date, credit: 1000, debit: 0}, {date: date, credit: 2000, debit: 0}, {date: date, credit: 0, debit: 500}]))
     })
+
+    it('should not be possible to withdrawl more than is in the account', () => {
+        bankAccount.deposite(1000)
+
+        expect(() => bankAccount.withdraw(1200)).toThrow('Amount exceeds the available funds')
+    })
 })

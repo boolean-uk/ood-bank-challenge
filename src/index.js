@@ -24,12 +24,21 @@ class BankAccount {
     deposite(amount) {
         const depositAmount = currency(amount)
         const date = new Date()
+
         this.#transactions.push({date: date, credit: depositAmount, debit: 0})
     }
 
     withdraw(amount) {
         const withdrawlAmount = currency(amount)
         const date = new Date()
+
+        let balance = this.balance
+
+        if(currency(balance).subtract(amount) < 0) {
+            throw 'Amount exceeds the available funds'
+        }
+
+
         this.#transactions.push({date: date, credit: 0, debit: withdrawlAmount})
     }
 
