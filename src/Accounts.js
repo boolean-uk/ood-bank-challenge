@@ -8,31 +8,36 @@ let mockDate = 1;
 class Account {
   #transactions;
 
-  constructor(accountHolder, accountNumber, transactions = []) {
+  constructor(accountHolder, accountNumber) {
     this.accountHolder = accountHolder;
     this.accountNumber = accountNumber;
-    this.#transactions = transactions;
+    this.#transactions = [];
   }
 
-  credit(amount) {
+  credit(amount, testDate) {
     const newTransaction = new Credit(
       numeral(amount).format("0.00"),
-      this.getDate()
+      this.getDate(testDate)
     );
     this.#transactions.push(newTransaction);
   }
 
-  debit(amount) {
+  debit(amount, testDate) {
     const newTransaction = new Debit(
       numeral(amount).format("0.00"),
-      this.getDate()
+      this.getDate(testDate)
     );
     this.#transactions.push(newTransaction);
   }
 
-  getDate() {
-    const date = new Date(`2023-12-${mockDate}`);
-    mockDate += 2;
+  getDate(testDate) {
+    if (testDate) {
+      const date = new Date(`2023-9-${testDate}`);
+      mockDate += 1;
+      return date;
+    }
+    const date = new Date(`2023-10-${mockDate}`);
+    mockDate += 1;
     return date;
   }
 
@@ -65,11 +70,13 @@ class Account {
       thisStatement.console;
       return;
     }
-    return thisStatement
+    return thisStatement;
   }
 
   getTransactions(startDate, endDate) {
-    const transactionsSortedByDate = this.#transactions.sort(
+    const transactionsToSort = [...this.#transactions];
+
+    const transactionsSortedByDate = transactionsToSort.sort(
       (a, b) => a.date.getTime() - b.date.getTime()
     );
     let ongoingBalance = 0;
@@ -94,10 +101,10 @@ class Account {
         (transaction) =>
           transaction.date > startDate && transaction.date < endDate
       );
-      return [...transactionsWithinPeriod]
+      return transactionsWithinPeriod;
     }
 
-    return [...transactionsSortedByDate];
+    return transactionsSortedByDate;
   }
 
   get balance() {
@@ -123,4 +130,3 @@ class Account {
 }
 
 export { Account };
-

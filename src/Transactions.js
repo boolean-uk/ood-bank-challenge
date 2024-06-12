@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'uuid';
-import numeral from "numeral";
 
 class Transaction {
     constructor(amount, date) {

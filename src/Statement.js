@@ -7,7 +7,7 @@ class Statement {
         accountNumber: account.accountNumber,
       };
       this.transactions = account.getTransactions(startDate, endDate);
-      this.closingBalance = numeral(account.balance).format("0.00")
+      this.closingBalance = numeral(account.balance).format('0.00')
     }
   
     get console() {
@@ -17,7 +17,7 @@ class Statement {
       this.transactions.forEach((transaction) => {
           console.log(`${transaction.date} || ${transaction.constructor.name} || Amount: £${transaction.amount} || Balance after transaction: £${transaction.balanceAfterTransaction} `)
       })
-      console.log(`Closing balance for period: £${this.closingBalance}`)
+      console.log(`Account total balance: £${this.closingBalance}`)
     }
   
     get json() {

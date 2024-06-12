@@ -55,16 +55,16 @@ describe("Accounts", () => {
 
   it("should return transactions for a set period", () => {
 
-    testAccount.credit(10);
-    testAccount.debit(5);
-    testAccount.credit(3);
-    testAccount.credit(23.32);
-    testAccount.debit(12.01);
-    testAccount.credit(10);
-    testAccount.debit(5);
-    testAccount.credit(3);
+    testAccount.credit(10, 3);
+    testAccount.debit(5, 5);
+    testAccount.credit(3, 7);
+    testAccount.credit(23.32, 9);
+    testAccount.debit(12.01, 11);
+    testAccount.credit(10, 13);
+    testAccount.debit(5, 15);
+    testAccount.credit(3, 17);
 
-
-    expect(testAccount.getStatement("", "2023-12-4", "2023-12-10").transactions.length).toEqual(3)
+    expect(testAccount.getStatement("", "2023-9-4", "2023-9-10").transactions.length).toEqual(3)
   });
+
 });
