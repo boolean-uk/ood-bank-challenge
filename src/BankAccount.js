@@ -15,7 +15,7 @@ class BankAccount {
     }
 
     withdraw(amount, date) {
-        const newBalance = this.calculateBalance() + amount
+        const newBalance = this.calculateBalance() - amount
         const transaction = new Transaction(date, amount, 'debit', newBalance)
         this.#transactions.push(transaction)
     }
