@@ -25,6 +25,10 @@ public class BankAccount
             throw new Exception("Malformed transaction");
         }
 
+        if(type == "Debit" && value>CalculateBalance()) {
+            throw new Exception("Insufficent funds");
+        }
+
 
         transactionHistory.Add(new Transaction(id, date, value, type));
 
