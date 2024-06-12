@@ -27,8 +27,6 @@ class BankAccount {
   get getBalance() {
     return this.balance
   }
-
-  
 }
 
 
