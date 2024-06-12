@@ -14,7 +14,11 @@ class BankAccount {
             balance = currency(balance).subtract(transaction.debit)
         })
 
-        return balance.toString()
+        return balance
+    }
+
+    get transactions() {
+        return JSON.stringify([...this.#transactions])
     }
 
     deposite(amount) {
@@ -65,8 +69,6 @@ class Statement {
         let allTransactions = this.#transactions.map((transaction) => getTransaction(transaction))
 
         allTransactions = allTransactions.reverse().join('')
-
-        console.log(`date || credit || debit || balance\n${allTransactions}`)
 
         return `date || credit || debit || balance\n${allTransactions}`
     }
