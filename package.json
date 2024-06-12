@@ -1,0 +1,9 @@
+{
+  "type": "module",
+  "devDependencies": {
+    "jasmine": "^5.1.0"
+  },
+  "dependencies": {
+    "numeral": "^2.0.6"
+  }
+}
