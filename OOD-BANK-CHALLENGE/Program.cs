@@ -1,6 +1,4 @@
 ﻿using System.Data;
-using System.Data.Common;
-using System.Reflection.PortableExecutable;
 using System.Text.Json;
 
 namespace BankAccountNS;
@@ -16,7 +14,7 @@ public class BankAccount
         transactionHistory = new List<Transaction>();
     }
 
-    public void AddTransaction(string id, DateTime date, int value, string type)
+    public void AddTransaction(string id, DateTime date, int value, string type, int overdraft = 0)
     {
 
 
@@ -25,7 +23,8 @@ public class BankAccount
             throw new Exception("Malformed transaction");
         }
 
-        if(type == "Debit" && value>CalculateBalance()) {
+        if (type == "Debit" && value > CalculateBalance() + overdraft)
+        {
             throw new Exception("Insufficent funds");
         }
 
@@ -43,9 +42,10 @@ public class BankAccount
         return jsonString;
     }
 
-    private int CalculateBalance() {
+    private int CalculateBalance()
+    {
         int balance = 0;
-        
+
         foreach (Transaction element in transactionHistory)
         {
 
@@ -65,16 +65,23 @@ public class BankAccount
         return balance;
     }
 
-    public string OutputBalance() {
+    public string OutputBalance()
+    {
         return ValueToCurrency(CalculateBalance());
     }
 
     public string PrintStatement()
     {
+        return FormatTransactions(transactionHistory);
+
+    }
+
+    private string FormatTransactions(List<Transaction> selectedTransactions)
+    {
         string formattedUI = "date       || credit  || debit  || balance";
         int balance = 0;
 
-        foreach (Transaction element in transactionHistory)
+        foreach (Transaction element in selectedTransactions)
         {
             string credit = "       ";
             string debit = "       ";
@@ -100,9 +107,22 @@ public class BankAccount
 
         }
 
-        Console.Write(formattedUI);
-
         return formattedUI;
+    }
+
+    public string PrintSelectedDates(DateTime startDate, DateTime endDate)
+    {
+        List<Transaction> selectedTransactions = new List<Transaction>();
+
+        foreach (Transaction element in transactionHistory)
+        {
+            if (element.Date > startDate && element.Date < endDate)
+            {
+                selectedTransactions.Add(element);
+            }
+        }
+
+        return FormatTransactions(selectedTransactions);
     }
 
     private string ValueToCurrency(int value)
@@ -113,12 +133,15 @@ public class BankAccount
         if (currencyString.Length > 2)
         {
             splitString.Insert(splitString.Count - 2, '.');
-        } else {
-            
-            while (splitString.Count < 2) {
+        }
+        else
+        {
+
+            while (splitString.Count < 2)
+            {
                 splitString.Insert(0, '0');
             }
-            
+
             splitString.Insert(0, '.');
             splitString.Insert(0, '0');
         }
