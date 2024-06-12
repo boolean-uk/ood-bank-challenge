@@ -1,4 +1,5 @@
 import numeral from "numeral";
+import date from 'date-and-time'
 import { Credit, Debit } from "./Transactions.js";
 
 class Account {
@@ -14,7 +15,6 @@ class Account {
     const newTransaction = new Credit(
       numeral(amount).format("0.00"),
       this.getDate(),
-      this.balance + amount
     );
     this.#transactions.push(newTransaction);
   }
@@ -23,17 +23,14 @@ class Account {
     const newTransaction = new Debit(
       numeral(amount).format("0.00"),
       this.getDate(),
-      this.balance - amount
     );
     this.#transactions.push(newTransaction);
   }
 
   getDate() {
     const date = new Date();
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return `${day} / ${month} / ${year}`;
+
+    return date
   }
 
   getStatement(type) {
@@ -49,7 +46,21 @@ class Account {
   }
 
   getTransactions(startDate, endDate) {
-    return [...this.#transactions];
+    const transactionsSortedByDate = this.#transactions.sort((a, b) => a.date.getTime() - b.date.getTime())
+    let ongoingBalance = 0
+
+    transactionsSortedByDate.forEach((transaction) => {
+        if (transaction.constructor.name === 'Debit') {
+        transaction.balanceAfterTransaction = numeral(ongoingBalance - Number(transaction.amount)).format("0.00")
+        ongoingBalance -= Number(transaction.amount)
+        } 
+        if (transaction.constructor.name === 'Credit') {
+        transaction.balanceAfterTransaction = numeral(ongoingBalance + Number(transaction.amount)).format("0.00")
+        ongoingBalance += Number(transaction.amount)
+        }
+  })
+
+    return [...transactionsSortedByDate];
   }
 
   get balance() {
@@ -80,10 +91,15 @@ class Statement {
       accountHolder: account.accountHolder,
       accountNumber: account.accountNumber,
     };
-    this.transactions = account.transactions;
+    this.transactions = account.getTransactions();
     this.closingBalance = numeral(account.balance).format("0.00")
   }
 }
 
+let testAccount = new Account('Will Baxter', '12345678')
+testAccount.credit(23.32)
+testAccount.debit(12.01)
+
+console.log(testAccount.getStatement())
 
 export { Account };

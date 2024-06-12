@@ -2,10 +2,9 @@ import { v4 as uuidv4 } from 'uuid';
 import numeral from "numeral";
 
 class Transaction {
-    constructor(amount, date, balanceAfterTransaction) {
+    constructor(amount, date) {
         this.amount = amount
         this.date = date
-        this.balanceAfterTransaction = numeral(balanceAfterTransaction).format("0.00")
     }
 
     getID() {
@@ -14,15 +13,15 @@ class Transaction {
 }
 
 class Debit extends Transaction {
-    constructor(amount, date, balanceAfterTransaction) {
-        super(amount, date, balanceAfterTransaction)
+    constructor(amount, date) {
+        super(amount, date)
         this.id = this.getID()
     }
 }
 
 class Credit extends Transaction {
-    constructor(amount, date, balanceAfterTransaction) {
-        super(amount, date, balanceAfterTransaction)
+    constructor(amount, date) {
+        super(amount, date)
         this.id = this.getID()
     }
 }
