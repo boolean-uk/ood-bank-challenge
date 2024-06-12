@@ -38,39 +38,62 @@ public class BankAccount
         return jsonString;
     }
 
-    public void WriteStatement() {
+    public void WriteStatement()
+    {
         string formattedUI = "date       || credit  || debit  || balance";
         int balance = 0;
 
-        foreach(Transaction element in transactionHistory) {
+        foreach (Transaction element in transactionHistory)
+        {
             string credit = "       ";
             string debit = "       ";
-            
-            if(element.Type == "credit") {
+
+
+            if (element.Type == "Credit")
+            {
                 balance += element.Value;
-                
-            } else {
+                credit = ValueToCurrency(element.Value);
+
+            }
+            else
+            {
                 balance -= element.Value;
+                debit = ValueToCurrency(element.Value);
             }
 
             string date = element.Date.ToString("dd/MM/YYYY");
-            
-            formattedUI += $"\n{date} ||";
+
+            var runningBalance = ValueToCurrency(balance);
+
+            formattedUI += $"\n{date} || {credit} || {debit} || {runningBalance}";
 
         }
 
         Console.Write(formattedUI);
     }
 
-    public string ValueToCurrency(int value) {
+    private string ValueToCurrency(int value)
+    {
         string currencyString = value.ToString();
+        List<char> splitString = [.. currencyString.ToCharArray()];
 
-        List<string> splitString = [.. currencyString.Split()];
+        if (currencyString.Length > 2)
+        {
+            splitString.Insert(splitString.Count - 2, '.');
+        } else {
+            
+            while (splitString.Count < 2) {
+                splitString.Insert(0, '0');
+            }
+            
+            splitString.Insert(0, '.');
+            splitString.Insert(0, '0');
+        }
 
-        splitString.Insert(currencyString.Length-3, ".");
+        var finalValue = String.Join(null, splitString);
 
-       return String.Join(null,splitString);
-        
+        return $"£{finalValue}";
+
     }
 
 
