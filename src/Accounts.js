@@ -1,6 +1,9 @@
 import numeral from "numeral";
-import date from 'date-and-time'
+import date from "date-and-time";
 import { Credit, Debit } from "./Transactions.js";
+import { Statement } from "./Statement.js";
+
+let mockDate = 1;
 
 class Account {
   #transactions;
@@ -14,7 +17,7 @@ class Account {
   credit(amount) {
     const newTransaction = new Credit(
       numeral(amount).format("0.00"),
-      this.getDate(),
+      this.getDate()
     );
     this.#transactions.push(newTransaction);
   }
@@ -22,45 +25,77 @@ class Account {
   debit(amount) {
     const newTransaction = new Debit(
       numeral(amount).format("0.00"),
-      this.getDate(),
+      this.getDate()
     );
     this.#transactions.push(newTransaction);
   }
 
   getDate() {
-    const date = new Date();
-
-    return date
+    const date = new Date(`2023-12-${mockDate}`);
+    mockDate += 2;
+    return date;
   }
 
-  getStatement(type) {
-    const statement = new Statement(this);
+  getStatement(type, startDate, endDate) {
+    let thisStatement;
+
+    if (startDate && endDate) {
+      const statementStartDate = new Date(startDate);
+      const statementEndDate = new Date(endDate);
+
+      if (
+        isNaN(statementStartDate.getTime()) ||
+        isNaN(statementEndDate.getTime())
+      ) {
+        throw new Error("Date format must be YYYY-MM-DD");
+      }
+
+      thisStatement = new Statement(this, statementStartDate, statementEndDate);
+    } else {
+      thisStatement = new Statement(this);
+    }
 
     if (type === "JSON") {
-      return statement.json;
+      return thisStatement.json;
     }
     if (type === "PDF") {
-      return statement.pdf;
+      return thisStatement.pdf;
     }
-    if(type === "Console") {
-        statement.console
+    if (type === "Console") {
+      thisStatement.console;
+      return;
     }
+    return thisStatement
   }
 
   getTransactions(startDate, endDate) {
-    const transactionsSortedByDate = this.#transactions.sort((a, b) => a.date.getTime() - b.date.getTime())
-    let ongoingBalance = 0
+    const transactionsSortedByDate = this.#transactions.sort(
+      (a, b) => a.date.getTime() - b.date.getTime()
+    );
+    let ongoingBalance = 0;
 
     transactionsSortedByDate.forEach((transaction) => {
-        if (transaction.constructor.name === 'Debit') {
-        transaction.balanceAfterTransaction = numeral(ongoingBalance - Number(transaction.amount)).format("0.00")
-        ongoingBalance -= Number(transaction.amount)
-        } 
-        if (transaction.constructor.name === 'Credit') {
-        transaction.balanceAfterTransaction = numeral(ongoingBalance + Number(transaction.amount)).format("0.00")
-        ongoingBalance += Number(transaction.amount)
-        }
-  })
+      if (transaction.constructor.name === "Debit") {
+        transaction.balanceAfterTransaction = numeral(
+          ongoingBalance - Number(transaction.amount)
+        ).format("0.00");
+        ongoingBalance -= Number(transaction.amount);
+      }
+      if (transaction.constructor.name === "Credit") {
+        transaction.balanceAfterTransaction = numeral(
+          ongoingBalance + Number(transaction.amount)
+        ).format("0.00");
+        ongoingBalance += Number(transaction.amount);
+      }
+    });
+
+    if (startDate && endDate) {
+      const transactionsWithinPeriod = transactionsSortedByDate.filter(
+        (transaction) =>
+          transaction.date > startDate && transaction.date < endDate
+      );
+      return [...transactionsWithinPeriod]
+    }
 
     return [...transactionsSortedByDate];
   }
@@ -87,35 +122,5 @@ class Account {
   }
 }
 
-class Statement {
-  constructor(account) {
-    this.accountInfo = {
-      accountHolder: account.accountHolder,
-      accountNumber: account.accountNumber,
-    };
-    this.transactions = account.getTransactions();
-    this.closingBalance = numeral(account.balance).format("0.00")
-  }
-
-  get console() {
-    console.log (
-    `Account Holder: ${this.accountInfo.accountHolder}\nAccount Number: ${this.accountInfo.accountNumber}\n `)
-    
-    this.transactions.forEach((transaction) => {
-        console.log(`${transaction.date} || ${transaction.constructor.name} || Amount: £${transaction.amount} || Balance after transaction: £${transaction.balanceAfterTransaction} `)
-    })
-    console.log(`Closing balance: £${this.closingBalance}`)
-  }
-
-  get json() {
-    return JSON.stringify(this)
-  }
-}
-
-let testAccount = new Account('Will Baxter', '12345678')
-testAccount.credit(23.32)
-testAccount.debit(12.01)
-
-testAccount.getStatement('Console')
-
 export { Account };
+
