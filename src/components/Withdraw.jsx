@@ -38,7 +38,6 @@ export default function Withdraw() {
                 <input 
                     type="number" 
                     id="withdraw" 
-                    min={0}
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     required

@@ -38,7 +38,6 @@ export default function Deposit() {
                 <input 
                     type="number" 
                     id="deposit" 
-                    min={0}
                     value={amount}
                     onChange={(e) => setAmount(e.target.value)}
                     required

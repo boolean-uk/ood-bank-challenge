@@ -10,13 +10,13 @@ export default class BankingSystem {
         this.#debit = 0
         this.#balance = 0
         this.#transaction = []
-        this.#lastTransactionDate = new Date().setHours(0, 0, 0, 0)
+        this.#lastTransactionDate = null
         BankingSystem.instance = this
         return this
     }
 
     get balance() {
-        return this.#balance
+        return this.#balance.toFixed(2)
     }
 
     #isNumber(num) {
@@ -24,9 +24,7 @@ export default class BankingSystem {
     }
 
     #isValidDate(date) {
-        const transactionDate = new Date(date)
-        transactionDate.setHours(0, 0, 0, 0)
-        return transactionDate >= this.#lastTransactionDate
+        return !this.#lastTransactionDate || new Date(date) >= this.#lastTransactionDate
     }
 
     deposit(date, amount) {
