@@ -1,4 +1,5 @@
 import currency from "currency.js"
+import { sub } from "date-fns";
 
 class BankAccount {
     #transactions
@@ -30,7 +31,13 @@ class BankAccount {
 
         let totalDeposits = 0
 
-        savingsAccountTransactions.forEach((transaction) => {
+        const oneYearAgo = sub(new Date(), {
+            years: 1
+        })
+
+        let transactionsBetweenDates = this.getBetweendates(oneYearAgo, new Date(), savingsAccountTransactions)
+
+        transactionsBetweenDates.forEach((transaction) => {
             totalDeposits = currency(totalDeposits).add(transaction.credit)
         })
 
@@ -55,8 +62,25 @@ class BankAccount {
     }
 
     getStatement(date1, date2) {
+        let transactionstransactionsBetweenDates = null
+
+        if (date1 && date2) {
+            transactionstransactionsBetweenDates = this.getBetweendates(date1, date2, this.#transactions)
+        }
+        
         const statement = new Statement(this.#transactions, this.overdraft)
-        return statement.print(date1, date2)
+        return statement.print(transactionstransactionsBetweenDates)
+    }
+
+    getBetweendates(date1, date2, data) {
+        const transactionstransactionsBetweenDates = data.filter((item) => {
+            let date = item.date
+            date = new Date(date)
+
+            return item.date.getTime() >= date1.getTime() && item.date.getTime() <= date2.getTime()
+        })
+
+        return transactionstransactionsBetweenDates
     }
 }
 
@@ -69,23 +93,15 @@ class Statement {
         this.#overdraft = overdraft
     }
 
-    print(date1, date2) {
+    print(transactionstransactionsBetweenDates) {
         let transactions = null
         let overdraft = 0
         let balance = 0
 
-        if(!date1 && !date2) {
+        if(!transactionstransactionsBetweenDates) {
             transactions = this.#transactions
         } else {
-            transactions = this.#transactions.filter((item) => {
-                let date = item.date
-                date = new Date(date)
-    
-                return item.date.getTime() >= date1.getTime() && item.date.getTime() <= date2.getTime()
-            })
-
-            date1 = new Date(date1)
-            date2 = new Date(date2)
+            transactions = transactionstransactionsBetweenDates
         }
 
         if (this.#overdraft) {
