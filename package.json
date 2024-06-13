@@ -1,0 +1,13 @@
+{
+  "name": "banking-system",
+  "version": "1.0.0",
+  "description": "A simple banking system",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "pdf-lib": "^1.17.1"
+  }
+}
