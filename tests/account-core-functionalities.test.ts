@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from "vitest";
 import Account from "../src/types/account/Account";
 import { Money, Currencies } from "ts-money";
 import AccountTypes from "../src/types/account/AccountTypes";
-
+import toStringParser from "../src/utils/statements/toString.parser";
 describe("Account Details", () => {
 	it("Should have a uuid and an account's holder name as immutable fields", () => {
 		const account = new Account(AccountTypes.CHECKING, Currencies.EUR);
@@ -46,5 +46,15 @@ describe("Account Transactions", () => {
 		expect(history).toBeDefined();
 		history[0].amount.add(new Money(5000, Currencies.EUR));
 		expect(account.transactionHistory[0].amount.amount).toBe(100);
+	});
+
+	it("Should print a multiline string as a bank statement", () => {
+		account.deposit(100);
+		account.deposit(50);
+		account.withdraw(5);
+
+		const statement = account.getStatement(toStringParser);
+		console.log(statement);
+		expect(statement).toBeDefined();
 	});
 });
