@@ -42,6 +42,12 @@ describe('Account', () => {
         expect(firstTransaction).toBe('£1.50')
         expect(secondTransaction).toBe('      ')
     })
+    it('should round numbers to two decimal places', () => {
+        const first = account.round(15)
+        const second = account.round(1.2)
+        expect(first).toBe(15.00)
+        expect(second).toBe(1.20)
+    })
 })
 
 describe('Bank', () => {
