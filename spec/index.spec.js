@@ -58,7 +58,6 @@ describe("Bank functionalities", () => {
 		expect(myBank.getTransactions()[1].amount).toBe(111)
 	})
 
-
 	// Check balance
 
 	it("should be able to check the balance of a customer", () => {
@@ -88,8 +87,8 @@ describe("Bank functionalities", () => {
 	it("should throw errors when trying to do any of the above without providing the relevant information", () => {
 		expect(() => myBank.createNewAccount()).toThrowError(
 			"You must provide the owner's name to create a new account"
-        )
-        
+		)
+
 		expect(() => myBank.newDeposit(111)).toThrowError(
 			"There is no account with the provided name"
 		)
@@ -100,17 +99,37 @@ describe("Bank functionalities", () => {
 			"You must provide an amount for the deposit"
 		)
 
-		expect(() => myBank.newWithdrawal("wrongName",100)).toThrowError(
+		expect(() => myBank.newWithdrawal("wrongName", 100)).toThrowError(
 			"There is no account with the provided name"
 		)
 		expect(() => myBank.newWithdrawal("tester1")).toThrowError(
 			"You must provide an amount for the withdrawal"
 		)
-		expect(() => myBank.newWithdrawal("tester1",0)).toThrowError(
+		expect(() => myBank.newWithdrawal("tester1", 0)).toThrowError(
 			"You must provide an amount for the withdrawal"
 		)
 		expect(() => myBank.checkBalance("wrongName")).toThrowError(
 			"There is no account with the provided name"
 		)
+	})
+
+	it("should create a new statement for an account", () => {
+		myBank.newDeposit("tester1", 1000) // 1000.00€
+		myBank.newDeposit("tester1", 2000) // 2000.00€
+		myBank.newWithdrawal("tester1", 500) // 500.00€
+		const statement = myBank.createNewStatemennt("tester1")
+
+		const expectedStatement =
+			"date               || credit      || debit    || balance\n" +
+			`${new Date().toLocaleDateString()}--${new Date().toLocaleTimeString()} ||        1000.00 ||          ||  1000.00\n` +
+			`${new Date().toLocaleDateString()}--${new Date().toLocaleTimeString()} ||        2000.00 ||          ||  3000.00\n` +
+			`${new Date().toLocaleDateString()}--${new Date().toLocaleTimeString()} ||          ||    500.00 ||  2500.00\n`
+
+		expect(statement).toContain(
+			"date               || credit      || debit    || balance"
+		)
+		expect(statement).toContain("1000.00")
+		expect(statement).toContain("2000.00")
+		expect(statement).toContain("500.00")
 	})
 })

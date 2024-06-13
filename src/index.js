@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid"
 import Transaction from "./transactions.js"
 import Account from "./account.js"
+import Statement from "./createStatement.js"
 
 export default class Bank {
 	#accounts
@@ -9,6 +10,7 @@ export default class Bank {
 		this.idGenerator = uuidv4
 		this.transaction = new Transaction()
 		this.account = new Account()
+		this.statement = new Statement()
 		this.#accounts = []
 		this.#transactions = []
 	}
@@ -91,10 +93,20 @@ export default class Bank {
 			0
 		)
 		const balance = totalDeposits - totalWithdrawals
-		console.log(
-			`The balance of your account is ${balance}€ as of ${this.getDate()}.`
-		)
 		return balance
+	}
+
+	createNewStatemennt(acc) {
+		if (!acc) {
+			throw new Error(
+				"An account name must be provided in order to print the statement"
+			)
+		}
+		const accountToCheck = this.findAccount(acc)
+		const filteredTransactions = this.getTransactions().filter(
+			(tr) => tr.account === acc
+		)
+		return this.statement.createStatemennt(acc, filteredTransactions)
 	}
 
 	newDeposit(acc, amount) {
@@ -102,8 +114,8 @@ export default class Bank {
 
 		if (!amount || amount === 0) {
 			throw new Error("You must provide an amount for the deposit")
-        }
-        const amountInCents = Math.round(amount*100)
+		}
+		const amountInCents = Math.round(amount * 100)
 		const transaction = this.transaction.deposit(
 			account.owner,
 			amountInCents,
@@ -118,8 +130,8 @@ export default class Bank {
 			throw new Error("You must provide an amount for the withdrawal")
 		}
 		const account = this.findAccount(acc)
-        const currentBalance = this.checkBalance(acc)
-        const amountInCents = Math.round(amount * 100)
+		const currentBalance = this.checkBalance(acc)
+		const amountInCents = Math.round(amount * 100)
 
 		if (currentBalance < amount) {
 			throw new Error(
@@ -137,31 +149,4 @@ export default class Bank {
 	}
 }
 
-// const nb = new Bank()
-// nb.createNewAccount("Perik")
-// nb.createNewAccount("Perik")
-// nb.createNewAccount("Erik")
-// nb.newDeposit("Perik", 10)
-// nb.newDeposit("Perik", 10)
-// console.log(nb.getAccounts())
 
-// console.log(nb.findAccount("Perik"))
-// nb.newDeposit("Perik", 10)
-// console.log(nb.checkBalance("Perik"))
-// nb.newWithdrawal("Perik", 11)
-
-// nb.createNewAccount("Erik")
-// nb.createNewAccount("Rick")
-// console.log(nb.checkBalance("Perik"))
-// nb.newDeposit("Erik", 10)
-// nb.newDeposit("Rick", 10)
-// console.log(nb.getAccounts())
-// console.log(nb.checkBalance("Perik"))
-// nb.newWithdrawal("Perik", 15)
-// console.log(nb.getAccounts());
-// console.log(nb.getTransactions())
-// nb.newDeposit(10)
-// console.log(nb.checkBalance("Perik"))
-// console.log(nb.getAccounts())
-
-// // console.log(nb.accounts);
