@@ -13,27 +13,27 @@ class Account extends Bank {
         this.id = 1
     }
 
-    deposit(cash, date) {
+    createTransaction(date) {
         if(date.length < 8 || date.length > 8) {
             throw 'Invalid date, must be dd/mm/yy'
         }
         const transaction = new Transaction(this.id, date)
         this.id++
-        transaction.credit = cash
-        this.credit += cash
         this.transactions.push(transaction)
+        return transaction
+    }
+
+    deposit(cash, date) {
+        const deposit = this.createTransaction(date)
+        deposit.credit = cash
+        this.credit += cash
         this.accountTransactions(this)
     }
 
     withdraw(cash, date) {
-        if(date.length < 8 || date.length > 8) {
-            throw 'Invalid date, must be dd/mm/yy'
-        }
-        const transaction = new Transaction(this.id, date)
-        transaction.debit = cash
-        this.id++
+        const withdraw = this.createTransaction(date)
+        withdraw.debit = cash
         this.debit += cash
-        this.transactions.push(transaction)
         this.accountTransactions(this)
     }
 
@@ -45,7 +45,7 @@ class Account extends Bank {
             debit = 0
         }
         const calculate = credit - debit
-        const balance = (Math.round(calculate * 100) / 100).toFixed(2)
+        const balance = this.roundNumber(calculate)
         return balance
     }
 
@@ -53,23 +53,24 @@ class Account extends Bank {
         if(transaction === undefined) {
                 return '      '
             }
-        const cash = ((Math.round(transaction * 100) / 100).toFixed(2))
+        const cash = this.roundNumber(transaction)
         return `£${cash}`
+    }
+
+    roundNumber(number) {
+        return ((Math.round(number * 100) / 100).toFixed(2))
     }
 
     printBankStatement() {
         let transactions = this.transactions
-        const date = transactions.map((t) => t.date)
-        const credit = transactions.map((t) => t.credit)
-        const debit = transactions.map((t) => t.debit)
 
         for(let i = 0; i < transactions.length; i++) {
-
             const statement = 
         `date     || credit || debit || balance
-${transactions[i].date} || ${this.checkTransaction(transactions[i].credit)} || ${this.checkTransaction(transactions[i].debit)}  || £${this.getBalance(transactions[i].credit, transactions[i].debit)}`
-            console.log(statement)
+${transactions[i].date} || ${this.checkTransaction(transactions[i].credit)} || ${this.checkTransaction(transactions[i].debit)} || £${this.getBalance(transactions[i].credit, transactions[i].debit)}`
+
         }
+        
     }
 }
 
@@ -80,6 +81,8 @@ accountInst.deposit(1.50, '10/08/24')
 accountInst.deposit(3.25, '11/08/24')
 accountInst.deposit(123.23, '13/10/24')
 accountInst.withdraw(0.57, '14/09/24')
+accountInst.deposit(3.00, '15/10/24')
+accountInst.withdraw(4.00, '16/10/24')
 
 accountInst.checkTransaction()
 
