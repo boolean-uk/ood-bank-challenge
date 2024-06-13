@@ -5,13 +5,12 @@ export default class Account {
 		this.type = type
 	}
 
-	createAccount(owner, type, id, dateCreated) {
-		type = this.type
+	createAccount(owner, accType, id, dateCreated) {
 		const newAccount = {
 			owner,
 			id,
 			dateCreated,
-			type,
+			accType,
 		}
 		return newAccount
 	}

@@ -11,8 +11,8 @@ export default class Bank {
 		this.idGenerator = uuidv4
 		this.transaction = new Transaction()
 		this.account = new Account()
-        this.statement = new Statement()
-        this.balance = new Balance()
+		this.statement = new Statement()
+		this.balance = new Balance()
 		this.#accounts = []
 		this.#transactions = []
 	}
@@ -36,7 +36,7 @@ export default class Bank {
 		return currentdate
 	}
 
-	createNewAccount(owner,type) {
+	createNewAccount(owner,accType) {
 		if (!owner) {
 			throw new Error(
 				"You must provide the owner's name to create a new account"
@@ -45,15 +45,15 @@ export default class Bank {
 		if (this.#accounts.find((acc) => acc.owner === owner)) {
 			throw new Error("An account with this name already exists")
 		}
-
+		if(!accType) accType = 'checking'
 		const newAccount = this.account.createAccount(
 			owner,
-			type,
+			accType,
 			this.idGenerator(),
-			this.getDate(),
+			this.getDate()
 		)
 		this.#accounts.push(newAccount)
-		return type
+		return newAccount
 	}
 
 	findAccount(account) {
@@ -76,12 +76,12 @@ export default class Bank {
 	}
 
 	checkBalance(acc) {
-        const accountToCheck = this.findAccount(acc)
-        return this.balance.checkBalance(
-					accountToCheck,
-					this.getTransactions()
-				)
-        }
+		const accountToCheck = this.findAccount(acc)
+		return this.balance.checkBalance(
+			accountToCheck,
+			this.getTransactions()
+		)
+	}
 
 	createNewStatemennt(acc) {
 		if (!acc) {
@@ -117,13 +117,18 @@ export default class Bank {
 			throw new Error("You must provide an amount for the withdrawal")
 		}
 		const account = this.findAccount(acc)
-		const accountType = this.findAccount(acc).type
-		const overDraft = accountType === 'checking' ? true : false
-		const currentBalance = overDraft
-			? this.checkBalance(acc) + 200
-			: this.checkBalance(acc)
+		const accountType = this.findAccount(acc).accType
+		const canOverDraft = accountType === "checking" ? true : false
+		
+		let currentBalance = this.checkBalance(acc)
+		if (!canOverDraft) {
+			currentBalance = this.checkBalance(acc)
+			} else {
+				currentBalance =
+				this.checkBalance(acc) +
+				Math.floor((20 / 100) * this.checkBalance(acc))
+		}
 		const amountInCents = Math.round(amount * 100)
-
 		if (currentBalance < amount) {
 			throw new Error(
 				`Not enough funds in your account for this transaction. Max withdrawal amount is €${currentBalance}`
@@ -140,11 +145,4 @@ export default class Bank {
 	}
 }
 
-const nb = new Bank()
-nb.createNewAccount("Perik", 'checking')
-console.log(nb.findAccount('Perik'));
-nb.newDeposit("Perik", 11)
-nb.newWithdrawal("Perik", 5.5)
-nb.newWithdrawal("Perik", 5.5)
-nb.newWithdrawal("Perik", 5.5)
-console.log(nb.createNewStatemennt("Perik"))
+

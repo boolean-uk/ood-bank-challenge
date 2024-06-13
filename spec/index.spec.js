@@ -75,11 +75,25 @@ describe("Bank functionalities", () => {
 		expect(myBank.checkBalance("tester1")).toBe(56)
 	})
 
-	it("should not let a customer withdraw more money than are currently in the account", () => {
-		myBank.newDeposit("tester1", 111)
-		expect(() => myBank.newWithdrawal("tester1", 113)).toThrowError(
+	it("should not let a customer withdraw more money than are currently in the account if the account is not of type -checking- ", () => {
+		myBank.createNewAccount("Perik", "other")
+		console.log(myBank.findAccount("Perik"))
+		myBank.newDeposit("Perik", 111)
+		expect(() => myBank.newWithdrawal("Perik", 113)).toThrowError(
 			"Not enough funds in your account for this transaction. Max withdrawal amount is €111"
 		)
+	})
+
+	it("should  let a customer withdraw more money than are currently in the account if the account type is checking which is the default account type", () => {
+		myBank.newDeposit("tester1", 111)
+		if (!myBank.findAccount('tester1').accType === 'checking') {
+			expect(() => myBank.newWithdrawal("tester1", 113)).toThrowError(
+				"Not enough funds in your account for this transaction. Max withdrawal amount is €111"
+			)			
+		} else {
+			myBank.newWithdrawal("tester1", 113)
+			expect(myBank.checkBalance("tester1")).toBe(-2)
+		}
 	})
 
 	// bank functionality general considerations
