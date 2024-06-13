@@ -128,7 +128,7 @@ describe("Bank functionalities", () => {
 			`${new Date().toLocaleDateString()}--${new Date().toLocaleTimeString()} ||          ||    500.00 ||  2500.00\n`
 
 		expect(statement).toContain(
-			"date               || credit      || debit    || balance"
+			"date                 || credit      || debit    || balance\n"
 		)
 		expect(statement).toContain("1000.00")
 		expect(statement).toContain("2000.00")
