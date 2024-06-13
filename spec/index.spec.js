@@ -78,7 +78,7 @@ describe("Bank functionalities", () => {
 	it("should not let a customer withdraw more money than are currently in his account", () => {
 		myBank.newDeposit("tester1", 111)
 		expect(() => myBank.newWithdrawal("tester1", 113)).toThrowError(
-			"There are not enough funds in your account for this transaction. The maximum amount that can be removed is €111"
+			"Not enough funds in your account for this transaction. Max withdrawal amount is €111"
 		)
 	})
 

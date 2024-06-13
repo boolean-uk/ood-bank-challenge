@@ -120,7 +120,7 @@ export default class Bank {
 
 		if (currentBalance < amount) {
 			throw new Error(
-				`There are not enough funds in your account for this transaction. The maximum amount that can be removed is €${currentBalance}`
+				`Not enough funds in your account for this transaction. Max withdrawal amount is €${currentBalance}`
 			)
 		}
 
