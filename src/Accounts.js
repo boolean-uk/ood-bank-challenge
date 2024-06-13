@@ -3,7 +3,6 @@ import date from "date-and-time";
 import { Credit, Debit } from "./Transactions.js";
 import { Statement } from "./Statement.js";
 
-let mockDate = 1;
 
 
 class Account {
@@ -18,6 +17,15 @@ class Account {
   }
 
   credit(amount, testDate) {
+    if (this.constructor.name === 'SavingsAccount') {
+      const today = new Date()
+      const oneYearAgo = today - 365 * 24 * 60 * 60 * 1000
+      const totalCreditsThisYear = this.getTransactions(oneYearAgo, today).filter((transaction) => transaction.constructor.name === 'Credit').reduce((a, b) => a + Number(b.amount), 0)
+      if (totalCreditsThisYear + amount > 20000) {
+        throw new Error ('You are only able to deposit £20,000 per year')
+      }
+    }
+
     const newTransaction = new Credit(
       numeral(amount).format("0.00"),
       this.getDate(testDate)
@@ -41,8 +49,7 @@ class Account {
       const date = new Date(testDate);
       return date;
     }
-    const date = new Date(`2023-10-${mockDate}`);
-    mockDate += 1;
+    const date = new Date();
     return date;
   }
 
@@ -166,4 +173,4 @@ class InvestmentAccount extends Account {
   }
 }
 
-export { Account, CheckingAccount };
+export { Account, CheckingAccount, SavingsAccount };

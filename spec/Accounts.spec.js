@@ -1,4 +1,4 @@
-import { Account, CheckingAccount } from "../src/Accounts.js";
+import { Account, CheckingAccount, SavingsAccount } from "../src/Accounts.js";
 
 describe("Accounts", () => {
   let testAccount;
@@ -96,7 +96,12 @@ describe("Checking Accounts", () => {
     testSavingsAccount = new SavingsAccount("Will Baxter", 12345678);
   });
   it("should only allow 20,000 worth of deposits per year", () => {
-   
+    testSavingsAccount.credit(10001, '2024-1-1')
+
+    expect(()=> {testSavingsAccount.credit(10001, '2024-13-06')}).toThrowError('You are only able to deposit £20,000 per year')
+
+
+
   });
 
 });
