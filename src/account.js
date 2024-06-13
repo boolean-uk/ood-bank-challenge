@@ -37,39 +37,39 @@ class Account extends Bank {
         this.accountTransactions(this)
     }
 
-    getBalance() {
-        const calculate = this.credit - this.debit
+    getBalance(credit, debit) {
+        if(credit === undefined) {
+            credit = 0
+        }
+        if(debit === undefined) {
+            debit = 0
+        }
+        const calculate = credit - debit
         const balance = (Math.round(calculate * 100) / 100).toFixed(2)
         return balance
     }
 
     checkTransaction(transaction) {
         if(transaction === undefined) {
-                return ' '
+                return '      '
             }
-        return transaction
+        const cash = ((Math.round(transaction * 100) / 100).toFixed(2))
+        return `£${cash}`
     }
 
     printBankStatement() {
         let transactions = this.transactions
-        // const debit = transactions.map((t) => {if(t.credit === undefined) return t.debit})
-        // const credit = transactions.map((t) => {if(t.debit === undefined) return t.credit})
-        // const date = transactions.map((t) => t.date)
+        const date = transactions.map((t) => t.date)
+        const credit = transactions.map((t) => t.credit)
+        const debit = transactions.map((t) => t.debit)
 
-        let date = undefined
-        let credit = undefined
-        let debit = undefined
         for(let i = 0; i < transactions.length; i++) {
-            date = transactions[i].date
-            credit = transactions[i].credit
-            debit = transactions[i].debit
 
+            const statement = 
+        `date     || credit || debit || balance
+${transactions[i].date} || ${this.checkTransaction(transactions[i].credit)} || ${this.checkTransaction(transactions[i].debit)}  || £${this.getBalance(transactions[i].credit, transactions[i].debit)}`
+            console.log(statement)
         }
-
-        const statement = 
-        `date   ||   credit  ||  debit  || balance
-        ${date} || ${this.checkTransaction(credit)}  || ${this.checkTransaction(debit)} || ${this.getBalance()}`
-        console.log(statement)
     }
 }
 
