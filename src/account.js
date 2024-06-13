@@ -13,18 +13,23 @@ class Account extends Bank {
         this.id = 1
     }
 
-    deposit(cash) {
-        const transaction = new Transaction(this.id)
+    deposit(cash, date) {
+        if(date.length < 8 || date.length > 8) {
+            throw 'Invalid date, must be dd/mm/yy'
+        }
+        const transaction = new Transaction(this.id, date)
         this.id++
         transaction.credit = cash
         this.credit += cash
         this.transactions.push(transaction)
-        console.log(transaction)
         this.accountTransactions(this)
     }
 
-    withdraw(cash) {
-        const transaction = new Transaction(this.id)
+    withdraw(cash, date) {
+        if(date.length < 8 || date.length > 8) {
+            throw 'Invalid date, must be dd/mm/yy'
+        }
+        const transaction = new Transaction(this.id, date)
         transaction.debit = cash
         this.id++
         this.debit += cash
@@ -38,23 +43,45 @@ class Account extends Bank {
         return balance
     }
 
+    checkTransaction(transaction) {
+        if(transaction === undefined) {
+                return ' '
+            }
+        return transaction
+    }
+
     printBankStatement() {
         let transactions = this.transactions
+        // const debit = transactions.map((t) => {if(t.credit === undefined) return t.debit})
+        // const credit = transactions.map((t) => {if(t.debit === undefined) return t.credit})
+        // const date = transactions.map((t) => t.date)
 
-        const debit = transactions.map((t) => {if(t.credit === undefined) return t})
-        const credit = transactions.map((t) => {if(t.debit === undefined) return t})
-        
+        let date = undefined
+        let credit = undefined
+        let debit = undefined
+        for(let i = 0; i < transactions.length; i++) {
+            date = transactions[i].date
+            credit = transactions[i].credit
+            debit = transactions[i].debit
+
+        }
+
+        const statement = 
+        `date   ||   credit  ||  debit  || balance
+        ${date} || ${this.checkTransaction(credit)}  || ${this.checkTransaction(debit)} || ${this.getBalance()}`
+        console.log(statement)
     }
 }
 
 export { Account }
 
 const accountInst = new Account('Frank', 'Reynolds')
-accountInst.deposit(1.50)
-accountInst.deposit(3.25)
-accountInst.deposit(123.23)
-accountInst.withdraw(0.57)
-accountInst.getBalance()
+accountInst.deposit(1.50, '10/08/24')
+accountInst.deposit(3.25, '11/08/24')
+accountInst.deposit(123.23, '13/10/24')
+accountInst.withdraw(0.57, '14/09/24')
+
+accountInst.checkTransaction()
 
 accountInst.printBankStatement()
 

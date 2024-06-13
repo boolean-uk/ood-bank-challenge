@@ -1,10 +1,11 @@
 
 
 class Transaction {
-    constructor(id) {
-        this.date = Date()
+    constructor(id, date) {
+        this.date = date
         this.id = id
     }
 }
+
 
 export { Transaction }
