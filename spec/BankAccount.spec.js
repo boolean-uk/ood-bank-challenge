@@ -73,4 +73,11 @@ describe('BankAccount', () => {
             savingsAccount.deposit(60000, '2023-01-01')
         }).toThrowError('Deposit limit exceeded for Savings account')
     })
+
+    it('Should accumulate interest correctly  for Investment account', () => {
+        const investmentAccount = new BankAccount('Investment')
+        investmentAccount.deposit(10000000, '2023-01-01') //100,000.00
+        investmentAccount.accumulateInterest()
+        expect(investmentAccount.calculateBalance()).toBe(10300000) //102,000.00
+    })
 })

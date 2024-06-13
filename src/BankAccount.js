@@ -68,6 +68,13 @@ class BankAccount {
     getTransactions() {
         return this.#transactions
     }
+
+    accumulateInterest() {
+        if (this.#type === 'Investment') {
+            const interest = this.calculateBalance() * 0.02
+            this.deposit(interest, new Date().toISOString().split('T')[0])
+        }
+    }
 }
 
 export { BankAccount }
