@@ -1,6 +1,17 @@
-export default class BankSystem {}
+export default class BankSystem {
+    #accountID;
+    #transactionID;
+    constructor(name) {
+      this.name = name;
+      this.#accountID = 1;
+      this.#transactionID = 1;
+    }
+  
+}
+ 
 
 export class Account {
+  #id; 
   #transactions = [];
 }
 
