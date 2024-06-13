@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid"
 import Transaction from "./transactions.js"
 import Account from "./account.js"
 import Statement from "./createStatement.js"
+import Balance from "./balance.js"
 
 export default class Bank {
 	#accounts
@@ -10,7 +11,8 @@ export default class Bank {
 		this.idGenerator = uuidv4
 		this.transaction = new Transaction()
 		this.account = new Account()
-		this.statement = new Statement()
+        this.statement = new Statement()
+        this.balance = new Balance()
 		this.#accounts = []
 		this.#transactions = []
 	}
@@ -67,34 +69,12 @@ export default class Bank {
 	}
 
 	checkBalance(acc) {
-		const accountToCheck = this.findAccount(acc)
-		const totalDeposits = this.#transactions.reduce(
-			(sum, transaction) => {
-				if (
-					transaction.type === "deposit" &&
-					transaction.account === accountToCheck.owner
-				) {
-					return sum + transaction.amount
-				}
-				return sum
-			},
-			0
-		)
-		const totalWithdrawals = this.#transactions.reduce(
-			(sum, transaction) => {
-				if (
-					transaction.type === "withdrawal" &&
-					transaction.account === accountToCheck.owner
-				) {
-					return sum + transaction.amount
-				}
-				return sum
-			},
-			0
-		)
-		const balance = totalDeposits - totalWithdrawals
-		return balance
-	}
+        const accountToCheck = this.findAccount(acc)
+        return this.balance.checkBalance(
+					accountToCheck,
+					this.getTransactions()
+				)
+        }
 
 	createNewStatemennt(acc) {
 		if (!acc) {
@@ -148,5 +128,3 @@ export default class Bank {
 		this.#transactions.push(transaction)
 	}
 }
-
-

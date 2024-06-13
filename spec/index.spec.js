@@ -113,6 +113,8 @@ describe("Bank functionalities", () => {
 		)
 	})
 
+	// Create bank statement
+
 	it("should create a new statement for an account", () => {
 		myBank.newDeposit("tester1", 1000) // 1000.00€
 		myBank.newDeposit("tester1", 2000) // 2000.00€
