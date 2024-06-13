@@ -5,12 +5,15 @@ import { Statement } from "./Statement.js";
 
 let mockDate = 1;
 
+
 class Account {
   #transactions;
+  #overdraft
 
-  constructor(accountHolder, accountNumber) {
+  constructor(accountHolder, accountNumber, overdraft = 0) {
     this.accountHolder = accountHolder;
     this.accountNumber = accountNumber;
+    this.#overdraft = overdraft
     this.#transactions = [];
   }
 
@@ -23,8 +26,8 @@ class Account {
   }
 
   debit(amount, testDate) {
-    if ((this.balance - amount) < 0) {
-        throw new Error('Insufficient funds')
+    if (this.balance - amount < 0 - this.#overdraft) {
+      throw new Error("Insufficient funds");
     }
     const newTransaction = new Debit(
       numeral(amount).format("0.00"),
@@ -131,4 +134,12 @@ class Account {
   }
 }
 
-export { Account };
+class CheckingAccount extends Account {
+
+  constructor(accountHolder, accountNumber, overdraft = 0) {
+    super(accountHolder, accountNumber, overdraft);
+    this.overdraft = overdraft;
+  }
+}
+
+export { Account, CheckingAccount };

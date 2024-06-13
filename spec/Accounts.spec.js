@@ -1,4 +1,4 @@
-import { Account } from "../src/Accounts.js";
+import { Account, CheckingAccount } from "../src/Accounts.js";
 
 describe("Accounts", () => {
   let testAccount;
@@ -53,7 +53,6 @@ describe("Accounts", () => {
   });
 
   it("should return transactions for a set period", () => {
-
     testAccount.credit(10, 3);
     testAccount.debit(5, 5);
     testAccount.credit(3, 7);
@@ -63,13 +62,30 @@ describe("Accounts", () => {
     testAccount.debit(5, 15);
     testAccount.credit(3, 17);
 
-    expect(testAccount.getStatement("", "2023-9-4", "2023-9-10").transactions.length).toEqual(3)
+    expect(
+      testAccount.getStatement("", "2023-9-4", "2023-9-10").transactions.length
+    ).toEqual(3);
   });
 
   it("should prevent debits that take balance below zero", () => {
+    testAccount.credit(10);
+    expect(() => testAccount.debit(12)).toThrowError("Insufficient funds");
+  });
+});
 
-    testAccount.credit(10)
-    expect(() => testAccount.debit(12)).toThrowError('Insufficient funds')
-  })
+describe("Checking Accounts", () => {
+  let testCheckingAccount;
+
+  beforeEach(() => {
+    testCheckingAccount = new CheckingAccount("Will Baxter", 12345678, 10);
+  });
+  it("should allow debits up to the overdraft", () => {
+    testCheckingAccount.credit(5);
+    testCheckingAccount.debit(15);
+  
+    expect(testCheckingAccount.balance).toEqual(-10)
+  });
 
 });
+
+
