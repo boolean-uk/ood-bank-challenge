@@ -1,8 +1,8 @@
-const BankAccount = require('../src/BankAccount');
-const SavingsAccount = require('../src/SavingsAccount');
-const CheckingAccount = require('../src/CheckingAccount');
-const InvestmentAccount = require('../src/InvestmentAccount');
-const BankStatement = require('../src/BankStatement');
+const BankAccount = require('../models/BankAccount');
+const SavingsAccount = require('../models/SavingsAccount');
+const CheckingAccount = require('../models/CheckingAccount');
+const InvestmentAccount = require('../models/InvestmentAccount');
+const BankStatement = require('../models/BankStatement');
 
 describe('BankAccount', () => {
     let account;
