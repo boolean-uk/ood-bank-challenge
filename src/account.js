@@ -45,7 +45,7 @@ class Account extends Bank {
             debit = 0
         }
         const calculate = credit - debit
-        const balance = this.roundNumber(calculate)
+        const balance = this.round(calculate)
         return balance
     }
 
@@ -53,11 +53,11 @@ class Account extends Bank {
         if(transaction === undefined) {
                 return '      '
             }
-        const cash = this.roundNumber(transaction)
+        const cash = this.round(transaction)
         return `£${cash}`
     }
 
-    roundNumber(number) {
+    round(number) {
         return ((Math.round(number * 100) / 100).toFixed(2))
     }
 
@@ -68,7 +68,7 @@ class Account extends Bank {
             const statement = 
         `date     || credit || debit || balance
 ${transactions[i].date} || ${this.checkTransaction(transactions[i].credit)} || ${this.checkTransaction(transactions[i].debit)} || £${this.getBalance(transactions[i].credit, transactions[i].debit)}`
-
+    console.log(statement)
         }
         
     }
