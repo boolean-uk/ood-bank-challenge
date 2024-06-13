@@ -78,6 +78,6 @@ describe('BankAccount', () => {
         const investmentAccount = new BankAccount('Investment')
         investmentAccount.deposit(10000000, '2023-01-01') //100,000.00
         investmentAccount.accumulateInterest()
-        expect(investmentAccount.calculateBalance()).toBe(10300000) //102,000.00
+        expect(investmentAccount.calculateBalance()).toBe(10200000) //102,000.00
     })
 })
