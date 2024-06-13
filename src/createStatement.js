@@ -30,7 +30,7 @@ export default class Statement {
 			(a, b) => new Date(b.date) - new Date(a.date)
 		)
 		let statement =
-			"date               || credit      || debit    || balance\n"
+			"date                || credit      || debit    || balance\n"
 		sortedTransactions.forEach((transaction) => {
 			statement += `${
 				transaction.date
