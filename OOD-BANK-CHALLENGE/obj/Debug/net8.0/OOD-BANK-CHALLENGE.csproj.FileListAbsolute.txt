@@ -13,3 +13,12 @@ c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\obj\Debug\net8.0\refint
 c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\obj\Debug\net8.0\OOD-BANK-CHALLENGE.pdb
 c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\obj\Debug\net8.0\OOD-BANK-CHALLENGE.genruntimeconfig.cache
 c:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\obj\Debug\net8.0\ref\OOD-BANK-CHALLENGE.dll
+C:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\bin\Debug\net8.0\UglyToad.PdfPig.Core.dll
+C:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\bin\Debug\net8.0\UglyToad.PdfPig.DocumentLayoutAnalysis.dll
+C:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\bin\Debug\net8.0\UglyToad.PdfPig.Fonts.dll
+C:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\bin\Debug\net8.0\UglyToad.PdfPig.Package.dll
+C:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\bin\Debug\net8.0\UglyToad.PdfPig.Tokenization.dll
+C:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\bin\Debug\net8.0\UglyToad.PdfPig.Tokens.dll
+C:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\bin\Debug\net8.0\UglyToad.PdfPig.dll
+C:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\obj\Debug\net8.0\OOD-BANK-CHALLENGE.csproj.AssemblyReference.cache
+C:\Boolean\Backend\ood-bank-challenge\OOD-BANK-CHALLENGE\obj\Debug\net8.0\OOD-BANK.C05D1591.Up2Date

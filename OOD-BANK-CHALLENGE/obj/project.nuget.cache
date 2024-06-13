@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "vBmjQTY2Pl8=",
+  "dgSpecHash": "3/bAm8FK5s0=",
   "success": true,
-  "projectFilePath": "C:\\Boolean\\Backend\\ood-bank-challenge\\OOD-BANK-CHALLENGE\\OOD-BANK-CHALLENGE.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "c:\\Boolean\\Backend\\ood-bank-challenge\\OOD-BANK-CHALLENGE\\OOD-BANK-CHALLENGE.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\angus\\.nuget\\packages\\pdfpig\\0.1.8\\pdfpig.0.1.8.nupkg.sha512"
+  ],
   "logs": []
 }

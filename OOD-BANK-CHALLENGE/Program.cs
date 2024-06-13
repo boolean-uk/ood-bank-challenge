@@ -1,5 +1,10 @@
 ﻿using System.Data;
 using System.Text.Json;
+using UglyToad.PdfPig.Content;
+using UglyToad.PdfPig.Writer;
+using UglyToad.PdfPig.Fonts.Standard14Fonts;
+using UglyToad.PdfPig.Core;
+
 
 namespace BankAccountNS;
 public class BankAccount
@@ -76,9 +81,40 @@ public class BankAccount
 
     }
 
+    public void PrintStatementToPDF()
+    {
+
+        string statement = PrintStatement();
+        PdfDocumentBuilder builder = new PdfDocumentBuilder();
+
+        PdfPageBuilder page = builder.AddPage(PageSize.A5);
+        PdfDocumentBuilder.AddedFont font = builder.AddStandard14Font(Standard14Font.Courier);
+
+
+        string[] statementByLine = PrintStatement().Split('\r');
+        int xCoOrd = 25;
+        int yCoOrd = 520;
+        foreach (string element in statementByLine)
+        {
+
+
+            page.AddText(element, 12, new PdfPoint(xCoOrd, yCoOrd), font);
+
+            
+            yCoOrd -= 25;
+
+        }
+
+
+
+        byte[] documentBytes = builder.Build();
+
+        File.WriteAllBytes(@"C:\PDF\Statment.pdf", documentBytes);
+    }
+
     private string FormatTransactions(List<Transaction> selectedTransactions)
     {
-        string formattedUI = "date       || credit  || debit  || balance";
+        string formattedUI = "date       || credit  || debit   || balance";
         int balance = 0;
 
         foreach (Transaction element in selectedTransactions)
@@ -103,7 +139,7 @@ public class BankAccount
 
             var runningBalance = ValueToCurrency(balance);
 
-            formattedUI += $"\n{date} || {credit} || {debit} || {runningBalance}";
+            formattedUI += $"\r{date} || {credit} || {debit} || {runningBalance}";
 
         }
 
