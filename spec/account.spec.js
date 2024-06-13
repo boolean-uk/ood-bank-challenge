@@ -38,7 +38,8 @@ describe('Account', () => {
     })
     it('should get the balance of the account', () => {
         const result = account.getBalance(50, 10)
-        expect(result).toBe(40.00)
+        const expected = (40).toFixed(2)
+        expect(result).toBe(expected)
     })
     it('should check if a transaction is defined', () => {
         const firstTransaction = account.checkTransaction(1.50)
@@ -49,8 +50,10 @@ describe('Account', () => {
     it('should round numbers to two decimal places', () => {
         const first = account.round(15)
         const second = account.round(1.2)
-        expect(first).toBe(15.00)
-        expect(second).toBe(1.20)
+        const firstExpected = (15).toFixed(2)
+        const secondExpected = (1.2).toFixed(2)
+        expect(first).toBe(firstExpected)
+        expect(second).toBe(secondExpected)
     })
 })
 

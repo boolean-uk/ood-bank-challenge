@@ -68,7 +68,7 @@ class Account extends Bank {
             const statement = 
         `date     || credit || debit || balance
 ${transactions[i].date} || ${this.checkTransaction(transactions[i].credit)} || ${this.checkTransaction(transactions[i].debit)} || £${this.getBalance(transactions[i].credit, transactions[i].debit)}`
-    // console.log(statement)
+   
         }
         
     }
@@ -84,9 +84,6 @@ accountInst.withdraw(0.57, '14/09/24')
 accountInst.deposit(3.00, '15/10/24')
 accountInst.withdraw(4.00, '16/10/24')
 
-accountInst.round(1.2)
-
-accountInst.checkTransaction()
 
 accountInst.printBankStatement()
 
