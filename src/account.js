@@ -12,7 +12,7 @@ class Account extends Bank {
     }
 
     createTransaction(date) {
-        if(date === undefined || date.length < 8 || date.length > 8) {
+        if(!typeof date === 'string' || date === undefined || date.length < 8 || date.length > 8) {
             throw 'Invalid date, must be dd/mm/yy'
         }
         const transaction = new Transaction(this.id, date)
@@ -22,18 +22,25 @@ class Account extends Bank {
     }
 
     deposit(cash, date) {
+        if(!typeof cash === 'number') {
+            throw 'Invalid input please provide a number value'
+        }
         const deposit = this.createTransaction(date)
-        deposit.credit = cash
+        deposit.credit = this.round(cash)
         this.accountTransactions(this)
     }
 
     withdraw(cash, date) {
+        if(!typeof cash === 'number') {
+            throw 'Invalid input please provide a number value'
+        }
         const withdraw = this.createTransaction(date)
-        withdraw.debit = cash
+        withdraw.debit = this.round(cash)
         this.accountTransactions(this)
     }
 
     getBalance(credit, debit) {
+
         if(credit === undefined) {
             credit = 0
         }
@@ -45,12 +52,11 @@ class Account extends Bank {
         return balance
     }
 
-    checkTransaction(transaction) {
+    isDefined(transaction) {
         if(transaction === undefined) {
-                return '     '
+            return '     '
         }
-        const cash = this.round(transaction)
-        return `£${cash}`
+        return `£${transaction}`
     }
 
     round(number) {
@@ -65,7 +71,7 @@ class Account extends Bank {
         let transactions = this.#transactions
         console.log('date     ||  credit     ||  debit    ||    balance')
         for(let i = 0; i < transactions.length; i++) {
-console.log(`${transactions[i].date} ||       ${this.checkTransaction(transactions[i].credit)} ||     ${this.checkTransaction(transactions[i].debit)} ||     £${this.getBalance(transactions[i].credit, transactions[i].debit)}`)
+console.log(`${transactions[i].date} ||       ${this.isDefined(transactions[i].credit)} ||     ${this.isDefined(transactions[i].debit)} ||     £${this.getBalance(transactions[i].credit, transactions[i].debit)}`)
         }
     }
 }

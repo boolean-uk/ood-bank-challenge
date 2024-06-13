@@ -16,7 +16,8 @@ describe('Account', () => {
     })
     it('should allow an account holder to deposit money into their account', () => {
         account.deposit(1000, date)
-        expect(account.transactions[0].credit).toBe(1000)
+        const expected = (1000).toFixed(2)
+        expect(account.transactions[0].credit).toBe(expected)
     })
     it('should throw an error if a date is not entered with the deposit or withdraw amount', () => {
         expect(() => account.deposit(150)).toThrow('Invalid date, must be dd/mm/yy')
@@ -30,8 +31,10 @@ describe('Account', () => {
     it('should allow an account holder to withdraw money from their account', () => {
         account.deposit(50, date)
         account.withdraw(10, date)
-        expect(account.transactions[0].credit).toBe(50)
-        expect(account.transactions[1].debit).toBe(10)
+        const expected = (50).toFixed(2)
+        const secondExpected = (10).toFixed(2)
+        expect(account.transactions[0].credit).toBe(expected)
+        expect(account.transactions[1].debit).toBe(secondExpected)
         expect(account.transactions.length).toBe(2)
     })
     it('should get the balance of the account', () => {
@@ -42,10 +45,12 @@ describe('Account', () => {
         expect(result).toBe(expected)
     })
     it('should check if a transaction is defined', () => {
-        const firstTransaction = account.checkTransaction(1.50)
-        const secondTransaction = account.checkTransaction(undefined)
-        expect(firstTransaction).toBe('£1.50')
-        expect(secondTransaction).toBe('      ')
+        const result = (1.5).toFixed(2)
+        const example = (1.5).toFixed(2)
+        const firstTransaction = account.isDefined(example)
+        const secondTransaction = account.isDefined(undefined)
+        expect(firstTransaction).toBe(`£${result}`)
+        expect(secondTransaction).toBe('     ')
     })
     it('should round numbers to two decimal places', () => {
         const first = account.round(15)
