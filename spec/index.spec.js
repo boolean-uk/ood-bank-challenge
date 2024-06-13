@@ -112,7 +112,7 @@ describe('Bank account', () => {
     it('should be possible to get a pdf of the statement', () => {
         let date = new Date()
         date = date.toLocaleDateString()
-        
+
         checkingAccount.deposite(1000)
         checkingAccount.addOverdraft(1000)
         checkingAccount.withdraw(1200)
@@ -120,5 +120,10 @@ describe('Bank account', () => {
         const result = checkingAccount.getPDF()
 
         expect(result).toEqual(`date || credit || debit || balance || overdraft\n${date} ||  || 1200.00 || -200.00 || 1000.00\n${date} || 1000.00 ||  || 1000.00 || 1000.00\n`)
+    })
+
+    it('should add interest every month', () => {
+        investmentAccount.deposite(1000)
+        expect(investmentAccount.payInterest()).toEqual(currency(1040.40))
     })
 })
