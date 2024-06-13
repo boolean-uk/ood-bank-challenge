@@ -1,4 +1,5 @@
 import numeral from "numeral";
+import PuppeteerHTMLPDF from "puppeteer-html-pdf";
 
 class Statement {
     constructor(account, startDate, endDate) {
@@ -17,7 +18,7 @@ class Statement {
       this.transactions.forEach((transaction) => {
           console.log(`${transaction.date} || ${transaction.constructor.name} || Amount: £${transaction.amount} || Balance after transaction: £${transaction.balanceAfterTransaction} `)
       })
-      console.log(`Account total balance: £${this.closingBalance}`)
+      console.log(`Account balance: £${this.closingBalance}`)
       if (account.overdraft) {
         console.log(`Overdraft: ${account.overdraft}`)
       }
@@ -25,6 +26,25 @@ class Statement {
   
     get json() {
       return JSON.stringify(this)
+    }
+
+    async getPDF() {
+      const newPDF = new PuppeteerHTMLPDF();
+      newPDF.setOptions({format: "A4", path: "/Users/willbaxter/Desktop/Boolean/ood-bank-challenge/src/sample.pdf"})
+
+      let content = `<h1>Account Statement</h1><br />`
+      content += `<p>Account Holder: ${this.accountInfo.accountHolder}</p><br /><p>Account Number: ${this.accountInfo.accountNumber}</p><br />`
+
+      this.transactions.forEach((transaction) => {
+       content += `<p>${transaction.date} || ${transaction.constructor.name} || Amount: £${transaction.amount} || Balance after transaction: £${transaction.balanceAfterTransaction}</p>`
+    })
+      content += `<p>Account balance: £${this.closingBalance}</p>`
+      
+      try {
+        await newPDF.create(content)
+      } catch(error){
+        console.log('HTML maker effed up you goofbag')
+      }
     }
   }
 

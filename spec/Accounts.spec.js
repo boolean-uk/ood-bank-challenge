@@ -1,4 +1,4 @@
-import { Account, CheckingAccount, SavingsAccount } from "../src/Accounts.js";
+import { Account, CheckingAccount, SavingsAccount, InvestmentAccount } from "../src/Accounts.js";
 
 describe("Accounts", () => {
   let testAccount;
@@ -89,7 +89,7 @@ describe("Checking Accounts", () => {
 
 });
 
-describe("Checking Accounts", () => {
+describe("Savings Accounts", () => {
   let testSavingsAccount;
 
   beforeEach(() => {
@@ -105,4 +105,27 @@ describe("Checking Accounts", () => {
   });
 
 });
+
+
+describe("Accounts", () => {
+  let testAccount;
+
+  it('should make a PDF', () => {
+    testAccount = new Account("Will Baxter", "12345678");
+    testAccount.credit(10, '2023-9-3');
+    testAccount.debit(5, '2023-9-5');
+    testAccount.credit(3, '2023-9-7');
+    testAccount.credit(23.32, '2023-9-9');
+    testAccount.debit(12.01, '2023-9-11');
+    testAccount.credit(10, '2023-9-13');
+    testAccount.debit(5, '2023-9-15');
+    testAccount.credit(3, '2023-9-17');
+
+    testAccount.getStatement('pdf')
+
+  })
+
+  });
+
+;
 
