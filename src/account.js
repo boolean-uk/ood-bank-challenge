@@ -15,10 +15,11 @@ class Account extends Bank {
 
     deposit(cash) {
         const transaction = new Transaction(this.id)
-        transaction.credit = cash
         this.id++
+        transaction.credit = cash
         this.credit += cash
         this.transactions.push(transaction)
+        console.log(transaction)
         this.accountTransactions(this)
     }
 
@@ -32,21 +33,32 @@ class Account extends Bank {
     }
 
     getBalance() {
-        const balance = this.credit - this.debit
+        const calculate = this.credit - this.debit
+        const balance = (Math.round(calculate * 100) / 100).toFixed(2)
         return balance
     }
 
     printBankStatement() {
-        this.transactions.map((t) => console.log(t))
+        let transactions = this.transactions
+
+        const debit = transactions.map((t) => {if(t.credit === undefined) return t})
+        const credit = transactions.map((t) => {if(t.debit === undefined) return t})
+        
     }
 }
 
 export { Account }
 
 const accountInst = new Account('Frank', 'Reynolds')
-accountInst.deposit(1000)
-accountInst.withdraw(20)
+accountInst.deposit(1.50)
+accountInst.deposit(3.25)
+accountInst.deposit(123.23)
+accountInst.withdraw(0.57)
+accountInst.getBalance()
+
 accountInst.printBankStatement()
+
+
 
 
 
