@@ -39,7 +39,7 @@ class Account extends Bank {
         }
         if(debit === undefined) {
             debit = 0
-        }
+        }   
         const calculate = credit - debit
         const balance = this.round(calculate)
         return balance
@@ -47,8 +47,8 @@ class Account extends Bank {
 
     checkTransaction(transaction) {
         if(transaction === undefined) {
-                return '      '
-            }
+                return '     '
+        }
         const cash = this.round(transaction)
         return `£${cash}`
     }
@@ -63,14 +63,10 @@ class Account extends Bank {
 
     printBankStatement() {
         let transactions = this.#transactions
-
+        console.log('date     ||  credit     ||  debit    ||    balance')
         for(let i = 0; i < transactions.length; i++) {
-            const statement = 
-        `date     ||  credit  ||  debit  ||  balance
-${transactions[i].date} ||  ${this.checkTransaction(transactions[i].credit)}  ||  ${this.checkTransaction(transactions[i].debit)}  ||  £${this.getBalance(transactions[i].credit, transactions[i].debit)}`
-   console.log(statement)
+console.log(`${transactions[i].date} ||       ${this.checkTransaction(transactions[i].credit)} ||     ${this.checkTransaction(transactions[i].debit)} ||     £${this.getBalance(transactions[i].credit, transactions[i].debit)}`)
         }
-        
     }
 }
 
@@ -83,7 +79,7 @@ accountInst.deposit(123.23, '13/10/24')
 accountInst.withdraw(0.57, '14/09/24')
 accountInst.deposit(3.00, '15/10/24')
 accountInst.withdraw(4.00, '16/10/24')
-
+accountInst.getBalance()
 
 accountInst.printBankStatement()
 

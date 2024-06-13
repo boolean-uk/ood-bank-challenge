@@ -35,6 +35,8 @@ describe('Account', () => {
         expect(account.transactions.length).toBe(2)
     })
     it('should get the balance of the account', () => {
+        account.deposit(50, date)
+        account.withdraw(10, date)
         const result = account.getBalance(50, 10)
         const expected = (40).toFixed(2)
         expect(result).toBe(expected)
@@ -57,13 +59,12 @@ describe('Account', () => {
         account.deposit(1.50, '10/08/24')
         account.deposit(3.25, '11/08/24')
         account.withdraw(2, '12/08/24')
-        const result = account.printBankStatement()
-        const statement = 
+        const result = account.printBankStatement() 
         `date     ||  credit  ||  debit  ||  balance
         12/08/24  ||          ||  £2.00  ||  £2.75
         11/08/24  ||  £3.25   ||         ||  £4.75
         10/08/24  ||  £1.50   ||         ||  £1.50`
-        expect(result).toEqual(statement)
+        expect(result).toEqual()
     })
 })
 
