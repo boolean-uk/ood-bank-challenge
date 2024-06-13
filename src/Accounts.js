@@ -38,7 +38,7 @@ class Account {
 
   getDate(testDate) {
     if (testDate) {
-      const date = new Date(`2023-9-${testDate}`);
+      const date = new Date(testDate);
       return date;
     }
     const date = new Date(`2023-10-${mockDate}`);
@@ -104,7 +104,7 @@ class Account {
     if (startDate && endDate) {
       const transactionsWithinPeriod = transactionsSortedByDate.filter(
         (transaction) =>
-          transaction.date > startDate && transaction.date < endDate
+          transaction.date > new Date(startDate) && transaction.date < new Date(endDate)
       );
       return transactionsWithinPeriod;
     }
@@ -146,6 +146,13 @@ class Account {
 }
 
 class CheckingAccount extends Account {
+
+  constructor(accountHolder, accountNumber) {
+    super(accountHolder, accountNumber);
+  }
+}
+
+class SavingsAccount extends Account {
 
   constructor(accountHolder, accountNumber) {
     super(accountHolder, accountNumber);

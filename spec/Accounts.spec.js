@@ -53,17 +53,17 @@ describe("Accounts", () => {
   });
 
   it("should return transactions for a set period", () => {
-    testAccount.credit(10, 3);
-    testAccount.debit(5, 5);
-    testAccount.credit(3, 7);
-    testAccount.credit(23.32, 9);
-    testAccount.debit(12.01, 11);
-    testAccount.credit(10, 13);
-    testAccount.debit(5, 15);
-    testAccount.credit(3, 17);
+    testAccount.credit(10, '2023-9-3');
+    testAccount.debit(5, '2023-9-5');
+    testAccount.credit(3, '2023-9-7');
+    testAccount.credit(23.32, '2023-9-9');
+    testAccount.debit(12.01, '2023-9-11');
+    testAccount.credit(10, '2023-9-13');
+    testAccount.debit(5, '2023-9-15');
+    testAccount.credit(3, '2023-9-17');
 
     expect(
-      testAccount.getStatement("", "2023-9-4", "2023-9-10").transactions.length
+      testAccount.getTransactions("2023-9-4", "2023-9-10").length
     ).toEqual(3);
   });
 
@@ -89,4 +89,15 @@ describe("Checking Accounts", () => {
 
 });
 
+describe("Checking Accounts", () => {
+  let testSavingsAccount;
+
+  beforeEach(() => {
+    testSavingsAccount = new SavingsAccount("Will Baxter", 12345678);
+  });
+  it("should only allow 20,000 worth of deposits per year", () => {
+   
+  });
+
+});
 
