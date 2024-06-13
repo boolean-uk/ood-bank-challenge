@@ -4,13 +4,23 @@ import { Statement } from './Statement.js'
 class BankAccount {
     #transactions
     #overdraft
+    #type
+    #yearlyDeposit
+
+    static SAVINGS_DEPOSIT_LIMIT = 200000
 
     constructor(type = 'Checking') {
         this.#transactions = []
         this.#overdraft = type === 'Checking' ? 50000 : 0 // 500 pound overdraft in pence
+        this.#type = type
+        this.#yearlyDeposit = 0
     }
 
     deposit(amount, date) {
+        if (this.#type === 'Savings' && (this.#yearlyDeposit + amount)> BankAccount.SAVINGS_DEPOSIT_LIMIT) {
+            throw new Error('Deposit limit exceeded for Savings account')
+        }
+        this.#yearlyDeposit += amount
         const newBalance = this.calculateBalance() + amount
         const transaction = new Transaction(date, amount, 'credit', newBalance)
         this.#transactions.push(transaction)
@@ -20,7 +30,7 @@ class BankAccount {
         if (this.calculateAvailableFunds() < amount) {
             throw new Error('Insufficient Funds')
         }
-        const newBalance = this.calculateBalance() - amount;
+        const newBalance = this.calculateBalance() - amount
         const transaction = new Transaction(date, amount, 'debit', newBalance)
         this.#transactions.push(transaction)
     }

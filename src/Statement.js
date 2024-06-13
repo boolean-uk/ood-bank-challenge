@@ -25,9 +25,7 @@ class Statement {
         })
         
         return [header, ...formattedTransactions].join('\n')
-    }
-    
-    
+    } 
 }
 
 export { Statement }
