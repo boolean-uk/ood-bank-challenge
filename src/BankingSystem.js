@@ -74,7 +74,7 @@ export default class BankingSystem {
 
         let bankStatement = `${this.#givePad('date', 15)} || ${this.#givePad('credit', 15)} || ${this.#givePad('debit', 15)} || ${this.#givePad('balance', 15)}\n`
 
-        this.#transaction.reverse().forEach(t => {
+        this.#transaction.forEach(t => {
             bankStatement += `${this.#givePad(t[0], 15)} || ${this.#givePad(t[1], 15)} || ${this.#givePad(t[2], 15)} || ${this.#givePad(t[3], 15)}\n`
         })
 
@@ -104,7 +104,7 @@ export default class BankingSystem {
 
         let bankStatement = `${this.#givePad('date', 15)} || ${this.#givePad('credit', 15)} || ${this.#givePad('debit', 15)} || ${this.#givePad('balance', 15)}\n`
 
-        filteredTransactions.reverse().forEach(t => {
+        filteredTransactions.forEach(t => {
             bankStatement += `${this.#givePad(t[0], 15)} || ${this.#givePad(t[1], 15)} || ${this.#givePad(t[2], 15)} || ${this.#givePad(t[3], 15)}\n`
         })
 

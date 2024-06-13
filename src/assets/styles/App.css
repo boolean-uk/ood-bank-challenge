@@ -73,6 +73,7 @@ nav ul li:hover {
 #account ul li input {
     width: 16rem;
     height: 2.5rem;
+    padding-left: 0.5rem;
 }
 
 /* Deposit && Withdraw */
