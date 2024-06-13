@@ -68,7 +68,7 @@ describe('BankAccount', () => {
 
     it('should throw error if deposit limit is exceeded for Savings account', () => {
         const savingsAccount = new BankAccount('Savings')
-        savingsAccount.deposit(1500000, '2023-01-01')
+        savingsAccount.deposit(150000, '2023-01-01')
         expect(() => {
             savingsAccount.deposit(60000, '2023-01-01')
         }).toThrowError('Deposit limit exceeded for Savings account')
