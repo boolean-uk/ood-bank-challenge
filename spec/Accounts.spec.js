@@ -77,9 +77,10 @@ describe("Checking Accounts", () => {
   let testCheckingAccount;
 
   beforeEach(() => {
-    testCheckingAccount = new CheckingAccount("Will Baxter", 12345678, 10);
+    testCheckingAccount = new CheckingAccount("Will Baxter", 12345678);
   });
   it("should allow debits up to the overdraft", () => {
+    testCheckingAccount.overdraft = 10
     testCheckingAccount.credit(5);
     testCheckingAccount.debit(15);
   

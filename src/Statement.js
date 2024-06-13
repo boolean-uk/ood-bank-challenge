@@ -18,6 +18,9 @@ class Statement {
           console.log(`${transaction.date} || ${transaction.constructor.name} || Amount: £${transaction.amount} || Balance after transaction: £${transaction.balanceAfterTransaction} `)
       })
       console.log(`Account total balance: £${this.closingBalance}`)
+      if (account.overdraft) {
+        console.log(`Overdraft: ${account.overdraft}`)
+      }
     }
   
     get json() {

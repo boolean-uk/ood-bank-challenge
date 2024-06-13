@@ -10,10 +10,10 @@ class Account {
   #transactions;
   #overdraft
 
-  constructor(accountHolder, accountNumber, overdraft = 0) {
+  constructor(accountHolder, accountNumber) {
     this.accountHolder = accountHolder;
     this.accountNumber = accountNumber;
-    this.#overdraft = overdraft
+    this.#overdraft = 0
     this.#transactions = [];
   }
 
@@ -132,13 +132,30 @@ class Account {
     );
     return [...filteredTransactions];
   }
+
+  get overdraft() {
+    return this.#overdraft
+  }
+
+  set overdraft(number) {
+    if (this.constructor.name !== 'CheckingAccount') {
+      throw new Error('Overdrafts are only allowed on checking accounts')
+    }
+    this.#overdraft = number
+  }
 }
 
 class CheckingAccount extends Account {
 
-  constructor(accountHolder, accountNumber, overdraft = 0) {
-    super(accountHolder, accountNumber, overdraft);
-    this.overdraft = overdraft;
+  constructor(accountHolder, accountNumber) {
+    super(accountHolder, accountNumber);
+  }
+}
+
+class InvestmentAccount extends Account {
+
+  constructor(accountHolder, accountNumber) {
+    super(accountHolder, accountNumber);
   }
 }
 
