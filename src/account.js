@@ -2,14 +2,12 @@ import Bank from "./bank.js"
 import { Transaction } from "./transactions.js"
 
 class Account extends Bank {
-
+    #transactions
     constructor(firstName, lastName) {
         super()
         this.firstName = firstName
         this.lastName = lastName
-        this.credit = 0
-        this.debit = 0
-        this.transactions = []
+        this.#transactions = []
         this.id = 1
     }
 
@@ -19,21 +17,19 @@ class Account extends Bank {
         }
         const transaction = new Transaction(this.id, date)
         this.id++
-        this.transactions.push(transaction)
+        this.#transactions.push(transaction)
         return transaction
     }
 
     deposit(cash, date) {
         const deposit = this.createTransaction(date)
         deposit.credit = cash
-        this.credit += cash
         this.accountTransactions(this)
     }
 
     withdraw(cash, date) {
         const withdraw = this.createTransaction(date)
         withdraw.debit = cash
-        this.debit += cash
         this.accountTransactions(this)
     }
 
@@ -61,14 +57,18 @@ class Account extends Bank {
         return ((Math.round(number * 100) / 100).toFixed(2))
     }
 
+    get transactions() {
+        return [...this.#transactions]
+    }
+
     printBankStatement() {
-        let transactions = this.transactions
+        let transactions = this.#transactions
 
         for(let i = 0; i < transactions.length; i++) {
             const statement = 
-        `date     || credit || debit || balance
-${transactions[i].date} || ${this.checkTransaction(transactions[i].credit)} || ${this.checkTransaction(transactions[i].debit)} || £${this.getBalance(transactions[i].credit, transactions[i].debit)}`
-   
+        `date     ||  credit  ||  debit  ||  balance
+${transactions[i].date} ||  ${this.checkTransaction(transactions[i].credit)}  ||  ${this.checkTransaction(transactions[i].debit)}  ||  £${this.getBalance(transactions[i].credit, transactions[i].debit)}`
+   console.log(statement)
         }
         
     }

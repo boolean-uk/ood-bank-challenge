@@ -1,7 +1,6 @@
 import { Account } from "../src/account.js"
 import { Transaction } from "../src/transactions.js"
 import Bank from "../src/bank.js"
-import exp from "constants"
 
 describe('Account', () => {
     let account
@@ -14,11 +13,10 @@ describe('Account', () => {
         const result = new Account('Frank', 'Zappa')
         expect(result.firstName).toBe('Frank')
         expect(result.lastName).toBe('Zappa')
-        expect(result.credit).toBe(0)
     })
     it('should allow an account holder to deposit money into their account', () => {
         account.deposit(1000, date)
-        expect(account.credit).toBe(1000)
+        expect(account.transactions[0].credit).toBe(1000)
     })
     it('should throw an error if a date is not entered with the deposit or withdraw amount', () => {
         expect(() => account.deposit(150)).toThrow('Invalid date, must be dd/mm/yy')
@@ -32,8 +30,8 @@ describe('Account', () => {
     it('should allow an account holder to withdraw money from their account', () => {
         account.deposit(50, date)
         account.withdraw(10, date)
-        expect(account.credit).toBe(50)
-        expect(account.debit).toBe(10)
+        expect(account.transactions[0].credit).toBe(50)
+        expect(account.transactions[1].debit).toBe(10)
         expect(account.transactions.length).toBe(2)
     })
     it('should get the balance of the account', () => {
@@ -55,6 +53,18 @@ describe('Account', () => {
         expect(first).toBe(firstExpected)
         expect(second).toBe(secondExpected)
     })
+    it('should generate a bank statement based on account transactions', () => {
+        account.deposit(1.50, '10/08/24')
+        account.deposit(3.25, '11/08/24')
+        account.withdraw(2, '12/08/24')
+        const result = account.printBankStatement()
+        const statement = 
+        `date     ||  credit  ||  debit  ||  balance
+        12/08/24  ||          ||  £2.00  ||  £2.75
+        11/08/24  ||  £3.25   ||         ||  £4.75
+        10/08/24  ||  £1.50   ||         ||  £1.50`
+        expect(result).toEqual(statement)
+    })
 })
 
 describe('Bank', () => {
@@ -73,6 +83,6 @@ describe('Bank', () => {
         account.deposit(50, date)
         bank.accountTransactions(account)
         expect(bank.accounts.length).toBe(1)
-        expect(bank.accounts[0].credit).toBe(50)
+        expect(bank.accounts[0].lastName).toBe('Zappa')
     })
 })
