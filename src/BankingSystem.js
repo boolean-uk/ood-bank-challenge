@@ -11,6 +11,12 @@ export default class BankingSystem {
         this.#balance = 0
         this.#transaction = []
         this.#lastTransactionDate = new Date().setHours(0, 0, 0, 0)
+        BankingSystem.instance = this
+        return this
+    }
+
+    get balance() {
+        return this.#balance
     }
 
     #isNumber(num) {
@@ -18,7 +24,9 @@ export default class BankingSystem {
     }
 
     #isValidDate(date) {
-        return new Date(date) >= this.#lastTransactionDate
+        const transactionDate = new Date(date)
+        transactionDate.setHours(0, 0, 0, 0)
+        return transactionDate >= this.#lastTransactionDate
     }
 
     deposit(date, amount) {
@@ -61,7 +69,7 @@ export default class BankingSystem {
 
     printBankStatement() {
         if (this.#transaction.length === 0) {
-            throw new Error('No transition found.')
+            throw new Error('No transaction found.')
         }
 
         let bankStatement = `${this.#givePad('date', 15)} || ${this.#givePad('credit', 15)} || ${this.#givePad('debit', 15)} || ${this.#givePad('balance', 15)}\n`
@@ -74,30 +82,32 @@ export default class BankingSystem {
     }
 
     printBankStatementBetweenDates(startDate, endDate) {
-        if (new Date(endDate) <= new Date(startDate)) {
+        const start = new Date(startDate)
+        const end = new Date(endDate)
+        
+        if (end <= start) {
             throw new Error('Bank Statement print invalidated.')
         }
-        
-        let transactions = []
-        let bankStatement = `${this.#givePad('date', 15)} || ${this.#givePad('credit', 15)} || ${this.#givePad('debit', 15)} || ${this.#givePad('balance', 15)}\n`
 
-        this.#transaction.filter(t => {
-            if (
-                new Date(t[0]).valueOf() >= new Date(startDate).valueOf() && 
-                new Date(t[0]).valueOf() <= new Date(endDate).valueOf()
-            ) {
-                transactions.push(t)
-            }
+        start.setHours(0, 0, 0, 0)
+        end.setHours(0, 0, 0, 0)
+
+        let filteredTransactions = this.#transaction.filter(t => {
+            const transactionDate = new Date(t[0])
+            transactionDate.setHours(0, 0, 0, 0)
+            return transactionDate >= start && transactionDate <= end
         })
-        
-        if (transactions.length === 0) {
+
+        if (filteredTransactions.length === 0) {
             throw new Error('No transaction found.')
         }
 
-        transactions.reverse().forEach(t => {
+        let bankStatement = `${this.#givePad('date', 15)} || ${this.#givePad('credit', 15)} || ${this.#givePad('debit', 15)} || ${this.#givePad('balance', 15)}\n`
+
+        filteredTransactions.reverse().forEach(t => {
             bankStatement += `${this.#givePad(t[0], 15)} || ${this.#givePad(t[1], 15)} || ${this.#givePad(t[2], 15)} || ${this.#givePad(t[3], 15)}\n`
         })
 
         return bankStatement
-    }
+    }    
 }

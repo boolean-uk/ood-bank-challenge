@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import BankingSystem from '../src/BankingSystem.js'
 
 describe('Banking System', () => {
