@@ -45,7 +45,6 @@ describe('Bank account', () => {
 
     it('should output JSON when getting all transactions', () => {
         let date = new Date()
-        date = date.toLocaleDateString()
 
         checkingAccount.deposite(1000)
         checkingAccount.deposite(2000)
@@ -93,7 +92,7 @@ describe('Bank account', () => {
         let date2 = new Date(2024, 5, 14)
 
         let date = new Date()
-        date.toDateString()
+        date = date.toLocaleDateString()
 
         checkingAccount.deposite(1000)
         checkingAccount.addOverdraft(1000)

@@ -38,7 +38,7 @@ class BankAccount {
             throw 'maximum deposit limit of 20000 per year reached'
         }
 
-        this.#transactions.push({date: date, credit: depositAmount, debit: 0, type: this.type})
+        this.#transactions.push({date: new Date(), credit: depositAmount, debit: 0, type: this.type})
     }
 
     withdraw(amount) {
@@ -51,7 +51,7 @@ class BankAccount {
             throw 'Amount exceeds the available funds'
         }
 
-        this.#transactions.push({date: date, credit: 0, debit: withdrawlAmount, type: this.type})
+        this.#transactions.push({date: new Date(), credit: 0, debit: withdrawlAmount, type: this.type})
     }
 
     getStatement(date1, date2) {
@@ -70,16 +70,23 @@ class Statement {
     }
 
     print(date1, date2) {
+        let transactions = null
+        let overdraft = 0
+        let balance = 0
+
         if(!date1 && !date2) {
-            return this.allStatements()
+            transactions = this.#transactions
         } else {
-            return this.dateStatements(date1, date2)
-        }
-    }
+            transactions = this.#transactions.filter((item) => {
+                let date = item.date
+                date = new Date(date)
+    
+                return item.date.getTime() >= date1.getTime() && item.date.getTime() <= date2.getTime()
+            })
 
-    allStatements() {
-        let overdraft = 0
-        let balance = 0
+            date1 = new Date(date1)
+            date2 = new Date(date2)
+        }
 
         if (this.#overdraft) {
             overdraft = this.#overdraft
@@ -100,54 +107,7 @@ class Statement {
                 credit = ''
             }
 
-            return `${transaction.date} || ${credit} || ${debit} || ${balance} || ${overdraft}\n`
-        }
-
-        let allTransactions = this.#transactions.map((transaction) => getTransaction(transaction))
-
-        allTransactions = allTransactions.reverse().join('')
-
-        return `date || credit || debit || balance || overdraft\n${allTransactions}`
-    }
-
-    dateStatements(date1, date2) {
-        let overdraft = 0
-        let balance = 0
-
-        const date11 = new Date(date1)
-        const date21 = new Date(date2)
-
-        // const transactions = this.#transactions.filter((item) => {
-        //     let date = item.date
-        //     date = new Date(date)
-
-        //     console.log(date11, date21)
-
-        //     return date.getTime() >= date1.getTime() && date.getTime() <= date2.getTime()
-        // })
-
-        // console.log(transactions)
-
-        if (this.#overdraft) {
-            overdraft = this.#overdraft
-        }
-
-        function getTransaction(transaction) {
-            balance = currency(balance).add(transaction.credit)
-            balance = currency(balance).subtract(transaction.debit)
-
-            let debit = transaction.debit
-            let credit = transaction.credit
-
-            if(transaction.debit === 0) {
-                debit = ''
-            }
-
-            if(transaction.credit === 0) {
-                credit = ''
-            }
-
-            return `${transaction.date} || ${credit} || ${debit} || ${balance} || ${overdraft}\n`
+            return `${transaction.date.toLocaleDateString()} || ${credit} || ${debit} || ${balance} || ${overdraft}\n`
         }
 
         let allTransactions = transactions.map((transaction) => getTransaction(transaction))
