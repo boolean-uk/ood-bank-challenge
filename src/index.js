@@ -36,7 +36,7 @@ export default class Bank {
 		return currentdate
 	}
 
-	createNewAccount(owner) {
+	createNewAccount(owner,type) {
 		if (!owner) {
 			throw new Error(
 				"You must provide the owner's name to create a new account"
@@ -48,10 +48,12 @@ export default class Bank {
 
 		const newAccount = this.account.createAccount(
 			owner,
+			type,
 			this.idGenerator(),
-			this.getDate()
+			this.getDate(),
 		)
 		this.#accounts.push(newAccount)
+		return type
 	}
 
 	findAccount(account) {
@@ -115,7 +117,11 @@ export default class Bank {
 			throw new Error("You must provide an amount for the withdrawal")
 		}
 		const account = this.findAccount(acc)
-		const currentBalance = this.checkBalance(acc)
+		const accountType = this.findAccount(acc).type
+		const overDraft = accountType === 'checking' ? true : false
+		const currentBalance = overDraft
+			? this.checkBalance(acc) + 200
+			: this.checkBalance(acc)
 		const amountInCents = Math.round(amount * 100)
 
 		if (currentBalance < amount) {
@@ -133,3 +139,12 @@ export default class Bank {
 		this.#transactions.push(transaction)
 	}
 }
+
+const nb = new Bank()
+nb.createNewAccount("Perik", 'checking')
+console.log(nb.findAccount('Perik'));
+nb.newDeposit("Perik", 11)
+nb.newWithdrawal("Perik", 5.5)
+nb.newWithdrawal("Perik", 5.5)
+nb.newWithdrawal("Perik", 5.5)
+console.log(nb.createNewStatemennt("Perik"))

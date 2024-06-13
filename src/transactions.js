@@ -1,6 +1,4 @@
 export default class Transaction {
-	// #transactions
-	// #accounts
 	constructor() {}
 
 	deposit(account, amountInCents, date, id) {

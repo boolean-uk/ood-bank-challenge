@@ -1,18 +1,18 @@
 // Account Types: Savings, Investment, Checking
-import { v4 as uuidv4 } from "uuid"
-
 export default class Account {
-    constructor(owner, type = 'Checking') {
-        this.owner = owner
-        this.type = type
-    }
+	constructor(owner, type = "checking") {
+		this.owner = owner
+		this.type = type
+	}
 
-    createAccount(owner,id,dateCreated){
-        const newAccount = {
-            owner,
-            id,
-            dateCreated,
-        }
-        return newAccount
-    }
+	createAccount(owner, type, id, dateCreated) {
+		type = this.type
+		const newAccount = {
+			owner,
+			id,
+			dateCreated,
+			type,
+		}
+		return newAccount
+	}
 }

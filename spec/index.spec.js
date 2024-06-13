@@ -69,13 +69,13 @@ describe("Bank functionalities", () => {
 
 	// Making withdrawals
 
-	it("should be able to allow the customer to withraw money from his account", () => {
+	it("should be able to allow the customer to withraw money from the account", () => {
 		myBank.newDeposit("tester1", 111)
 		myBank.newWithdrawal("tester1", 55)
 		expect(myBank.checkBalance("tester1")).toBe(56)
 	})
 
-	it("should not let a customer withdraw more money than are currently in his account", () => {
+	it("should not let a customer withdraw more money than are currently in the account", () => {
 		myBank.newDeposit("tester1", 111)
 		expect(() => myBank.newWithdrawal("tester1", 113)).toThrowError(
 			"Not enough funds in your account for this transaction. Max withdrawal amount is €111"
@@ -88,7 +88,7 @@ describe("Bank functionalities", () => {
 		expect(() => myBank.createNewAccount()).toThrowError(
 			"You must provide the owner's name to create a new account"
 		)
-
+		//
 		expect(() => myBank.newDeposit(111)).toThrowError(
 			"There is no account with the provided name"
 		)
@@ -98,7 +98,7 @@ describe("Bank functionalities", () => {
 		expect(() => myBank.newDeposit("tester1")).toThrowError(
 			"You must provide an amount for the deposit"
 		)
-
+		//
 		expect(() => myBank.newWithdrawal("wrongName", 100)).toThrowError(
 			"There is no account with the provided name"
 		)
@@ -131,7 +131,10 @@ describe("Bank functionalities", () => {
 			"date                 || credit      || debit    || balance\n"
 		)
 		expect(statement).toContain("1000.00")
+		expect(statement).toContain("1000.00")
 		expect(statement).toContain("2000.00")
+		expect(statement).toContain("3000.00")
 		expect(statement).toContain("500.00")
+		expect(statement).toContain("2500.00")
 	})
 })
