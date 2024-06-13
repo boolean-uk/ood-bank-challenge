@@ -108,4 +108,17 @@ describe('Bank account', () => {
 
         expect(() => savingsAccount.deposite(1000)).toThrow('maximum deposit limit of 20000 per year reached')
     })
+
+    it('should be possible to get a pdf of the statement', () => {
+        let date = new Date()
+        date = date.toLocaleDateString()
+        
+        checkingAccount.deposite(1000)
+        checkingAccount.addOverdraft(1000)
+        checkingAccount.withdraw(1200)
+
+        const result = checkingAccount.getPDF()
+
+        expect(result).toEqual(`date || credit || debit || balance || overdraft\n${date} ||  || 1200.00 || -200.00 || 1000.00\n${date} || 1000.00 ||  || 1000.00 || 1000.00\n`)
+    })
 })

@@ -1,5 +1,8 @@
 import currency from "currency.js"
 import { sub } from "date-fns";
+import { jsPDF } from "jspdf";
+
+const doc = new jsPDF();
 
 class BankAccount {
     #transactions
@@ -81,6 +84,15 @@ class BankAccount {
         })
 
         return transactionstransactionsBetweenDates
+    }
+
+    getPDF(date1, date2) {
+        const statement = this.getStatement(date1, date2)
+
+        doc.text(statement, 10, 10)
+        doc.save('a4.pdf')
+
+        return statement
     }
 }
 

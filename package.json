@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "currency.js": "^2.0.4",
-    "date-fns": "^3.6.0"
+    "date-fns": "^3.6.0",
+    "jspdf": "^2.5.1"
   }
 }
