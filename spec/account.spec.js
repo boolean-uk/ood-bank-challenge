@@ -1,6 +1,7 @@
 import { Account } from "../src/account.js"
 import { Transaction } from "../src/transactions.js"
 import Bank from "../src/bank.js"
+import exp from "constants"
 
 describe('Account', () => {
     let account
@@ -16,11 +17,14 @@ describe('Account', () => {
         expect(result.credit).toBe(0)
     })
     it('should allow an account holder to deposit money into their account', () => {
-        account.deposit(1000, '13/12/24')
+        account.deposit(1000, date)
         expect(account.credit).toBe(1000)
     })
+    it('should throw an error if a date is not entered with the deposit or withdraw amount', () => {
+        expect(() => account.deposit(150)).toThrow('Invalid date, must be dd/mm/yy')
+        expect(() => account.withdraw(150)).toThrow('Invalid date, must be dd/mm/yy')
+    })
     it('should generate a transaction object that stores the amount credited or debited', () => {
-        let date = '13/12/24'
         account.createTransaction(date)
         const transaction = new Transaction(1, date)
         expect(transaction).toEqual(account.transactions[0])
