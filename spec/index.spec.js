@@ -1,5 +1,6 @@
 import SavingsAccount, { InvestmentAccount, CheckingAccount } from "../src/index.js";
 import currency from "currency.js"
+import { addDays } from "date-fns"
 
 describe('Bank account', () => {
     let savingsAccount
@@ -88,8 +89,8 @@ describe('Bank account', () => {
     })
 
     it('should be able to print a statement between two dates', () => {
-        let date1 = new Date(2024, 5, 12)
-        let date2 = new Date(2024, 5, 14)
+        const date1 = new Date(2024, 5, 12)
+        const date2 = addDays(new Date(), 10)
 
         let date = new Date()
         date = date.toLocaleDateString()
@@ -124,6 +125,6 @@ describe('Bank account', () => {
 
     it('should add interest every month', () => {
         investmentAccount.deposite(1000)
-        expect(investmentAccount.payInterest()).toEqual(currency(1040.40))
+        expect(investmentAccount.payInterest()).toEqual(currency(1061.21))
     })
 })

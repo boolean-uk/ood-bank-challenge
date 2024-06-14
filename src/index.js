@@ -1,6 +1,6 @@
 import currency from "currency.js"
-import { sub, differenceInMonths } from "date-fns";
-import { jsPDF } from "jspdf";
+import { sub, differenceInMonths } from "date-fns"
+import { jsPDF } from "jspdf"
 
 const doc = new jsPDF();
 
@@ -98,6 +98,7 @@ class BankAccount {
     payInterest() {
         if (this.type === 'investment account' && this.monthsOld > 0) {
             let balance = this.balance
+
             for (let i = 0; i < this.monthsOld; i++){
                 balance = currency(balance).add(balance * 0.02)
             }
@@ -178,7 +179,7 @@ class InvestmentAccount extends BankAccount {
     constructor() {
         super()
         this.#type = 'investment account'
-        this.#createdDate = new Date(2024, 2, 14)
+        this.#createdDate = sub(new Date(), {months: 3})
         this.#monthsOld = 0
     }
 
