@@ -24,6 +24,19 @@ export default class Bank {
       account.addTransaction(deposit);
       this.#transactionID++;
     }
+  
+    withdraw(account, amount) {
+      let currentAccountBalance = account.getBalance();
+      let newAccountBalance = currentAccountBalance - amount;
+      let withdraw = new Transaction(
+        this.#transactionID,
+        0,
+        amount,
+        newAccountBalance
+      );
+      account.addTransaction(withdraw);
+      this.#transactionID++;
+    }
   }
   
   export class Account {
