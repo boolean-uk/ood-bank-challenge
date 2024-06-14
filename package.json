@@ -1,0 +1,14 @@
+{
+  "name": "ood-bank-challenge",
+  "version": "1.0.0",
+  "description": "Object-Oriented Design Bank Challenge",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "jasmine": "^3.6.0"
+  }
+}
