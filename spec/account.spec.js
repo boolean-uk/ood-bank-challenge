@@ -47,10 +47,10 @@ describe('Account', () => {
     it('should check if a transaction is defined', () => {
         const result = (1.5).toFixed(2)
         const example = (1.5).toFixed(2)
-        const firstTransaction = account.isDefined(example)
-        const secondTransaction = account.isDefined(undefined)
-        expect(firstTransaction).toBe(`£${result}`)
-        expect(secondTransaction).toBe('     ')
+        const firstTransaction = account.format(example)
+        const secondTransaction = account.format(0)
+        expect(firstTransaction).toBe(`     £1.50`)
+        expect(secondTransaction).toBe('          ')
     })
     it('should round numbers to two decimal places', () => {
         const first = account.round(15)
@@ -64,12 +64,16 @@ describe('Account', () => {
         account.deposit(1.50, '10/08/24')
         account.deposit(3.25, '11/08/24')
         account.withdraw(2, '12/08/24')
-        const result = account.printBankStatement() 
-        `date     ||  credit  ||  debit  ||  balance
-        12/08/24  ||          ||  £2.00  ||  £2.75
-        11/08/24  ||  £3.25   ||         ||  £4.75
-        10/08/24  ||  £1.50   ||         ||  £1.50`
-        expect(result).toEqual()
+        const result = account.printBankStatement()
+ 
+        expect(result).toEqual(`date     ||  credit    ||  debit     ||  balance
+        12/08/24  ||            ||     £2.00  ||  £2.75
+        11/08/24  ||     £3.25  ||            ||  £4.75
+        10/08/24  ||     £1.50  ||            ||  £1.50`)
+    })
+    it('should throw an error if a user who does not have an account', () => {
+        let newAccount = ('Frank', 'Reynolds')
+        expect(() => newAccount.checkAccount()).toThrow('Account does not exist')
     })
 })
 
