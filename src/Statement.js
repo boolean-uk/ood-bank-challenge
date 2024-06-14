@@ -30,7 +30,7 @@ class Statement {
 
     async getPDF() {
       const newPDF = new PuppeteerHTMLPDF();
-      newPDF.setOptions({format: "A4", path: "/Users/willbaxter/Desktop/Boolean/ood-bank-challenge/src/sample.pdf"})
+      newPDF.setOptions({format: "A4", path: `/Users/willbaxter/Desktop/Boolean/ood-bank-challenge/src/${new Date()}`})
 
       let content = `<h1>Account Statement</h1><br />`
       content += `<p>Account Holder: ${this.accountInfo.accountHolder}</p><br /><p>Account Number: ${this.accountInfo.accountNumber}</p><br />`
@@ -39,11 +39,11 @@ class Statement {
        content += `<p>${transaction.date} || ${transaction.constructor.name} || Amount: £${transaction.amount} || Balance after transaction: £${transaction.balanceAfterTransaction}</p>`
     })
       content += `<p>Account balance: £${this.closingBalance}</p>`
-      
+
       try {
         await newPDF.create(content)
       } catch(error){
-        console.log('HTML maker effed up you goofbag')
+        console.log('HTML maker encountered an issue')
       }
     }
   }
