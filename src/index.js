@@ -11,6 +11,8 @@ export default class Bank {
       return new Account(this.#accountID);
       this.#accountID++;
     }
+  
+    deposit(account, amount) {}
   }
   
   export class Account {
@@ -34,6 +36,12 @@ export default class Bank {
           `${transaction.date}        ||${transaction.credit}     ||${transaction.debit}      ||${transaction.balance}        `
         );
       });
+    }
+  
+    getBalance() {
+      return this.#transactions.reduce((prev, curr, index) => {
+        prev + curr.credit - curr.debit;
+      }, 0);
     }
   }
   
