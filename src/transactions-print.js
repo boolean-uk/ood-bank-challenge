@@ -2,7 +2,7 @@ class TransactionsPrint {
 
   print(transactions) {
     const result = []
-    result.push('date       ||  credit  ||  debit  || balance  ')
+    result.push('date       ||  credit ||  debit   || balance  ')
     
     transactions.forEach(transaction => {
       const date = transaction.date.padEnd(10, ' ')
@@ -13,7 +13,7 @@ class TransactionsPrint {
       if(type === 'credit'){
         result.push(`${date} || ${amount} || ${emptySpace} || ${balance} `)
       } else {
-        result.push(`${date} || ${emptySpace} || ${amount} || ${balance} `)
+        result.push(`${date} || ${emptySpace}|| ${amount}  || ${balance} `)
       }
     })
     return result
