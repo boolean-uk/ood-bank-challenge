@@ -3,21 +3,13 @@ import { Transaction } from "./transactions.js"
 
 class Account extends Bank {
     #transactions
-    #firstName
-    #lastName
+
     constructor(firstName, lastName) {
         super()
-        this.#firstName = firstName
-        this.#lastName = lastName
+        this.firstName = firstName
+        this.lastName = lastName
         this.#transactions = []
         this.id = 1
-    }
-
-    checkAccount() {
-        const account = this.accounts.find((a) => a.firstName === this.firstName && a.lastName === this.lastName)
-        if(!account) {
-            throw 'Account does not exist'
-        }
     }
 
     createTransaction(date) {
@@ -31,7 +23,6 @@ class Account extends Bank {
     }
 
     deposit(cash, date) {
-        this.checkAccount()
 
         if(!typeof cash === 'number') {
             throw 'Invalid input please provide a number value'
@@ -43,7 +34,7 @@ class Account extends Bank {
     }
 
     withdraw(cash, date) {
-        this.checkAccount()
+
         if(!typeof cash === 'number') {
             throw 'Invalid input please provide a number value'
         }
@@ -91,7 +82,7 @@ class Account extends Bank {
         
         console.log('date     ||  credit    ||  debit     ||    balance')
         for(let i = 0; i < transactions.length; i++) {
-console.log(`${transactions[i].date} || ${this.format(transactions[i].credit)} || ${this.format(transactions[i].debit)} ||     £${this.getBalance()}`)
+console.log(`${transactions[i].date} || ${this.format(transactions[i].credit)} || ${this.format(transactions[i].debit)} || £${this.getBalance()}`)
         }
     }
 }

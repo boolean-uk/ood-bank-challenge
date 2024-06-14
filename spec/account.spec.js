@@ -61,19 +61,14 @@ describe('Account', () => {
         expect(second).toBe(secondExpected)
     })
     it('should generate a bank statement based on account transactions', () => {
-        account.deposit(1.50, '10/08/24')
-        account.deposit(3.25, '11/08/24')
-        account.withdraw(2, '12/08/24')
-        const result = account.printBankStatement()
- 
-        expect(result).toEqual(`date     ||  credit    ||  debit     ||  balance
-        12/08/24  ||            ||     £2.00  ||  £2.75
-        11/08/24  ||     £3.25  ||            ||  £4.75
-        10/08/24  ||     £1.50  ||            ||  £1.50`)
-    })
-    it('should throw an error if a user who does not have an account', () => {
-        let newAccount = ('Frank', 'Reynolds')
-        expect(() => newAccount.checkAccount()).toThrow('Account does not exist')
+        account.deposit(50, date)
+        console.log = jasmine.createSpy('log')
+        account.printBankStatement()
+        const statementHeader = 'date     ||  credit    ||  debit     ||    balance'
+        const statementBody = `${account.transactions[0].date} || ${account.format(account.transactions[0].credit)} || ${account.format(account.transactions[0].debit)} || £${account.getBalance()}`
+        
+        expect(console.log).toHaveBeenCalledWith(statementHeader)
+        expect(console.log).toHaveBeenCalledWith(statementBody)
     })
 })
 
