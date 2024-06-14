@@ -36,7 +36,7 @@ export default class Bank {
 		return currentdate
 	}
 
-	createNewAccount(owner,accType) {
+	createNewAccount(owner, accType) {
 		if (!owner) {
 			throw new Error(
 				"You must provide the owner's name to create a new account"
@@ -45,7 +45,7 @@ export default class Bank {
 		if (this.#accounts.find((acc) => acc.owner === owner)) {
 			throw new Error("An account with this name already exists")
 		}
-		if(!accType) accType = 'checking'
+		if (!accType) accType = "checking"
 		const newAccount = this.account.createAccount(
 			owner,
 			accType,
@@ -119,14 +119,12 @@ export default class Bank {
 		const account = this.findAccount(acc)
 		const accountType = this.findAccount(acc).accType
 		const canOverDraft = accountType === "checking" ? true : false
-		
+
 		let currentBalance = this.checkBalance(acc)
 		if (!canOverDraft) {
 			currentBalance = this.checkBalance(acc)
-			} else {
-				currentBalance =
-				this.checkBalance(acc) +
-				Math.floor((20 / 100) * this.checkBalance(acc))
+		} else {
+			currentBalance = this.checkBalance(acc) + 500
 		}
 		const amountInCents = Math.round(amount * 100)
 		if (currentBalance < amount) {
@@ -144,5 +142,3 @@ export default class Bank {
 		this.#transactions.push(transaction)
 	}
 }
-
-
