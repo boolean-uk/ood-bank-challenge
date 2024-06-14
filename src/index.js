@@ -27,8 +27,6 @@ class BankAccount {
 
     deposite(amount) {
         const depositAmount = currency(amount)
-        let date = new Date()
-        date = date.toLocaleDateString()
 
         const savingsAccountTransactions = this.#transactions.filter((transaction) => transaction.type === 'savings account')
 
@@ -38,7 +36,7 @@ class BankAccount {
             years: 1
         })
 
-        let transactionsBetweenDates = this.getBetweendates(oneYearAgo, new Date(), savingsAccountTransactions)
+        const transactionsBetweenDates = this.getBetweendates(oneYearAgo, new Date(), savingsAccountTransactions)
 
         transactionsBetweenDates.forEach((transaction) => {
             totalDeposits = currency(totalDeposits).add(transaction.credit)
@@ -53,8 +51,6 @@ class BankAccount {
 
     withdraw(amount) {
         const withdrawlAmount = currency(amount)
-        let date = new Date()
-        date = date.toLocaleDateString()
         let balance = this.balance
 
         if(currency(balance).add(this.overdraft).subtract(amount) < 0) {
