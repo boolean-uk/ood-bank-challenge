@@ -1,4 +1,4 @@
-import Bank, { Account, Transaction } from "../src/index.js";
+import Bank, { Account, Transaction } from "../src/index.js"
 
 describe("Core Criteria", () => {
   let bank, account, transaction;
