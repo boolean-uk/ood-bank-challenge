@@ -1,0 +1,21 @@
+{
+  "name": "ood-bank-challenge",
+  "version": "1.0.0",
+  "description": "This challenge asks you to put into practice everything you've learned about object oriented programming. Use the concepts we've covered to help organise your code, keep things modular and easy to change.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "npx jasmine"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine": "^5.1.0"
+  },
+  "dependencies": {
+    "currency.js": "^2.0.4",
+    "date-fns": "^3.6.0",
+    "jspdf": "^2.5.1"
+  }
+}
