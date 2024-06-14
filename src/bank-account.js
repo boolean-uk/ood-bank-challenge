@@ -23,7 +23,7 @@ class BankAccount {
       return 'You dont have enough money!'
     }
     const date = this.date.currentDate()
-    this.balance -= parseInt(amount)
+    this.balance = this.calculeWithdrawString(this.balance, value)
     this.transaction.push(new Transaction(amount, date, 'debit', this.balance))
   }
 
@@ -36,8 +36,8 @@ class BankAccount {
   }
 
   calculeDepositString(a, b){
-    const [aInt, aDec = '00'] = a.split('.')
-    const [bInt, bDec = '00'] = b.split('.')
+    const [aInt , aDec = '00'] = a.split('.')
+    const [bInt , bDec = '00'] = b.split('.')
     const intSum = parseInt(aInt) + parseInt(bInt)
     const decSum = parseInt(aDec) + parseInt(bDec)
     const adjustedDecSum = decSum.toString().padStart(2, '0')
@@ -45,6 +45,22 @@ class BankAccount {
     const finalIntSum = intSum + carry
     const finalDecSum = (decSum % 100).toString().padStart(2, '0')
     return `${finalIntSum}.${finalDecSum}`
+  }
+
+  calculeWithdrawString(a, b){
+    // let value1 = a
+    // let value2 = b
+    // let value3 = b
+    // if(value1 < value2) {
+    //   value2 = value1
+    //   value1 = value3
+    // }
+    const [aInt , aDec = '00'] = a.split('.')
+    const [bInt , bDec = '00'] = b.split('.')
+    
+    const intDiff = parseInt(aInt) - parseInt(bInt)
+    const decDiff = parseInt(aDec) - parseInt(bDec)
+    return `${intDiff}.${decDiff.toString().padStart(2, '0')}`
   }
 }
 

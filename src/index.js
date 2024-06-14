@@ -8,7 +8,7 @@ const thisDay = Date
 myBankAccount.deposit(1000.55)
 myBankAccount.deposit(400.33)
 myBankAccount.deposit(500.22)
-// myBankAccount.withdraw(1500.11)
+myBankAccount.withdraw(1500.11)
 myBankAccount.deposit(500.66)
 // myBankAccount.withdraw(500.33)
 // console.log(myBankAccount.getTransactions)
