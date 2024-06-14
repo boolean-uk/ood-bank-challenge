@@ -12,7 +12,18 @@ export default class Bank {
       this.#accountID++;
     }
   
-    deposit(account, amount) {}
+    deposit(account, amount) {
+      let currentAccountBalance = account.getBalance();
+      let newAccountBalance = currentAccountBalance + amount;
+      let deposit = new Transaction(
+        this.#transactionID,
+        amount,
+        0,
+        newAccountBalance
+      );
+      account.addTransaction(deposit);
+      this.#transactionID++;
+    }
   }
   
   export class Account {
