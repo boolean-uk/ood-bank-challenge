@@ -13,7 +13,29 @@ export default class BankSystem {
 export class Account {
   #id; 
   #transactions = [];
+
+  constructor(id) {
+    this.#id = id;
+  }
+
+  addTransaction(transaction) {
+    if (!transaction.instanceOf(Transaction)) throw "unknown data";
+
+    this.#transactions.unshift(transaction);
+  }
+
+  printStatement(openingDate, closingDate) {
+    console.log("date       ||credit        ||debit     ||balance       ");
+    this.#transactions.forEach((transaction) => {
+      console.log(
+        `${transaction.date}        ||${transaction.credit}     ||${transaction.debit}      ||${transaction.balance}        `
+      );
+    });
+  }
 }
+
+
+
 
 export class Transaction {
   #id;
@@ -36,7 +58,7 @@ export class Transaction {
 
     if (balance === undefined || balance === null || balance === NaN)
       throw "balance is required";
-    
+
     this.#id = id;
     this.#date = date;
     this.#credit = credit;
