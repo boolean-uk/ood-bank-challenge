@@ -13,10 +13,11 @@ export default class Bank {
     }
   
     deposit(account, amount) {
-      let currentAccountBalance = account.getBalance();
+      let currentAccountBalance = account.balance;
       let newAccountBalance = currentAccountBalance + amount;
       let deposit = new Transaction(
         this.#transactionID,
+        "10-01-2012",
         amount,
         0,
         newAccountBalance
@@ -26,10 +27,11 @@ export default class Bank {
     }
   
     withdraw(account, amount) {
-      let currentAccountBalance = account.getBalance();
+      let currentAccountBalance = account.balance;
       let newAccountBalance = currentAccountBalance - amount;
       let withdraw = new Transaction(
         this.#transactionID,
+        "10-01-2012",
         0,
         amount,
         newAccountBalance
@@ -48,7 +50,7 @@ export default class Bank {
     }
   
     addTransaction(transaction) {
-      if (!transaction.instanceOf(Transaction)) throw "unknown data";
+      if (!transaction instanceof Transaction) throw "unknown data";
   
       this.#transactions.unshift(transaction);
     }
@@ -62,19 +64,20 @@ export default class Bank {
       });
     }
   
-    getBalance() {
-      return this.#transactions.reduce((prev, curr, index) => {
-        prev + curr.credit - curr.debit;
-      }, 0);
+    get balance() {
+      return this.#transactions.reduce(
+        (prev, curr, index) => prev + curr.credit - curr.debit,
+        0
+      );
     }
   }
   
   export class Transaction {
-    #id;
-    #date;
-    #credit;
-    #debit;
-    #balance;
+    id;
+    date;
+    credit;
+    debit;
+    balance;
   
     constructor(id, date, credit, debit, balance) {
       if (id === undefined || id === null || id === NaN) throw "id is required";
@@ -91,11 +94,11 @@ export default class Bank {
       if (balance === undefined || balance === null || balance === NaN)
         throw "balance is required";
   
-      this.#id = id;
-      this.#date = date;
-      this.#credit = credit;
-      this.#debit = debit;
-      this.#balance = balance;
+      this.id = id;
+      this.date = date;
+      this.credit = credit;
+      this.debit = debit;
+      this.balance = balance;
     }
   }
   
