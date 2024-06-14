@@ -44,16 +44,6 @@ describe('Bank account', () => {
         expect(result).toBe(`date || credit || debit || balance || overdraft\n${date} ||  || 500.00 || 2500.00 || 0\n${date} || 2000.00 ||  || 3000.00 || 0\n${date} || 1000.00 ||  || 1000.00 || 0\n`)
     })
 
-    // it('should output JSON when getting all transactions', () => {
-    //     let date = new Date()
-
-    //     checkingAccount.deposite(1000)
-    //     checkingAccount.deposite(2000)
-    //     checkingAccount.withdraw(500)
-
-    //     expect(checkingAccount.transactions).toEqual(JSON.stringify([{date: date, credit: 1000, debit: 0, type: 'checking account'}, {date: date, credit: 2000, debit: 0, type: 'checking account'}, {date: date, credit: 0, debit: 500, type: 'checking account'}]))
-    // })
-
     it('should not be possible to withdrawl more than is in the account', () => {
         checkingAccount.deposite(1000)
 
