@@ -1,0 +1,22 @@
+{
+  "type": "module",
+  "devDependencies": {
+    "jasmine": "^5.1.0"
+  },
+  "dependencies": {
+    "date-and-time": "^3.3.0",
+    "numeral": "^2.0.6",
+    "puppeteer-html-pdf": "^4.0.8",
+    "uuid": "^10.0.0"
+  },
+  "name": "ood-bank-challenge",
+  "description": "This challenge asks you to put into practice everything you've learned about object oriented programming. Use the concepts we've covered to help organise your code, keep things modular and easy to change.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
