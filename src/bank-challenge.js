@@ -1,18 +1,18 @@
 class Transaction {
   constructor(date, amount) {
-    this._date = date
-    this._amount = amount
+    this.date = date
+    this.amount = amount
   }
 
   getAmount() {
-    return this._amount
+    return this.amount
   }
 
   formatDate() {
-    if (this._date instanceof Date) {
-      const day = this._date.getDate()
-      const month = this._date.getMonth() + 1
-      const year = this._date.getFullYear()
+    if (this.date instanceof Date) {
+      const day = this.date.getDate()
+      const month = this.date.getMonth() + 1
+      const year = this.date.getFullYear()
       return `${day}/${month}/${year}`
     } else {
       return ''
@@ -28,7 +28,7 @@ class CreditTransaction extends Transaction {
   get credit() {
     return new Intl.NumberFormat(undefined, {
       style: 'currency',
-      currency: 'USD',
+      currency: 'GBP',
     }).format(this.getAmount())
   }
 
@@ -45,7 +45,7 @@ class DebitTransaction extends Transaction {
   get debit() {
     return new Intl.NumberFormat(undefined, {
       style: 'currency',
-      currency: 'USD',
+      currency: 'GBP',
     }).format(this.getAmount())
   }
 
@@ -56,18 +56,18 @@ class DebitTransaction extends Transaction {
 
 class Account {
   constructor(accountNumber) {
-    this._accountNumber = accountNumber
-    this._transactions = []
+    this.accountNumber = accountNumber
+    this.transactions = []
   }
 
   getAccountNumber() {
-    return this._accountNumber
+    return this.accountNumber
   }
 
   getBalance() {
     let balance = 0
 
-    for (const transaction of this._transactions) {
+    for (const transaction of this.transactions) {
       if (transaction instanceof CreditTransaction) {
         balance += transaction.getAmount()
       } else if (transaction instanceof DebitTransaction) {
@@ -79,22 +79,22 @@ class Account {
   }
 
   addTransaction(transaction) {
-    this._transactions.push(transaction)
+    this.transactions.push(transaction)
   }
 
   getTransactions() {
-    return this._transactions
+    return this.transactions
   }
 }
 
 class Bank {
   constructor() {
-    this._accounts = []
+    this.accounts = []
   }
 
   createAccount(accountNumber) {
     const account = new Account(accountNumber)
-    this._accounts.push(account)
+    this.accounts.push(account)
     return account
   }
 
@@ -148,7 +148,7 @@ class Bank {
           console.log(
             `${transactionDate}\t\t|| ${transaction.credit}\t|| \t\t|| ${new Intl.NumberFormat(undefined, {
               style: 'currency',
-              currency: 'USD',
+              currency: 'GBP',
             }).format(balance)}`
           )
         } else if (transaction instanceof DebitTransaction) {
@@ -156,7 +156,7 @@ class Bank {
           console.log(
             `${transactionDate}\t\t|| \t\t|| ${transaction.debit}\t|| ${new Intl.NumberFormat(undefined, {
               style: 'currency',
-              currency: 'USD',
+              currency: 'GBP',
             }).format(balance)}`
           )
         }
