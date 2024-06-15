@@ -1,0 +1,15 @@
+{
+  "name": "ood-bank-challenge",
+  "version": "1.0.0",
+  "description": "oop banking system challenge",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "npx jasmine"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine": "^5.1.0"
+  }
+}
