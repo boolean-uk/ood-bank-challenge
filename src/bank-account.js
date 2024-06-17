@@ -12,7 +12,7 @@ class BankAccount {
     const amount = parseFloat(value).toFixed(2)
     // console.log(amount)
     const date = this.date.currentDate()
-    this.balance = this.calculeDepositString(this.balance, amount)
+    this.balance = this.calculateDepositString(this.balance, amount)
     console.log(this.balance)
     this.transaction.push(new Transaction(amount, date, 'credit', this.balance))
   }
@@ -23,7 +23,7 @@ class BankAccount {
       return 'You dont have enough money!'
     }
     const date = this.date.currentDate()
-    this.balance = this.calculeWithdrawString(this.balance, amount)
+    this.balance = this.calculateWithdrawString(this.balance, amount)
     this.transaction.push(new Transaction(amount, date, 'debit', this.balance))
   }
 
@@ -35,7 +35,7 @@ class BankAccount {
     return this.balance
   }
 
-  calculeDepositString(a, b){
+  calculateDepositString(a, b){
     const [aInt , aDec = '00'] = a.split('.')
     const [bInt , bDec = '00'] = b.split('.')
     const intSum = parseInt(aInt) + parseInt(bInt)
@@ -47,7 +47,7 @@ class BankAccount {
     return `${finalIntSum}.${finalDecSum}`
   }
 
-  calculeWithdrawString(a, b){
+  calculateWithdrawString(a, b){
     console.log(a, 'test',b)
     const [aInt , aDec = '00'] = a.split('.')
     const [bInt , bDec = '00'] = b.split('.')

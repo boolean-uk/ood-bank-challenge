@@ -40,14 +40,7 @@ describe('BankAccount', () => {
   })
 
   it('should calculate the deposit ', () => {
-    myBankAccount.deposit(1000)
-    myBankAccount.deposit(500)
-    myBankAccount.deposit(1000)
-    myBankAccount.deposit(2500)
-    myBankAccount.withdraw(1500)
-    const result = myBankAccount.getTransactions
-    expect(result.length).toBe(5)
+    const result = myBankAccount.calculateDepositString('1500.50', '1000.10')
+    expect(result).toBe('2500.60')
   })
-
-
 })
