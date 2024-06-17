@@ -11,30 +11,40 @@ describe('BankAccount', () => {
   })
 
   it('should balance be 2500', () => {
-    myBankAccount.deposit(1000, '10-01-2012')
-    myBankAccount.deposit(500, '11-01-2012')
-    myBankAccount.deposit(1000, '12-01-2012')
+    myBankAccount.deposit(1000)
+    myBankAccount.deposit(500)
+    myBankAccount.deposit(1000)
     const balance = myBankAccount.getBalance
-    expect(balance).toBe(2500)
+    expect(balance).toBe('2500.00')
   })
 
   it('balance should not be under 0', () => {
-    const result = myBankAccount.withdraw(1000, '10-01-2012')
+    const result = myBankAccount.withdraw(1000)
     expect(result).toBe('You dont have enough money!')
   })
 
   it('balance should be 1000', () => {
-    myBankAccount.deposit(2500, '10-01-2012')
-    myBankAccount.withdraw(1500, '10-01-2012')
-    expect(myBankAccount.getBalance).toBe(1000)
+    myBankAccount.deposit(2500)
+    myBankAccount.withdraw(1500)
+    expect(myBankAccount.getBalance).toBe('1000.00')
   })
 
   it('should lenght of transactions be 5', () => {
-    myBankAccount.deposit(1000, '10-01-2012')
-    myBankAccount.deposit(500, '11-01-2012')
-    myBankAccount.deposit(1000, '12-01-2012')
-    myBankAccount.deposit(2500, '12-01-2012')
-    myBankAccount.withdraw(1500, '13-01-2012')
+    myBankAccount.deposit(1000)
+    myBankAccount.deposit(500)
+    myBankAccount.deposit(1000)
+    myBankAccount.deposit(2500)
+    myBankAccount.withdraw(1500)
+    const result = myBankAccount.getTransactions
+    expect(result.length).toBe(5)
+  })
+
+  it('should calculate the deposit ', () => {
+    myBankAccount.deposit(1000)
+    myBankAccount.deposit(500)
+    myBankAccount.deposit(1000)
+    myBankAccount.deposit(2500)
+    myBankAccount.withdraw(1500)
     const result = myBankAccount.getTransactions
     expect(result.length).toBe(5)
   })

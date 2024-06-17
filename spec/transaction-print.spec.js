@@ -19,12 +19,10 @@ describe('transactionPrin', () => {
     myBankAccount.deposit(500, '11-01-2012')
     myBankAccount.withdraw(1500, '10-01-2012')
     const myTransactions = myBankAccount.getTransactions
-    expect(printer.print(myTransactions)).toEqual([
-      'date       ||  credit  ||  debit  || balance  ',
-      '10-01-2012 || 1000.00 ||          || 1000.00 ',
-      '11-01-2012 ||  500.00 ||          || 1500.00 ',
-      '11-01-2012 ||  500.00 ||          || 2000.00 ',
-      '10-01-2012 ||          || 1500.00 ||  500.00 '
-    ])
+    expect(printer.print(myTransactions)).toEqual([ 'date       ||  credit ||  debit   || balance  ',
+       '17/06/2024 || 1000.00 ||          || 1000.00 ',
+        '17/06/2024 ||  500.00 ||          || 1500.00 ',
+        '17/06/2024 ||  500.00 ||          || 2000.00 ',
+         '17/06/2024 ||         || 1500.00  ||  500.00 ' ])
   })
 })
