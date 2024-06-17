@@ -48,19 +48,24 @@ class BankAccount {
   }
 
   calculeWithdrawString(a, b){
-    let value1 = a
-    let value2 = b
-    let value3 = b
-    if(value1 < value2) {
-      value2 = value1
-      value1 = value3
-    }
+    // let value1 = a
+    // let value2 = b
+    // let value3 = b
+    // if(value1 < value2) {
+    //   value2 = value1
+    //   value1 = value3
+    // }
     console.log(a, 'test',b)
-    const [aInt , aDec = '00'] = value1.split('.')
-    const [bInt , bDec = '00'] = value2.split('.')
-    console.log(aInt, 't', aDec, 'c', bInt, 'ccc', bDec)
-    const intDiff = parseInt(aInt) - parseInt(bInt)
-    const decDiff = parseInt(aDec) - parseInt(bDec)
+    const [aInt , aDec = '00'] = a.split('.')
+    const [bInt , bDec = '00'] = b.split('.')
+    // let decDiff
+    // console.log(aInt, 't', aDec, 'c', bInt, 'ccc', bDec)
+    let intDiff = parseInt(aInt) - parseInt(bInt)
+    let decDiff = parseInt(aDec) - parseInt(bDec)
+    if(decDiff < 0) {
+      decDiff += 100
+    }
+    
     return `${intDiff}.${decDiff.toString().padStart(2, '0')}`
   }
 }
