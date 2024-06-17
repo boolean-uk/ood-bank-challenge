@@ -43,4 +43,11 @@ describe('BankAccount', () => {
     const result = myBankAccount.calculateDepositString('1500.50', '1000.10')
     expect(result).toBe('2500.60')
   })
+
+  
+
+  it('should calculate the withdrawl ', () => {
+    const result = myBankAccount.calculateWithdrawString('1500.50', '1000.60')
+    expect(result).toBe('499.90')
+  })
 })

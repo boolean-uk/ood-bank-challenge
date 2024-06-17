@@ -55,6 +55,7 @@ class BankAccount {
     let decDiff = parseInt(aDec) - parseInt(bDec)
     if(decDiff < 0) {
       decDiff += 100
+      return `${intDiff -1 }.${decDiff.toString().padStart(2, '0')}`
     }
     
     return `${intDiff}.${decDiff.toString().padStart(2, '0')}`
