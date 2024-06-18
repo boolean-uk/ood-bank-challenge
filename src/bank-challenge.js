@@ -179,9 +179,9 @@ bank.deposit(accountNumber, 25, '15/01/2012')
 bank.withdraw(accountNumber, 5, '15/01/2012')
 bank.printStatement(accountNumber)
 bank.createAccount(2345)
-bank.deposit(2345, 15, '18/06/2020')
-bank.withdraw(2345, 5, '18/06/2020')
-bank.deposit(2345, 10, '19/06/2020')
+bank.deposit(2345, 1500, '18/06/2020')
+bank.withdraw(2345, 500, '18/06/2020')
+bank.deposit(2345, 1000, '19/06/2020')
 bank.printStatement(2345)
 
 
