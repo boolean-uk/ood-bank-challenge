@@ -184,6 +184,12 @@ bank.withdraw(2345, 500, '18/06/2020')
 bank.deposit(2345, 1000, '19/06/2020')
 bank.printStatement(2345)
 
+bank.createAccount(23456)
+bank.deposit(23456, 1500, 'invalid date')
+bank.withdraw(23456, 500, '18/06/2020')
+bank.deposit(23456, 1000, '19/06/2020')
+bank.printStatement(23456)
+
 
 module.exports = {
   Bank,
