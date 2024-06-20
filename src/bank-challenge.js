@@ -13,7 +13,7 @@ class Transaction {
       const day = this.date.getDate()
       const month = this.date.getMonth() + 1
       const year = this.date.getFullYear()
-      return `${day}/${month}/${year}`
+      return `${day}/0${month}/${year}`
     } else {
       return ''
     }
@@ -174,9 +174,7 @@ const accountNumber = 123456789
   
 bank.createAccount(accountNumber)
 bank.deposit(accountNumber, 10, '10/01/2012')
-bank.withdraw(accountNumber, 5, '10/01/2012')
-bank.deposit(accountNumber, 25, '15/01/2012')
-bank.withdraw(accountNumber, 5, '15/01/2012')
+bank.withdraw(accountNumber, 5, '14/01/2012')
 bank.printStatement(accountNumber)
 bank.createAccount(2345)
 bank.deposit(2345, 1500, '18/06/2020')
@@ -185,7 +183,7 @@ bank.deposit(2345, 1000, '19/06/2020')
 bank.printStatement(2345)
 
 bank.createAccount(23456)
-bank.deposit(23456, 1500, 'invalid date')
+bank.deposit(23456, 1500, '18/06/2020')
 bank.withdraw(23456, 500, '18/06/2020')
 bank.deposit(23456, 1000, '19/06/2020')
 bank.printStatement(23456)
