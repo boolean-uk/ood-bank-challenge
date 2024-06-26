@@ -1,6 +1,4 @@
-const {
-  Transaction,
-} = require("/Users/samisaeed/Boolean/ood-bank-challenge/src/Bank.js");
+const { Transaction } = require("../src/Bank.js");
 
 describe("Transcation class", () => {
   let transaction;
