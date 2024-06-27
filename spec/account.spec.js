@@ -7,7 +7,7 @@ describe('Account', () => {
     let date
     beforeEach(() => {
         account = new Account('Frank', 'Zappa')
-        date = '13/12/24'
+        date = '13/12/2024'
     })
     it('should create an account using their first and last name', () => {
         const result = new Account('Frank', 'Zappa')
@@ -20,8 +20,8 @@ describe('Account', () => {
         expect(account.transactions[0].credit).toBe(expected)
     })
     it('should throw an error if a date is not entered with the deposit or withdraw amount', () => {
-        expect(() => account.deposit(150)).toThrow('Invalid date, must be dd/mm/yy')
-        expect(() => account.withdraw(150)).toThrow('Invalid date, must be dd/mm/yy')
+        expect(() => account.deposit(150)).toThrow('Invalid date, must be dd/mm/yyyy')
+        expect(() => account.withdraw(150)).toThrow('Invalid date, must be dd/mm/yyyy')
     })
     it('should generate a transaction object that stores the amount credited or debited', () => {
         account.createTransaction(date)
@@ -61,14 +61,18 @@ describe('Account', () => {
         expect(second).toBe(secondExpected)
     })
     it('should generate a bank statement based on account transactions', () => {
-        account.deposit(50, date)
-        console.log = jasmine.createSpy('log')
-        account.printBankStatement()
-        const statementHeader = 'date     ||  credit    ||  debit     ||    balance'
-        const statementBody = `${account.transactions[0].date} || ${account.format(account.transactions[0].credit)} || ${account.format(account.transactions[0].debit)} || £${account.getBalance()}`
-        
-        expect(console.log).toHaveBeenCalledWith(statementHeader)
-        expect(console.log).toHaveBeenCalledWith(statementBody)
+        account.deposit(1000, '10/01/2012')
+        account.deposit(2000, '13/01/2012')
+        account.withdraw(500, '14/01/2012')
+
+        const result = account.printBankStatement()
+        const expected = () => {
+            console.log('date     ||  credit    ||  debit     ||    balance')
+            for(let i = 0; i < account.transactions.length; i++) {
+                console.log(`${account.transactions[i].date} || ${account.format(account.transactions[i].credit)} || ${account.format(account.transactions[i].debit)} || £${account.getBalance()}`)
+            }  
+        }
+        expect(result).toBe(expected)
     })
 })
 
@@ -79,15 +83,18 @@ describe('Bank', () => {
     beforeEach(() => {
         bank = new Bank()
         account = new Account('Frank', 'Zappa')
-        date = '13/12/24'
+        date = '13/12/2024'
     })
     it('should throw an error if it is passed an item that is not an object', () => {
-        expect(() => bank.accountTransactions('Frank Zappa')).toThrow('Invalid entry')
+        expect(() => bank.addAccount('Frank Zappa')).toThrow('Invalid entry')
     })
     it('should add the account transactions into the accounts array', () => {
         account.deposit(50, date)
-        bank.accountTransactions(account)
+        bank.addAccount(account)
         expect(bank.accounts.length).toBe(1)
         expect(bank.accounts[0].lastName).toBe('Zappa')
+    })
+    it('should throw an error if it is passed a transaction with no name', () => {
+        expect(() => bank.addAccount('', '')).toThrow('Invalid entry')
     })
 })

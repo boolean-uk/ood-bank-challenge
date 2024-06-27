@@ -13,8 +13,8 @@ class Account extends Bank {
     }
 
     createTransaction(date) {
-        if(!typeof date === 'string' || date === undefined || date.length < 8 || date.length > 8) {
-            throw 'Invalid date, must be dd/mm/yy'
+        if(!typeof date === 'string' || date === undefined || date.length < 10 || date.length > 10) {
+            throw 'Invalid date, must be dd/mm/yyyy'
         }
         const transaction = new Transaction(this.id, date)
         this.id++
@@ -30,7 +30,7 @@ class Account extends Bank {
         const deposit = this.createTransaction(date)
         deposit.credit = this.round(cash)
         deposit.debit = 0
-        this.accountTransactions(this)
+        this.addAccount(this)
     }
 
     withdraw(cash, date) {
@@ -41,7 +41,7 @@ class Account extends Bank {
         const withdraw = this.createTransaction(date)
         withdraw.debit = this.round(cash)
         withdraw.credit = 0
-        this.accountTransactions(this)
+        this.addAccount(this)
     }
 
     getBalance() {
@@ -90,13 +90,13 @@ console.log(`${transactions[i].date} || ${this.format(transactions[i].credit)} |
 export { Account }
 
 const accountInst = new Account('Frank', 'Reynolds')
-accountInst.deposit(1.50, '10/08/24')
-accountInst.deposit(3.25, '11/08/24')
-accountInst.deposit(123.23, '13/10/24')
-accountInst.withdraw(0.57, '14/09/24')
-accountInst.deposit(3.00, '15/10/24')
-accountInst.withdraw(4.00, '16/10/24')
-accountInst.deposit(1000, '17/10/24')
+accountInst.deposit(1.50, '10/08/2024')
+accountInst.deposit(3.25, '11/08/2024')
+accountInst.deposit(123.23, '13/10/2024')
+accountInst.withdraw(0.57, '14/09/2024')
+accountInst.deposit(3.00, '15/10/2024')
+accountInst.withdraw(4.00, '16/10/2024')
+accountInst.deposit(1000, '17/10/2024')
 
 accountInst.printBankStatement()
 

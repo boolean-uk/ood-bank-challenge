@@ -4,14 +4,17 @@ class Bank {
         this.#accounts = []
     }
 
-    accountTransactions(account) {
+    addAccount(account) {
         const isObject = typeof account === 'object'
-        const hasNoFirstName = undefined
-        const hasNoLastName = undefined
+        const firstName = account.firstName
+        const lastName = account.lastName
+        const invalidName = ''
 
         if (!isObject ||
-            hasNoFirstName ||
-            hasNoLastName
+            firstName === undefined ||
+            lastName === undefined ||
+            firstName === invalidName ||
+            lastName === invalidName
         ) {
             throw 'Invalid entry'
            }
